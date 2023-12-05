@@ -1,0 +1,12 @@
+[
+    {
+        "value": "EUW",
+        "label": "Eu West",
+        "logo": "/assets/icons/region/flag_eu.jpg"
+    },
+    {
+        "value": "NA",
+        "label": "North America",
+        "logo": "/assets/icons/region/flag_usa.jpg"
+    }
+]
