@@ -41,8 +41,13 @@ export const useClickOutsideDropdown = (dropdownRef, setDropdownVisible, isDropd
 
 /* Makes the dropdown menu visible if the user types something on the input field. */
 /* Hides the dropdown menu if the input field is empty or gets erased by user. */
+/* Filters the options based on the input of the user */
 
-export const useSearchBarChange = (inputValue, setDropdownVisible, setInputTextField) => {
+export const useSearchBarChange = (inputValue, options, setDropdownVisible, setInputTextField, setFilteredOptions) => {
+    const filteredOptions = options.filter(option =>
+        option.label.toLowerCase().includes(inputValue.toLowerCase())
+    );
+    setFilteredOptions(filteredOptions);
     setDropdownVisible(inputValue !== '' ? true : false);
     setInputTextField(inputValue);
 };

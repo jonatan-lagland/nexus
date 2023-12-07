@@ -16,13 +16,14 @@ const SearchBar = ({ url, placeholder, className, options }) => {
     const inputRef = useRef(null);
     const [inputTextField, setInputTextField] = useState("");
     const [selectedOption, setSelectedOption] = useState("");
+    const [filteredOptions, setFilteredOptions] = useState("");
     const [isDropdownVisible, setDropdownVisible] = useState(false);
     const dropdownRef = useRef(null);
     const DROPDOWN_MENU_ICON_WIDTH = 75;
     const DROPDOWN_MENU_ICON_HEIGHT = 75;
 
     const handleOptionSelect = useOptionSelect(setSelectedOption, setDropdownVisible, options);
-    const handleSearchBarChange = (inputValue) => { useSearchBarChange(inputValue, setDropdownVisible, setInputTextField); }
+    const handleSearchBarChange = (inputValue) => { useSearchBarChange(inputValue, options, setDropdownVisible, setInputTextField, setFilteredOptions); }
     useFocusInput(inputRef);
 
     return (
@@ -53,7 +54,7 @@ const SearchBar = ({ url, placeholder, className, options }) => {
                 >
                     {isDropdownVisible && (
                         <ul className="w-full p-2">
-                            {options.map((option) => (
+                            {filteredOptions.map((option) => (
                                 <Link href={url}
                                     className="dropdown_link hover:bg-gray-200"
                                     tabIndex="0"
