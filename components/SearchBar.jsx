@@ -6,7 +6,8 @@ import Link from "next/link";
 import {
     useOptionSelect,
     useSearchBarChange,
-    useFocusInput
+    useFocusInput,
+    useClickOutsideInputField
 } from '@utils/searchBarUtils';
 
 const SearchBar = ({ url, placeholder, className, options }) => {
@@ -22,9 +23,10 @@ const SearchBar = ({ url, placeholder, className, options }) => {
     const DROPDOWN_MENU_ICON_WIDTH = 75;
     const DROPDOWN_MENU_ICON_HEIGHT = 75;
 
-    const handleOptionSelect = useOptionSelect(setSelectedOption, setDropdownVisible, options);
-    const handleSearchBarChange = (inputValue) => { useSearchBarChange(inputValue, options, setDropdownVisible, setInputTextField, setFilteredOptions); }
+    const handleOptionSelect = useOptionSelect(setSelectedOption, setDropdownVisible);
+    const handleSearchBarChange = useSearchBarChange(options, setDropdownVisible, setInputTextField, setFilteredOptions);
     useFocusInput(inputRef);
+    useClickOutsideInputField(dropdownRef, inputRef, setDropdownVisible, isDropdownVisible);
 
     return (
         <>
@@ -54,30 +56,45 @@ const SearchBar = ({ url, placeholder, className, options }) => {
                 >
                     {isDropdownVisible && (
                         <ul className="w-full p-2">
-                            {filteredOptions.map((option) => (
-                                <Link href={url}
-                                    className="dropdown_link hover:bg-gray-200"
-                                    tabIndex="0"
-                                    key={option.value}
-                                    onClick={() => handleOptionSelect(option)}
-                                    onKeyDown={(e) => {
-                                        if (e.key === 'Enter' || e.key === ' ') {
-                                            // Triggers the option selection when Enter or Space is pressed
-                                            handleOptionSelect(option);
-                                        }
-                                    }}
-                                >
+                            { /* Conditionally render a title based on available results */}
+                            {filteredOptions.length === 0 ? (
+                                <span className="dropdown_title">No results found.</span>
+                            ) : (
+                                <>
+                                    <span className="dropdown_title">Top result</span>
+                                    <hr className="dropdown_horizontal_line" />
 
-                                    <Image
-                                        src={option.logo}
-                                        width={DROPDOWN_MENU_ICON_WIDTH}
-                                        height={DROPDOWN_MENU_ICON_HEIGHT}
-                                        alt={option.label}
-                                    />
-                                    <span>{option.label}</span>
-                                </Link>
-                            ))}
+                                    { /* Render a list of items */}
+                                    {filteredOptions.map((option, index) => (
+                                        <li key={option.value}>
+                                            <Link
+                                                href={`${url}/${selectedOption}`}
+                                                className="dropdown_link hover:bg-gray-200"
+                                                tabIndex="0"
+                                                onClick={() => handleOptionSelect(option)}
+                                                onKeyDown={(e) => {
+                                                    if (e.key === 'Enter' || e.key === ' ') {
+                                                        handleOptionSelect(option);
+                                                    }
+                                                }}
+                                            >
+                                                <Image
+                                                    src={option.logo}
+                                                    width={DROPDOWN_MENU_ICON_WIDTH}
+                                                    height={DROPDOWN_MENU_ICON_HEIGHT}
+                                                    alt={option.label}
+                                                />
+                                                <span>{option.label}</span>
+                                            </Link>
+                                            { /* Render a bottom seperator for the top result */}
+                                            {index === 0 && <hr className="dropdown_horizontal_line pb-2" />}
+                                        </li>
+                                    ))}
+                                </>
+                            )}
+
                         </ul>
+
                     )}
                 </section>
 

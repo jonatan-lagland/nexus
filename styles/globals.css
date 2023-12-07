@@ -107,6 +107,14 @@
   @apply flex flex-row justify-items-end text-sm font-satoshi p-1 space-x-2 text-gray-700 hover:text-gray-500 font-medium cursor-pointer;
 }
 
+.dropdown_title {
+  @apply flex flex-row p-2 m-0;
+}
+
+.dropdown_horizontal_line {
+  @apply my-2;
+}
+
 .dropdown_hidden {
   @apply pointer-events-none opacity-0;
 }

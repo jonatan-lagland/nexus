@@ -39,18 +39,33 @@ export const useClickOutsideDropdown = (dropdownRef, setDropdownVisible, isDropd
     }, [isDropdownVisible]);
 };
 
-/* Makes the dropdown menu visible if the user types something on the input field. */
+/* Makes the dropdown menu visible if the user types something in the input field. */
 /* Hides the dropdown menu if the input field is empty or gets erased by user. */
-/* Filters the options based on the input of the user */
+/* Filters the options based on the input of the user.*/
+/* If the search is an exact match, the match is given priority of 1 in the list. 
+    E.g. typing "Vi" makes it so the champion Vi has precedence over Viktor, even though 
+    Viktor would normally be first on the list. */
 
-export const useSearchBarChange = (inputValue, options, setDropdownVisible, setInputTextField, setFilteredOptions) => {
-    const filteredOptions = options.filter(option =>
+export const useSearchBarChange = (options, setDropdownVisible, setInputTextField, setFilteredOptions) => (inputValue) => {
+    const MAX_LIMIT_OF_RESULTS = 3;
+
+    const sortedOptions = options
+        .map(option => ({
+            ...option,
+            // Calculate a priority based on full name match
+            priority: option.label.toLowerCase() === inputValue.toLowerCase() ? 1 : 0
+        }))
+        .sort((a, b) => b.priority - a.priority) // Sort in descending order based on priority
+
+    const filteredOptions = sortedOptions.filter(option =>
         option.label.toLowerCase().includes(inputValue.toLowerCase())
-    );
+    ).slice(0, MAX_LIMIT_OF_RESULTS);
+
     setFilteredOptions(filteredOptions);
-    setDropdownVisible(inputValue !== '' ? true : false);
+    setDropdownVisible(inputValue !== '' && sortedOptions.length > 0);
     setInputTextField(inputValue);
 };
+
 
 
 /* Toggles the visibility of a dropdown menu when clicked to either visible or invisible, depending on state. */

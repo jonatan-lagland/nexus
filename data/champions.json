@@ -8,5 +8,15 @@
         "value": "Viego_0",
         "label": "Viego",
         "logo": "/assets/champion/tiles/Viego_0.jpg"
+    },
+    {
+        "value": "Veigar_0",
+        "label": "Veigar",
+        "logo": "/assets/champion/tiles/Veigar_0.jpg"
+    },
+    {
+        "value": "Vi_0",
+        "label": "Vi",
+        "logo": "/assets/champion/tiles/Vi_0.jpg"
     }
 ]
