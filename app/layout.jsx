@@ -9,7 +9,7 @@ export const metadata = {
 };
 const RootLayout = ({ children }) => (
     <html lang='en'>
-        <body className="flex flex-col min-h-screen bg-gray-100">
+        <body className="flex flex-col min-h-screen bg-charcoal">
             <Provider>
                 <header className='header'>
                     <Nav />

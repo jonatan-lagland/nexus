@@ -48,6 +48,7 @@ export const useClickOutsideDropdown = (dropdownRef, setDropdownVisible, isDropd
 
 export const useSearchBarChange = (options, setDropdownVisible, setInputTextField, setFilteredOptions) => (inputValue) => {
     const MAX_LIMIT_OF_RESULTS = 3;
+    console.log("was set")
 
     const sortedOptions = options
         .map(option => ({
@@ -61,7 +62,7 @@ export const useSearchBarChange = (options, setDropdownVisible, setInputTextFiel
         option.label.toLowerCase().includes(inputValue.toLowerCase())
     ).slice(0, MAX_LIMIT_OF_RESULTS);
 
-    setFilteredOptions(filteredOptions);
+    setFilteredOptions(inputValue !== '' && sortedOptions.length > 0 ? filteredOptions : []);
     setDropdownVisible(inputValue !== '' && sortedOptions.length > 0);
     setInputTextField(inputValue);
 };
@@ -78,11 +79,16 @@ export const useDropdownClick = (setDropdownVisible, isDropdownVisible) => {
     return handleDropdownClick;
 };
 
-/* Saves the value of the selected item in a dropdown menu and hides the menu from view after selection. */
+/* If the user clicks on the search icon or presses enter, picks the first option on the list as selection */
+// FIXME: FilteredOptions is assigned the value of an unknown function when mounting for some reason??? Workaround is to verify the type as an array
 
-export const useOptionSelect = (setSelectedOption, setDropdownVisible) => (option) => {
-    setSelectedOption(option);
-    setDropdownVisible(false);
+export const useOptionSelect = (filteredOptions, setSelectedOption) => {
+    useEffect(() => {
+        if (filteredOptions.length > 0 && Object.prototype.toString.call(filteredOptions) === '[object Array]') {
+            const firstOptionValue = filteredOptions[0].label.toLowerCase();
+            setSelectedOption(firstOptionValue);
+        }
+    }, [filteredOptions]);
 };
 
 /* Makes the input field in question become focused on page load. */

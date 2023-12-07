@@ -1,13 +1,14 @@
 'use client';
 
 import Image from "next/image";
-import { useRef, useEffect, useState } from "react";
+import { useRouter } from 'next/navigation'
+import { useRef, useState } from "react";
 import Link from "next/link";
 import {
     useOptionSelect,
     useSearchBarChange,
     useFocusInput,
-    useClickOutsideInputField
+    useClickOutsideInputField,
 } from '@utils/searchBarUtils';
 
 const SearchBar = ({ url, placeholder, className, options }) => {
@@ -15,24 +16,34 @@ const SearchBar = ({ url, placeholder, className, options }) => {
     const ICON_WIDTH = 20;
     const ICON_HEIGHT = 20;
     const inputRef = useRef(null);
+    const router = useRouter();
     const [inputTextField, setInputTextField] = useState("");
     const [selectedOption, setSelectedOption] = useState("");
-    const [filteredOptions, setFilteredOptions] = useState("");
+    const [filteredOptions, setFilteredOptions] = useState([]);
     const [isDropdownVisible, setDropdownVisible] = useState(false);
     const dropdownRef = useRef(null);
     const DROPDOWN_MENU_ICON_WIDTH = 75;
     const DROPDOWN_MENU_ICON_HEIGHT = 75;
 
-    const handleOptionSelect = useOptionSelect(setSelectedOption, setDropdownVisible);
     const handleSearchBarChange = useSearchBarChange(options, setDropdownVisible, setInputTextField, setFilteredOptions);
+    useOptionSelect(filteredOptions, setSelectedOption);
     useFocusInput(inputRef);
     useClickOutsideInputField(dropdownRef, inputRef, setDropdownVisible, isDropdownVisible);
+
+    const handleFormSubmit = (e) => {
+        e.preventDefault();
+        if (selectedOption.length > 0) {
+            router.push(`${url}/${selectedOption}`)
+        }
+    };
 
     return (
         <>
 
             { /* Input field */}
-            <form className="relative w-full">
+            <form
+                className="relative w-full"
+                onSubmit={handleFormSubmit}>
                 <input
                     ref={inputRef}
                     type='text'
@@ -49,6 +60,7 @@ const SearchBar = ({ url, placeholder, className, options }) => {
                 />
 
                 { /* Dropdown menu, each item containing a thumbnail and a link */}
+                {/* Visibility of the dropdown is handled in CSS by changing the classname*/}
                 <section
                     ref={dropdownRef}
                     className={`dropdown_menu w-full my-1
@@ -68,17 +80,14 @@ const SearchBar = ({ url, placeholder, className, options }) => {
                                     {filteredOptions.map((option, index) => (
                                         <li key={option.value}>
                                             <Link
-                                                href={`${url}/${selectedOption}`}
+                                                href={{
+                                                    pathname: `${url}/${option.label.toLowerCase()}`
+                                                }}
                                                 className="dropdown_link hover:bg-gray-200"
                                                 tabIndex="0"
-                                                onClick={() => handleOptionSelect(option)}
-                                                onKeyDown={(e) => {
-                                                    if (e.key === 'Enter' || e.key === ' ') {
-                                                        handleOptionSelect(option);
-                                                    }
-                                                }}
                                             >
                                                 <Image
+                                                    className="border-2 border-dark-grey"
                                                     src={option.logo}
                                                     width={DROPDOWN_MENU_ICON_WIDTH}
                                                     height={DROPDOWN_MENU_ICON_HEIGHT}
@@ -99,14 +108,16 @@ const SearchBar = ({ url, placeholder, className, options }) => {
                 </section>
 
                 { /* Search icon placed inside the input field */}
-                <Link className="search-icon p-3" href={url}>
+                <div
+                    className="search-icon p-3"
+                    onClick={handleFormSubmit}>
                     <Image
                         src='/assets/icons/magnifying_glass.svg'
                         alt='dropdown'
                         width={ICON_WIDTH}
                         height={ICON_HEIGHT}
                     />
-                </Link>
+                </div>
             </form>
         </>
     )

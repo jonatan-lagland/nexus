@@ -41,7 +41,7 @@ const Dropdown = ({ options }) => {
             >
                 <span>{selectedOption.value}</span>
 
-                {/* Arrow icon for the dropdown menu. It rotates upside down whenever the dropdown is opened.*/}
+                {/* Arrow icon for the dropdown menu. Icon rotates upside down whenever the dropdown is opened.*/}
                 <Image
                     className={`
                         ${isDropdownVisible ? 'rotate-180' : 'transform-none'}`}
