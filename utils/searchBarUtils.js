@@ -20,29 +20,10 @@ export const useClickOutsideInputField = (dropdownRef, inputRef, setDropdownVisi
     }, [isDropdownVisible]);
 };
 
-/* Whenever user clicks anywhere on the document, hide the dropdown menu in question. */
-
-export const useClickOutsideDropdown = (dropdownRef, setDropdownVisible, isDropdownVisible) => {
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-                setDropdownVisible(false);
-            }
-        };
-        if (isDropdownVisible) {
-            document.addEventListener('click', handleClickOutside);
-        }
-
-        return () => {
-            document.removeEventListener('click', handleClickOutside);
-        };
-    }, [isDropdownVisible]);
-};
-
 /* Makes the dropdown menu visible if the user types something in the input field. */
 /* Hides the dropdown menu if the input field is empty or gets erased by user. */
-/* Filters the options based on the input of the user.*/
-/* If the search is an exact match, the match is given priority of 1 in the list. 
+/* Filters the options based on the input of the user. */
+/* If the search is an exact match, the match is given priority of 1 in the list and sorted on top. 
     E.g. typing "Vi" makes it so the champion Vi has precedence over Viktor, even though 
     Viktor would normally be first on the list. */
 
@@ -65,18 +46,6 @@ export const useSearchBarChange = (options, setDropdownVisible, setInputTextFiel
     setFilteredOptions(inputValue !== '' && sortedOptions.length > 0 ? filteredOptions : []);
     setDropdownVisible(inputValue !== '' && sortedOptions.length > 0);
     setInputTextField(inputValue);
-};
-
-
-
-/* Toggles the visibility of a dropdown menu when clicked to either visible or invisible, depending on state. */
-
-export const useDropdownClick = (setDropdownVisible, isDropdownVisible) => {
-    const handleDropdownClick = () => {
-        setDropdownVisible(!isDropdownVisible);
-    };
-
-    return handleDropdownClick;
 };
 
 /* If the user clicks on the search icon or presses enter, picks the first option on the list as selection */

@@ -1,12 +1,12 @@
 'use client';
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import {
-    useOptionSelect,
     useDropdownClick,
-    useClickOutsideDropdown
-} from '@utils/searchBarUtils';
+    useClickOutsideDropdown,
+    useDropdownSelection
+} from '@utils/dropdownUtils';
 
 
 const Dropdown = ({ options }) => {
@@ -19,7 +19,7 @@ const Dropdown = ({ options }) => {
     const DROPDOWN_ARROW_WIDTH = 20;
     const DROPDOWN_ARROW_HEIGHT = 20;
 
-    const handleOptionSelect = useOptionSelect(setSelectedOption, setDropdownVisible, options);
+    const handleDropdownSelection = useDropdownSelection(setSelectedOption, setDropdownVisible);
     const handleDropdownClick = useDropdownClick(setDropdownVisible, isDropdownVisible);
     useClickOutsideDropdown(dropdownRef, setDropdownVisible, isDropdownVisible);
 
@@ -66,11 +66,11 @@ const Dropdown = ({ options }) => {
                                 tabIndex="0"
                                 key={option.value}
                                 className="dropdown_link"
-                                onClick={() => handleOptionSelect(option)}
+                                onClick={() => handleDropdownSelection(option)}
                                 onKeyDown={(e) => {
                                     if (e.key === 'Enter' || e.key === ' ') {
                                         // If user tabs into the selection, enter or space bar can be pressed to choose the option
-                                        handleOptionSelect(option);
+                                        handleDropdownSelection(option);
                                     }
                                 }}
                             >
