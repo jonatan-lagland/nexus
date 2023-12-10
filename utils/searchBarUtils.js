@@ -27,9 +27,8 @@ export const useClickOutsideInputField = (dropdownRef, inputRef, setDropdownVisi
     E.g. typing "Vi" makes it so the champion Vi has precedence over Viktor, even though 
     Viktor would normally be first on the list. */
 
-export const useSearchBarChange = (options, setDropdownVisible, setInputTextField, setFilteredOptions) => (inputValue) => {
+export const useSearchBarChange = (options, setDropdownVisible, setFilteredOptions) => (inputValue) => {
     const MAX_LIMIT_OF_RESULTS = 3;
-    console.log("was set")
 
     const sortedOptions = options
         .map(option => ({
@@ -45,20 +44,22 @@ export const useSearchBarChange = (options, setDropdownVisible, setInputTextFiel
 
     setFilteredOptions(inputValue !== '' && sortedOptions.length > 0 ? filteredOptions : []);
     setDropdownVisible(inputValue !== '' && sortedOptions.length > 0);
-    setInputTextField(inputValue);
 };
 
-/* If the user clicks on the search icon or presses enter, picks the first option on the list as selection */
-// FIXME: FilteredOptions is assigned the value of an unknown function when mounting for some reason??? Workaround is to verify the type as an array
+/* Sets the value of the selected option based on what user clicks in the dropdown menu*/
 
-export const useOptionSelect = (filteredOptions, setSelectedOption) => {
-    useEffect(() => {
-        if (filteredOptions.length > 0 && Object.prototype.toString.call(filteredOptions) === '[object Array]') {
-            const firstOptionValue = filteredOptions[0].label.toLowerCase();
-            setSelectedOption(firstOptionValue);
-        }
-    }, [filteredOptions]);
+export const useOptionClick = (setSelectedOption) => (option) => {
+    setSelectedOption(option);
 };
+
+/* Sets the value of the selected option as the top item from the dropdown menu*/
+
+export const useKeyPress = (filteredOptions, setSelectedOption) => (e) => {
+    e.preventDefault();
+    if (filteredOptions.length > 0) {
+        setSelectedOption(filteredOptions[0].label.toLowerCase());
+    }
+}
 
 /* Makes the input field in question become focused on page load. */
 

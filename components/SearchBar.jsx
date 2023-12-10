@@ -2,10 +2,11 @@
 
 import Image from "next/image";
 import { useRouter } from 'next/navigation'
-import { useRef, useState } from "react";
-import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
+import { useSearchBarContext } from "@utils/searchBarContext";
 import {
-    useOptionSelect,
+    useKeyPress,
+    useOptionClick,
     useSearchBarChange,
     useFocusInput,
     useClickOutsideInputField,
@@ -17,25 +18,24 @@ const SearchBar = ({ url, placeholder, className, options }) => {
     const ICON_HEIGHT = 20;
     const inputRef = useRef(null);
     const router = useRouter();
-    const [inputTextField, setInputTextField] = useState("");
-    const [selectedOption, setSelectedOption] = useState("");
-    const [filteredOptions, setFilteredOptions] = useState([]);
+    const [selectedOption, setSelectedOption] = useSearchBarContext();
+    const [filteredOptions, setFilteredOptions] = useState("");
     const [isDropdownVisible, setDropdownVisible] = useState(false);
     const dropdownRef = useRef(null);
     const DROPDOWN_MENU_ICON_WIDTH = 75;
     const DROPDOWN_MENU_ICON_HEIGHT = 75;
 
-    const handleSearchBarChange = useSearchBarChange(options, setDropdownVisible, setInputTextField, setFilteredOptions);
-    useOptionSelect(filteredOptions, setSelectedOption);
+    const handleSearchBarChange = useSearchBarChange(options, setDropdownVisible, setFilteredOptions);
+    const handleOptionClick = useOptionClick(setSelectedOption);
+    const handleKeyPress = useKeyPress(filteredOptions, setSelectedOption);
     useFocusInput(inputRef);
     useClickOutsideInputField(dropdownRef, inputRef, setDropdownVisible, isDropdownVisible);
 
-    const handleFormSubmit = (e) => {
-        e.preventDefault();
+    useEffect(() => {
         if (selectedOption.length > 0) {
             router.push(`${url}/${selectedOption}`)
         }
-    };
+    }, [selectedOption]);
 
     return (
         <>
@@ -43,18 +43,14 @@ const SearchBar = ({ url, placeholder, className, options }) => {
             { /* Input field */}
             <form
                 className="relative w-full"
-                onSubmit={handleFormSubmit}>
+                onSubmit={handleKeyPress}>
                 <input
                     ref={inputRef}
                     type='text'
                     placeholder={placeholder}
                     required
                     className={className}
-                    value={inputTextField}
                     onChange={(e) => {
-                        handleSearchBarChange(e.target.value);
-                    }}
-                    onClick={(e) => {
                         handleSearchBarChange(e.target.value);
                     }}
                 />
@@ -79,10 +75,8 @@ const SearchBar = ({ url, placeholder, className, options }) => {
                                     { /* Render a list of items */}
                                     {filteredOptions.map((option, index) => (
                                         <li key={option.value}>
-                                            <Link
-                                                href={{
-                                                    pathname: `${url}/${option.label.toLowerCase()}`
-                                                }}
+                                            <div
+                                                onClick={() => handleOptionClick(option.label)}
                                                 className="dropdown_link hover:bg-gray-200"
                                                 tabIndex="0"
                                             >
@@ -94,7 +88,7 @@ const SearchBar = ({ url, placeholder, className, options }) => {
                                                     alt={option.label}
                                                 />
                                                 <span>{option.label}</span>
-                                            </Link>
+                                            </div>
                                             { /* Render a bottom seperator for the top result */}
                                             {index === 0 && <hr className="dropdown_horizontal_line pb-2" />}
                                         </li>
@@ -110,7 +104,7 @@ const SearchBar = ({ url, placeholder, className, options }) => {
                 { /* Search icon placed inside the input field */}
                 <div
                     className="search-icon p-3"
-                    onClick={handleFormSubmit}>
+                    onClick={handleKeyPress}>
                     <Image
                         src='/assets/icons/magnifying_glass.svg'
                         alt='dropdown'
