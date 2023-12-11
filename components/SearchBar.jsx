@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useRef, useState } from "react";
 import { useSearchBarContext } from "@utils/searchBarContext";
 import {
+    useImgPath,
     useKeyPress,
     useOptionClick,
     useSearchBarChange,
@@ -21,16 +22,28 @@ const SearchBar = ({ url, placeholder, className, options }) => {
     const [selectedOption, setSelectedOption] = useSearchBarContext();
     const [filteredOptions, setFilteredOptions] = useState("");
     const [isDropdownVisible, setDropdownVisible] = useState(false);
+    const [imgPath, setImgPath] = useState("");
     const dropdownRef = useRef(null);
     const DROPDOWN_MENU_ICON_WIDTH = 75;
     const DROPDOWN_MENU_ICON_HEIGHT = 75;
+
+    /* 
+        * HANDLESEARCHBARCHANGE         = When user types in the input field
+        * HANDLEOPTIONCLICK             = When user clicks on an option from the dropdown menu
+        * HANDLEKEYPRESS                = When user presses enter to submit the form
+        * USEFOCUSINPUT                 = Focus input bar on component mount
+        * USECLICKOUTSIDEINPUTFIELD     = Hide dropdown when user clicks outside the input field
+    */
 
     const handleSearchBarChange = useSearchBarChange(options, setDropdownVisible, setFilteredOptions);
     const handleOptionClick = useOptionClick(setSelectedOption);
     const handleKeyPress = useKeyPress(filteredOptions, setSelectedOption);
     useFocusInput(inputRef);
     useClickOutsideInputField(dropdownRef, inputRef, setDropdownVisible, isDropdownVisible);
+    useImgPath(setImgPath);
 
+
+    /* Redirected user to a page after selection */
     useEffect(() => {
         if (selectedOption.length > 0) {
             router.push(`${url}/${selectedOption}`)
@@ -76,13 +89,13 @@ const SearchBar = ({ url, placeholder, className, options }) => {
                                     {filteredOptions.map((option, index) => (
                                         <li key={option.value}>
                                             <div
-                                                onClick={() => handleOptionClick(option.label)}
+                                                onClick={() => handleOptionClick(option.value)}
                                                 className="dropdown_link hover:bg-gray-200"
                                                 tabIndex="0"
                                             >
                                                 <Image
                                                     className="border-2 border-dark-grey"
-                                                    src={option.logo}
+                                                    src={`${imgPath}/${option.value}.png`}
                                                     width={DROPDOWN_MENU_ICON_WIDTH}
                                                     height={DROPDOWN_MENU_ICON_HEIGHT}
                                                     alt={option.label}

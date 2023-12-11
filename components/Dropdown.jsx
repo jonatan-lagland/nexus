@@ -19,8 +19,14 @@ const Dropdown = ({ options }) => {
     const DROPDOWN_ARROW_WIDTH = 20;
     const DROPDOWN_ARROW_HEIGHT = 20;
 
-    const handleDropdownSelection = useDropdownSelection(setSelectedOption, setDropdownVisible);
+    /* 
+        * HANDLEDROPDOWNCLICK           = Toggle dropdown visibility
+        * HANDLEDROPDOWNSELECTION       = Save selected option and display the option to user
+        * USECLICKOUTSIDEDROPDWON       = Hide dropdown when user clicks outside the dropdown
+    */
+
     const handleDropdownClick = useDropdownClick(setDropdownVisible, isDropdownVisible);
+    const handleDropdownSelection = useDropdownSelection(setSelectedOption, setDropdownVisible);
     useClickOutsideDropdown(dropdownRef, setDropdownVisible, isDropdownVisible);
 
     return (

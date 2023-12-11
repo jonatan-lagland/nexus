@@ -30,7 +30,7 @@ export const useDropdownClick = (setDropdownVisible, isDropdownVisible) => {
     return handleDropdownClick;
 };
 
-/* Set the label of the dropdown menu to whatever user picks */
+/* Set the label of the dropdown menu to whatever user picks and hide dropdown. */
 
 export const useDropdownSelection = (setSelectedOption, setDropdownVisible) => (option) => {
     setSelectedOption(option);

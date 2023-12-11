@@ -1,6 +1,6 @@
 import path from '@data/path.json';
 
-/* Fetch JSON data from the ddragon endpoint, e.g. item.json champion.json or */
+/* Fetch JSON data from the ddragon endpoint, e.g. item.json champion.json with a full list of details */
 
 export default async function handler(req, res) {
     const { route } = req.query;
