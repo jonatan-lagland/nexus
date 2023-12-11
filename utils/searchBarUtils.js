@@ -57,7 +57,7 @@ export const useOptionClick = (setSelectedOption) => (option) => {
 export const useKeyPress = (filteredOptions, setSelectedOption) => (e) => {
     e.preventDefault();
     if (filteredOptions.length > 0) {
-        setSelectedOption(filteredOptions[0].label.toLowerCase());
+        setSelectedOption(filteredOptions[0].label);
     }
 }
 

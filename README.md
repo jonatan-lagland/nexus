@@ -8,9 +8,10 @@ Live:
 
 - A home page with a fully customized and reusable search widget and dropdown menu
 - Page navigation using Next.js page routing, including dynamic routing
+- Partial integration with Riot Games API (basic champion details)
 
 Work in progress:
 
 - A comprehensive champion profile page to view meta builds and other relevant information
-- Integration with Riot Games API to fetch live patch data
+- Full integration with Riot Games API (optimal builds, counters)
 - A fully fledged website deployed on Vercel
