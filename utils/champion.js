@@ -1,22 +1,47 @@
 import { useState, useEffect } from 'react';
 
-export const useChampionData = (selectedOption) => {
+export const useChampionData = (url) => {
     const [championData, setChampionData] = useState(null);
     const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`/api/data/champion/${selectedOption}`);
+                const response = await fetch(url);
                 const result = await response.json();
-                setChampionData(result.response);
+                console.log(result)
+                const championsArray = useChampionsListArray(result.response);
+                setChampionData(championsArray);
             } catch (err) {
                 setError('Failed to fetch data.');
             }
         };
 
         fetchData();
-    }, [selectedOption]);
+    }, [url]);
+
+    const useChampionsListArray = (data) => {
+        if (!data || !data.data) {
+            return [];
+        }
+
+        const obj = Object.entries(data.data).map(([, championDetails]) => ({
+            id: championDetails.id,
+            name: championDetails.name,
+            title: championDetails.title,
+            path: championDetails.image.full,
+            group: championDetails.image.group,
+            tags: championDetails.tags,
+            partype: championDetails.partype,
+            info: championDetails.info,
+            stats: championDetails.stats
+        }));
+
+        console.log(obj[0])
+
+        return obj[0];
+    };
+
 
     return { championData, error };
 };
@@ -24,14 +49,14 @@ export const useChampionData = (selectedOption) => {
 export const useChampionList = () => {
     const [championList, setChampionList] = useState(null);
     const [error, setError] = useState(null);
+    const url = `/api/data/champion`;
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`/api/data/champion`);
+                const response = await fetch(url);
                 const result = await response.json();
                 const championsArray = createChampionsArray(result.response);
-                console.log(championsArray)
                 setChampionList(championsArray);
             } catch (err) {
                 setError('Failed to fetch data.');
@@ -55,14 +80,3 @@ export const useChampionList = () => {
 
     return { championList, error };
 };
-
-
-/* Cleans up the user selection after component unmounts AKA when user leaves the champion profile page */
-
-export const useSelectionReset = (setSelectedOption) => {
-    useEffect(() => {
-        return () => {
-            setSelectedOption("");
-        };
-    }, [])
-}

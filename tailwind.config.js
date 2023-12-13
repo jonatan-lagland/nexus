@@ -10,15 +10,22 @@ module.exports = {
       fontFamily: {
         satoshi: ['Satoshi', 'sans-serif'],
         inter: ['Inter', 'sans-serif'],
+        oswald: ['Oswald', 'sans-serif'],
+        bebas: ['Bebas Neue', 'sans-serif'],
+        abel: ['Abel', 'sans-serif'],
+        figtree: ['Figtree', 'sans-serif'],
       },
       colors: {
         'primary-orange': '#FF5722',
         'charcoal': '#191919',
         'dark-grey': '#212121',
-        'navy-blue': '#1C0C5B',
-        'cosmic-cobalt': '#3D2C8D',
+        'navy-blue': '#281F74',
+        'deep-purple': '#303554',
+        'cosmic-cobalt': '#4B63A3',
         'viola': '#916BBF',
-        'rose': '#C996CC'
+        'rose': '#C996CC',
+        'dark-blue': '#123456',
+        'light-blue': '#56789A'
       }
     },
   },

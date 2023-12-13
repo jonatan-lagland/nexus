@@ -3,9 +3,7 @@
 import Image from "next/image";
 import { useRouter } from 'next/navigation'
 import { useEffect, useRef, useState } from "react";
-import { useSearchBarContext } from "@utils/searchBarContext";
 import {
-    useImgPath,
     useKeyPress,
     useOptionClick,
     useSearchBarChange,
@@ -13,13 +11,15 @@ import {
     useClickOutsideInputField,
 } from '@utils/searchBarUtils';
 
+import { useImgPathChampion } from "@utils/images";
+
 const SearchBar = ({ url, placeholder, className, options }) => {
 
     const ICON_WIDTH = 20;
     const ICON_HEIGHT = 20;
     const inputRef = useRef(null);
     const router = useRouter();
-    const [selectedOption, setSelectedOption] = useSearchBarContext();
+    const [selectedOption, setSelectedOption] = useState("");
     const [filteredOptions, setFilteredOptions] = useState("");
     const [isDropdownVisible, setDropdownVisible] = useState(false);
     const [imgPath, setImgPath] = useState("");
@@ -40,7 +40,7 @@ const SearchBar = ({ url, placeholder, className, options }) => {
     const handleKeyPress = useKeyPress(filteredOptions, setSelectedOption);
     useFocusInput(inputRef);
     useClickOutsideInputField(dropdownRef, inputRef, setDropdownVisible, isDropdownVisible);
-    useImgPath(setImgPath);
+    useImgPathChampion(setImgPath);
 
 
     /* Redirected user to a page after selection */
@@ -90,7 +90,7 @@ const SearchBar = ({ url, placeholder, className, options }) => {
                                         <li key={option.value}>
                                             <div
                                                 onClick={() => handleOptionClick(option.value)}
-                                                className="dropdown_link hover:bg-gray-200"
+                                                className="dropdown_link hover:bg-gray-200 flex items-center"
                                                 tabIndex="0"
                                             >
                                                 <Image
@@ -100,7 +100,7 @@ const SearchBar = ({ url, placeholder, className, options }) => {
                                                     height={DROPDOWN_MENU_ICON_HEIGHT}
                                                     alt={option.label}
                                                 />
-                                                <span>{option.label}</span>
+                                                <span className="search-list-item">{option.label}</span>
                                             </div>
                                             { /* Render a bottom seperator for the top result */}
                                             {index === 0 && <hr className="dropdown_horizontal_line pb-2" />}

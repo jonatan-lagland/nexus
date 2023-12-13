@@ -4,5 +4,6 @@
     "patch": "13.24.1",
     "folder": "img",
     "language": "en_US",
-    "champion": "champion"
+    "champion": "champion",
+    "item": "item"
 }

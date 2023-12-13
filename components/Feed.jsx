@@ -2,8 +2,6 @@
 import SearchBar from "./SearchBar"
 import Dropdown from "./Dropdown";
 import countries from '@data/countries.json';
-import champions from '@data/champions.json';
-import { useSearchBarContext } from '@utils/searchBarContext';
 import { useChampionList } from '@utils/champion';
 
 const CHAMPION_URL = "/champion/";

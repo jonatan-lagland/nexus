@@ -1,6 +1,5 @@
 'use client';
 import { useEffect } from 'react';
-import path from '@data/imgPath.json';
 
 /* Whenever user clicks anywhere on the document, hide the dropdown menu in question, UNLESS the click is on the input menu itself */
 
@@ -21,47 +20,56 @@ export const useClickOutsideInputField = (dropdownRef, inputRef, setDropdownVisi
     }, [isDropdownVisible]);
 };
 
-/* Makes the dropdown menu visible if the user types something in the input field. */
+
 /* Hides the dropdown menu if the input field is empty or gets erased by user. */
 /* Filters the options based on the input of the user. */
-/* First letter is given priority. E.g. If user types the letter "S" the first result needs to be "Samira" not "Ak(s)han" /*
-/* If the search is an exact match, the match is given THE HIGHEST PRIORITY and is sorted on top. 
-    E.g. typing "Vi" makes it so the champion Vi has precedence over Viktor, even though 
-    Viktor would normally be first on the list. */
-
 
 export const useSearchBarChange = (options, setDropdownVisible, setFilteredOptions) => (inputValue) => {
-    const MAX_LIMIT_OF_RESULTS = 3;
-    try {
-        const sortedOptions = options
-            .map(option => ({
-                ...option,
-                // COMBINEDSTRING: Take both .label and .value into consideration (e.g. "Ksante" and "K'sante" are both valid)
-                combinedString: `${option.value.toLowerCase()} ${option.label.toLowerCase()}`,
-                priority: option.label.toLowerCase().startsWith(inputValue.toLowerCase()) ? 2 : 1,
-                match: option.combinedString === inputValue.toLowerCase()
-            }))
-            .sort((a, b) => {
-                // Sort in descending order based on priority
-                if (a.match) {
-                    return -1; // Always prioritize full matches
-                } else if (b.match) {
-                    return 1;
-                } else {
-                    return b.priority - a.priority;
-                }
-            });
+    const MAX_LIMIT_OF_RESULTS = 3; // Maximum number of results to display
 
+    try {
+
+        /* COMBINEDSTRING:      Combine label and ID so both can be used in search, e.g. "Reksai" and "Rek'sai" are both valid */
+        /* ISMATCH:             If user types the exact name, e.g. "Vi", make it have precedence over other champs that start with Vi like Viktor*/
+        /* STARTSWITHINPUT:     Prioritize the first letter, e.g. If user types the letter "S" the first result needs to be "Samira" not "Ak(s)han*/
+
+        // Augment options with combinedString, priority, and match properties
+        const augmentedOptions = options.map(option => {
+            const combinedString = `${option.value.toLowerCase()} ${option.label.toLowerCase()}`;
+            const isMatch = combinedString === inputValue.toLowerCase();
+            const startsWithInput = option.label.toLowerCase().startsWith(inputValue.toLowerCase());
+
+            return {
+                ...option,
+                combinedString,
+                // Prioritize options that start with the input value
+                priority: startsWithInput ? 2 : 1,
+                // Check for an exact match
+                match: isMatch
+            };
+        });
+
+        // Sort options based on priority and match
+        const sortedOptions = augmentedOptions.sort((a, b) => {
+            if (a.match) return -1; // Exact matches get the highest priority
+            if (b.match) return 1;
+            return b.priority - a.priority; // Sort by priority (startsWithInput)
+        });
+
+        // Filter and limit the sorted options
         const filteredOptions = sortedOptions.filter(option =>
             option.combinedString.includes(inputValue.toLowerCase())
         ).slice(0, MAX_LIMIT_OF_RESULTS);
 
-        setFilteredOptions(inputValue !== '' && sortedOptions.length > 0 ? filteredOptions : []);
-        setDropdownVisible(inputValue !== '' && sortedOptions.length > 0);
+        // Update state based on filtered options, set to an empty array if no match. Toggle dropdown visibility.
+        const shouldDisplayDropdown = inputValue !== '' && sortedOptions.length > 0;
+        setFilteredOptions(shouldDisplayDropdown ? filteredOptions : []);
+        setDropdownVisible(shouldDisplayDropdown);
     } catch (err) {
-        console.log(err);
+        console.error('Error in useSearchBarChange:', err);
     }
 };
+
 
 
 
@@ -89,9 +97,3 @@ export const useFocusInput = (inputRef) => {
         }
     }, [inputRef]);
 };
-
-export const useImgPath = (setImgPath) => {
-    useEffect(() => {
-        setImgPath(`${path.address}/${path.cdn}/${path.patch}/${path.folder}/${path.champion}`);
-    }, [])
-}

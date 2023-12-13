@@ -1,8 +1,18 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bebas%20Neue:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Abel:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Figtree:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --cosmic-cobalt: theme('colors.cosmic-cobalt');
+  --cosmic-cobalt: theme('colors.cosmic-cobalt');
+}
 
 @media screen and (max-width: 640px) {
   .main {
@@ -51,8 +61,11 @@
 }
 
 .profile {
-  @apply mx-auto w-full max-w-6xl flex flex-grow;
+  @apply mx-auto w-full max-w-6xl flex flex-grow flex-col justify-center items-center min-h-screen;
+  overflow-y: auto;
 }
+
+
 
 .grid_container {
   @apply grid flex-grow;
@@ -133,4 +146,67 @@
 
 .flex-between {
   @apply flex justify-between items-center;
+}
+
+.search-list-item {
+  @apply font-inter text-dark-grey ps-3
+}
+.loader {
+  border: 5px solid #d3d3d3; /* Light grey background */
+  border-top: 5px solid var(--cosmic-cobalt); /* Use cosmic-cobalt color */
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  animation: spin 2s linear infinite;
+}
+
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.container-blue {
+  @apply  text-white relative min-w-full;
+}
+
+.title-recommended {
+  @apply font-bebas text-2xl bg-cosmic-cobalt py-1 px-3 inline-block rounded-t border-t border-l border-r border-white text-shadow relative;
+  margin-bottom: -1px; /* Pulls the next element up by 1px */
+  z-index: 10; /* Ensures this element is above the next one */
+}
+
+.container-blue-light {
+  @apply bg-cosmic-cobalt flex items-center border border-white border-solid;
+}
+
+.title-profile-header {
+  @apply text-5xl font-bold font-oswald ps-6 inline-block text-white;
+}
+
+.subheader-profile-header {
+  @apply text-3xl font-bold font-oswald ps-6 inline-block text-viola;
+}
+
+.text-shadow {
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.35);
+}
+
+.custom-avatar-size {
+  width: 90px;
+  height: 90px;
+}
+
+@media (min-width: 768px) { /* Tailwind's 'md' breakpoint */
+  .custom-avatar-size {
+      width: 90px;
+      height: 90px;
+  }
+}
+
+@media (min-width: 1024px) { /* Tailwind's 'lg' breakpoint */
+  .custom-avatar-size {
+      width: 68px;
+      height: 68px;
+  }
 }

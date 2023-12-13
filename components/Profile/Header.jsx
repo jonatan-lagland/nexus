@@ -3,38 +3,42 @@
 import { useState, useEffect } from 'react';
 import React from 'react'
 import Image from 'next/image';
-import { useSearchBarContext } from '@utils/searchBarContext';
-import { useChampionData, useSelectionReset } from '@utils/champion';
+import {
+    useImgPathChampion,
+} from '@utils/images';
 
-function Header() {
 
-    const AVATAR_WIDTH = 60;
-    const AVATAR_HEIGHT = 60;
-    const [selectedOption, setSelectedOption] = useSearchBarContext();
-    const { championData, error } = useChampionData(selectedOption);
 
-    useSelectionReset(setSelectedOption);
+function Header(champion) {
+
+    const AVATAR_WIDTH = 90;
+    const AVATAR_HEIGHT = 90;
+    const [imgPath, setImgPath] = useState("");
+    useImgPathChampion(setImgPath);
 
     return (
-        <section className='p-8'>
-
-            {championData ? (
-                <pre>{JSON.stringify(championData, null, 2)}</pre>
+        <section className='p-6'>
+            {imgPath ? (
+                <div className="flex flex-row items-start">
+                    <Image
+                        src={`${imgPath}/${champion.data.path}`}
+                        alt={'icon'}
+                        width={AVATAR_WIDTH}
+                        height={AVATAR_HEIGHT}
+                        className='object-contain'
+                    />
+                    <div className="flex flex-col justify-start ml-2">
+                        <span className="title-profile-header block">{champion.data.name}</span>
+                        <span className="subheader-profile-header block">{champion.data.title}</span>
+                    </div>
+                </div>
             ) : (
-                <p>Loading...</p>
+                <div className="loader mx-auto w-full max-w-2xl flex justify-center items-center"></div>
             )}
-
-            <p>{selectedOption}</p>
-            <Image
-                src='/assets/images/1439.png'
-                alt='logo'
-                width={AVATAR_WIDTH}
-                height={AVATAR_HEIGHT}
-                className='object-contain'
-            />
-
         </section>
     )
+
+
 }
 
 export default Header
