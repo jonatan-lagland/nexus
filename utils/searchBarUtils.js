@@ -24,16 +24,23 @@ export const useClickOutsideInputField = (dropdownRef, inputRef, setDropdownVisi
 /* Hides the dropdown menu if the input field is empty or gets erased by user. */
 /* Filters the options based on the input of the user. */
 
-export const useSearchBarChange = (options, setDropdownVisible, setFilteredOptions) => (inputValue) => {
-    const MAX_LIMIT_OF_RESULTS = 3; // Maximum number of results to display
 
-    try {
+
+// Augment options with combinedString, priority, and match properties
+
+export const useSearchBarChange = (options, inputValue, setFilteredOptions, setDropdownVisible) => {
+    useEffect(() => {
+        if (!inputValue) {
+            setDropdownVisible(false);
+            setFilteredOptions([]);
+            return;
+        }
 
         /* COMBINEDSTRING:      Combine label and ID so both can be used in search, e.g. "Reksai" and "Rek'sai" are both valid */
         /* ISMATCH:             If user types the exact name, e.g. "Vi", make it have precedence over other champs that start with Vi like Viktor*/
         /* STARTSWITHINPUT:     Prioritize the first letter, e.g. If user types the letter "S" the first result needs to be "Samira" not "Ak(s)han*/
 
-        // Augment options with combinedString, priority, and match properties
+        const MAX_LIMIT_OF_RESULTS = 3;
         const augmentedOptions = options.map(option => {
             const combinedString = `${option.value.toLowerCase()} ${option.label.toLowerCase()}`;
             const isMatch = combinedString === inputValue.toLowerCase();
@@ -42,51 +49,45 @@ export const useSearchBarChange = (options, setDropdownVisible, setFilteredOptio
             return {
                 ...option,
                 combinedString,
-                // Prioritize options that start with the input value
                 priority: startsWithInput ? 2 : 1,
-                // Check for an exact match
                 match: isMatch
             };
         });
 
-        // Sort options based on priority and match
         const sortedOptions = augmentedOptions.sort((a, b) => {
-            if (a.match) return -1; // Exact matches get the highest priority
+            if (a.match) return -1;
             if (b.match) return 1;
-            return b.priority - a.priority; // Sort by priority (startsWithInput)
+            return b.priority - a.priority;
         });
 
-        // Filter and limit the sorted options
         const filteredOptions = sortedOptions.filter(option =>
             option.combinedString.includes(inputValue.toLowerCase())
         ).slice(0, MAX_LIMIT_OF_RESULTS);
 
-        // Update state based on filtered options, set to an empty array if no match. Toggle dropdown visibility.
-        const shouldDisplayDropdown = inputValue !== '' && sortedOptions.length > 0;
-        setFilteredOptions(shouldDisplayDropdown ? filteredOptions : []);
-        setDropdownVisible(shouldDisplayDropdown);
-    } catch (err) {
-        console.error('Error in useSearchBarChange:', err);
-    }
+        setFilteredOptions(filteredOptions);
+        setDropdownVisible(filteredOptions.length > 0);
+    }, [inputValue, options, setDropdownVisible, setFilteredOptions]);
 };
-
-
-
 
 /* Sets the value of the selected option based on what user clicks in the dropdown menu*/
 
-export const useOptionClick = (setSelectedOption) => (option) => {
-    setSelectedOption(option);
+export const useOptionClick = (setSelectedOption, setDropdownVisible) => {
+    return (option) => {
+        setSelectedOption(option);
+        setDropdownVisible(false); // Hide dropdown after selection
+    };
 };
 
 /* Sets the value of the selected option as the top item from the dropdown menu*/
 
-export const useKeyPress = (filteredOptions, setSelectedOption) => (e) => {
-    e.preventDefault();
-    if (filteredOptions.length > 0) {
-        setSelectedOption(filteredOptions[0].value);
+export const useKeyPress = (filteredOptions, setSelectedOption) => {
+    return (e) => {
+        e.preventDefault();
+        if (filteredOptions.length > 0) {
+            setSelectedOption(filteredOptions[0].value);
+        }
     }
-}
+};
 
 /* Makes the input field in question become focused on page load. */
 

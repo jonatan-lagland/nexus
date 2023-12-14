@@ -160,6 +160,13 @@
   animation: spin 2s linear infinite;
 }
 
+.tooltip {
+  @apply font-inter font-normal text-white bg-dark-cosmic rounded-sm p-2 border border-white border-solid absolute pointer-events-none;
+  width: 150px;
+  height: 150px;
+  text-align: center;
+  z-index: 100;
+}
 
 @keyframes spin {
   0% { transform: rotate(0deg); }
@@ -177,7 +184,7 @@
 }
 
 .container-blue-light {
-  @apply bg-cosmic-cobalt flex items-center border border-white border-solid;
+  @apply bg-cosmic-cobalt border border-white border-solid;
 }
 
 .title-profile-header {

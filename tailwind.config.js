@@ -22,6 +22,7 @@ module.exports = {
         'navy-blue': '#281F74',
         'deep-purple': '#303554',
         'cosmic-cobalt': '#4B63A3',
+        'dark-cosmic': '#263C6D',
         'viola': '#916BBF',
         'rose': '#C996CC',
         'dark-blue': '#123456',

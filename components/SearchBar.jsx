@@ -19,6 +19,7 @@ const SearchBar = ({ url, placeholder, className, options }) => {
     const ICON_HEIGHT = 20;
     const inputRef = useRef(null);
     const router = useRouter();
+    const [inputValue, setInputValue] = useState("");
     const [selectedOption, setSelectedOption] = useState("");
     const [filteredOptions, setFilteredOptions] = useState("");
     const [isDropdownVisible, setDropdownVisible] = useState(false);
@@ -35,9 +36,9 @@ const SearchBar = ({ url, placeholder, className, options }) => {
         * USECLICKOUTSIDEINPUTFIELD     = Hide dropdown when user clicks outside the input field
     */
 
-    const handleSearchBarChange = useSearchBarChange(options, setDropdownVisible, setFilteredOptions);
-    const handleOptionClick = useOptionClick(setSelectedOption);
+    const handleOptionClick = useOptionClick(setSelectedOption, setDropdownVisible);
     const handleKeyPress = useKeyPress(filteredOptions, setSelectedOption);
+    useSearchBarChange(options, inputValue, setFilteredOptions, setDropdownVisible);
     useFocusInput(inputRef);
     useClickOutsideInputField(dropdownRef, inputRef, setDropdownVisible, isDropdownVisible);
     useImgPathChampion(setImgPath);
@@ -64,7 +65,7 @@ const SearchBar = ({ url, placeholder, className, options }) => {
                     required
                     className={className}
                     onChange={(e) => {
-                        handleSearchBarChange(e.target.value);
+                        setInputValue(e.target.value);
                     }}
                 />
 
