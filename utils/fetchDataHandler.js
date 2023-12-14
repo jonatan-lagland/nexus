@@ -1,5 +1,8 @@
 import path from '@data/path.json';
 
+
+/* Fetch JSON data from a specified url (Riot Games DDragon API) */
+
 async function fetchDataHandler(folder, subfolders = "", route, format) {
 
     const url = `${path.address}/${path.cdn}/${path.patch}/${folder}/${path.language}${subfolders ? `/${subfolders}` : ''}/${route}.${format}`;

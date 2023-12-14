@@ -21,12 +21,8 @@ export const useClickOutsideInputField = (dropdownRef, inputRef, setDropdownVisi
 };
 
 
-/* Hides the dropdown menu if the input field is empty or gets erased by user. */
-/* Filters the options based on the input of the user. */
-
-
-
-// Augment options with combinedString, priority, and match properties
+/* Hide the dropdown menu if the input field is empty or gets erased by user. */
+/* If field is not empty, sort and filter the options based on the input of the user. */
 
 export const useSearchBarChange = (options, inputValue, setFilteredOptions, setDropdownVisible) => {
     useEffect(() => {
@@ -36,9 +32,9 @@ export const useSearchBarChange = (options, inputValue, setFilteredOptions, setD
             return;
         }
 
-        /* COMBINEDSTRING:      Combine label and ID so both can be used in search, e.g. "Reksai" and "Rek'sai" are both valid */
-        /* ISMATCH:             If user types the exact name, e.g. "Vi", make it have precedence over other champs that start with Vi like Viktor*/
-        /* STARTSWITHINPUT:     Prioritize the first letter, e.g. If user types the letter "S" the first result needs to be "Samira" not "Ak(s)han*/
+        /* COMBINEDSTRING:      Combine label and ID so both can be used in search, e.g. "Reksai" and "Rek'sai" are both valid inputs. */
+        /* ISMATCH:             If user types the exact name, e.g. "Vi", make it have precedence over other champs that start with "Vi" like "Viktor". */
+        /* STARTSWITHINPUT:     Prioritize the first letter, e.g. If user types the letter "S" the first result needs to be "Samira" not "Ak(s)han. */
 
         const MAX_LIMIT_OF_RESULTS = 3;
         const augmentedOptions = options.map(option => {
@@ -69,7 +65,7 @@ export const useSearchBarChange = (options, inputValue, setFilteredOptions, setD
     }, [inputValue, options, setDropdownVisible, setFilteredOptions]);
 };
 
-/* Sets the value of the selected option based on what user clicks in the dropdown menu*/
+/* Set the value of the selected option based on what user clicks in the dropdown menu */
 
 export const useOptionClick = (setSelectedOption, setDropdownVisible) => {
     return (option) => {
@@ -78,7 +74,7 @@ export const useOptionClick = (setSelectedOption, setDropdownVisible) => {
     };
 };
 
-/* Sets the value of the selected option as the top item from the dropdown menu*/
+/* Set the value of the selected option as the top item from the dropdown menu*/
 
 export const useKeyPress = (filteredOptions, setSelectedOption) => {
     return (e) => {
@@ -89,7 +85,7 @@ export const useKeyPress = (filteredOptions, setSelectedOption) => {
     }
 };
 
-/* Makes the input field in question become focused on page load. */
+/* Make the input field in question become focused on page load. */
 
 export const useFocusInput = (inputRef) => {
     useEffect(() => {

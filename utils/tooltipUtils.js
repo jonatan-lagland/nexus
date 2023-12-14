@@ -1,5 +1,8 @@
 import { useState } from "react";
 
+/* Calculates the X and Y coordinates of the tooltip relative to its parent */
+/* Tries to take available client space into consideration when positioning the tooltip */
+
 export const useTooltipHandlers = () => {
     const [showTooltip, setShowTooltip] = useState(false);
     const [tooltipMessage, setTooltipMessage] = useState('');
@@ -7,29 +10,29 @@ export const useTooltipHandlers = () => {
     const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
     const tooltipSize = 150;
 
-    const calculateXPosition = (divRect, windowWidth) => {
-        const rightEdge = divRect.right + tooltipSize;
+    /* Calculate X position so that if the tooltip won't fit the window, move it towards left */
+    const calculateXPosition = (parentRect, windowWidth) => {
+        const rightEdge = parentRect.right + tooltipSize;
         if (rightEdge > windowWidth) {
-            return 0 - tooltipSize + divRect.width; // Adjust position to fit within the window
+            return 0 - tooltipSize + parentRect.width;
         }
         return 0; // Default X position
     };
 
     /* Calculate Y position so that if the tooltip won't fit the window, place it below or above the image */
-
-    const calculateYPosition = (divRect) => {
-        if (divRect.y - tooltipSize < 0) {
-            return 0 + divRect.height; // Position below the div
+    const calculateYPosition = (parentRect) => {
+        if (parentRect.y - tooltipSize < 0) {
+            return 0 + parentRect.height; // Position below the parent
         }
-        return 0 - tooltipSize; // Position above the div
+        return 0 - tooltipSize; // Position above the parent
     };
 
     const handleItemMouseOver = (event, item, message) => {
-        const divRect = event.currentTarget.getBoundingClientRect();
+        const parentRect = event.currentTarget.getBoundingClientRect();
         const windowWidth = window.innerWidth;
 
-        const posX = calculateXPosition(divRect, windowWidth);
-        const posY = calculateYPosition(divRect);
+        const posX = calculateXPosition(parentRect, windowWidth);
+        const posY = calculateYPosition(parentRect);
 
         setTooltipItem(item); // Set the item identifier
         setTooltipPosition({ x: posX, y: posY });

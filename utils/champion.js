@@ -1,28 +1,30 @@
 import { useState, useEffect } from 'react';
 
-export const useChampionData = (url) => {
+export const useChampionData = (championName) => {
     const [championData, setChampionData] = useState(null);
     const [error, setError] = useState(null);
+    const route = "/api/data/champion/";
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(url);
+                const response = await fetch(`${route}/${championName}`);
                 const result = await response.json();
-                console.log(result)
-                const championsArray = useChampionsListArray(result.response);
-                setChampionData(championsArray);
+                setChampionData(processChampionData(result.response));
             } catch (err) {
                 setError('Failed to fetch data.');
             }
         };
 
-        fetchData();
-    }, [url]);
+        if (championName) {
+            fetchData();
+        }
+    }, [championName]);
 
-    const useChampionsListArray = (data) => {
+    const processChampionData = (data) => {
+        console.log(data)
         if (!data || !data.data) {
-            return [];
+            return null;
         }
 
         const obj = Object.entries(data.data).map(([, championDetails]) => ({
@@ -36,15 +38,13 @@ export const useChampionData = (url) => {
             info: championDetails.info,
             stats: championDetails.stats
         }));
-
-        console.log(obj[0])
-
         return obj[0];
     };
 
 
     return { championData, error };
 };
+
 
 export const useChampionList = () => {
     const [championList, setChampionList] = useState(null);

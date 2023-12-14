@@ -1,28 +1,15 @@
-'use client'
-import React, { useState } from 'react'
+'use client';
+
 import Header from '@components/Profile/Header'
 import Section from '@components/Profile/Section'
 import Sidebar from '@components/Profile/Sidebar'
-import { useEffect } from 'react'
 import { useParams } from 'next/navigation'
-import { useChampionData, useChampionsListArray } from '@utils/champion';
+import { useChampionData } from '@utils/champion';
 import { useItemData } from '@utils/item'
 
-const Profile = ({ params }) => {
-
-    const url = useParams();
-    const championName = url.Id;
-    const [selectedOption, setSelectedOption] = useState('');
-    const populateItems = ["3020", "7013", "4645", "223089", "223157", "223135"]
-
-    useEffect(() => {
-        if (championName) {
-            const url = `/api/data/champion/${championName}`;
-            setSelectedOption(url);
-        }
-    }, [championName]);
-
-    const { championData, error } = useChampionData(selectedOption);
+const Profile = () => {
+    const { championData, error } = useChampionData(useParams().Id);
+    const populateItems = ["3020", "7013", "4645", "223089", "223157", "223135"];
     const { itemData } = useItemData(populateItems);
 
     return (

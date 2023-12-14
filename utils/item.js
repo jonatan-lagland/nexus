@@ -9,7 +9,6 @@ export const useItemData = (items) => {
             try {
                 const response = await fetch(url);
                 const result = await response.json();
-                console.log(result)
                 //const championsArray = useChampionsListArray(result.response);
                 //setChampionData(championsArray);
             } catch (err) {
@@ -36,8 +35,6 @@ export const useItemData = (items) => {
             info: championDetails.info,
             stats: championDetails.stats
         }));
-
-        console.log(obj[0])
 
         return obj[0];
     };

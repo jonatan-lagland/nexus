@@ -11,7 +11,7 @@ import {
     useClickOutsideInputField,
 } from '@utils/searchBarUtils';
 
-import { useImgPathChampion } from "@utils/images";
+import { useImgPathChampion } from "@utils/paths";
 
 const SearchBar = ({ url, placeholder, className, options }) => {
 

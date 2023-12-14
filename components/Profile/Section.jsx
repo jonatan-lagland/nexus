@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import {
     useImgPathItem,
-} from '@utils/images';
+} from '@utils/paths';
 import { useTooltipHandlers } from '@utils/tooltipUtils';
 
 import Tooltip from '@components/Tooltip';
@@ -25,6 +25,7 @@ function Section(props) {
 
     return (
         <section className="flex justify-start p-2">
+            {/* Ensure image path has been set before data fetching. Conditionally render a loader if needed.*/}
             {imgPath ? (
                 <div>
                     <div className="container-blue p-3">
@@ -45,13 +46,14 @@ function Section(props) {
                                             quality={100}
                                             className='object-fit'
                                         />
+                                        {/* Conditionally render a tooltip when an image is hovered. */}
                                         {showTooltip && tooltipItem === index && (
                                             <Tooltip
                                                 message={tooltipMessage}
                                                 style={{ left: tooltipPosition.x, top: tooltipPosition.y }} />
                                         )}
                                     </div>
-                                    {index < props.items.length - 1 && <span className="arrow-right">&rarr;</span>}
+                                    {index < props.items.length - 1 && <span className="arrow-right mx-1">&rarr;</span>}
                                 </div>
                             ))}
                         </div>

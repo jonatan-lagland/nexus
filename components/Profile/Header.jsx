@@ -5,7 +5,7 @@ import React from 'react'
 import Image from 'next/image';
 import {
     useImgPathChampion,
-} from '@utils/images';
+} from '@utils/paths';
 
 
 
