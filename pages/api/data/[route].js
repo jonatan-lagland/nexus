@@ -1,7 +1,10 @@
 import fetchDataHandler from "@utils/fetchDataHandler";
 
 export default async function handler(req, res) {
-    const route = "champion";
+    console.log(req.query)
+
+    const { route } = req.query;
+
     const folder = "data";
     const subfolders = "";
     const format = "json";

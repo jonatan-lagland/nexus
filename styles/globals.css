@@ -11,7 +11,7 @@
 
 :root {
   --cosmic-cobalt: theme('colors.cosmic-cobalt');
-  --cosmic-cobalt: theme('colors.cosmic-cobalt');
+  --cream: theme('colors.cream');
 }
 
 @media screen and (max-width: 640px) {
@@ -61,11 +61,8 @@
 }
 
 .profile {
-  @apply mx-auto w-full max-w-6xl flex flex-grow flex-col justify-center items-center min-h-screen;
-  overflow-y: auto;
+  @apply w-full max-w-7xl min-h-full;
 }
-
-
 
 .grid_container {
   @apply grid flex-grow;
@@ -115,7 +112,6 @@
   @apply flex absolute z-10 min-w-max truncate rounded-md border text-gray-500 border-gray-200 bg-white py-2.5 font-satoshi px-3 text-sm shadow-lg;
 }
 
-
 .dropdown_link {
   @apply flex flex-row justify-items-end text-sm font-satoshi p-1 space-x-2 text-gray-700 hover:text-gray-500 font-medium cursor-pointer;
 }
@@ -151,21 +147,42 @@
 .search-list-item {
   @apply font-inter text-dark-grey ps-3
 }
+
 .loader {
-  border: 5px solid #d3d3d3; /* Light grey background */
-  border-top: 5px solid var(--cosmic-cobalt); /* Use cosmic-cobalt color */
+  border: 5px solid #d3d3d3;
+  border-top: 5px solid var(--cosmic-cobalt);
   border-radius: 50%;
   width: 80px;
   height: 80px;
   animation: spin 2s linear infinite;
 }
 
+.loader-small {
+  border: 3px solid #d3d3d3;
+  border-top: 3px solid var(--cosmic-cobalt);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 2s linear infinite;
+}
+
+.loader-container {
+  @apply w-full h-full flex justify-center items-center;
+}
+
 .tooltip {
-  @apply font-inter font-normal text-white bg-dark-cosmic rounded-sm p-2 border border-white border-solid absolute pointer-events-none;
-  width: 150px;
-  height: 150px;
-  text-align: center;
+  @apply font-inter font-normal text-white bg-dark-cosmic rounded-sm border border-white border-solid absolute min-h-max pointer-events-none;
+  width: 250px;
+  text-align: start;
   z-index: 100;
+}
+
+.tooltip-container {
+  @apply m-2;
+}
+
+.tooltip-item-title {
+  @apply w-full max-h-min flex flex-row font-inter items-baseline justify-between;
 }
 
 @keyframes spin {
@@ -174,7 +191,7 @@
 }
 
 .container-blue {
-  @apply  text-white relative min-w-full;
+  @apply  text-white relative;
 }
 
 .title-recommended {
@@ -216,4 +233,13 @@
       width: 68px;
       height: 68px;
   }
+}
+
+.arrow {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 10px solid var(--cream);;
 }

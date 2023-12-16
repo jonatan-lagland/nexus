@@ -7,8 +7,6 @@ import {
     useImgPathChampion,
 } from '@utils/paths';
 
-
-
 function Header(champion) {
 
     const AVATAR_WIDTH = 90;
@@ -37,8 +35,6 @@ function Header(champion) {
             )}
         </section>
     )
-
-
 }
 
 export default Header

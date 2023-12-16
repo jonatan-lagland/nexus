@@ -17,16 +17,22 @@ module.exports = {
       },
       colors: {
         'primary-orange': '#FF5722',
+        'vibrant-orange': '#ff7420',
         'charcoal': '#191919',
         'dark-grey': '#212121',
         'navy-blue': '#281F74',
         'deep-purple': '#303554',
         'cosmic-cobalt': '#4B63A3',
-        'dark-cosmic': '#263C6D',
+        'dark-cosmic': '#0E265C',
         'viola': '#916BBF',
         'rose': '#C996CC',
         'dark-blue': '#123456',
-        'light-blue': '#56789A'
+        'light-blue': '#56789A',
+        'cream': '#EFE7D3',
+        'dust': '#A09D94',
+        'dark-dust': "#93918A",
+        'crimson-grey': '#A489A0',
+        'cream-green': '#B7D04B'
       }
     },
   },

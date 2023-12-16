@@ -22,7 +22,6 @@ export const useChampionData = (championName) => {
     }, [championName]);
 
     const processChampionData = (data) => {
-        console.log(data)
         if (!data || !data.data) {
             return null;
         }
