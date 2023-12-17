@@ -12,6 +12,7 @@
 :root {
   --cosmic-cobalt: theme('colors.cosmic-cobalt');
   --cream: theme('colors.cream');
+  --dark-cosmic: theme('colors.dark-cosmic');
 }
 
 @media screen and (max-width: 640px) {
@@ -61,7 +62,7 @@
 }
 
 .profile {
-  @apply w-full max-w-7xl min-h-full;
+  @apply w-full max-w-7xl min-h-full overflow-hidden;
 }
 
 .grid_container {
@@ -148,7 +149,8 @@
   @apply font-inter text-dark-grey ps-3
 }
 
-.loader {
+.loader-lg {
+  @apply mx-auto w-full max-w-2xl flex justify-center items-center;
   border: 5px solid #d3d3d3;
   border-top: 5px solid var(--cosmic-cobalt);
   border-radius: 50%;
@@ -174,8 +176,34 @@
   @apply font-inter font-normal text-white bg-dark-cosmic rounded-sm border border-white border-solid absolute min-h-max pointer-events-none;
   width: 250px;
   text-align: start;
-  z-index: 100;
+  z-index: 101;
 }
+
+/*
+.tooltip::after {
+  @apply absolute bg-dark-cosmic border-b border-r border-white border-solid;
+  content: "";
+  width: 1rem;  
+  height: 1rem;  
+  transform: rotate(45deg) translateX(-50%);
+  bottom: -0.92rem; 
+  left: 50%;
+  z-index: -1
+}
+/*
+
+.tooltip::after {
+  @apply absolute bg-dark-cosmic border-b border-r border-white border-solid;
+  content: "";
+  width: 10rem;  
+  height: 1rem;  
+  transform: rotate(45deg) translateX(-50%); 
+  bottom: -0.92rem; 
+  left: 50%;
+  z-index: -1
+}
+*/
+
 
 .tooltip-container {
   @apply m-2;
@@ -190,18 +218,15 @@
   100% { transform: rotate(360deg); }
 }
 
-.container-blue {
-  @apply  text-white relative;
+.container-items {
+  @apply  bg-cosmic-cobalt border border-white border-solid p-3 flex flex-wrap relative max-w-xl justify-evenly;
 }
 
-.title-recommended {
-  @apply font-bebas text-2xl bg-cosmic-cobalt py-1 px-3 inline-block rounded-t border-t border-l border-r border-white text-shadow relative;
+
+.title-items {
+  @apply font-bebas text-2xl bg-cosmic-cobalt py-1 px-3 inline-block rounded-t border-t border-l border-r border-white text-shadow text-white relative;
   margin-bottom: -1px; /* Pulls the next element up by 1px */
   z-index: 10; /* Ensures this element is above the next one */
-}
-
-.container-blue-light {
-  @apply bg-cosmic-cobalt border border-white border-solid;
 }
 
 .title-profile-header {
@@ -236,10 +261,10 @@
 }
 
 .arrow {
-  display: inline-block;
-  width: 0;
-  height: 0;
-  border-top: 5px solid transparent;
-  border-bottom: 5px solid transparent;
-  border-left: 10px solid var(--cream);;
+  position: 'absolute';
+  background-color: 'var(--dark-cosmic)';
+}
+
+.profile-grid-section {
+  @apply flex flex-col justify-center items-center;
 }

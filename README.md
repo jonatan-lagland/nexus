@@ -8,7 +8,7 @@ Live:
 
 - A home page with a fully customized and reusable search widget and dropdown menu
 - Page navigation using Next.js page routing, including dynamic routing
-- Partial integration with Riot Games API (basic champion details)
+- Partial integration with Riot Games API (Basic champion data and item data)
 
 Work in progress:
 

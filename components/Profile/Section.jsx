@@ -6,7 +6,7 @@ function Section() {
     const items = useContext(ItemDataContext);
 
     return (
-        <section className="flex flex-col justify-center items-center">
+        <section className="profile-grid-section">
             <Items items={items} />
             <Items items={items} />
             <Items items={items} />

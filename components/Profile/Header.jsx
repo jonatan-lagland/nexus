@@ -11,8 +11,7 @@ function Header(champion) {
 
     const AVATAR_WIDTH = 90;
     const AVATAR_HEIGHT = 90;
-    const [imgPath, setImgPath] = useState("");
-    useImgPathChampion(setImgPath);
+    const imgPath = useImgPathChampion();
 
     return (
         <section className='p-6'>
