@@ -1,41 +1,29 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 /* Calculates the X and Y coordinates of the tooltip relative to parent (an image it's hovering) */
 /* Tries to take available client space into consideration when positioning the tooltip */
-/* Tooltip is centered horizontally relative to the image */
+/* Tooltip is centered horizontally relative to the image by default */
 
-export const useTooltipHandlers = () => {
+export const useTooltipHandlers = (items, event, itemId, tooltipRef) => {
 
-    const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
-    const [locationOfArrow, setLocationOfArrow] =
-        useState({
-            left: '50%',
-            transform: `translateX(-50%) rotate(45deg)`,
-            top: '-0.5rem',
-            width: '1rem',
-            height: '1rem'
-        });
+    /* Tooltips are hidden by default */
+    const [visibility, setVisibility] =
+        useState(
+            { visibility: 'hidden' }
+        );
 
-    const arrowStyles = {
-        topArrow: {
-            top: '-0.5rem',
-            borderTop: '1px solid white',
-            borderLeft: '1px solid white',
-        },
-        bottomArrow: {
-            top: undefined,
-            bottom: '-0.5rem',
-            borderTop: 'none',
-            borderLeft: 'none',
-            borderBottom: '1px solid white',
-            borderRight: '1px solid white'
-        }
+    const isMobileDevice = () => {
+        return window.matchMedia("(max-width: 1024px)").matches;
     };
+
     const arrowStyle = {
         position: 'absolute',
-        backgroundColor: 'var(--dark-cosmic)',
+        backgroundColor: 'var(--dark-cosmic)'
     };
+
     const tooltipStyle = {
+        top: '0',
+        left: '0',
         fontFamily: 'Inter, sans-serif',
         fontWeight: 'normal',
         color: 'white',
@@ -45,12 +33,56 @@ export const useTooltipHandlers = () => {
         position: 'absolute',
         minHeight: 'max-content',
         pointerEvents: 'none',
-        width: '250px',
+        width: '300px',
         textAlign: 'start',
-        zIndex: 101
+        zIndex: 101,
     };
 
-    let isOutOfBothBounds = false;
+    const [locationOfArrow, setLocationOfArrow] =
+        useState({
+            transform: `translateX(-50%) rotate(45deg)`,
+            width: '1rem',
+            height: '1rem'
+        });
+
+
+    const calculateArrowPositions = (parentWidth, tooltipWidth) => {
+
+        const arrowLeftPercentage = ((parentWidth / 2) / tooltipWidth) * 100;
+        const arrowRightPercentage = 100 - (((parentWidth / 2) / tooltipWidth) * 100);
+
+        return {
+            topArrow: {
+                top: '-0.55rem',
+                bottom: undefined,
+                borderTop: '1px solid white',
+                borderLeft: '1px solid white',
+                borderBottom: 'none',
+                borderRight: 'none'
+            },
+            bottomArrow: {
+                top: undefined,
+                bottom: '-0.55rem',
+                borderTop: 'none',
+                borderLeft: 'none',
+                borderBottom: '1px solid white',
+                borderRight: '1px solid white'
+            },
+            arrowMiddle: {
+                left: '50%'
+            },
+            arrowLeft: {
+                left: `${arrowLeftPercentage}%`
+            },
+            arrowRight: {
+                left: `${arrowRightPercentage}%`
+            },
+            arrowGone: {
+                visibility: 0
+            }
+        };
+
+    }
 
     /* X IS CALCULATED RELATIVE TO THE PARENT (IMAGE), NOT THE VIEWPORT. SO X=0 IS CONSIDERED THE LEFT CORNER OF ANY GIVEN IMAGE */
     /* EXAMPLE: IMAGINE THE IMAGE IS 64 PIXELS WIDE (parentRect.width) AND THE TOOLTIP IS 250 PIXELS WIDE (tooltipWidth)*/
@@ -59,90 +91,170 @@ export const useTooltipHandlers = () => {
     /* THEREFORE, IT MEANS THE LEFT CORNER OF THE TOOLTIP IS MOVED 93 PIXELS TOWARDS THE LEFT AND X = -93, AND WE RETURN THIS VALUE */
     /* IF WE WANT TO KNOW IF IMAGE IS OUT OF BOUNDS, CALCULATE THE X COORDINATE OF WHICHEVER CORNER OF THE TOOLTIP AND COMPARE IT TO WINDOW WIDTH */
 
-    const calculateXPosition = (parentRect, windowWidth, tooltipWidth) => {
+    const calculateXPosition = (parentRect, windowWidth, tooltipWidth, arrowPositions) => {
 
-        const buffer = 5; // Add a tiny bit of buffer so tooltip isn't glued to the viewport edge
+        const buffer = 10; // Add a tiny bit of buffer so tooltip isn't glued to the viewport edge
 
-        const defaultPosition = parentRect.width / 2 - tooltipWidth / 2;
-        const xCoordinateofRightCorner = parentRect.left + defaultPosition + tooltipWidth;
-        const xCoordinateofLeftCorner = parentRect.right - parentRect.width / 2 - tooltipWidth / 2;
-
+        const defaultPosition = parentRect.width / 2 - tooltipWidth / 2; // default position is in the middle
+        const xCoordinateofRightCorner = tooltipRef.current.getBoundingClientRect().right - tooltipWidth / 2 + parentRect.width / 2;
+        const xCoordinateofLeftCorner = tooltipRef.current.getBoundingClientRect().left - tooltipWidth / 2 + parentRect.width / 2;
 
         const xCoordinateWhenFacingLeft = parentRect.width - tooltipWidth;
-        const xCoordinateWhenCenteredOnViewPort = ((parentRect.left + (tooltipWidth / 2)) - (windowWidth / 2));
+        const xCoordinateWhenFacingRight = 0;
+
         const isOutOfRightBounds = xCoordinateofRightCorner + buffer > windowWidth ? true : false;
         const isOutOfLeftBounds = xCoordinateofLeftCorner - buffer < 0 ? true : false;
 
         if (!isOutOfLeftBounds && !isOutOfRightBounds) {
+            setLocationOfArrow(prevState => {
+                return {
+                    ...prevState,
+                    ...arrowPositions.arrowMiddle
+                };
+            });
             return defaultPosition;
-        }
-
-        // Place tooltip in the middle of the viewport as a last resort if no space either left or right
-        if (isOutOfLeftBounds && isOutOfRightBounds) {
-            isOutOfBothBounds = true;
-            return 0 - xCoordinateWhenCenteredOnViewPort;
         }
 
         // Place tooltip facing towards the right if no space facing left (X = 0)
         if (isOutOfLeftBounds && !isOutOfRightBounds) {
-            return 0;
+            setLocationOfArrow(prevState => {
+                return {
+                    ...prevState,
+                    ...arrowPositions.arrowLeft
+                };
+            });
+            return xCoordinateWhenFacingRight;
         }
 
         // Place tooltip facing towards the left if no space facing right
         if (isOutOfRightBounds) {
-            return xCoordinateWhenFacingLeft;
-        }
-
-    };
-
-    /* Calculate Y position so that if the tooltip won't fit the window, place it below or above the image */
-    const calculateYPosition = (parentRect, windowHeight, tooltipHeight) => {
-
-        const buffer = 12; //arbitrary gap between arrow and image
-        const tooltipBelowParent = parentRect.height + buffer;
-        const tooltipAboveParent = 0 - tooltipHeight - buffer;
-        let spaceAbove = parentRect.top + buffer;
-        let spaceBelow = windowHeight - parentRect.bottom - buffer;
-
-        // Move tooltip higher up if it can't fit below
-        if (spaceAbove >= tooltipHeight && spaceAbove > spaceBelow) {
-            // Place arrow below container
             setLocationOfArrow(prevState => {
                 return {
                     ...prevState,
-                    ...arrowStyles.bottomArrow
+                    ...arrowPositions.arrowRight
+                };
+            });
+            return xCoordinateWhenFacingLeft;
+        }
+    };
+
+    /* Climb up the DOM tree hierarchy to get <main> Y coordinate to be used to avoid tooltip from clipping on header */
+    const getMainElementYPosition = () => {
+        if (!tooltipRef) return 0;
+
+        let currentElement = tooltipRef.current;
+
+        while (currentElement && currentElement.nodeName !== 'MAIN') {
+            currentElement = currentElement.parentNode;
+        }
+        return currentElement.getBoundingClientRect().y;
+    };
+
+    /* Calculate available document space and assign Y position to wherever there's more available space */
+    const calculateYPosition = (parentRect, windowHeight, arrowPositions) => {
+
+        const tooltipHeight = tooltipRef.current.offsetHeight;
+        const mainHeight = getMainElementYPosition(tooltipRef); // Height of the "main" DOM element
+        const documentHeight = document.documentElement.scrollHeight; // Height of the entire document
+
+        const buffer = 20; //arbitrary gap between arrow and image
+        const arrowHeight = 16;
+        const tooltipBelowParent = parentRect.height + buffer; // Y coordinate when tooltip is placed above parent
+        const tooltipAboveParent = 0 - tooltipHeight - buffer; // Y coordinate when tooltip is placed below parent
+        let isOverflowingTop = parentRect.top - tooltipHeight - buffer < mainHeight ? true : false; // Check if tooltip would overflow at the top of "main"
+        let isOverflowingBottom =
+            tooltipRef.current.getBoundingClientRect().bottom + parentRect.height + buffer + arrowHeight > windowHeight ? true : false; // Check if the tooltip would overflow at the bottom of document
+        let isOverflowingBottomDocument =
+            tooltipRef.current.getBoundingClientRect()
+                .bottom + buffer > documentHeight ? true : false; // Check if the tooltip would overflow at the bottom of client (might be resized)
+
+        let spaceAbove = parentRect.top + buffer;   // Available empty screen space above tooltip
+        let spaceBelow = windowHeight - (parentRect.top); // Available empty screen space below tooltip
+
+        /* If tooltip overflows at the top of "main" but not the DOCUMENT'S BOTTOM. NOT CLIENT AKA WINDOW SIZE. */
+        if (isOverflowingTop && !isOverflowingBottomDocument) {
+            setLocationOfArrow(prevState => {
+                return {
+                    ...prevState,
+                    ...arrowPositions.topArrow
+                };
+            });
+            return tooltipBelowParent;
+        }
+
+        /* If tooltip overflows bottom but not top */
+        if (isOverflowingBottom && !isOverflowingTop) {
+            setLocationOfArrow(prevState => {
+                return {
+                    ...prevState,
+                    ...arrowPositions.bottomArrow
                 };
             });
             return tooltipAboveParent;
         }
 
-        // Place arrow above container by default
+        /* If there's no overflow detected, check which side of the client has more available space */
+        if (spaceAbove > spaceBelow) {
+            setLocationOfArrow(prevState => {
+                return {
+                    ...prevState,
+                    ...arrowPositions.bottomArrow
+                };
+            });
+            return tooltipAboveParent;
+        }
+
+        /* Place tooltip below parent by default */
         setLocationOfArrow(prevState => {
             return {
                 ...prevState,
-                ...arrowStyles.topArrow
+                ...arrowPositions.topArrow
             };
         });
-
         return tooltipBelowParent;
     };
 
-    const handleItemMouseOver = (event, tooltipRef) => {
+    const handleTooltipVisible = (event, tooltipRef) => {
 
-        // Information about whatever we're hovering (X and Y relative to viewport, width, height)
+        // Information about whatever we're hovering, like an image. (Shows image's X and Y relative to viewport, width, height)
         const parentRect = event.currentTargetRect;
-
-        const tooltipHeight = tooltipRef.current.offsetHeight;
         const tooltipWidth = tooltipRef.current.offsetWidth;
 
         const windowWidth = document.documentElement.clientWidth;
         const windowHeight = document.documentElement.clientHeight;
 
-        const posX = calculateXPosition(parentRect, windowWidth, tooltipWidth);
-        const posY = calculateYPosition(parentRect, windowHeight, tooltipHeight);
+        const arrowPositions = calculateArrowPositions(parentRect.width, tooltipWidth);
 
-        setTooltipPosition({ x: posX, y: posY });
+        const posX = calculateXPosition(parentRect, windowWidth, tooltipWidth, arrowPositions);
+        const posY = calculateYPosition(parentRect, windowHeight, arrowPositions);
+
+        setVisibility({
+            visibility: 'visible',
+            top: posY,
+            left: posX,
+            animation: isMobileDevice() ? 'fadeIn 0.3s' : 'fadeIn 0.6s'
+        })
+        console.log('MyComponent rendered');
     };
 
-    return { tooltipPosition, locationOfArrow, arrowStyle, tooltipStyle, handleItemMouseOver };
+    const handleTooltipHidden = () => {
+        setVisibility({ visibility: 'hidden' })
+    };
+
+    useEffect(() => {
+        handleTooltipHidden();
+
+        if (!tooltipRef.current) {
+            return;
+        }
+
+        const showTooltip = event.type === "mouseover" || event.type === "touchstart";
+
+        if (showTooltip && items.id === itemId) {
+            // Set a delay before showing the tooltip
+            handleTooltipVisible(event, tooltipRef);
+        }
+    }, [event]);
+
+    return { locationOfArrow, arrowStyle, tooltipStyle, visibility };
 };

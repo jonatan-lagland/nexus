@@ -5,18 +5,17 @@ import {
     useImgPathItem,
 } from '@utils/paths';
 
-import Tooltip from '@components/Tooltip';
+import Tooltip from '@components/Profile/Section/Tooltip';
 
-function Items({ items }) {
+function Items({ items, title }) {
     const AVATAR_WIDTH = 64;
     const AVATAR_HEIGHT = 64;
-
-    const divRef = useRef(null);
 
     const imgPath = useImgPathItem();
 
     const [event, setEvent] = useState(null);
     const [tooltipItem, setTooltipItem] = useState(null);
+    const [tooltipitemId, setTooltipItemId] = useState(null);
 
     const handleMouseHover = (item) => (e) => {
         const rect = e.currentTarget.getBoundingClientRect();
@@ -24,9 +23,11 @@ function Items({ items }) {
 
         if (e.type === "mouseover") {
             setTooltipItem(item);
+            setTooltipItemId(item.id)
         }
         if (e.type === "mouseleave") {
             setTooltipItem(null);
+            setTooltipItemId(null);
         }
     };
 
@@ -44,20 +45,19 @@ function Items({ items }) {
 
     return (
         <div>
-            <div className="title-items">Recommended</div>
+            <div className="title-items">{title}</div>
             <div className="container-items">
                 {items.map((item, index) => (
                     <div
                         className='flex flex-row items-center my-1 mx-1 relative'>
                         <div
-                            ref={divRef}
                             key={index}
                             onMouseOver={handleMouseHover(item)}
                             onMouseLeave={handleMouseHover(item)}
                             className='flex flex-col'
                         >
                             <Image
-                                src={`${imgPath}/${item.image}`}
+                                src={`${imgPath}${item.image}`}
                                 alt={`Item ${item.name}`}
                                 width={AVATAR_WIDTH}
                                 height={AVATAR_HEIGHT}
@@ -65,10 +65,9 @@ function Items({ items }) {
                                 className='object-fit'
                             />
                             <Tooltip
-                                item={tooltipItem}
+                                items={items[index]}
                                 event={event}
-                                itemId={item.id}
-                                ref={divRef} />
+                                itemId={tooltipitemId} />
                         </div>
                         {index < items.length - 1 && <div className='arrow'></div>}
                     </div>

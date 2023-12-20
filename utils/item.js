@@ -24,9 +24,6 @@ export const useItemData = (items) => {
         }
     }, [route]);
 
-
-    /* BELOW THIS POINT IS METICULOUS DATA PARSING */
-
     function extractValue(description, tag) {
         const regex = new RegExp(`<${tag}>(.*?)</${tag}>`, 'gi');
         const matches = regex.exec(description);
@@ -44,7 +41,6 @@ export const useItemData = (items) => {
         const matches = regex.exec(description);
         return matches ? matches[1] : '';
     }
-
 
     function extractPassiveValue(description) {
         const regex = /<passive>(.*?)<br>/s;
