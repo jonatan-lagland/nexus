@@ -6,12 +6,6 @@ import { useChampionList } from '@utils/champion';
 
 const CHAMPION_URL = "/champion/";
 const SEARCH_PLACEHOLDER = "Search a champion..."
-const arr_filler = [
-    {
-        "value": "",
-        "label": ""
-    }
-]
 
 export default function Feed() {
     const { championList, error } = useChampionList();
@@ -24,12 +18,7 @@ export default function Feed() {
             <SearchBar
                 url={CHAMPION_URL}
                 placeholder={SEARCH_PLACEHOLDER}
-                className={"search_input w-full"}
-                options={championList ? (
-                    championList
-                ) : (
-                    arr_filler
-                )}
+                options={championList ? (championList) : (error)}
             />
         </section>
     );

@@ -11,9 +11,7 @@ import {
     useClickOutsideInputField,
 } from '@utils/searchBarUtils';
 
-import { useImgPathChampion } from "@utils/paths";
-
-const SearchBar = ({ url, placeholder, className, options }) => {
+const SearchBar = ({ url, placeholder, options }) => {
 
     const ICON_WIDTH = 20;
     const ICON_HEIGHT = 20;
@@ -23,7 +21,6 @@ const SearchBar = ({ url, placeholder, className, options }) => {
     const [selectedOption, setSelectedOption] = useState("");
     const [filteredOptions, setFilteredOptions] = useState("");
     const [isDropdownVisible, setDropdownVisible] = useState(false);
-    const [imgPath, setImgPath] = useState("");
     const dropdownRef = useRef(null);
     const DROPDOWN_MENU_ICON_WIDTH = 75;
     const DROPDOWN_MENU_ICON_HEIGHT = 75;
@@ -41,7 +38,6 @@ const SearchBar = ({ url, placeholder, className, options }) => {
     useSearchBarChange(options, inputValue, setFilteredOptions, setDropdownVisible);
     useFocusInput(inputRef);
     useClickOutsideInputField(dropdownRef, inputRef, setDropdownVisible, isDropdownVisible);
-    useImgPathChampion(setImgPath);
 
 
     /* Redirected user to a page after selection */
@@ -63,7 +59,7 @@ const SearchBar = ({ url, placeholder, className, options }) => {
                     type='text'
                     placeholder={placeholder}
                     required
-                    className={className}
+                    className={"search_input w-full"}
                     onChange={(e) => {
                         setInputValue(e.target.value);
                     }}
@@ -76,6 +72,8 @@ const SearchBar = ({ url, placeholder, className, options }) => {
                     className={`dropdown_menu w-full my-1
                               ${isDropdownVisible ? '' : 'dropdown_hidden'}`}
                 >
+
+
                     {isDropdownVisible && (
                         <ul className="w-full p-2">
                             { /* Conditionally render a title based on available results */}
@@ -88,20 +86,20 @@ const SearchBar = ({ url, placeholder, className, options }) => {
 
                                     { /* Render a list of items */}
                                     {filteredOptions.map((option, index) => (
-                                        <li key={option.value}>
+                                        <li key={option.name}>
                                             <div
-                                                onClick={() => handleOptionClick(option.value)}
+                                                onClick={() => handleOptionClick(option.name)}
                                                 className="dropdown_link hover:bg-gray-200 flex items-center"
                                                 tabIndex="0"
                                             >
                                                 <Image
                                                     className="border-2 border-dark-grey"
-                                                    src={`${imgPath}/${option.value}.png`}
+                                                    src={option.path}
                                                     width={DROPDOWN_MENU_ICON_WIDTH}
                                                     height={DROPDOWN_MENU_ICON_HEIGHT}
-                                                    alt={option.label}
+                                                    alt={option.name}
                                                 />
-                                                <span className="search-list-item">{option.label}</span>
+                                                <span className="search-list-item">{option.name}</span>
                                             </div>
                                             { /* Render a bottom seperator for the top result */}
                                             {index === 0 && <hr className="dropdown_horizontal_line pb-2" />}

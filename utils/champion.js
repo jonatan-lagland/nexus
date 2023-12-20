@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useImgPathChampion } from './paths';
 
 export const useChampionData = (championName) => {
     const [championData, setChampionData] = useState(null);
@@ -49,16 +50,25 @@ export const useChampionList = () => {
     const [championList, setChampionList] = useState(null);
     const [error, setError] = useState(null);
     const url = `/api/data/champion`;
+    const imgPath = useImgPathChampion();
+    const populateDefault = [
+        {
+            "id": "0",
+            "name": "Blue Minion Bruiser",
+            'path': "public/assets/images/0.png"
+        }
+    ]
 
     useEffect(() => {
         const fetchData = async () => {
-            try {
-                const response = await fetch(url);
-                const result = await response.json();
-                const championsArray = createChampionsArray(result.response);
+
+            const response = await fetch(url);
+            const result = await response.json();
+            const championsArray = createChampionsArray(result.response);
+            if (championsArray) {
                 setChampionList(championsArray);
-            } catch (err) {
-                setError('Failed to fetch data.');
+            } else {
+                setError(populateDefault);
             }
         };
 
@@ -67,13 +77,18 @@ export const useChampionList = () => {
 
     const createChampionsArray = (data) => {
         if (!data || !data.data) {
-            return [];
+            return null;
         }
-
-        return Object.entries(data.data).map(([championId, championData]) => ({
-            value: championId,
-            label: championData.name,
-        }));
+        try {
+            return Object.entries(data.data).map(([, championDetails]) => ({
+                id: championDetails.id,
+                name: championDetails.name,
+                path: imgPath + championDetails.image.full
+            }));
+        } catch (e) {
+            setError(populateDefault);
+            return null;
+        }
     };
 
 
