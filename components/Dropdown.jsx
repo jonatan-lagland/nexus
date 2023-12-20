@@ -85,6 +85,7 @@ const Dropdown = ({ options }) => {
                                     width={DROPDOWN_MENU_ICON_WIDTH}
                                     height={DROPDOWN_MENU_ICON_HEIGHT}
                                     alt={option.label}
+                                    style={{ width: "auto" }}
                                 />
                                 <span>{option.label}</span>
                             </li>

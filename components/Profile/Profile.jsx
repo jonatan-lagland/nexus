@@ -1,7 +1,7 @@
 'use client';
 
 import Header from '@components/Profile/Header'
-import Section from '@components/Profile/Section'
+import Section from '@components/Profile/Section/Section'
 import Sidebar from '@components/Profile/Sidebar'
 import { useParams } from 'next/navigation'
 import { useChampionData } from '@utils/champion';
@@ -10,7 +10,7 @@ import ItemDataContext from '@utils/itemDataContext';
 
 const Profile = () => {
     const { championData, error } = useChampionData(useParams().Id);
-    const populateItems = ["223089", "223111", "223152", "6694", "223107", "223142"];
+    const populateItems = ["3026", "223111", "223152", "6694", "223107", "223142"];
     const { itemData } = useItemData(populateItems);
 
     if (!championData) {
@@ -23,17 +23,16 @@ const Profile = () => {
 
     return (
         <section className='profile'>
-            { /* Render a loader while champion data is being fetched */}
-            <section className='grid grid-cols-1 grid-rows-4 gap-2 lg:grid-rows-3 lg:grid-cols-5 lg:gap-4'>
-                <article className="row-span-1 lg:row-span-1 lg:col-span-5">
+            <section className='grid'>
+                <article>
                     <Header data={championData}></Header>
                 </article>
-                <article className="bg-deep-purple row-span-2 lg:row-span-2 lg:col-span-3">
+                <article className="bg-deep-purple">
                     <ItemDataContext.Provider value={itemData}>
                         <Section />
                     </ItemDataContext.Provider>
                 </article>
-                <article className="bg-deep-purple row-span-1 lg:row-span-2 lg:col-span-2">
+                <article className="bg-deep-purple">
                     <Sidebar></Sidebar>
                 </article>
             </section>

@@ -13,25 +13,29 @@ function Header(champion) {
     const AVATAR_HEIGHT = 90;
     const imgPath = useImgPathChampion();
 
+    if (!imgPath) {
+        return (
+            <>
+                <div className="loader-lg"></div>
+            </>
+        )
+    }
+
     return (
         <section className='p-6'>
-            {imgPath ? (
-                <div className="flex flex-row items-start">
-                    <Image
-                        src={`${imgPath}/${champion.data.path}`}
-                        alt={'icon'}
-                        width={AVATAR_WIDTH}
-                        height={AVATAR_HEIGHT}
-                        className='object-contain'
-                    />
-                    <div className="flex flex-col justify-start ml-2">
-                        <span className="title-profile-header block">{champion.data.name}</span>
-                        <span className="subheader-profile-header block">{champion.data.title}</span>
-                    </div>
+            <div className="flex flex-row items-start">
+                <Image
+                    src={`${imgPath}${champion.data.path}`}
+                    alt={'icon'}
+                    width={AVATAR_WIDTH}
+                    height={AVATAR_HEIGHT}
+                    className='object-contain'
+                />
+                <div className="flex flex-col justify-start ml-2">
+                    <span className="title-profile-header block">{champion.data.name}</span>
+                    <span className="subheader-profile-header block">{champion.data.title}</span>
                 </div>
-            ) : (
-                <div className="loader mx-auto w-full max-w-2xl flex justify-center items-center"></div>
-            )}
+            </div>
         </section>
     )
 }
