@@ -234,7 +234,6 @@ export const useTooltipHandlers = (items, event, itemId, tooltipRef) => {
             left: posX,
             animation: isMobileDevice() ? 'fadeIn 0.3s' : 'fadeIn 0.6s'
         })
-        console.log('MyComponent rendered');
     };
 
     const handleTooltipHidden = () => {

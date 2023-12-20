@@ -30,7 +30,11 @@
 }
 
 .feed {
-  @apply mx-auto w-full max-w-2xl flex flex-row gap-2;
+  @apply flex flex-col flex-grow items-center justify-center mx-auto w-full max-w-2xl gap-2;
+}
+
+.search {
+  @apply flex flex-row w-full gap-2;
 }
 
 .profile {
@@ -240,7 +244,7 @@
 }
 
 .profile .grid {
-  @apply flex flex-grow;
+  @apply flex flex-grow min-w-full;
   display: grid;
   grid-template-rows: auto; /* Each row takes only the space it needs */
   grid-template-columns: repeat(1, 1fr); /* One column layout for non-large devices */

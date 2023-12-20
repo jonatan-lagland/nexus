@@ -12,14 +12,16 @@ export default function Feed() {
 
     return (
         <section className="feed">
-            <Dropdown options={countries}></Dropdown>
+            <section className="search">
+                <Dropdown options={countries}></Dropdown>
 
-            {/* Render the SearchBar with a list of champions, populate with a placeholder if fails */}
-            <SearchBar
-                url={CHAMPION_URL}
-                placeholder={SEARCH_PLACEHOLDER}
-                options={championList ? (championList) : (error)}
-            />
+                {/* Render the SearchBar with a list of champions, populate with a placeholder if fails */}
+                <SearchBar
+                    url={CHAMPION_URL}
+                    placeholder={SEARCH_PLACEHOLDER}
+                    options={championList ? (championList) : (error)}
+                />
+            </section>
         </section>
     );
 }

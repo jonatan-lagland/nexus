@@ -7,15 +7,20 @@ function Section() {
 
     /* TODO: FOR TESTING PURPOSES ONLY. Remove placeholders after full integration with Rio API. */
     const populateAP = ["223087", "223124", "3006", "3115", "223089", "223157"];
-    const items = useContext(ItemDataContext);
+    const populateHybrid = ["223095", "223124", "3006", "3085", "223089", "223026"];
+    const populateAD = ["226672", "226675", "3006", "3046", "223072", "3036"];
 
 
-    const { apData } = useItemData(populateAP);
+    const { itemData: ap } = useItemData(populateAP);
+    const { itemData: hybrid } = useItemData(populateHybrid);
+    const { itemData: ad } = useItemData(populateAD);
+    const recommended = useContext(ItemDataContext);
 
     return (
         <section className="profile-grid-section">
-            <Items items={items} title="Recommended" />
-            <Items items={apData} title="AP" />
+            <Items items={hybrid} title="Recommended" />
+            <Items items={ap} title="Ability Power" />
+            <Items items={ad} title="Attack damage" />
         </section>
     );
 }

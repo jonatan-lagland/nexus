@@ -5,7 +5,6 @@ export const useItemData = (items) => {
     const [error, setError] = useState(null);
     const route = "/api/data/item/";
 
-
     /* DATA FETCHING GOES HERE */
     useEffect(() => {
         const fetchData = async () => {
@@ -24,34 +23,42 @@ export const useItemData = (items) => {
         }
     }, [route]);
 
+    /* RIOT DDRAGON API PARSING */
+
+    /* Extract a generic value, e.g. passive name */
     function extractValue(description, tag) {
         const regex = new RegExp(`<${tag}>(.*?)</${tag}>`, 'gi');
         const matches = regex.exec(description);
         return matches ? matches[1] : '';
     }
 
+    /* Extract a stat value that is not included as a damageMod, e.g. Tenacity */
     function extractStatValue(description, statName) {
         const regex = new RegExp(`<stats>.*?(<buffedStat>|<attention>)(\\d+%?)<\\/(buffedStat|attention)> ${statName}.*?<\\/stats>`, 's');
         const matches = regex.exec(description);
         return matches ? matches[2] : '';
     }
 
+    /* Extract an item's keyword "Active" description */
     function extractActiveValue(description) {
         const regex = /<\/active>(.*?)<br>/s;
         const matches = regex.exec(description);
         return matches ? matches[1] : '';
     }
 
+    /* Extract an item's keyword "Passive" description */
     function extractPassiveValue(description) {
         const regex = /<passive>(.*?)<br>/s;
         const matches = regex.exec(description);
         return matches ? matches[1] : '';
     }
 
+    /* Format decimal representation to percentage, e.g. 0.5 > 50% */
     function formatPercent(value) {
         return `${Math.round(value * 100)}%`;
     }
 
+    /* Remove <> tags from item descriptions */
     const removeHtmlTags = (str) => str.replace(/<[^>]*>/g, '');
 
     const processItemData = (data) => {
@@ -59,13 +66,11 @@ export const useItemData = (items) => {
             return null;
         }
 
-        /* A ton of parsing to make use of DDragon's data without having to rely on sanitizing HTML */
         /* TODO: Riot's API does not have official data on Critical Strike Damage among others, consider refractoring if this changes */
         /* TODO: If this breaks often, consider migrating to unofficial API, such as communitydragon.org, as it would remove the need for parsing */
 
         const filteredItems = items.filter(itemId => data.data[itemId]).map(itemId => {
             const itemDetails = data.data[itemId];
-            console.log(itemDetails)
             return {
                 id: itemId,
                 name: itemDetails.name,
@@ -101,6 +106,8 @@ export const useItemData = (items) => {
 
         return filteredItems;
     };
+
+    console.log(itemData)
 
     return { itemData, error };
 };

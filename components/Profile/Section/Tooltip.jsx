@@ -2,7 +2,6 @@ import { useRef } from 'react';
 import React from 'react';
 import { useTooltipHandlers } from '@utils/tooltipUtils';
 import TooltipData from './TooltipData';
-import { useEffect, useState } from 'react';
 
 const Tooltip = ({ items, event, itemId }) => {
 
