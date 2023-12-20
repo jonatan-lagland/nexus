@@ -4,8 +4,20 @@ const nextConfig = {
         serverComponentsExternalPackages: ["mongoose"],
     },
     images: {
-        domains: ['lh3.googleusercontent.com'],
-        domains: ['ddragon.leagueoflegends.com'],
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: 'ddragon.leagueoflegends.com',
+                port: '',
+                pathname: '**'
+            },
+            {
+                protocol: 'https',
+                hostname: 'lh3.googleusercontent.com',
+                port: '',
+                pathname: '**'
+            }
+        ]
     },
     webpack(config) {
         config.experiments = {
