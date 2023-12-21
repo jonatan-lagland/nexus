@@ -3,9 +3,9 @@ import React from 'react';
 import { useTooltipHandlers } from '@utils/tooltipUtils';
 import TooltipData from './TooltipData';
 
-const Tooltip = ({ items, event, itemId }) => {
+const Tooltip = ({ data, event, itemId }) => {
 
-    if (!items) return null;
+    if (!data) return null;
     if (!event) return null;
 
     const tooltipRef = useRef(null);
@@ -15,14 +15,14 @@ const Tooltip = ({ items, event, itemId }) => {
         arrowStyle,
         tooltipStyle,
         visibility,
-    } = useTooltipHandlers(items, event, itemId, tooltipRef);
+    } = useTooltipHandlers(data, event, itemId, tooltipRef);
 
     return (
         <>
             <div ref={tooltipRef} style={{ ...tooltipStyle, ...visibility }}>
                 <div style={{ ...arrowStyle, ...locationOfArrow }}></div>
                 <div className='tooltip-container'>
-                    <TooltipData data={items}></TooltipData>
+                    <TooltipData data={data}></TooltipData>
                 </div>
             </div>
         </>

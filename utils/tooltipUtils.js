@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 /* Tries to take available client space into consideration when positioning the tooltip */
 /* Tooltip is centered horizontally relative to the image by default */
 
-export const useTooltipHandlers = (items, event, itemId, tooltipRef) => {
+export const useTooltipHandlers = (data, event, itemId, tooltipRef) => {
 
     /* Tooltips are hidden by default */
     const [visibility, setVisibility] =
@@ -232,7 +232,7 @@ export const useTooltipHandlers = (items, event, itemId, tooltipRef) => {
             visibility: 'visible',
             top: posY,
             left: posX,
-            animation: isMobileDevice() ? 'fadeIn 0.3s' : 'fadeIn 0.6s'
+            animation: isMobileDevice() ? 'fadeIn 0.3s' : 'fadeIn 0.4s'
         })
     };
 
@@ -242,15 +242,12 @@ export const useTooltipHandlers = (items, event, itemId, tooltipRef) => {
 
     useEffect(() => {
         handleTooltipHidden();
-
         if (!tooltipRef.current) {
             return;
         }
 
         const showTooltip = event.type === "mouseover" || event.type === "touchstart";
-
-        if (showTooltip && items.id === itemId) {
-            // Set a delay before showing the tooltip
+        if (showTooltip && data.id === itemId) {
             handleTooltipVisible(event, tooltipRef);
         }
     }, [event]);
