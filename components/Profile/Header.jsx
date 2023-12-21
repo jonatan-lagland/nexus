@@ -7,7 +7,7 @@ import {
     useImgPathChampion,
 } from '@utils/paths';
 
-function Header(champion) {
+function Header({ champion }) {
 
     const AVATAR_WIDTH = 90;
     const AVATAR_HEIGHT = 90;

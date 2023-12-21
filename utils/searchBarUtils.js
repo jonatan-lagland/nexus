@@ -31,19 +31,15 @@ export const useSearchBarChange = (options, inputValue, setFilteredOptions, setD
             setFilteredOptions([]);
             return;
         }
-
         if (!options) {
             console.log(options)
             return;
         }
-
         /* COMBINEDSTRING:      Combine label and ID so both can be used in search, e.g. "Reksai" and "Rek'sai" are both valid inputs. */
         /* ISMATCH:             If user types the exact name, e.g. "Vi", make it have precedence over other champs that start with "Vi" like "Viktor". */
         /* STARTSWITHINPUT:     Prioritize the first letter, e.g. If user types the letter "S" the first result needs to be "Samira" not "Ak(s)han. */
 
         const MAX_LIMIT_OF_RESULTS = 3;
-
-
         const augmentedOptions = options.map(option => {
             const combinedString = `${option.id.toLowerCase()} ${option.name.toLowerCase()}`;
             const isMatch = combinedString === inputValue.toLowerCase();
@@ -57,28 +53,18 @@ export const useSearchBarChange = (options, inputValue, setFilteredOptions, setD
             };
         });
 
-
-
         const sortedOptions = augmentedOptions.sort((a, b) => {
             if (a.match) return -1;
             if (b.match) return 1;
             return b.priority - a.priority;
         });
 
-
-
-
         const filteredOptions = sortedOptions.filter(option =>
             option.combinedString.includes(inputValue.toLowerCase())
         ).slice(0, MAX_LIMIT_OF_RESULTS);
 
-        console.log(filteredOptions)
-
-
-
         setFilteredOptions(filteredOptions);
         setDropdownVisible(filteredOptions.length > 0);
-
 
     }, [inputValue, options, setDropdownVisible, setFilteredOptions]);
 };

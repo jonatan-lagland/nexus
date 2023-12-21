@@ -65,7 +65,7 @@ function Items({ items, title }) {
                                 className='object-fit'
                             />
                             <Tooltip
-                                items={items[index]}
+                                data={items[index]}
                                 event={event}
                                 itemId={tooltipitemId} />
                         </div>

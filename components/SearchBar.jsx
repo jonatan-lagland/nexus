@@ -88,7 +88,7 @@ const SearchBar = ({ url, placeholder, options }) => {
                                     {filteredOptions.map((option, index) => (
                                         <li key={option.name}>
                                             <div
-                                                onClick={() => handleOptionClick(option.name)}
+                                                onClick={() => handleOptionClick(option.id)}
                                                 className="dropdown_link hover:bg-gray-200 flex items-center"
                                                 tabIndex="0"
                                             >

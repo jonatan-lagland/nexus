@@ -23,16 +23,18 @@ The website's responsive design is achieved through the integration of Tailwind 
 
 ![Nexus Responsive Design](https://i.imgur.com/yNS1vGO.gif)
 
+_Players might want to know what specific items do. To accommodate this, a tooltip is displayed, either via tapping on a mobile device or hovering on a desktop device. The tooltip automatically adjusts its position with available screen space in mind._
+
 
 ### Modularity
 
-The website is built with a key emphasis on modularity to enhance code reusability across the project. Below is a code snippet for the tooltip shown in the GIF above. It receives three props: **data**, **event**, and **itemId**.
+The website is built with a key emphasis on modularity to enhance code reusability — a characteristic of React-based development. Below is a code snippet for the tooltip shown in the GIF above. It receives three props: **data**, **event**, and **itemId**.
 
 * **data:** Data that will be displayed inside the tooltip.
 * **event:** Refers to a browser event, which is used to trigger the display of a tooltip. An event might occur when a user taps on something.
 * **itemId:** An identifier for the specific item for which the tooltip is being displayed for. In our case, the item is an image.
 
-The information is passed to a handler, which will take care of the tooltip's style and location on the viewport. These styles are assigned to a div that represents the tooltip. Then, the actual presentation of the data at hand, whatever it might be, is handled in another component. 
+The information is passed to a custom hook, which will take care of the tooltip's style and location on the viewport. These styles are assigned to a div that represents the tooltip. Then, the actual presentation of the data at hand, whatever it might be, is handled in another component. As such, the Tooltip component is only concerned with rendering logic.
         
     const Tooltip = ({ data, event, itemId }) => {
 

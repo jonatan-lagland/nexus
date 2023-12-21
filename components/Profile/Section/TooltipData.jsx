@@ -67,8 +67,8 @@ export default function TooltipData({ data }) {
                         src={`/assets/icons/stats/Gold.png`}
                         alt={'Gold'}
                         width={20}
-                        height={20}
-                        style={{ width: '20px', height: '15px' }}
+                        height={15}
+                        style={{ width: 'auto', height: '15px' }}
                     />
                     <p className='text-sm ms-1'>{data.gold}</p>
                 </div>
