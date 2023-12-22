@@ -31,8 +31,6 @@ function Items({ items, title }) {
         }
     };
 
-    {/* Ensure image path has been set before data fetching. Ensure items have been mapped. Conditionally render a loader if needed.*/ }
-
     if (!imgPath || !items) {
         return (
             <>

@@ -11,7 +11,6 @@ export const useItemData = (items) => {
             try {
                 const response = await fetch(route);
                 const result = await response.json();
-                console.log(result.response)
                 setItemData(processItemData(result.response));
             } catch (err) {
                 setError('Failed to fetch data.');
@@ -106,8 +105,5 @@ export const useItemData = (items) => {
 
         return filteredItems;
     };
-
-    console.log(itemData)
-
     return { itemData, error };
 };

@@ -9,15 +9,28 @@ import { useItemData } from '@utils/item'
 import ItemDataContext from '@utils/itemDataContext';
 
 const Profile = () => {
+
+
     const { championData, error } = useChampionData(useParams().Id);
+
+
     const populateItems = ["3026", "223111", "223152", "6694", "223107", "223142"];
     const { itemData } = useItemData(populateItems);
 
     if (!championData) {
         return (
-            <>
-                <div className="loader-lg"></div>
-            </>
+            <section className='profile'>
+                <section className='grid'>
+                    <article>
+                    </article>
+                    <article className="bg-deep-purple">
+                        <div className='shimmer-effect'></div>
+                    </article>
+                    <article className="bg-deep-purple">
+                        <div className='shimmer-effect'></div>
+                    </article>
+                </section>
+            </section>
         )
     }
 

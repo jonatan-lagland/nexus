@@ -38,7 +38,7 @@
 }
 
 .profile {
-  @apply relative flex flex-grow items-center flex-col my-5;
+  @apply relative flex flex-grow flex-row my-5 w-full justify-center;
 }
 
 .black_btn {
@@ -67,30 +67,6 @@
 
 .copy_btn {
   @apply w-7 h-7 rounded-full bg-white/10 shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.2)] backdrop-blur flex justify-center items-center cursor-pointer;
-}
-
-.grid_container {
-  display: grid;
-  grid-template-columns: 1.25fr 1fr;
-  grid-template-rows: 1fr 2fr;
-  grid-template-areas: 
-    "header header"
-    "main sidebar";
-}
-
-.grid_header {
-  grid-area: header;
-  background-color: lightblue;
-}
-
-.grid_section {
-  grid-area: main;
-  background-color: lightgreen;
-}
-
-.grid_sidebar {
-  grid-area: sidebar;
-  background-color: lightcoral;
 }
 
 .form_textarea {
@@ -150,7 +126,6 @@
 }
 
 .loader-lg {
-  @apply mx-auto w-full max-w-2xl flex justify-center items-center;
   border: 5px solid #d3d3d3;
   border-top: 5px solid var(--cosmic-cobalt);
   border-radius: 50%;
@@ -239,22 +214,19 @@
   background-color: 'var(--dark-cosmic)';
 }
 
-.profile-grid-section {
-  @apply flex flex-col justify-center items-center p-10 gap-4;
-}
 
 .profile .grid {
-  @apply flex flex-grow min-w-full;
+  @apply w-full;
   display: grid;
-  grid-template-rows: auto; /* Each row takes only the space it needs */
+  grid-template-rows: 1fr 2fr 2fr; /* Each row takes only the space it needs */
   grid-template-columns: repeat(1, 1fr); /* One column layout for non-large devices */
   gap: 2px;
 }
 
 @media (min-width: 1024px) {
   .profile .grid {
-      /* Adjust the template rows to allocate space */
-      grid-template-rows: min-content 1fr 1fr; /* Adjust as needed */
+      @apply w-full max-w-7xl;
+      grid-template-rows: 1fr 2fr 2fr;
       grid-template-columns: repeat(5, 1fr);
       gap: 4px;
   }
@@ -274,7 +246,33 @@
       grid-column: 4 / 6; /* Sidebar takes up last two columns */
   }
 }
+
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -40rem 0;
+  }
+  100% {
+    background-position: 40rem 0;
+  }
+}
+
+.profile-grid-section {
+  @apply flex flex-col flex-grow justify-center items-center p-10 gap-4;
+}
+
+.shimmer-effect {
+  @apply h-full w-full;
+  animation: shimmer 1.25s infinite linear;
+  background: linear-gradient(
+    to right, 
+    rgba(255, 255, 255, 0) 15%, 
+    rgba(75, 99, 163, 0.25) 50%, /* Midpoint with color */
+    rgba(255, 255, 255, 0) 85%
+  );
+  background-size: 80rem 100%;
 }
