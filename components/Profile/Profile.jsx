@@ -7,15 +7,19 @@ import { useParams } from 'next/navigation'
 import { useChampionData } from '@utils/champion';
 import { useItemData } from '@utils/item'
 import ItemDataContext from '@utils/itemDataContext';
+import PageNotFound from '@components/PageNotFound';
 
 const Profile = () => {
-
-
     const { championData, error } = useChampionData(useParams().Id);
-
-
     const populateItems = ["3026", "223111", "223152", "6694", "223107", "223142"];
     const { itemData } = useItemData(populateItems);
+
+
+    if (error) {
+        return (
+            <PageNotFound></PageNotFound>
+        )
+    }
 
     if (!championData) {
         return (
@@ -52,5 +56,4 @@ const Profile = () => {
         </section>
     )
 }
-
 export default Profile

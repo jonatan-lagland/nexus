@@ -10,10 +10,14 @@ export const useChampionData = (championName) => {
         const fetchData = async () => {
             try {
                 const response = await fetch(`${route}/${championName}`);
+                if (!response.ok) {
+                    throw new Error('Network response failed');
+                }
                 const result = await response.json();
                 setChampionData(processChampionData(result.response));
             } catch (err) {
-                setError('Failed to fetch data.');
+                console.log(err.message)
+                setError(err.message);
             }
         };
 
@@ -40,7 +44,6 @@ export const useChampionData = (championName) => {
         }));
         return obj[0];
     };
-
 
     return { championData, error };
 };
