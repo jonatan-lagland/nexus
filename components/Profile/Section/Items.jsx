@@ -47,9 +47,10 @@ function Items({ items, title }) {
             <div className="container-items">
                 {items.map((item, index) => (
                     <div
+                        key={index}
                         className='flex flex-row items-center my-1 mx-1 relative'>
                         <div
-                            key={index}
+                            key={items[index]}
                             onMouseOver={handleMouseHover(item)}
                             onMouseLeave={handleMouseHover(item)}
                             className='flex flex-col'
@@ -59,7 +60,6 @@ function Items({ items, title }) {
                                 alt={`Item ${item.name}`}
                                 width={AVATAR_WIDTH}
                                 height={AVATAR_HEIGHT}
-                                quality={100}
                                 className='object-fit'
                             />
                             <Tooltip
