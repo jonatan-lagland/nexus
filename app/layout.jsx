@@ -1,8 +1,7 @@
 import "@styles/globals.css";
 
 import Nav from "@components/Nav";
-import Provider from "@components/Provider";
-import SearchBarContextProvider from "@utils/searchBarContext";
+import { ChampionProvider } from "@utils/ChampionContext";
 
 export const metadata = {
     title: "Website",
@@ -11,16 +10,14 @@ export const metadata = {
 const RootLayout = ({ children }) => (
     <html lang='en'>
         <body className="flex flex-col min-h-screen bg-charcoal">
-            <Provider>
-                <SearchBarContextProvider>
-                    <header className='header'>
-                        <Nav />
-                    </header>
-                    <main className="app">
-                        {children}
-                    </main>
-                </SearchBarContextProvider>
-            </Provider>
+            <ChampionProvider>
+                <header className='header'>
+                    <Nav />
+                </header>
+                <main className="app">
+                    {children}
+                </main>
+            </ChampionProvider>
         </body>
     </html>
 );

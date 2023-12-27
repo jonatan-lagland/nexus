@@ -5,12 +5,15 @@ import Section from '@components/Profile/Section/Section'
 import Sidebar from '@components/Profile/Sidebar'
 import { useParams } from 'next/navigation'
 import { useChampionData } from '@utils/champion';
+import { ChampionContext } from '@utils/ChampionContext';
 import { useItemData } from '@utils/item'
 import ItemDataContext from '@utils/itemDataContext';
 import { useErrorHandler } from '@utils/errorUtils';
+import { useContext } from 'react';
 
 const Profile = () => {
-    const { championData, error } = useChampionData(useParams().Id);
+    const { championList } = useContext(ChampionContext);
+    const { championData, error } = useChampionData(useParams().Id, championList);
     const errorHandler = useErrorHandler(error);
     const populateItems = ["3026", "223111", "223152", "6694", "223107", "223142"];
     const { itemData } = useItemData(populateItems);
