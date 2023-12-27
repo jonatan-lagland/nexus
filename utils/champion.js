@@ -11,13 +11,14 @@ export const useChampionData = (championName) => {
             try {
                 const response = await fetch(`${route}/${championName}`);
                 if (!response.ok) {
-                    throw new Error('Network response failed');
+                    const error = new Error('Network response failed');
+                    error.status = response.status;
+                    throw error;
                 }
                 const result = await response.json();
                 setChampionData(processChampionData(result.response));
             } catch (err) {
-                console.log(err.message)
-                setError(err.message);
+                setError(err);
             }
         };
 

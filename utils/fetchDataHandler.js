@@ -1,18 +1,27 @@
 import path from '@data/path.json';
 
-
-/* Fetch JSON data from a specified url (Riot Games DDragon API) */
-
 async function fetchDataHandler(folder, subfolders = "", route, format) {
-
     const url = `${path.address}/${path.cdn}/${path.patch}/${folder}/${path.language}${subfolders ? `/${subfolders}` : ''}/${route}.${format}`;
+
     try {
         const query = await fetch(url);
+
+        if (!query.ok) { // Check if the response was not ok
+            return {
+                status: query.status,
+                error: `Failed to load data. Status: ${query.status}`
+            };
+        }
+
         const response = await query.json();
         return { status: 200, response };
     } catch (err) {
-        console.log(url)
-        return { status: 500, error: 'Failed to load data.' };
+        // This is likely a network error
+        console.log(`Error fetching data from ${url}:`, err);
+        return {
+            status: 'Network Error',
+            error: 'Network error or unable to reach the server.'
+        };
     }
 }
 
