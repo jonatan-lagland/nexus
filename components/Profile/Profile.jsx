@@ -7,19 +7,15 @@ import { useParams } from 'next/navigation'
 import { useChampionData } from '@utils/champion';
 import { useItemData } from '@utils/item'
 import ItemDataContext from '@utils/itemDataContext';
-import PageNotFound from '@components/PageNotFound';
+import { useErrorHandler } from '@utils/errorUtils';
 
 const Profile = () => {
     const { championData, error } = useChampionData(useParams().Id);
+    const errorHandler = useErrorHandler(error);
     const populateItems = ["3026", "223111", "223152", "6694", "223107", "223142"];
     const { itemData } = useItemData(populateItems);
 
-
-    if (error) {
-        return (
-            <PageNotFound></PageNotFound>
-        )
-    }
+    if (errorHandler) { return (errorHandler) }
 
     if (!championData) {
         return (

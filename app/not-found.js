@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 
-const PageNotFound = () => {
+export default function NotFound() {
     return (
         <section className='pageNotFound'>
             <div className="flex flex-row flex-grow w-full justify-center items-center">
@@ -19,5 +19,3 @@ const PageNotFound = () => {
         </section>
     );
 };
-
-export default PageNotFound;
