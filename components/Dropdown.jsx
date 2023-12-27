@@ -62,11 +62,11 @@ const Dropdown = ({ options }) => {
             {/* Visibility of the dropdown is handled in CSS by changing the classname*/}
             <section
                 ref={dropdownRef}
-                className={`dropdown_menu my-1
+                className={`dropdown_menu_small
                           ${isDropdownVisible ? '' : 'dropdown_hidden'}`}
             >
                 {isDropdownVisible && (
-                    <ul>
+                    <ul className="min-w-max">
                         {options.map((option) => (
                             <li
                                 tabIndex="0"
@@ -81,13 +81,13 @@ const Dropdown = ({ options }) => {
                                 }}
                             >
                                 <Image
+                                    className="h-auto w-auto"
                                     src={option.logo}
                                     width={DROPDOWN_MENU_ICON_WIDTH}
                                     height={DROPDOWN_MENU_ICON_HEIGHT}
                                     alt={option.label}
-                                    style={{ width: "auto" }}
                                 />
-                                <span>{option.label}</span>
+                                <p>{option.label}</p>
                             </li>
                         ))}
                     </ul>

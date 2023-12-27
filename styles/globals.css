@@ -139,8 +139,12 @@
   @apply flex justify-end w-20 truncate rounded-sm border text-zinc-700 border-gray-200 bg-white py-2.5 font-satoshi px-3 text-sm shadow-lg font-semibold cursor-pointer;
 }
 
+.dropdown_menu_small {
+  @apply flex absolute z-10 my-2 rounded-sm whitespace-nowrap border text-gray-500 border-gray-200 bg-white md:py-2.5 font-inter md:px-3 text-sm shadow-lg;
+}
+
 .dropdown_menu {
-  @apply absolute z-10 w-full my-2 rounded-sm truncate border text-gray-500 border-gray-200 bg-white md:py-2.5 font-inter md:px-3 text-sm shadow-lg;
+  @apply flex absolute min-w-full z-10 my-2 rounded-sm truncate border text-gray-500 border-gray-200 bg-white md:py-2.5 font-inter md:px-3 text-sm shadow-lg;
   overflow-y: auto;
   max-height: 40vh;
 }
@@ -152,7 +156,7 @@
 }
 
 .dropdown_link {
-  @apply relative text-sm font-satoshi py-1 space-x-1 text-gray-700 hover:text-gray-500 font-medium cursor-pointer;
+  @apply flex flex-row justify-items-end text-sm font-satoshi py-1 space-x-1 text-gray-700 hover:text-gray-500 font-medium cursor-pointer;
 }
 
 .dropdown_items {
