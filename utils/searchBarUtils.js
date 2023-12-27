@@ -32,9 +32,10 @@ export const useSearchBarChange = (options, inputValue, setFilteredOptions, setD
             return;
         }
         if (!options) {
-            console.log(options)
             return;
         }
+        console.log(options)
+
         /* COMBINEDSTRING:      Combine label and ID so both can be used in search, e.g. "Reksai" and "Rek'sai" are both valid inputs. */
         /* ISMATCH:             If user types the exact name, e.g. "Vi", make it have precedence over other champs that start with "Vi" like "Viktor". */
         /* STARTSWITHINPUT:     Prioritize the first letter, e.g. If user types the letter "S" the first result needs to be "Samira" not "Ak(s)han. */
