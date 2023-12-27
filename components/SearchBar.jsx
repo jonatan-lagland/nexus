@@ -69,13 +69,13 @@ const SearchBar = ({ url, placeholder, options }) => {
                 {/* Visibility of the dropdown is handled in CSS by changing the classname*/}
                 <section
                     ref={dropdownRef}
-                    className={`dropdown_menu w-full my-1
+                    className={`dropdown_menu
                               ${isDropdownVisible ? '' : 'dropdown_hidden'}`}
                 >
 
 
                     {isDropdownVisible && (
-                        <ul className="w-full p-2">
+                        <ul className="dropdown_items">
                             { /* Conditionally render a title based on available results */}
                             {filteredOptions.length === 0 ? (
                                 <span className="dropdown_title">No results found.</span>
@@ -93,7 +93,7 @@ const SearchBar = ({ url, placeholder, options }) => {
                                                 tabIndex="0"
                                             >
                                                 <Image
-                                                    className="border-2 border-dark-grey"
+                                                    className="border-2 border-dark-grey w-12 h-12 md:w-16 md:h-16"
                                                     src={option.path}
                                                     width={DROPDOWN_MENU_ICON_WIDTH}
                                                     height={DROPDOWN_MENU_ICON_HEIGHT}

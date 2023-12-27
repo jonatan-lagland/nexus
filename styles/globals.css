@@ -22,15 +22,39 @@
 }
 
 .app {
-  @apply relative flex flex-grow items-center flex-col mx-auto px-2 my-3 min-w-full overflow-hidden;
+  @apply relative flex flex-grow items-center flex-col min-w-full overflow-hidden;
 }
 
 .header {
-  @apply relative flex py-1 mx-auto px-16  bg-gray-500 min-w-full;
+  @apply relative flex mx-auto py-3 px-3 md:px-12 md:py-8 bg-deep-purple min-w-full;
 }
 
 .feed {
-  @apply flex flex-col flex-grow items-center justify-center mx-auto w-full max-w-2xl gap-2;
+  @apply flex flex-col flex-grow items-center w-full max-w-2xl gap-2 mt-36 mb-5 md:mt-0 p-3 md:justify-center;
+  overflow: hidden;
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('/assets/images/ionia-wallpaper-2.jpg');
+    background-position: center;
+    background-size: cover;
+    filter: brightness(40%) saturate(90%);
+    z-index: -1; /* Ensures the background is behind the content */
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle, transparent, rgba(5, 26, 33, 1) 50%);
+    z-index: -1; /* Ensures the gradient is also behind the content */
+  }
 }
 
 .search {
@@ -39,6 +63,36 @@
 
 .profile {
   @apply relative flex flex-grow flex-row my-5 w-full justify-center;
+}
+
+.pageNotFound {
+  @apply relative flex flex-grow flex-col w-full items-center py-20;
+  overflow: hidden;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('/assets/images/ionia-wallpaper-2.jpg');
+    background-position: center;
+    background-size: cover;
+    filter: brightness(40%) saturate(90%);
+    z-index: -1; /* Ensures the background is behind the content */
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle, transparent, rgba(5, 26, 33, 1) 50%);
+    z-index: -1; /* Ensures the gradient is also behind the content */
+  }
 }
 
 .black_btn {
@@ -58,7 +112,7 @@
 }
 
 .search_input {
-  @apply rounded-md border border-gray-200 bg-white py-2.5 font-satoshi pl-5 pr-12 text-sm shadow-lg font-medium focus:border-black focus:outline-none focus:ring-0;
+  @apply rounded-sm border border-gray-200 bg-white py-2.5 font-satoshi pl-5 pr-12 text-sm shadow-lg font-medium focus:border-black focus:outline-none focus:ring-0;
 }
 
 .search-icon {
@@ -82,19 +136,31 @@
 }
 
 .dropdown {
-  @apply flex justify-end w-20 truncate rounded-md border text-gray-500 border-gray-200 bg-white py-2.5 font-satoshi px-3 text-sm shadow-lg font-semibold cursor-pointer;
+  @apply flex justify-end w-20 truncate rounded-sm border text-zinc-700 border-gray-200 bg-white py-2.5 font-satoshi px-3 text-sm shadow-lg font-semibold cursor-pointer;
 }
 
 .dropdown_menu {
-  @apply flex absolute z-10 min-w-max truncate rounded-md border text-gray-500 border-gray-200 bg-white py-2.5 font-satoshi px-3 text-sm shadow-lg;
+  @apply absolute z-10 w-full my-2 rounded-sm truncate border text-gray-500 border-gray-200 bg-white md:py-2.5 font-inter md:px-3 text-sm shadow-lg;
+  overflow-y: auto;
+  max-height: 40vh;
+}
+
+@media (min-width: 768px) { /* Adjust '768px' based on your specific breakpoint for medium devices */
+  .dropdown_menu {
+    max-height: 32vh; /* Max-height for medium devices and larger */
+  }
 }
 
 .dropdown_link {
-  @apply flex flex-row justify-items-end text-sm font-satoshi p-1 space-x-2 text-gray-700 hover:text-gray-500 font-medium cursor-pointer;
+  @apply relative text-sm font-satoshi py-1 space-x-1 text-gray-700 hover:text-gray-500 font-medium cursor-pointer;
+}
+
+.dropdown_items {
+  @apply w-full p-3;
 }
 
 .dropdown_title {
-  @apply flex flex-row p-2 m-0;
+  @apply ps-3;
 }
 
 .dropdown_horizontal_line {
@@ -122,7 +188,7 @@
 }
 
 .search-list-item {
-  @apply font-inter text-dark-grey ps-3
+  @apply font-satoshi text-dark-grey ps-3
 }
 
 .loader-lg {
