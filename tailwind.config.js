@@ -23,6 +23,7 @@ module.exports = {
         'navy-blue': '#281F74',
         'deep-purple': '#303554',
         'cosmic-cobalt': '#4B63A3',
+        'cosmic-purple': '#101041',
         'dark-cosmic': '#0E265C',
         'viola': '#916BBF',
         'rose': '#C996CC',

@@ -13,6 +13,13 @@
   --cosmic-cobalt: theme('colors.cosmic-cobalt');
   --cream: theme('colors.cream');
   --dark-cosmic: theme('colors.dark-cosmic');
+  --cosmic-purple: theme('colors.cosmic-purple');
+  --navy-blue: theme('colors.navy-blue');
+  --rose: theme('colors.rose');
+  --viola: theme('colors.viola');
+  --deep-purple: theme('colors.deep-purple');
+  --charcoal: theme('colors.charcoal');
+  --dark-grey: theme('colors.dark-grey');
 }
 
 @media screen and (max-width: 640px) {
@@ -26,7 +33,11 @@
 }
 
 .header {
-  @apply relative flex mx-auto py-3 px-3 md:px-12 md:py-8 bg-deep-purple min-w-full;
+  @apply relative flex mx-auto py-3 px-3 md:px-12 md:py-8 min-w-full shadow-md;
+  background-image: linear-gradient(to right, 
+    var(--charcoal) 0%, 
+    var(--dark-grey) 50%,
+    var(--charcoal) 100%);
 }
 
 .feed {
