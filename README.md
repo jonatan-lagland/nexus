@@ -71,7 +71,7 @@ Test automation is used in order to maintain the expected operability of various
 #### Unit tests
 
 - **Asynchronous Testing**: Unit tests in this project are designed to handle async operations, ensuring handling of promises and async/await patterns.
-- **Mocking and Spies**: Used to isolate tests from external dependencies with the use of Jest's mocking capabilities.
+- **Mocking and Spies**: Unit tests in this project are also used to isolate tests from external dependencies with the use of Jest's mocking capabilities.
 
 Below is an example of a unit test to handle a timeout in the event of Riot Games' API being down:
 
