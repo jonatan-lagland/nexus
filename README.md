@@ -8,6 +8,7 @@ The project will be deployed as a website once all core features have been imple
 - Next.js (and React.js)
 - Tailwind CSS
 - JavaScript
+- Jest
 
 ## Core features
 
