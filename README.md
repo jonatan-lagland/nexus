@@ -66,7 +66,7 @@ The information is passed to a custom hook, which will take care of the tooltip'
 
 ### Test automation
 
-Test automation is used in order to maintain the expected operability of various parts of the codebase as the project grows. Unit tests are writen using Jest and automated with GitHub Actions.
+Test automation is used in order to maintain the expected operability of various parts of the codebase as the project grows. Unit tests are written using Jest and automated with GitHub Actions.
 
 #### Unit tests
 
