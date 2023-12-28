@@ -63,6 +63,35 @@ The information is passed to a custom hook, which will take care of the tooltip'
     export default Tooltip;
 
 
+### Unit tests
+
+Unit tests are used in order to maintain the expected operability of various parts of the codebase as the project grows. Unit tests are handled using Jest.
+
+#### Key points
+
+- **Asynchronous Testing**: Tests are designed to handle async operations, ensuring handling of promises and async/await patterns.
+- **Mocking and Spies**: Isolate tests from external dependencies with the use of Jest's mocking capabilities.
+
+Below is an example of a unit test to handle a timeout in the event of Riot Games' API being down:
+
+    it('should handle network failure when fetching champion data reaches set time limit', async () => {
+        // Mock fetch to delay indefinitely
+        jest.spyOn(global, 'fetch').mockImplementation(() =>
+            new Promise(resolve => {
+                // Do not resolve or reject to simulate a delayed response
+            })
+        );
+
+        // Data handler allows timeouts, set to 2000 ms
+        const result = await fetchDataHandler('data', 'champion', 'fiora', 'json', '2000');
+        expect(result).toEqual({ status: 408, error: 'We were unable to resolve a response from Riot Games API. Please try again later.' });
+
+        // Restore fetch to its original implementation
+        global.fetch.mockRestore();
+    });
+
+**Result:**
+  *√ should handle network failure when fetching champion data reaches set time limit (2002 ms)*
 ### Other features
 
 - Page navigation using Next.js page routing, including dynamic routing
