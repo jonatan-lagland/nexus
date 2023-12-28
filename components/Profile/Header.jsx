@@ -13,8 +13,6 @@ function Header({ data }) {
     const AVATAR_HEIGHT = 90;
     const imgPath = useImgPathChampion();
 
-    console.log(data)
-
     if (!imgPath || !data) {
         return null;
     }

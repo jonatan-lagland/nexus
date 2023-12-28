@@ -6,7 +6,7 @@ export default async function handler(req, res) {
     const subfolders = "champion";
     const format = "json";
 
-    const result = await fetchDataHandler(folder, subfolders, route, format);
+    const result = await fetchDataHandler(folder, subfolders, route, format, 7000);
 
     res.status(result.status).json(result.status === 200 ? { response: result.response } : { error: result.error });
 }

@@ -30,7 +30,7 @@ export const useChampionData = (championName, championList) => {
 
     // Make sure the URL matches wider championList context to avoid unnecessary API calls to incorrect endpoints
     const verifyChampionExists = (championName, championList) => {
-        const isChampionValid = championList.some(champ => champ.name === championName);
+        const isChampionValid = championList.some(champ => champ.name === championName || champ.id === championName);
         if (!isChampionValid) {
             const error = new Error(`We couldn't find your champion.`);
             error.status = 404;
@@ -40,30 +40,17 @@ export const useChampionData = (championName, championList) => {
 
     // Fetch champion data 
     const attemptFetch = async (championName) => {
-        const route = "/api/data/champion/";
-        const timeoutDuration = 7000; // 7 seconds
-
-        // Throw a timeout error if data fetching hasn't been resolved within time limit
-        const timeout = new Promise((_, reject) => {
-            setTimeout(() => {
-                const error = new Error('We were unable to resolve a response from Riot Games API. Please try again later.');
-                error.status = 408; // HTTP status code for Request Timeout
-                reject(error);
-            }, timeoutDuration);
-        });
-
-        const fetchPromise = fetch(`${route}/${championName}`).then(response => {
+        const route = `/api/data/champion/${championName}`;
+        const response = fetch(route).then(response => {
             if (!response.ok) {
-                const error = new Error(`Network response failed. Try again later.`);
+                const error = new Error(response.json.error);
                 error.status = response.status;
                 throw error;
             }
             return response.json();
         });
-
-        return Promise.race([fetchPromise, timeout]);
+        return response;
     };
-
 
     // Turn fetched data into a readily readable object
     const processChampionData = (data) => {
