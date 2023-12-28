@@ -39,8 +39,6 @@ The information is passed to a custom hook, which will take care of the tooltip'
         
     const Tooltip = ({ data, event, itemId }) => {
 
-        if (!data) return null;
-        if (!event) return null;
         const tooltipRef = useRef(null);
 
         const {
@@ -49,6 +47,8 @@ The information is passed to a custom hook, which will take care of the tooltip'
             tooltipStyle,
             visibility,
         } = useTooltipHandlers(data, event, itemId, tooltipRef);
+
+        if (!data || !event) return null;
 
         return (
             <>
