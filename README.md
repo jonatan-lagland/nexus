@@ -64,14 +64,14 @@ The information is passed to a custom hook, which will take care of the tooltip'
     export default Tooltip;
 
 
-### Unit tests
+### Test automation
 
-Unit tests are used in order to maintain the expected operability of various parts of the codebase as the project grows. Unit tests are handled using Jest.
+Test automation is used in order to maintain the expected operability of various parts of the codebase as the project grows. Unit tests are writen using Jest and automated with GitHub Actions.
 
-#### Key points
+#### Unit tests
 
-- **Asynchronous Testing**: Tests are designed to handle async operations, ensuring handling of promises and async/await patterns.
-- **Mocking and Spies**: Isolate tests from external dependencies with the use of Jest's mocking capabilities.
+- **Asynchronous Testing**: Unit tests in this project are designed to handle async operations, ensuring handling of promises and async/await patterns.
+- **Mocking and Spies**: Used to isolate tests from external dependencies with the use of Jest's mocking capabilities.
 
 Below is an example of a unit test to handle a timeout in the event of Riot Games' API being down:
 
