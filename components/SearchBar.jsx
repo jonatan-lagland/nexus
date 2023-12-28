@@ -45,7 +45,7 @@ const SearchBar = ({ url, placeholder, options }) => {
         if (selectedOption.length > 0) {
             router.push(`${url}/${selectedOption}`)
         }
-    }, [selectedOption]);
+    }, [selectedOption, router, url]);
 
     return (
         <>

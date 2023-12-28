@@ -5,9 +5,6 @@ import TooltipData from './TooltipData';
 
 const Tooltip = ({ data, event, itemId }) => {
 
-    if (!data) return null;
-    if (!event) return null;
-
     const tooltipRef = useRef(null);
 
     const {
@@ -16,6 +13,8 @@ const Tooltip = ({ data, event, itemId }) => {
         tooltipStyle,
         visibility,
     } = useTooltipHandlers(data, event, itemId, tooltipRef);
+
+    if (!data || !event) return null;
 
     return (
         <>
