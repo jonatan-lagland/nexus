@@ -73,7 +73,7 @@ Test automation is used in order to maintain the expected operability of various
 - **Asynchronous Testing**: Unit tests in this project are designed to handle async operations, ensuring handling of promises and async/await patterns.
 - **Mocking and Spies**: Unit tests in this project are also used to isolate tests from external dependencies with the use of Jest's mocking capabilities.
 
-Below is an example of a unit test to handle a timeout in the event of Riot Games' API being down:
+Below is an example of a unit test used to handle a timeout in the event of Riot Games' API being down. The handler takes arguments for Riot Games API endpoint details, and optionally, a timeout duration. In the example, a 2 second timeout is set to see whether the handler will return a 408 Request Timeout error once the time limit has been reached.
 
     it('should handle network failure when fetching champion data reaches set time limit', async () => {
         // Mock fetch to delay indefinitely
