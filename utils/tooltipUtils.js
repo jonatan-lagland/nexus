@@ -254,3 +254,23 @@ export const useTooltipHandlers = (data, event, itemId, tooltipRef) => {
 
     return { locationOfArrow, arrowStyle, tooltipStyle, visibility };
 };
+
+
+// Saves the value of the hovered item ID and the event type so they can be passed to other components
+export const useItemHover = () => {
+    const [tooltipItemId, setTooltipItemId] = useState(null);
+    const [event, setEvent] = useState(null);
+
+    const handleMouseHover = (item) => (e) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        setEvent({ type: e.type, currentTargetRect: rect });
+
+        if (e.type === "mouseover") {
+            setTooltipItemId(item.id);
+        } else if (e.type === "mouseleave") {
+            setTooltipItemId(null);
+        }
+    };
+
+    return { handleMouseHover, tooltipItemId, event };
+};

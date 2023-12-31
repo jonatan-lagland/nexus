@@ -4,6 +4,7 @@ import Image from 'next/image';
 import {
     useImgPathItem,
 } from '@utils/paths';
+import { useItemHover } from '@utils/tooltipUtils';
 
 import Tooltip from '@components/Profile/Section/Tooltip';
 
@@ -12,24 +13,7 @@ function Items({ items, title }) {
     const AVATAR_HEIGHT = 64;
 
     const imgPath = useImgPathItem();
-
-    const [event, setEvent] = useState(null);
-    const [tooltipItem, setTooltipItem] = useState(null);
-    const [tooltipitemId, setTooltipItemId] = useState(null);
-
-    const handleMouseHover = (item) => (e) => {
-        const rect = e.currentTarget.getBoundingClientRect();
-        setEvent({ type: e.type, currentTargetRect: rect });
-
-        if (e.type === "mouseover") {
-            setTooltipItem(item);
-            setTooltipItemId(item.id)
-        }
-        if (e.type === "mouseleave") {
-            setTooltipItem(null);
-            setTooltipItemId(null);
-        }
-    };
+    const { handleMouseHover, tooltipItemId, event } = useItemHover();
 
     if (!imgPath || !items) {
         return (
@@ -65,7 +49,7 @@ function Items({ items, title }) {
                             <Tooltip
                                 data={items[index]}
                                 event={event}
-                                itemId={tooltipitemId} />
+                                itemId={tooltipItemId} />
                         </div>
                         {index < items.length - 1 && <div className='arrow'></div>}
                     </div>
