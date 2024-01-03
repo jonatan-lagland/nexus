@@ -1,4 +1,6 @@
 import React from 'react'
+import Image from 'next/image';
+import Tooltip from './Tooltip';
 
 function Runes({ runes, title }) {
 
