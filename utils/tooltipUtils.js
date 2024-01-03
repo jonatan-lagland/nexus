@@ -171,7 +171,7 @@ export const useTooltipHandlers = (data, event, itemId, tooltipRef) => {
         let spaceAbove = parentRect.top + buffer;   // Available empty screen space above tooltip
         let spaceBelow = windowHeight - (parentRect.top); // Available empty screen space below tooltip
 
-        /* If tooltip overflows at the top of "main" but not the DOCUMENT'S BOTTOM. NOT CLIENT AKA WINDOW SIZE. */
+        /* If tooltip overflows at the top of "main" but not the document's bottom: set tooltip below the hovered item */
         if (isOverflowingTop && !isOverflowingBottomDocument) {
             setLocationOfArrow(prevState => {
                 return {
@@ -182,7 +182,7 @@ export const useTooltipHandlers = (data, event, itemId, tooltipRef) => {
             return tooltipBelowParent;
         }
 
-        /* If tooltip overflows bottom but not top */
+        /* If tooltip overflows bottom of the document but not top of the document's "main" section: set tooltip above the hovered item */
         if (isOverflowingBottom && !isOverflowingTop) {
             setLocationOfArrow(prevState => {
                 return {
@@ -193,7 +193,7 @@ export const useTooltipHandlers = (data, event, itemId, tooltipRef) => {
             return tooltipAboveParent;
         }
 
-        /* If there's no overflow detected, check which side of the client has more available space */
+        /* If there's no overflow detected, check which side of the client has more available space. If more space above: set tooltip above the hovered item */
         if (spaceAbove > spaceBelow) {
             setLocationOfArrow(prevState => {
                 return {
@@ -204,7 +204,7 @@ export const useTooltipHandlers = (data, event, itemId, tooltipRef) => {
             return tooltipAboveParent;
         }
 
-        /* Place tooltip below parent by default */
+        /* Place tooltip below parent by default if there's more space below the item than above */
         setLocationOfArrow(prevState => {
             return {
                 ...prevState,
