@@ -3,7 +3,7 @@ export default async function fetchDataHandler(url, timeoutDuration = 0) {
     // A timeout can be manually set in each API route, often when fetching crucial data like champion page data
     // in order to redirect user to an error page rather than have the user wait forever for the Riot API to respond
     if (timeoutDuration > 0) {
-        const response = await fetchWithTimeout(url);
+        const response = await fetchWithTimeout(url, timeoutDuration);
         return response;
     } else {
         const response = await standardFetch(url);
