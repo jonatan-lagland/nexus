@@ -1,8 +1,20 @@
 'use client'
 import React from 'react'
 import Image from "next/image";
+import { useRouter } from 'next/navigation';
 
 export default function ErrorPage({ error, reset }) {
+
+    const router = useRouter();
+
+    const handleButtonClick = () => {
+        if (reset) {
+            reset();
+        } else {
+            router.push('/'); // Redirect to home page
+        }
+    };
+
     return (
         <section className='pageNotFound'>
             <div>
@@ -27,9 +39,9 @@ export default function ErrorPage({ error, reset }) {
             <div>
                 <button
                     className="border-2 font-semibold rounded-full bg-zinc-700 text-2xl font-abel py-1 px-4 text-stone-300 border-stone-500 hover:bg-zinc-600 md:py-2 md:px-5 md:text-3xl"
-                    onClick={() => reset()}
+                    onClick={handleButtonClick}
                 >
-                    Refresh
+                    {reset ? 'Refresh' : 'Return'}
                 </button>
             </div>
         </section>
