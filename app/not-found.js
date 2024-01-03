@@ -1,3 +1,4 @@
+'use client'
 import React from 'react';
 import Link from 'next/link';
 
@@ -7,7 +8,13 @@ export default function NotFound({ error }) {
         <section className='pageNotFound'>
             <div className='flex flex-grow flex-col justify-center items-center px-5'>
                 <div className="flex flex-row w-full justify-center items-center my-10">
-                    <h1 className="text-6xl md:text-9xl font-bold font-oswald drop-shadow-md	 text-cream">404</h1>
+                    <Image
+                        src={`/assets/images/sleepy_poro.png`}
+                        alt={`Sleepy Poro Sticker`}
+                        width={256}
+                        height={256}
+                        sizes="(max-width: 768px) 128px"
+                    />
                     <h2 className="text-4xl ps-4 md:text-7xl md:ps-10 font-bold font-oswald  drop-shadow-md	 text-viola">Page Not Found</h2>
                 </div>
                 <div>
