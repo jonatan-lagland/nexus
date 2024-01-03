@@ -75,24 +75,30 @@ Test automation is used in order to maintain the expected operability of various
 
 Below is an example of a unit test designed to handle timeouts, specifically in scenarios where Riot Games' API fails to respond within a set time limit. In this test, Jest is used to "spy" on the global `fetch` function within the application. This spy overrides the normal behavior of `fetch`, making it return a Promise that never resolves. By doing so, the spy simulates the behavior of a delayed or non-responsive API. The test then invokes the `fetchDataHandler` function, which is used to interact with the Riot Games API endpoints and includes an optional timeout parameter. Here, a 2 second timeout is specified to check if the handler appropriately returns a 408 Request Timeout error when the time limit is exceeded.
 
-    it('should handle network failure when fetching champion data reaches set time limit', async () => {
-        // Mock fetch to delay indefinitely
-        jest.spyOn(global, 'fetch').mockImplementation(() =>
-            new Promise(resolve => {
-                // Do not resolve or reject to simulate a delayed response
-            })
-        );
+    it('should handle network failure when fetching mock data reaches set time limit', async () => {
+    // Mock fetch to delay indefinitely
+    jest.spyOn(global, 'fetch').mockImplementation(() =>
+        new Promise(() => {
+            // Do not resolve or reject to simulate a delayed response
+        })
+    );
+    try {
+        // Data handler with a timeout set to 2000 ms
+        await fetchDataHandler('https://example.com', 2000);
+        // Fail test if above line does not throw
+        expect(true).toBe(false);
+    } catch (error) {
+        expect(error.message).toEqual('We were unable to resolve a response from Riot Games API. Please try again later.');
+        expect(error.status).toEqual(408);
+        expect(error.reason).toEqual("Request Timeout");
+    }
 
-        // Data handler allows timeouts, set to 2000 ms
-        const result = await fetchDataHandler('data', 'champion', 'fiora', 'json', '2000');
-        expect(result).toEqual({ status: 408, error: 'We were unable to resolve a response from Riot Games API. Please try again later.' });
-
-        // Restore fetch to its original implementation
-        global.fetch.mockRestore();
+    // Restore fetch to its original implementation
+    global.fetch.mockRestore();
     });
 
 **Result:**
-  *√ should handle network failure when fetching champion data reaches set time limit (2002 ms)*
+  *√ should handle network failure when fetching mock data reaches set time limit (2002 ms)*
 ### Other features
 
 - Page navigation using Next.js page routing, including dynamic routing
