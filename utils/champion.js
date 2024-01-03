@@ -1,84 +1,42 @@
 import { useState, useEffect } from 'react';
 import { useImgPathChampion } from './paths';
 
-export const useChampionData = (championName, championList) => {
+// Turn fetched data into a readily readable object
+export const useChampionData = (championProps) => {
     const [championData, setChampionData] = useState(null);
-    const [error, setError] = useState(null);
 
-
-    // If the user's input (championName) and the list of champions both exist, attempt 3 steps to fetch appropriate champion data
-    // 1. Check if user input matches the list of champions, meaning the champion exists
-    // 2. Attempt to fetch data
-    // 3. Turn data into digestable format for the client
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                verifyChampionExists(championName, championList);
-                const fetchedData = await attemptFetch(championName);
-                const processedData = processChampionData(fetchedData.response);
-                setChampionData(processedData);
-            } catch (e) {
-                setError(e);
-            }
-        };
+        setChampionData(processChampionData(championProps));
+    }, [championProps]);
 
-        if (championName && championList) {
-            fetchData();
+    const processChampionData = (championProps) => {
+        try {
+            return {
+                id: championProps.id,
+                name: championProps.name,
+                title: championProps.title,
+                path: championProps.image.full,
+                group: championProps.image.group,
+                tags: championProps.tags,
+                partype: championProps.partype,
+                info: championProps.info,
+                stats: championProps.stats
+            };
+        } catch (e) {
+            return {
+                status: 400,
+                reason: "Oops!",
+                error: "We encountered an issue processing the requested data."
+            };
         }
-    }, [championList, championName]);
-
-
-    // Make sure the URL matches wider championList context to avoid unnecessary API calls to incorrect endpoints
-    const verifyChampionExists = (championName, championList) => {
-        const isChampionValid = championList.some(champ => champ.name === championName || champ.id === championName);
-        if (!isChampionValid) {
-            const error = new Error(`We couldn't find your champion.`);
-            error.status = 404;
-            throw error;
-        }
-    }
-
-    // Fetch champion data 
-    const attemptFetch = async (championName) => {
-        const route = `/api/data/champion/${championName}`;
-        const response = fetch(route).then(response => {
-            if (!response.ok) {
-                const error = new Error(response.json.error);
-                error.status = response.status;
-                throw error;
-            }
-            return response.json();
-        });
-        return response;
     };
-
-    // Turn fetched data into a readily readable object
-    const processChampionData = (data) => {
-        if (!data || !data.data) {
-            return null;
-        }
-        const obj = Object.entries(data.data).map(([, championDetails]) => ({
-            id: championDetails.id,
-            name: championDetails.name,
-            title: championDetails.title,
-            path: championDetails.image.full,
-            group: championDetails.image.group,
-            tags: championDetails.tags,
-            partype: championDetails.partype,
-            info: championDetails.info,
-            stats: championDetails.stats
-        }));
-        return obj[0];
-    };
-
-    return { championData, error };
+    return { championData };
 };
 
 
-export const useChampionList = () => {
+export const useChampionList = (data) => {
     const [championList, setChampionList] = useState(null);
     const [error, setError] = useState(null);
-    const url = `/api/data/champion`;
     const imgPath = useImgPathChampion();
     const populateDefault = [
         {
@@ -89,36 +47,17 @@ export const useChampionList = () => {
     ]
 
     useEffect(() => {
-        const fetchData = async () => {
-
-            const response = await fetch(url);
-            const result = await response.json();
-            const championsArray = createChampionsArray(result.response);
-            if (championsArray) {
-                setChampionList(championsArray);
-            } else {
-                setError(populateDefault);
-            }
-        };
-
-        fetchData();
-    }, []);
-
-    const createChampionsArray = (data) => {
-        if (!data || !data.data) {
-            return null;
-        }
         try {
-            return Object.entries(data.data).map(([, championDetails]) => ({
+            const obj = Object.entries(data.data).map(([, championDetails]) => ({
                 id: championDetails.id,
                 name: championDetails.name,
                 path: imgPath + championDetails.image.full
             }));
+            setChampionList(obj);
         } catch (e) {
             setError(populateDefault);
-            return null;
         }
-    };
+    }, [data]);
 
     return { championList, error };
 };
