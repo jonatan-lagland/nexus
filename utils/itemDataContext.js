@@ -1,5 +1,5 @@
+'use client'
 import React from 'react';
 
-const ItemDataContext = React.createContext(null);
-
-export default ItemDataContext;
+export const ItemDataContext = React.createContext(null);
+export const ChampionDataContext = React.createContext(null);

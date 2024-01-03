@@ -16,6 +16,7 @@ const Nav = () => {
                     width={LOGO_WIDTH}
                     height={LOGO_HEIGHT}
                     className='object-contain'
+                    priority
                 />
             </Link>
         </nav>

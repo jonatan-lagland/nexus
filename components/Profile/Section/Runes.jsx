@@ -1,19 +1,14 @@
-import { useEffect } from 'react';
-import Image from 'next/image';
-import {
-    useImgPathItem,
-} from '@utils/paths';
-import { useItemHover } from '@utils/tooltipUtils';
+import React from 'react'
 
-import Tooltip from '@components/Profile/Section/Tooltip';
+function Runes({ runes, title }) {
 
-function Items({ items, title }) {
     const AVATAR_WIDTH = 64;
     const AVATAR_HEIGHT = 64;
+
     const imgPath = useImgPathItem();
     const { handleMouseHover, tooltipItemId, event } = useItemHover();
 
-    if (!imgPath || !items) {
+    if (!imgPath || !runes) {
         return (
             <>
                 <div className='loader-container'>
@@ -27,12 +22,12 @@ function Items({ items, title }) {
         <div>
             <div className="title-items">{title}</div>
             <div className="container-items">
-                {items.map((item, index) => (
+                {runes.map((item, index) => (
                     <div
                         key={index}
                         className='flex flex-row items-center my-1 mx-1 relative'>
                         <div
-                            key={items[index]}
+                            key={runes[index]}
                             onMouseOver={handleMouseHover(item)}
                             onMouseLeave={handleMouseHover(item)}
                             className='flex flex-col'
@@ -45,15 +40,16 @@ function Items({ items, title }) {
                                 className='object-fit'
                             />
                             <Tooltip
-                                data={items[index]}
+                                data={runes[index]}
                                 event={event}
                                 itemId={tooltipItemId} />
                         </div>
-                        {index < items.length - 1 && <div className='arrow'></div>}
+                        {index < runes.length - 1 && <div className='arrow'></div>}
                     </div>
                 ))}
             </div>
         </div>
-    );
+    )
 }
-export default Items;
+
+export default Runes

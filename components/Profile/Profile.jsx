@@ -1,26 +1,20 @@
-'use client';
-
+'use client'
+import React from 'react'
 import Header from '@components/Profile/Header'
 import Section from '@components/Profile/Section/Section'
 import Sidebar from '@components/Profile/Sidebar'
-import { useParams } from 'next/navigation'
-import { useChampionData } from '@utils/champion';
-import { ChampionContext } from '@utils/ChampionContext';
-import { useItemData } from '@utils/item'
-import ItemDataContext from '@utils/itemDataContext';
-import { useErrorHandler } from '@utils/errorUtils';
-import { useContext } from 'react';
+import { useChampionData } from "@utils/champion";
+import { useItemData } from "@utils/item";
+import Timeout from '@app/timeout'
 
-const Profile = () => {
-    const { championList } = useContext(ChampionContext);
-    const { championData, error } = useChampionData(useParams().Id, championList);
-    const errorHandler = useErrorHandler(error);
-    const populateItems = ["3026", "223111", "223152", "6694", "223107", "223142"];
-    const { itemData } = useItemData(populateItems);
+function Profile({ championProps, itemProps }) {
 
-    if (errorHandler) { return (errorHandler) }
+    const populateAP = ["223087", "223124", "3006", "3115", "223089", "223157"];
+    const { championData } = useChampionData(championProps);
+    const { itemData } = useItemData(populateAP, itemProps);
+    const errorProps = (championData && championData.error) ? championData : (itemData && itemData.error) ? itemData : null;
 
-    if (!championData) {
+    if (!championData || !itemData) {
         return (
             <section className='profile'>
                 <section className='grid'>
@@ -37,19 +31,24 @@ const Profile = () => {
         )
     }
 
+    // Render a custom error page if a client error occurs
+    if (errorProps) {
+        return (
+            <Timeout error={errorProps}></Timeout>
+        )
+    }
+
     return (
         <section className='profile'>
             <section className='grid'>
                 <article>
-                    <Header data={championData}></Header>
+                    <Header />
                 </article>
                 <article className="bg-deep-purple">
-                    <ItemDataContext.Provider value={itemData}>
-                        <Section />
-                    </ItemDataContext.Provider>
+                    <Section />
                 </article>
                 <article className="bg-deep-purple">
-                    <Sidebar></Sidebar>
+                    <Sidebar />
                 </article>
             </section>
         </section>

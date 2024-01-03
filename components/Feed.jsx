@@ -2,15 +2,13 @@
 import SearchBar from "./SearchBar"
 import Dropdown from "./Dropdown";
 import countries from '@data/countries.json';
-import { useContext } from "react";
-import { ChampionContext } from "@utils/ChampionContext";
+import { useChampionList } from "@utils/champion";
 
 const CHAMPION_URL = "/champion/";
 const SEARCH_PLACEHOLDER = "Search a champion..."
 
-export default function Feed() {
-    const { championList, error } = useContext(ChampionContext);
-
+export default function Feed({ champions }) {
+    const { championList, error } = useChampionList(champions)
     return (
         <section className="feed">
             <section className="search">
