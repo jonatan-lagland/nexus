@@ -4,28 +4,26 @@ import {
     useImgPathItem,
 } from '@utils/paths';
 import { useItemHover } from '@utils/tooltipUtils';
+import { ItemDataContext } from '@utils/context/itemDataContext';
+import { useContext } from 'react';
 
 import Tooltip from '@components/Profile/Section/Tooltip';
 
-function Items({ items, title }) {
+function Items() {
     const AVATAR_WIDTH = 64;
     const AVATAR_HEIGHT = 64;
     const imgPath = useImgPathItem();
     const { handleMouseHover, tooltipItemId, event } = useItemHover();
+    const items = useContext(ItemDataContext);
 
     if (!imgPath || !items) {
-        return (
-            <>
-                <div className='loader-container'>
-                    <div className="loader"></div>
-                </div>
-            </>
-        )
+        console.log(items)
+        return null;
     }
 
     return (
         <div>
-            <div className="title-items">{title}</div>
+            <div className="title-items">Default</div>
             <div className="container-items">
                 {items.map((item, index) => (
                     <div

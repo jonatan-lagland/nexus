@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { error400 } from './errorResponses';
+import { error400 } from './errors/errorResponses';
 
 export const useItemData = (items, itemProps) => {
     const [itemData, setItemData] = useState(null);
@@ -7,7 +7,6 @@ export const useItemData = (items, itemProps) => {
     useEffect(() => {
         if (items && itemProps) {
             const filteredItems = processItemData(itemProps);
-            console.log(filteredItems)
             setItemData(filteredItems);
         }
     }, [itemProps]);
@@ -92,5 +91,5 @@ export const useItemData = (items, itemProps) => {
             return error400
         }
     };
-    return { itemData };
+    return itemData;
 };

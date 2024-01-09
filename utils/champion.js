@@ -6,7 +6,9 @@ export const useChampionData = (championProps) => {
     const [championData, setChampionData] = useState(null);
 
     useEffect(() => {
-        setChampionData(processChampionData(championProps));
+        if (championProps) {
+            setChampionData(processChampionData(championProps));
+        }
     }, [championProps]);
 
     const processChampionData = (championProps) => {
@@ -30,7 +32,7 @@ export const useChampionData = (championProps) => {
             };
         }
     };
-    return { championData };
+    return championData;
 };
 
 

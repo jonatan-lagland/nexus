@@ -3,35 +3,17 @@ import React from 'react'
 import Header from '@components/Profile/Header'
 import Section from '@components/Profile/Section/Section'
 import Sidebar from '@components/Profile/Sidebar'
-import { useChampionData } from "@utils/champion";
-import { useItemData } from "@utils/item";
+import { useContext, Suspense } from 'react'
+import { ItemDataContext } from '@utils/context/itemDataContext'
+import { ChampionContext } from '@utils/context/championContext'
 import Timeout from '@app/timeout'
+import Loader from '@components/Other/Loader'
 
-function Profile({ championProps, itemProps }) {
-
-    const populateAP = ["223087", "223124", "3006", "3115", "223089", "223157"];
-    const { championData } = useChampionData(championProps);
-    const { itemData } = useItemData(populateAP, itemProps);
+function Profile() {
+    const itemData = useContext(ItemDataContext);
+    const championData = useContext(ChampionContext);
     const errorProps = (championData && championData.error) ? championData : (itemData && itemData.error) ? itemData : null;
 
-    if (!championData || !itemData) {
-        return (
-            <section className='profile'>
-                <section className='grid'>
-                    <article>
-                    </article>
-                    <article className="bg-deep-purple">
-                        <div className='shimmer-effect'></div>
-                    </article>
-                    <article className="bg-deep-purple">
-                        <div className='shimmer-effect'></div>
-                    </article>
-                </section>
-            </section>
-        )
-    }
-
-    // Render a custom error page if a client error occurs
     if (errorProps) {
         return (
             <Timeout error={errorProps}></Timeout>
@@ -39,19 +21,21 @@ function Profile({ championProps, itemProps }) {
     }
 
     return (
-        <section className='profile'>
-            <section className='grid'>
-                <article>
-                    <Header />
-                </article>
-                <article className="bg-deep-purple">
-                    <Section />
-                </article>
-                <article className="bg-deep-purple">
-                    <Sidebar />
-                </article>
+        <Suspense fallback={<Loader />}>
+            <section className='profile'>
+                <section className='grid'>
+                    <article>
+                        <Header data={championData} />
+                    </article>
+                    <article className="bg-deep-purple">
+                        <Section items={itemData} />
+                    </article>
+                    <article className="bg-deep-purple">
+                        <Sidebar />
+                    </article>
+                </section>
             </section>
-        </section>
+        </Suspense>
     )
 }
 export default Profile

@@ -1,21 +1,26 @@
 import "@styles/globals.css";
 
-import Nav from "@components/Nav";
+import Nav from "@components/Nav/Nav";
+import Provider from "@components/Other/Provider";
 
 export const metadata = {
     title: "Website",
     description: "League of Legends fansite",
 };
+
 const RootLayout = ({ children }) => (
     <html lang='en'>
         <body className="flex flex-col min-h-screen bg-charcoal">
-            <header className='header'>
-                <Nav />
-            </header>
-            <main className="app">
-                {children}
-            </main>
+            <Provider>
+                <header className='header'>
+                    <Nav />
+                </header>
+                <main className="app">
+                    {children}
+                </main>
+            </Provider>
         </body>
+
     </html>
 );
 

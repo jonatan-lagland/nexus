@@ -1,5 +1,3 @@
-'use client';
-import { useEffect, useState } from 'react';
 import path from '@data/imgPath.json';
 
 export const useImgPathChampion = () => {
