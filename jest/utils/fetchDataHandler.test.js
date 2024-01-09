@@ -1,4 +1,4 @@
-import fetchDataHandler from '../../utils/fetchDataHandler';
+import fetchDataHandler from '../../app/api/fetchDataHandler';
 
 // Mocking the global fetch
 global.fetch = jest.fn();

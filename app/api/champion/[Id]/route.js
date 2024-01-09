@@ -1,4 +1,4 @@
-import fetchDataHandler from "@utils/fetchDataHandler";
+import fetchDataHandler from "@app/api/fetchDataHandler";
 
 export async function GET(req, { params }) {
     const route = params.Id;

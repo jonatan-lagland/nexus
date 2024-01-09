@@ -1,4 +1,4 @@
-import fetchDataHandler from "@utils/fetchDataHandler";
+import fetchDataHandler from "@app/api/fetchDataHandler";
 
 export default async function handler(req, res) {
     console.log(req.query)
