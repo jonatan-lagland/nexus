@@ -1,6 +1,6 @@
 'use client'
-import { error500 } from "@utils/errorResponses";
-import ErrorPage from "@components/ErrorPage";
+import { error500 } from "@utils/errors/errorResponses";
+import ErrorPage from "@components/Other/ErrorPage";
 
 export default function Error({ error, reset, }) {
     return (

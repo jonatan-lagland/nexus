@@ -1,5 +1,5 @@
 import React from 'react'
-import Dropdown from '@components/Dropdown'
+import Dropdown from '@components/Feed/Dropdown'
 import { mount } from 'cypress/react18';
 import countries from '@data/countries.json';
 

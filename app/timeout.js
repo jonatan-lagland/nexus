@@ -1,5 +1,5 @@
 'use client'
-import ErrorPage from "@components/ErrorPage";
+import ErrorPage from "@components/Other/ErrorPage";
 
 export default function Timeout({ error }) {
 
