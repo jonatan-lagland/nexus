@@ -1,18 +1,9 @@
-import Feed from "@components/Feed"
-import fetchDataHandler from "@utils/fetchDataHandler";
+import Feed from "@components/Feed/Feed"
 
-export default async function Home() {
-    const championListData = await getChampionListProps();
-
+export default function Home() {
     return (
         <>
-            <Feed champions={championListData}></Feed>
+            <Feed></Feed>
         </>
     )
-}
-
-export async function getChampionListProps() {
-    const url = "https://ddragon.leagueoflegends.com/cdn/13.24.1/data/en_US/champion.json";
-    const result = await fetchDataHandler(url);
-    return result;
 }
