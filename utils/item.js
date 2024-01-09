@@ -50,10 +50,9 @@ export const useItemData = (items, itemProps) => {
     const removeHtmlTags = (str) => str.replace(/<[^>]*>/g, '');
 
     const processItemData = (itemProps) => {
-
         try {
-            const filteredItems = items.filter(itemId => itemProps.res.data[itemId]).map(itemId => {
-                const itemDetails = itemProps.res.data[itemId];
+            const filteredItems = items.filter(itemId => itemProps[itemId]).map(itemId => {
+                const itemDetails = itemProps[itemId];
                 return {
                     id: itemId,
                     name: itemDetails.name,

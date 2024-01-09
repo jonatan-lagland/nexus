@@ -1,3 +1,4 @@
+
 export default async function fetchDataHandler(url, timeoutDuration = 0) {
     // By default, data fetching has no set timeout
     // A timeout can be manually set in each API route, often when fetching crucial data like champion page data

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useImgPathChampion } from './paths';
+import { error400 } from './errors/errorResponses';
 
 // Turn fetched data into a readily readable object
 export const useChampionData = (championProps) => {
@@ -25,11 +26,7 @@ export const useChampionData = (championProps) => {
                 stats: championProps.stats
             };
         } catch (e) {
-            return {
-                status: 400,
-                reason: "Oops!",
-                error: "We encountered an issue processing the requested data."
-            };
+            return error400
         }
     };
     return championData;

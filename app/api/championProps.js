@@ -1,8 +1,11 @@
-import { revalidateTag } from 'next/cache'
+'use server'
+import revalidateCache from './cache';
 import fetchDataHandler from './fetchDataHandler';
 
 export async function getChampionListProps() {
-    const url = "https://ddragon.leagueoflegends.com/cdn/13.24.1/data/en_US/champion.json";
+    const baseURL = process.env.RIOT_API_BASE_URL;
+    const gameVersion = process.env.GAME_VERSION;
+    const url = `${baseURL}${gameVersion}/data/en_US/champion.json`;
     const result = await fetchDataHandler(url);
     return result;
 }
@@ -11,19 +14,20 @@ export async function getChampionListProps() {
 // Uses Next.js server-side caching to drastically reduce calls to Riot API
 export async function getChampionProps(params) {
     const championName = params.Id;
-    const route = `/api/champion/${championName}`;
+    const baseURL = process.env.RIOT_API_BASE_URL;
+    const gameVersion = process.env.GAME_VERSION;
+    const url = `${baseURL}${gameVersion}/data/en_US/champion/${championName}.json`;
 
-    const response = await fetch(route, { next: { tags: [championName] } });
-    const data = await response.json();
-    if (data.error) {
+    try {
+        const response = await fetchDataHandler(url, { next: { tags: [championName] } })
+        return response.data[championName];
+    } catch (error) {
         // Clear cache if an error occurs
-        revalidateTag(championName)
+        revalidateCache(championName)
         return {
-            status: data.status,
-            reason: data.reason,
-            error: data.error
-        };
+            status: error.status,
+            reason: error.reason,
+            error: error.message
+        }
     }
-    const championData = data.res.data[championName];
-    return championData;
 }
