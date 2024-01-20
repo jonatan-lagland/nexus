@@ -1,11 +1,24 @@
 import Items from './Items';
+import Match from './Match';
 
-function Section() {
+function Section({ matchHistory, matchHistoryDetails, userData }) {
+
+    if (!matchHistory || !matchHistoryDetails || !userData) {
+        return null;
+    }
+
     return (
         <section className="profile-grid-section">
-            <Items />
+            {matchHistory.map(matchId => (
+                <Match
+                    key={matchId}
+                    matchHistoryDetails={matchHistoryDetails}
+                    puuid={userData.puuid}
+                />
+            ))}
         </section>
     );
 }
 
 export default Section;
+

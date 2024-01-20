@@ -4,13 +4,20 @@ import { getChampionListProps } from "@app/api/championProps";
 import { getItemProps } from "@app/api/itemProps";
 import { ChampionListContext } from "@utils/context/championListContext";
 import { ItemDataContext } from "@utils/context/itemDataContext";
-import { useItemData } from "@utils/item";
+import { ColorblindContext } from "@utils/context/colorBlindContext";
+import { getLatestVersion } from "@app/api/latestVersion";
+import { GameVersionContext } from "@utils/context/gameVersionContext";
 
 function Provider({ children }) {
-    const populateAP = ["223087", "223124", "3006", "3115", "223089", "223157"];
+
     const [championListData, setChampionListData] = useState(null);
     const [itemData, setItemData] = useState(null);
-    const filteredItems = useItemData(populateAP, itemData);
+    const [gamePatch, setGamePatch] = useState(null);
+    const [isColorblindMode, setIsColorblindMode] = useState(false);
+
+    const toggleColorblindMode = () => {
+        setIsColorblindMode(!isColorblindMode);
+    };
 
     useEffect(() => {
         getChampionListProps()
@@ -21,14 +28,22 @@ function Provider({ children }) {
             .then(data => {
                 setItemData(data);
             })
+        getLatestVersion()
+            .then(data => {
+                setGamePatch(data);
+            })
     }, []);
 
     return (
-        <ChampionListContext.Provider value={championListData}>
-            <ItemDataContext.Provider value={filteredItems}>
-                {children}
-            </ItemDataContext.Provider>
-        </ChampionListContext.Provider>
+        <ColorblindContext.Provider value={{ isColorblindMode, toggleColorblindMode }}>
+            <GameVersionContext.Provider value={gamePatch}>
+                <ChampionListContext.Provider value={championListData}>
+                    <ItemDataContext.Provider value={itemData}>
+                        {children}
+                    </ItemDataContext.Provider>
+                </ChampionListContext.Provider>
+            </GameVersionContext.Provider>
+        </ColorblindContext.Provider>
     )
 }
 
