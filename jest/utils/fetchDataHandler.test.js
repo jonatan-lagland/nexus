@@ -43,7 +43,8 @@ it('should handle network failure when fetching mock data reaches set time limit
     );
     try {
         // Data handler with a timeout set to 2000 ms
-        await fetchDataHandler('https://example.com', 2000);
+        const INCLUDE_API_KEY = false;
+        await fetchDataHandler('https://example.com', INCLUDE_API_KEY, 2000);
         // Fail test if above line does not throw
         expect(true).toBe(false);
     } catch (error) {

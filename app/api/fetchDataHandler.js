@@ -1,48 +1,53 @@
+'use server'
+import { serverErrorHandler } from "./errorHandlers";
 
-export default async function fetchDataHandler(url, timeoutDuration = 0) {
-    // By default, data fetching has no set timeout
-    // A timeout can be manually set in each API route, often when fetching crucial data like champion page data
-    // in order to redirect user to an error page rather than have the user wait forever for the Riot API to respond
+export default async function fetchDataHandler(url, includeApiKey = false, timeoutDuration = 0) {
+    // By default, data fetching has no set timeout. TimeoutDuration above 0 indicates a time limit should be set.
+    // By default, no API key is included in header. API key isn't needed when fetching data from DDragon API.
+    // A timeout can be manually set in each API route, often when fetching crucial data like match history data.
     if (timeoutDuration > 0) {
-        const response = await fetchWithTimeout(url, timeoutDuration);
+        const response = await fetchWithTimeout();
         return response;
     } else {
-        const response = await standardFetch(url);
+        const response = await standardFetch();
         return response;
     }
-}
 
-async function standardFetch(url) {
-    const response = await fetch(url);
-    if (!response.ok) {
-        const error = new Error('An error has occurred. Please try again later.');
-        error.status = response.status;
-        error.reason = "Server Error"
-        throw error;
+    async function standardFetch() {
+        const headers = {};
+        if (includeApiKey) {
+            headers[process.env.API_KEY] = process.env.API_KEY_VALUE;
+        }
+        const response = await fetch(url, { headers });
+
+        if (!response.ok) {
+            serverErrorHandler(response);
+        }
+        return response.json();
     }
-    return response.json();
-}
 
-async function fetchWithTimeout(url, timeoutDuration) {
-    const timeout = new Promise((_, reject) => {
-        setTimeout(() => {
-            const error = new Error('We were unable to resolve a response from Riot Games API. Please try again later.');
-            error.status = 408;
-            error.reason = "Request Timeout"
-            reject(error);
-        }, timeoutDuration);
-    });
+    async function fetchWithTimeout() {
+        const headers = {};
+        if (includeApiKey) {
+            headers[process.env.API_KEY] = process.env.API_KEY_VALUE;
+        }
+        const timeout = new Promise((_, reject) => {
+            setTimeout(() => {
+                const error = new Error('We were unable to resolve a response from Riot Games API. Please try again later.');
+                error.status = 408;
+                error.reason = "Request Timeout"
+                reject(error)
+            }, timeoutDuration);
+        });
 
-    const response = await Promise.race([
-        fetch(url),
-        timeout
-    ]);
+        const response = await Promise.race([
+            fetch(url, { headers }),
+            timeout
+        ]);
 
-    if (!response.ok) {
-        const error = new Error('An error has occurred. Please try again later.');
-        error.status = response.status;
-        error.reason = "Server Error"
-        throw error;
+        if (!response.ok) {
+            serverErrorHandler(response);
+        }
+        return response.json();
     }
-    return response.json();
 }
