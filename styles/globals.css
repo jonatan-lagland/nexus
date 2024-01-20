@@ -3,7 +3,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Bebas%20Neue:wght@100;200;300;400;500;600;700;800;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Abel:wght@100;200;300;400;500;600;700;800;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Figtree:wght@100;200;300;400;500;600;700;800;900&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -249,7 +249,7 @@
 }
 
 .container-items {
-  @apply  bg-cosmic-cobalt border border-cream border-solid p-3 flex flex-wrap relative max-w-xl justify-evenly;
+  @apply flex flex-wrap relative justify-center;
 }
 
 
@@ -299,7 +299,7 @@
 .profile .grid {
   @apply w-full;
   display: grid;
-  grid-template-rows: 1fr 2fr 2fr; /* Each row takes only the space it needs */
+  grid-template-rows: auto 2fr 2fr; /* Each row takes only the space it needs */
   grid-template-columns: repeat(1, 1fr); /* One column layout for non-large devices */
   gap: 2px;
 }
@@ -307,7 +307,7 @@
 @media (min-width: 1024px) {
   .profile .grid {
       @apply w-full max-w-7xl;
-      grid-template-rows: 1fr 2fr 2fr;
+      grid-template-rows: auto 2fr 2fr;
       grid-template-columns: repeat(5, 1fr);
       gap: 4px;
   }
@@ -343,7 +343,7 @@
 }
 
 .profile-grid-section {
-  @apply flex flex-col flex-grow justify-center items-center p-10 gap-4;
+  @apply flex flex-col flex-grow gap-4;
 }
 
 .shimmer-effect {
@@ -356,4 +356,104 @@
     rgba(255, 255, 255, 0) 85%
   );
   background-size: 80rem 100%;
+}
+
+.btn_default {
+  @apply border-2 font-semibold rounded-full bg-zinc-700 text-2xl font-abel py-1 px-4 text-stone-300 border-stone-500 hover:bg-zinc-600 md:py-2 md:px-5 md:text-3xl;
+}
+
+.btn_default_sm_rectangle {
+  @apply border-2 font-semibold rounded-md bg-zinc-700 text-2xl font-abel py-1 px-4 text-neutral-100 border-stone-500 hover:bg-zinc-600;
+}
+
+.info_title-profile-header {
+  @apply text-xl md:text-2xl font-bold font-oswald text-rose;
+}
+
+.info_subheader-profile-header {
+  @apply text-xl md:text-2xl font-bold font-oswald text-white;
+}
+
+.container-match {
+  @apply flex flex-col flex-wrap relative border border-solid;
+}
+
+.title-match {
+  @apply flex flex-row flex-grow justify-evenly items-center text-center py-4 space-y-6
+}
+
+.game-stats-container {
+  @apply flex flex-row justify-center space-x-5
+}
+
+.champion-level-container {
+  @apply flex items-center justify-center absolute bottom-0 right-0 bg-slate-900 text-white rounded-full w-8 h-8
+}
+
+.vision-score-container {
+  @apply flex items-center justify-center absolute -bottom-1 -right-1 bg-slate-900 text-white rounded-full w-8 h-8 pointer-events-none
+}
+
+.icons-match {
+  @apply flex flex-row flex-grow
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #a1a1a1;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: var(--cosmic-cobalt);
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
 }

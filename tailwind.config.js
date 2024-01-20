@@ -14,6 +14,7 @@ module.exports = {
         bebas: ['Bebas Neue', 'sans-serif'],
         abel: ['Abel', 'sans-serif'],
         figtree: ['Figtree', 'sans-serif'],
+        rubik: ['Rubik', 'sans-serif'],
       },
       colors: {
         'primary-orange': '#FF5722',
@@ -33,7 +34,19 @@ module.exports = {
         'dust': '#A09D94',
         'dark-dust': "#93918A",
         'crimson-grey': '#A489A0',
-        'cream-green': '#B7D04B'
+        'grass': '#67a63c',
+        'dark-wine': '#481817',
+        'dark-crimson': '#400504',
+        'forest': '#1a451c',
+        'grapefruit': '#f15658',
+        'bright-green': '#68c22b',
+        'bright-red': '#f12122',
+        'colorblind-loss-primary': "#1d254e",
+        'colorblind-loss-secondary': "#404873",
+        'colorblind-loss-tertiary': "#575f89",
+        'colorblind-win-primary': "#bf8f00",
+        'colorblind-win-secondary': "#68552b",
+        'colorblind-win-tertiary': "#7e6b40"
       }
     },
   },
