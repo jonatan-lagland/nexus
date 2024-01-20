@@ -4,7 +4,7 @@ import fetchDataHandler from "./fetchDataHandler";
 
 // Fetch a JSON list of all items in the game
 export async function getItemProps() {
-    const baseURL = process.env.RIOT_API_BASE_URL;
+    const baseURL = process.env.RIOT_DDRAGON_BASE_URL_CDN;
     const gameVersion = process.env.GAME_VERSION;
     const url = `${baseURL}${gameVersion}/data/en_US/item.json`;
 
