@@ -29,11 +29,11 @@ export const useTooltipHandlers = (data, event, itemId, tooltipRef) => {
         color: 'white',
         backgroundColor: 'var(--dark-cosmic)',
         borderRadius: '0.375rem',
-        border: '1px solid white',
+        border: '1px solid grey',
         position: 'absolute',
         minHeight: 'max-content',
         pointerEvents: 'none',
-        width: '300px',
+        width: '250px',
         textAlign: 'start',
         zIndex: 101,
     };
@@ -55,8 +55,8 @@ export const useTooltipHandlers = (data, event, itemId, tooltipRef) => {
             topArrow: {
                 top: '-0.55rem',
                 bottom: undefined,
-                borderTop: '1px solid white',
-                borderLeft: '1px solid white',
+                borderTop: '1px solid grey',
+                borderLeft: '1px solid grey',
                 borderBottom: 'none',
                 borderRight: 'none'
             },
@@ -65,8 +65,8 @@ export const useTooltipHandlers = (data, event, itemId, tooltipRef) => {
                 bottom: '-0.55rem',
                 borderTop: 'none',
                 borderLeft: 'none',
-                borderBottom: '1px solid white',
-                borderRight: '1px solid white'
+                borderBottom: '1px solid grey',
+                borderRight: '1px solid grey'
             },
             arrowMiddle: {
                 left: '50%'
@@ -256,7 +256,7 @@ export const useTooltipHandlers = (data, event, itemId, tooltipRef) => {
 };
 
 
-// Saves the value of the hovered item ID and the event type so they can be passed to other components
+// Saves the value of the hovered item ID and the event type to be passed to other components
 export const useItemHover = () => {
     const [tooltipItemId, setTooltipItemId] = useState(null);
     const [event, setEvent] = useState(null);
@@ -266,7 +266,7 @@ export const useItemHover = () => {
         setEvent({ type: e.type, currentTargetRect: rect });
 
         if (e.type === "mouseover") {
-            setTooltipItemId(item.id);
+            setTooltipItemId(item);
         } else if (e.type === "mouseleave") {
             setTooltipItemId(null);
         }
