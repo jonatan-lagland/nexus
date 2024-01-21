@@ -1,16 +1,13 @@
 'use client'
 import { useState, useEffect, useContext } from "react";
 import { useItemData } from "./item";
-import { ItemDataContext } from "./context/itemDataContext";
 
-export function useCardDetails(matchHistoryDetails, puuid) {
+export function useCardDetails(matchHistoryDetails, puuid, completeListOfItems) {
     const { info } = matchHistoryDetails;
     const { gameEndTimestamp, gameDuration, gameMode, gameId, participants } = info;
     const timestampGameDuration = calculateGameDuration(gameDuration);
-    const [timestampGameEnd, setTimestampGameEnd] = useState(null);
+    const timestampGameEnd = calculateGameEnd();
     const mainPlayer = participants.find(participant => participant.puuid === puuid);
-
-    console.log(participants)
 
     const {
         individualPosition,
@@ -25,7 +22,7 @@ export function useCardDetails(matchHistoryDetails, puuid) {
         win
     } = mainPlayer
 
-    const completeListOfItems = useContext(ItemDataContext)
+    // Item id's of the main player in a match
     const {
         item0,
         item1,
@@ -35,16 +32,13 @@ export function useCardDetails(matchHistoryDetails, puuid) {
         item5,
         item6 } = mainPlayer;
 
+    // Convert to array
     const itemIdList = [item0, item1, item2, item3, item4, item5, item6];
+    // Turn item id's into fully detailed item descriptions
     const items = useItemData(itemIdList, completeListOfItems);
-
-    useEffect(() => {
-        calculateGameEnd(gameEndTimestamp);
-    }, []);
 
     function calculateGameEnd() {
         const currentTime = Date.now(); // Gets the current timestamp in milliseconds
-
         // Calculate the difference in milliseconds
         const timeDifference = currentTime - gameEndTimestamp;
 
@@ -55,13 +49,13 @@ export function useCardDetails(matchHistoryDetails, puuid) {
         const days = Math.floor(hours / 24);
 
         if (days > 0) {
-            setTimestampGameEnd(`${days} days ago`);
+            return (`${days} days ago`);
         } else if (hours > 0) {
-            setTimestampGameEnd(`${hours} hours ago`);
+            return (`${hours} hours ago`);
         } else if (minutes > 0) {
-            setTimestampGameEnd(`${minutes} minutes ago`);
+            return (`${minutes} minutes ago`);
         } else {
-            setTimestampGameEnd("Just now");
+            return ("Just now");
         }
     }
 

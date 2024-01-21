@@ -457,3 +457,19 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+
+.container-victory {
+  @apply bg-forest border-grass
+}
+
+.container-defeat {
+  @apply bg-dark-wine border-red-800
+}
+
+.container-victory-colorblind {
+  @apply bg-forest border-grass
+}
+
+.container-defeat-colorblind {
+  @apply bg-colorblind-loss-primary border-colorblind-loss-secondary
+}

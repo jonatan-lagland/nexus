@@ -1,5 +1,5 @@
-import Items from './Items';
-import Match from './Match';
+import Match from './Match/Match';
+import Provider from './Match/Provider';
 
 function Section({ matchHistory, matchHistoryDetails, userData }) {
 
@@ -9,12 +9,13 @@ function Section({ matchHistory, matchHistoryDetails, userData }) {
 
     return (
         <section className="profile-grid-section">
-            {matchHistory.map(matchId => (
-                <Match
-                    key={matchId}
-                    matchHistoryDetails={matchHistoryDetails}
-                    puuid={userData.puuid}
-                />
+            {matchHistory.map((matchId, index) => (
+                <Provider key={`${matchId}${index}`}>
+                    <Match
+                        matchHistoryDetails={matchHistoryDetails}
+                        puuid={userData.puuid}
+                    />
+                </Provider>
             ))}
         </section>
     );

@@ -1,18 +1,6 @@
-import { useState, useEffect } from 'react';
 import { error400 } from './errors/errorResponses';
 
 export const useItemData = (itemsToBeFiltered, completeListOfItems) => {
-    const [itemData, setItemData] = useState(null);
-
-    useEffect(() => {
-        if (itemsToBeFiltered && completeListOfItems) {
-            const filteredItems = processItemData();
-            setItemData(filteredItems);
-        }
-    }, [completeListOfItems]);
-
-    /* RIOT DDRAGON API PARSING */
-
     /* Extract a generic value, e.g. passive name */
     function extractValue(description, tag) {
         const regex = new RegExp(`<${tag}>(.*?)</${tag}>`, 'gi');
@@ -109,7 +97,10 @@ export const useItemData = (itemsToBeFiltered, completeListOfItems) => {
             return error400
         }
     };
-    return itemData;
+    if (itemsToBeFiltered && completeListOfItems) {
+        const filteredItems = processItemData();
+        return filteredItems;
+    }
 };
 
 export function useIsTrinketItem(itemName) {
