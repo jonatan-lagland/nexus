@@ -1,8 +1,7 @@
 'use client'
 import React, { useContext } from 'react'
 import Image from 'next/image';
-import { useImagePathUser } from '@utils/paths';
-import { GameVersionContext } from '@utils/context/gameVersionContext';
+import { useImagePathUser } from '@utils/pathUtils';
 import { ColorblindContext } from '@utils/context/colorBlindContext';
 
 function Header({ data, info }) {
@@ -11,15 +10,10 @@ function Header({ data, info }) {
     const AVATAR_HEIGHT = 90;
 
     const imgPath = useImagePathUser(info);
-    const gameVersion = useContext(GameVersionContext)
     const { isColorblindMode, toggleColorblindMode } = useContext(ColorblindContext);
 
     if (!data || !info) {
         return null;
-    }
-
-    function handleRefresh() {
-        alert("Refresh")
     }
 
     return (

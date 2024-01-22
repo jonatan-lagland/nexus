@@ -4,13 +4,13 @@ import Dropdown from "./Dropdown";
 import countries from '@data/countries.json';
 import { ChampionListContext } from "@utils/context/championListContext";
 import { useContext } from "react";
-import { useChampionList } from "@utils/champion";
+import { useChampionList } from "@utils/championUtils";
 
 
 const CHAMPION_URL = "/champion/";
 const SEARCH_PLACEHOLDER = "Search a champion..."
 
-export default function Feed() {
+export default function Landing() {
     const context = useContext(ChampionListContext);
     const { championList, error } = useChampionList(context)
     return (

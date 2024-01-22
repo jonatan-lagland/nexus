@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { getChampionProps } from "@app/api/championProps";
 import { ChampionContext } from "@utils/context/championContext";
-import { useChampionData } from "@utils/champion";
+import { useChampionData } from "@utils/championUtils";
 
 function Provider({ children, params }) {
     const [championData, setChampionData] = useState(null);
@@ -13,7 +13,7 @@ function Provider({ children, params }) {
             .then(data => {
                 setChampionData(data);
             })
-    }, []);
+    }, [params]);
 
 
     return (

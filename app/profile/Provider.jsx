@@ -25,7 +25,7 @@ function Provider({ children, params, region, server }) {
             }
         }
         fetchData();
-    }, []);
+    }, [params, region, server]);
 
     return (
         <UserContext.Provider value={{ userData, userInfo, matchHistory, matchHistoryDetails }}>

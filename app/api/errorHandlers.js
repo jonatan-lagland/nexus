@@ -2,10 +2,13 @@ export function serverErrorHandler(response) {
     switch (response.status) {
         case 408:
             throwTimeOutError();
+            break;
         case 429:
             rateLimitHandler();
+            break;
         default:
             throwServerError()
+            break;
     }
 
     function throwServerError() {
