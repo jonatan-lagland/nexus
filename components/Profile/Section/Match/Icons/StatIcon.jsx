@@ -9,6 +9,7 @@ const StatIcon = ({ icon }) => {
                 alt={`${icon} Icon`}
                 width={20}
                 height={20}
+                className="select-none"
             />
         </>
     )

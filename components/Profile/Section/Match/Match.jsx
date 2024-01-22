@@ -14,12 +14,12 @@ function Match({ matchHistoryDetails, puuid }) {
     const completeListOfItems = useContext(ItemDataContext)
     const { isColorblindMode } = useContext(ColorblindContext);
     const { matchData, setMatchData } = useContext(MatchHistoryContext);
-    const details = useCardDetails(matchHistoryDetails, puuid, completeListOfItems);
+
+    const details = useCardDetails(matchHistoryDetails, puuid, completeListOfItems)
 
     useEffect(() => {
         setMatchData(details);
     }, []);
-
 
     if (!completeListOfItems || !matchData) {
         return null;
@@ -27,7 +27,6 @@ function Match({ matchHistoryDetails, puuid }) {
 
     // Set container colors based on match outcome and colorblind mode
     const { win } = matchData;
-
     const containerTheme = win
         ? (isColorblindMode ? 'container-victory-colorblind' : 'container-victory')
         : (isColorblindMode ? 'container-defeat-colorblind' : 'container-defeat');

@@ -41,7 +41,7 @@ export const useItemData = (itemsToBeFiltered, completeListOfItems) => {
         try {
             const filteredItems = itemsToBeFiltered.map(itemId => {
                 // Check if the itemId exists in completeListOfItems
-                if (completeListOfItems.hasOwnProperty(itemId)) {
+                if (Object.prototype.hasOwnProperty.call(completeListOfItems, itemId)) {
                     const itemDetails = completeListOfItems[itemId];
                     return {
                         id: itemId,

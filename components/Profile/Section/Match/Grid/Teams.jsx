@@ -3,7 +3,7 @@ import Player from "./Player";
 import { MatchHistoryContext } from "@utils/context/matchHistoryContext";
 import { useContext } from "react";
 
-const Teams = ({ isFullDetail }) => {
+const Teams = () => {
     const { matchData } = useContext(MatchHistoryContext);
     const { participants, gameMode } = matchData;
     let firstHalf = [];

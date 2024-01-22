@@ -391,7 +391,7 @@
 }
 
 .vision-score-container {
-  @apply flex items-center justify-center absolute -bottom-1 -right-1 bg-slate-900 text-white rounded-full w-8 h-8 pointer-events-none
+  @apply flex items-center justify-center absolute -bottom-1 -right-1 bg-slate-900 text-white rounded-full w-7 h-7 pointer-events-none
 }
 
 .icons-match {
@@ -467,7 +467,7 @@ input:checked + .slider:before {
 }
 
 .container-victory-colorblind {
-  @apply bg-forest border-grass
+  @apply bg-colorblind-win-primary border-colorblind-win-secondary
 }
 
 .container-defeat-colorblind {

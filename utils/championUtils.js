@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useImgPathChampion } from './paths';
+import { useImagePathChampion } from './pathUtils';
 import { error400 } from './errors/errorResponses';
 
 // Turn fetched data into a readily readable object
@@ -36,27 +36,26 @@ export const useChampionData = (championProps) => {
 export const useChampionList = (data) => {
     const [championList, setChampionList] = useState(null);
     const [error, setError] = useState(null);
-    const imgPath = useImgPathChampion();
-    const populateDefault = [
-        {
-            "id": "0",
-            "name": "Blue Minion Bruiser",
-            'path': "public/assets/images/0.png"
-        }
-    ]
-
+    const handleImagePathChampion = useImagePathChampion();
     useEffect(() => {
+        const populateDefault = [
+            {
+                "id": "0",
+                "name": "Blue Minion Bruiser",
+                'path': "public/assets/images/0.png"
+            }
+        ]
         try {
             const obj = Object.entries(data.data).map(([, championDetails]) => ({
                 id: championDetails.id,
                 name: championDetails.name,
-                path: imgPath + championDetails.image.full
+                path: handleImagePathChampion(championDetails.image.full)
             }));
             setChampionList(obj);
         } catch (e) {
             setError(populateDefault);
         }
-    }, [data]);
+    }, [data, handleImagePathChampion]);
 
     return { championList, error };
 };

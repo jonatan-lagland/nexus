@@ -1,12 +1,9 @@
-import { useEffect } from 'react';
 import Image from 'next/image';
-import { useImagePathItem } from '@utils/paths';
+import { useImagePathItem } from '@utils/pathUtils';
 import { useItemHover } from '@utils/tooltipUtils';
-import { ItemDataContext } from '@utils/context/itemDataContext';
-import { useContext } from 'react';
 
 import Tooltip from '@components/Profile/Section/Tooltip';
-import { useIsTrinketItem } from '@utils/item';
+import { useIsTrinketItem } from '@utils/itemUtils';
 
 function Items({ items, visionScore }) {
 
@@ -46,7 +43,7 @@ function ItemComponent({ item, visionScore }) {
         >
             {isTrinket && (
                 <div className='vision-score-container'>
-                    <p>{visionScore}</p>
+                    <span className='select-none'>{visionScore}</span>
                 </div>
             )}
             {imgPath && (

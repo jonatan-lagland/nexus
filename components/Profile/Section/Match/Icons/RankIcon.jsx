@@ -9,6 +9,7 @@ const RankIcon = ({ icon }) => {
                 alt={`${icon} Icon`}
                 width={64}
                 height={64}
+                className="select-none"
             />
         </>
     )
