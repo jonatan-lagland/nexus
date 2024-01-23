@@ -32,24 +32,15 @@ function Match({ matchHistoryDetails, puuid }) {
         : (isColorblindMode ? 'container-defeat-colorblind' : 'container-defeat');
 
     return (
-        <div className={`${containerTheme}`}>
-            <div className='flex flex-col sm:flex-row sm:space-y-0 items-center'>
-                <div className='flex flex-grow justify-center'>
-                    <div className='flex justify-center'>
-                        <div className='flex justify-center'>
-                            <GameResult />
-                        </div>
-                        <div className='sm:hidden flex'>
-                            <PlayerStatistics />
-                        </div>
-                    </div>
-                    <div className='hidden sm:flex'>
-                        <PlayerStatistics />
-                    </div>
-                </div>
-                <div className='flex flex-row p-1'>
-                    <Teams isFullDetail={false} />
-                </div>
+        <div className={`${containerTheme} match px-2`}>
+            <div>
+                <GameResult />
+            </div>
+            <div>
+                <PlayerStatistics />
+            </div>
+            <div className='flex items-center justify-center'>
+                <Teams isFullDetail={false} />
             </div>
         </div>
     );

@@ -22,9 +22,9 @@ const PlayerStatistics = () => {
     const styles = { width: '32', height: '32' };
 
     return (
-        <div className='flex flex-col space-y-3 p-2 flex-grow max-w-lg items-stretch'>
+        <div className='flex flex-col space-y-3 p-2 items-stretch'>
             <div className='flex flex-row items-center justify-center space-x-2'>
-                <div className='relative h-20 w-20'>
+                <div>
                     <ChampionIcon championName={championName}></ChampionIcon>
                     <div className='champion-level-container'>
                         <span className="select-none">{champLevel}</span>
@@ -40,15 +40,10 @@ const PlayerStatistics = () => {
                         <Rune styles={styles} rune="SummonerTeleport"></Rune>
                     </div>
                 </div>
-                <div className='hidden sm:flex flex-row flex-grow justify-center'>
+                <div className='flex flex-row justify-center'>
                     <div className='flex flex-col space-y-1 text-center'>
                         <Stats kills={kills} deaths={deaths} assists={assists} />
                     </div>
-                </div>
-            </div>
-            <div className='sm:hidden flex flex-row flex-grow justify-center'>
-                <div className='flex flex-col space-y-1 text-center'>
-                    <Stats kills={kills} deaths={deaths} assists={assists} />
                 </div>
             </div>
             <div className="space-x-2">

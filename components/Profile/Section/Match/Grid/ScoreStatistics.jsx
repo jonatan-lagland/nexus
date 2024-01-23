@@ -23,9 +23,6 @@ const ScoreStatistics = () => {
     return (
         <>
             <div className='game-stats-container'>
-                <div className='flex flex-row space-x-2 items-center sm:hidden'>
-
-                </div>
                 <div className='flex flex-row space-x-2 items-center'>
                     <Image
                         src={`/assets/icons/stats/icon_minions.png`}

@@ -20,7 +20,7 @@ const Stats = ({ kills, deaths, assists }) => {
         : (isColorblindMode ? 'text-slate-400' : 'text-slate-400');
 
     return (
-        <p className='font-oswald text-2xl   '>
+        <p className='font-oswald text-2xl truncate'>
             <span className={`${killAndAssistTheme}`}>{kills}</span>
             <span className={`${dividerTheme}`}> / </span>
             <span className={`${deathsTheme}`}>{deaths}</span>

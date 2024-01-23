@@ -2,7 +2,6 @@
 import Image from "next/image"
 
 const Rune = ({ styles, rune }) => {
-
     return (
         <>
             <Image
@@ -10,8 +9,7 @@ const Rune = ({ styles, rune }) => {
                 alt={"Rune Icon"}
                 width={styles.width}
                 height={styles.height}
-                className='rounded-sm select-none'
-            //style={{ minWidth: '32px', minHeight: '32px' }}
+                className='rounded-sm border border-zinc-800 select-none'
             />
         </>
     )

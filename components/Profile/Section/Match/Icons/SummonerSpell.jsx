@@ -9,7 +9,7 @@ const SummonerSpell = ({ styles, spell }) => {
                 alt={"Summoner Spell Icon"}
                 width={styles.width}
                 height={styles.height}
-                className='rounded-sm select-none'
+                className='rounded-sm border border-zinc-800 select-none'
             //style={{ minWidth: '32px', minHeight: '32px' }}
             />
         </>

@@ -23,18 +23,13 @@ const GameResult = () => {
 
     return (
         <>
-            <div className='flex flex-row sm:flex-col items-center flex-grow justify-center space-x-3 sm:space-x-0 sm:justify-around px-2 py-2'>
-                <div className='flex flex-col items-center text-center space-y-1'>
-                    <div className='sm:hidden flex'>
-                        <RoleIcon role={individualPosition} />
-                    </div>
-                    <span className={`   text-4xl font-bebas drop-shadow-md ${outcomeTheme}`}>{outcome}</span>
+            <div className='gameresult'>
+                <div className="flex flex-col justify-center items-center outcome-label">
+                    <span className={`text-4xl font-bebas drop-shadow-md ${outcomeTheme}`}>{outcome}</span>
                     <p className={`font-abel sm:text-lg text-xl ${timestampTheme}`}>{timestampGameEnd}</p>
                 </div>
-                <div className='  hidden sm:flex'>
+                <div className="flex flex-col justify-evenly items-center outcome-timestamp">
                     <RoleIcon role={individualPosition} />
-                </div>
-                <div className='hidden sm:flex flex-row items-center space-x-2'>
                     <MatchEnd />
                 </div>
             </div>
