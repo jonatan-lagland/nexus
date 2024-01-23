@@ -1,4 +1,5 @@
 import { error400 } from './errors/errorResponses';
+import { removeHtmlTags } from './dataParsingUtils';
 
 export const useRuneData = (keystoneId, completeListOfRunes) => {
     const processRuneData = () => {
@@ -7,7 +8,14 @@ export const useRuneData = (keystoneId, completeListOfRunes) => {
                 .flatMap(slot => slot.runes)
                 .find(rune => rune.id === keystoneId);
             if (foundRune) {
-                return foundRune
+                return {
+                    id: foundRune.id,
+                    key: foundRune.key,
+                    icon: foundRune.icon,
+                    longDesc: removeHtmlTags(foundRune.longDesc),
+                    name: foundRune.name,
+                    shortDesc: removeHtmlTags(foundRune.shortDesc)
+                }
             }
         } catch (err) {
             return error400

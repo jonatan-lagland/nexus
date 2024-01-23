@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import { useImagePathItem } from '@utils/pathUtils';
 import { useItemHover } from '@utils/tooltipUtils';
-
 import Tooltip from '@components/Profile/Section/Tooltip';
 import { useIsTrinketItem } from '@utils/itemUtils';
 

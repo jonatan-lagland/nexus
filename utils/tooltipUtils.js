@@ -3,8 +3,11 @@ import { useState, useEffect } from "react";
 /* Calculates the X and Y coordinates of the tooltip relative to parent (an image it's hovering) */
 /* Tries to take available client space into consideration when positioning the tooltip */
 /* Tooltip is centered horizontally relative to the image by default */
+/* In order to clamp a tooltip to an item, there must be a parent element, like a div, with the className "relative" */
 
 export const useTooltipHandlers = (data, event, itemId, tooltipRef) => {
+
+    const bgColor = "#010205";
 
     /* Tooltips are hidden by default */
     const [visibility, setVisibility] =
@@ -18,7 +21,7 @@ export const useTooltipHandlers = (data, event, itemId, tooltipRef) => {
 
     const arrowStyle = {
         position: 'absolute',
-        backgroundColor: 'var(--dark-cosmic)'
+        backgroundColor: bgColor
     };
 
     const tooltipStyle = {
@@ -27,7 +30,7 @@ export const useTooltipHandlers = (data, event, itemId, tooltipRef) => {
         fontFamily: 'Inter, sans-serif',
         fontWeight: 'normal',
         color: 'white',
-        backgroundColor: 'var(--dark-cosmic)',
+        backgroundColor: bgColor,
         borderRadius: '0.375rem',
         border: '1px solid grey',
         position: 'absolute',

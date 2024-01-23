@@ -6,6 +6,8 @@ import Stats from "../Icons/Stats";
 import Items from "../../Items";
 import ScoreStatistics from "./ScoreStatistics";
 import { MatchHistoryContext } from "@utils/context/matchHistoryContext";
+import { RuneDataContext } from "@utils/context/runeDataContext";
+import { useRuneData } from "@utils/runeUtils";
 import { useContext } from "react";
 
 const PlayerStatistics = () => {
@@ -20,6 +22,11 @@ const PlayerStatistics = () => {
         visionScore
     } = matchData;
     const styles = { width: '32', height: '32' };
+
+    const runeData = useContext(RuneDataContext);
+    const { perks } = matchData;
+    const keystoneId = perks.styles[0].selections[0].perk;
+    const keystone = useRuneData(keystoneId, runeData);
 
     return (
         <div className='flex flex-col space-y-3 p-2 items-stretch'>
@@ -36,7 +43,7 @@ const PlayerStatistics = () => {
                         <SummonerSpell styles={styles} spell="SummonerTeleport"></SummonerSpell>
                     </div>
                     <div className='space-y-1'>
-                        <Rune styles={styles} rune="SummonerFlash"></Rune>
+                        <Rune styles={styles} rune={keystone}></Rune>
                         <Rune styles={styles} rune="SummonerTeleport"></Rune>
                     </div>
                 </div>

@@ -25,10 +25,7 @@ const Player = ({ player }) => {
     const runeData = useContext(RuneDataContext);
     const { perks } = matchData;
     const keystoneId = perks.styles[0].selections[0].perk;
-
     const keystone = useRuneData(keystoneId, runeData);
-
-    //console.log(router)
 
     return (
         <div className='flex flex-row items-center text-start space-x-2'>

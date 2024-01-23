@@ -5,8 +5,23 @@ export default function TooltipData({ data, dataType }) {
     switch (dataType) {
         case "item":
             return ItemStatsData()
+        case "rune":
+            return RuneData()
         default:
             return BriefData()
+    }
+
+    function RuneData() {
+        return (
+            <>
+                <div className="mb-2">
+                    <p className='font-bold text-base text-viola'>{data.name}</p>
+                </div>
+                <div className="text-crimson-grey text-sm">
+                    <p>{data.shortDesc}</p>
+                </div>
+            </>
+        )
     }
 
     function BriefData() {

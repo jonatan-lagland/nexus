@@ -18,6 +18,16 @@ export const useImagePathChampion = (championName) => {
     return src;
 }
 
+export const useImagePathRune = (runePath) => {
+    const gamePatch = useContext(GameVersionContext);
+    if (!runePath || !gamePatch) {
+        return placeholderIconSrc
+    }
+    const lowerCaseRunePath = runePath.toLowerCase();
+    const src = `https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/${lowerCaseRunePath}`;
+    return src;
+}
+
 export const useImgPathItem = () => {
     return `${path.address}/${path.cdn}/${path.patch}/${path.folder}/${path.item}/`;
 }
