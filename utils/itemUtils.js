@@ -1,42 +1,13 @@
 import { error400 } from './errors/errorResponses';
+import { removeHtmlTags } from './dataParsingUtils';
+import { extractValue } from './dataParsingUtils';
+import { extractStatValue } from './dataParsingUtils';
+import { extractActiveValue } from './dataParsingUtils';
+import { extractPassiveValue } from './dataParsingUtils';
+import { formatPercent } from './dataParsingUtils';
+import { removePassiveNames } from './dataParsingUtils';
 
 export const useItemData = (itemsToBeFiltered, completeListOfItems) => {
-    /* Extract a generic value, e.g. passive name */
-    function extractValue(description, tag) {
-        const regex = new RegExp(`<${tag}>(.*?)</${tag}>`, 'gi');
-        const matches = regex.exec(description);
-        return matches ? matches[1] : '';
-    }
-
-    /* Extract a stat value that is not included as a damageMod, e.g. Tenacity */
-    function extractStatValue(description, statName) {
-        const regex = new RegExp(`<stats>.*?(<buffedStat>|<attention>)(\\d+%?)<\\/(buffedStat|attention)> ${statName}.*?<\\/stats>`, 's');
-        const matches = regex.exec(description);
-        return matches ? matches[2] : '';
-    }
-
-    /* Extract an item's keyword "Active" description */
-    function extractActiveValue(description) {
-        const regex = /<\/active>(.*?)<br>/s;
-        const matches = regex.exec(description);
-        return matches ? matches[1] : '';
-    }
-
-    /* Extract an item's keyword "Passive" description */
-    function extractPassiveValue(description) {
-        const regex = /<passive>(.*?)<br>/s;
-        const matches = regex.exec(description);
-        return matches ? matches[1] : '';
-    }
-
-    /* Format decimal representation to percentage, e.g. 0.5 > 50% */
-    function formatPercent(value) {
-        return `${Math.round(value * 100)}%`;
-    }
-
-    /* Remove <> tags from item descriptions */
-    const removeHtmlTags = (str) => str.replace(/<[^>]*>/g, '');
-
     const processItemData = () => {
         try {
             const filteredItems = itemsToBeFiltered.map(itemId => {
@@ -51,7 +22,7 @@ export const useItemData = (itemsToBeFiltered, completeListOfItems) => {
                         rules: removeHtmlTags(extractValue(itemDetails.description, 'rules')),
                         passiveName: extractValue(itemDetails.description, 'passive'),
                         active: removeHtmlTags(extractActiveValue(itemDetails.description)),
-                        passive: removeHtmlTags(extractPassiveValue(itemDetails.description)),
+                        passive: removePassiveNames(removeHtmlTags(extractPassiveValue(itemDetails.description))),
                         gold: itemDetails.gold.total,
                         ad: itemDetails.stats.FlatPhysicalDamageMod ? `${itemDetails.stats.FlatPhysicalDamageMod}` : '',
                         ap: itemDetails.stats.FlatMagicDamageMod ? `${itemDetails.stats.FlatMagicDamageMod}` : '',
