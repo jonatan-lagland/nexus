@@ -23,21 +23,17 @@ function Provider({ children }) {
     };
 
     useEffect(() => {
-        getChampionListProps()
-            .then(data => {
-                setChampionListData(data);
-            })
-        getItemProps()
-            .then(data => {
-                setItemData(data);
-            })
-        getRuneProps()
-            .then(data => {
-                setRuneData(data);
-            })
-        getLatestVersion()
-            .then(data => {
-                setGamePatch(data);
+        Promise.all([
+            getChampionListProps(),
+            getItemProps(),
+            getRuneProps(),
+            getLatestVersion()
+        ])
+            .then(([championData, itemPropsData, runePropsData, latestVersionData]) => {
+                setChampionListData(championData);
+                setItemData(itemPropsData);
+                setRuneData(runePropsData);
+                setGamePatch(latestVersionData);
             })
     }, []);
 

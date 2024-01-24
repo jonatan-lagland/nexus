@@ -1,25 +1,22 @@
-import Match from './Match/Match';
+import LazyMatch from './LazyMatch';
 import Provider from './Match/Provider';
 
 function Section({ matchHistory, matchHistoryDetails, userData }) {
-
-    if (!matchHistory || !matchHistoryDetails || !userData) {
-        return null;
-    }
-
     return (
         <section className="profile-grid-section">
             {matchHistory.map((matchId, index) => (
                 <Provider key={`${matchId}${index}`}>
-                    <Match
+                    <LazyMatch
+                        matchId={matchId}
+                        index={index}
                         matchHistoryDetails={matchHistoryDetails}
-                        puuid={userData.puuid}
+                        userData={userData}
                     />
                 </Provider>
             ))}
-        </section>
+        </section >
     );
 }
-
 export default Section;
+
 
