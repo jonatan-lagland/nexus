@@ -8,7 +8,7 @@ const PlayerIcon = ({ puuid, championName }) => {
     return (
         <div
             style={{ width: '32px', height: '32px' }}
-            className='border border-black object-none rounded-sm select-none'>
+            className='border relative border-black object-none rounded-sm select-none'>
             <Image
                 onMouseOver={handleMouseHover(puuid)}
                 onMouseLeave={handleMouseHover(puuid)}

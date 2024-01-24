@@ -36,6 +36,7 @@ module.exports = {
         'crimson-grey': '#A489A0',
         'grass': '#67a63c',
         'dark-wine': '#481817',
+        'wine': '#5c1c25',
         'dark-crimson': '#400504',
         'forest': '#19391a',
         'swamp': '#253f25',

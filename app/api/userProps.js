@@ -51,7 +51,6 @@ export async function getMatchHistory(puuid, region) {
     const matches_url = process.env.RIOT_API_MATCHES_URL;
     const INCLUDE_API_KEY = true;
     const url = `https://${region}.${base_url}/${matches_url}/by-puuid/${puuid}/ids?start=0&count=20`;
-    console.log(url)
     const tag = `MatchHistory ${puuid}`;
 
     try {

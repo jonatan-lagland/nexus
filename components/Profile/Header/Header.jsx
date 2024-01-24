@@ -26,6 +26,8 @@ function Header({ data, info }) {
                         width={AVATAR_WIDTH}
                         height={AVATAR_HEIGHT}
                         className='object-contain'
+                        placeholder="blur"
+                        blurDataURL="/assets/images/0.png"
                         priority
                     />
                     <div className="flex flex-col justify-start ml-2">
@@ -37,7 +39,7 @@ function Header({ data, info }) {
             <div className="flex flex-row items-end justify-start">
                 <div className='flex flex-col space-y-2 items-start'>
                     <span className="text-xl md:text-2xl font-oswald text-indigo-300">Accessibility Mode</span>
-                    <label className="switch">
+                    <label label="Accessibility Mode" className="switch">
                         <input
                             type="checkbox"
                             checked={isColorblindMode}

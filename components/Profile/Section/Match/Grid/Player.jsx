@@ -30,6 +30,7 @@ const Player = ({ player }) => {
     return (
         <div className='flex flex-row items-center text-start space-x-2'>
             <PlayerIcon puuid={player.puuid} championName={player.championName}></PlayerIcon>
+            {/*}
             <div className='lg:hidden flex flex-row space-x-1'>
                 <div className='space-y-1'>
                     <SummonerSpell styles={styles} spell="SummonerFlash"></SummonerSpell>
@@ -40,6 +41,7 @@ const Player = ({ player }) => {
                     <Rune styles={styles} rune="SummonerTeleport"></Rune>
                 </div>
             </div>
+    {*/}
             <Link className={`${playerNameTheme} lg:w-[80px] truncate font-abel text-lg`} href={`${"pageLink"}`}>{player.riotIdGameName + ''}</Link>
         </div>
     );

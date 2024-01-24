@@ -297,9 +297,9 @@
 
 
 .profile .grid {
-  @apply w-full;
+  @apply w-full min-h-screen;
   display: grid;
-  grid-template-rows: auto 2fr 2fr; /* Each row takes only the space it needs */
+  grid-template-rows: auto auto auto; /* Each row takes only the space it needs */
   grid-template-columns: repeat(1, 1fr); /* One column layout for non-large devices */
   gap: 2px;
 }
@@ -354,9 +354,9 @@
 }
 
 .match {
-  @apply w-full py-6;
+  @apply w-full pt-6;
   display: grid;
-  grid-template-rows: auto auto auto; /* Each row takes only the space it needs */
+  grid-template-rows: auto; /* Each row takes only the space it needs */
   grid-template-columns: repeat(1, 1fr); /* One column layout for non-large devices */
   gap: 2px;
 }
@@ -364,27 +364,10 @@
 @media (min-width: 1024px) {
   .match {
       @apply w-full py-0;
-      grid-template-rows: auto auto auto;
-      grid-template-columns: 1fr 3fr 2fr; /* 1/4, 2/4, 1/4 column layout for large devices */
-  }
-
-  .match article:nth-child(1) {
-      grid-row: 1;
-      grid-column: 1 / 4; /* Header spans the first 3/4th */
-  }
-
-  .match article:nth-child(2) {
-      grid-row: 2;
-      grid-column: 1; /* Section takes up the first 1/4th */
-  }
-
-  .match article:nth-child(3) {
-      grid-row: 2;
-      grid-column: 3; /* Sidebar takes up the last 1/4th */
+      grid-template-rows: auto;
+      grid-template-columns: 1fr 4fr 2fr auto; /* 1/4, 2/4, 1/4 column layout for large devices */
   }
 }
-
-
 
 @keyframes fadeIn {
   from { opacity: 0; }

@@ -16,6 +16,7 @@ function ChampionIcon({ championName }) {
                 alt={"Champion Icon"}
                 width={80}
                 height={80}
+                priority
             />
         </div>
     )

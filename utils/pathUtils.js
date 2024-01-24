@@ -7,7 +7,7 @@ const baseUrl = "https://ddragon.leagueoflegends.com/cdn";
 const profileIcon = "img/profileicon";
 const itemIcon = "img/item"
 const championIcon = "img/champion"
-const placeholderIconSrc = "/assets/images/0.png"
+const placeholderIconSrc = "/assets/images/placeholder.webp"
 
 export const useImagePathChampion = (championName) => {
     const gamePatch = useContext(GameVersionContext);

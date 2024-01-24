@@ -8,6 +8,7 @@ import { useCardDetails } from '@utils/matchHistoryUtils';
 import GameResult from './Grid/GameResult';
 import PlayerStatistics from './Grid/PlayerStatistics';
 import Teams from './Grid/Teams';
+import SidebarDropdown from './Icons/SidebarDropdown';
 
 function Match({ matchHistoryDetails, puuid }) {
     // Build match history data to be passed to MatchHistoryContext
@@ -32,15 +33,18 @@ function Match({ matchHistoryDetails, puuid }) {
         : (isColorblindMode ? 'container-defeat-colorblind' : 'container-defeat');
 
     return (
-        <div className={`${containerTheme} match px-2`}>
+        <div className={`${containerTheme} lg:min-h-[205px] md:min-h-[415px] min-h-[415px] match lg:ps-2`}>
             <div>
                 <GameResult />
             </div>
             <div>
                 <PlayerStatistics />
             </div>
-            <div className='flex items-center justify-center'>
+            <div className='hidden lg:flex items-center justify-center'>
                 <Teams isFullDetail={false} />
+            </div>
+            <div>
+                <SidebarDropdown></SidebarDropdown>
             </div>
         </div>
     );
