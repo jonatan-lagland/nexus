@@ -1,25 +1,33 @@
 'use client'
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import RoleIcon from "../Icons/RoleIcon";
 import MatchEnd from "../Icons/MatchEnd";
 import { MatchHistoryContext } from "@utils/context/matchHistoryContext";
 import { ColorblindContext } from "@utils/context/colorBlindContext";
-import { calculateGameEnd } from "@utils/matchHistoryUtils";
+import { useCalculateGameEnd } from "@utils/matchHistoryUtils";
 
 const GameResult = () => {
     const { matchData } = useContext(MatchHistoryContext);
     const { win, gameEndTimestamp, individualPosition } = matchData;
     const { isColorblindMode } = useContext(ColorblindContext);
+    const [outcome, setOutcome] = useState('');
+    const [outcomeTheme, setOutcomeTheme] = useState('');
+    const [timestampTheme, setTimestampTheme] = useState('');
 
-    const outcome = win ? "Victory" : "Defeat";
-    const outcomeTheme = win
-        ? (isColorblindMode ? 'text-amber-400' : 'text-bright-green')
-        : (isColorblindMode ? 'text-amber-400' : 'text-grapefruit');
-    const timestampTheme = win
-        ? (isColorblindMode ? 'text-zinc-300' : 'text-zinc-300')
-        : (isColorblindMode ? 'text-zinc-200' : 'text-zinc-300');
+    useEffect(() => {
+        const outcome = win ? "Victory" : "Defeat";
+        const outcomeTheme = win
+            ? (isColorblindMode ? 'text-amber-400' : 'text-bright-green')
+            : (isColorblindMode ? 'text-amber-400' : 'text-grapefruit');
+        const timestampTheme = win
+            ? (isColorblindMode ? 'text-zinc-300' : 'text-zinc-300')
+            : (isColorblindMode ? 'text-zinc-200' : 'text-zinc-300');
+        setOutcome(outcome)
+        setOutcomeTheme(outcomeTheme)
+        setTimestampTheme(timestampTheme)
+    }, [win, isColorblindMode]);
 
-    const timestampGameEnd = calculateGameEnd(gameEndTimestamp)
+    const timestampGameEnd = useCalculateGameEnd(gameEndTimestamp)
 
     return (
         <>

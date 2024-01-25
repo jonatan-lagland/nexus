@@ -3,12 +3,12 @@ import dynamic from 'next/dynamic';
 import { useInView } from 'react-intersection-observer';
 import { ProgressBar } from './Loading';
 
-const Match = dynamic(() => import('./Match/Match'), { loading: () => <ProgressBar></ProgressBar>, ssr: false });
+const Match = dynamic(() => import('./Match/Match'), { loading: () => <ProgressBar></ProgressBar>, ssr: true });
 
-const LazyMatch = ({ matchId, index, matchHistoryDetails, userData }) => {
+const LazyMatch = ({ matchId, matchHistoryDetails, user }) => {
     const { ref, inView } = useInView({
         triggerOnce: true,
-        rootMargin: '100px 0px',
+        rootMargin: '400px 0px',
         threshold: 0.1
     });
 
@@ -16,9 +16,9 @@ const LazyMatch = ({ matchId, index, matchHistoryDetails, userData }) => {
         <div ref={ref}>
             {inView && (
                 <Match
-                    key={`${matchId}${index}`}
+                    key={`${matchId}`}
                     matchHistoryDetails={matchHistoryDetails}
-                    puuid={userData.puuid}
+                    puuid={user.puuid}
                 />
             )}
         </div>

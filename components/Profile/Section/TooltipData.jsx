@@ -7,20 +7,32 @@ export default function TooltipData({ data, dataType }) {
             return ItemStatsData()
         case "rune":
             return RuneData()
+        case "runepath":
+            return RunePathData()
         default:
             return BriefData()
     }
 
     function RuneData() {
         return (
-            <>
+            <div>
                 <div className="mb-2">
                     <p className='font-bold text-base text-viola'>{data.name}</p>
                 </div>
                 <div className="text-crimson-grey text-sm">
                     <p>{data.shortDesc}</p>
                 </div>
-            </>
+            </div>
+        )
+    }
+
+    function RunePathData() {
+        return (
+            <div>
+                <div className="flex flex-row justify-center mb-2">
+                    <p className='font-bold text-base text-viola'>{data.name}</p>
+                </div>
+            </div>
         )
     }
 

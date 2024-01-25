@@ -60,3 +60,13 @@ export const useImagePathUser = (info) => {
     const src = `${baseUrl}/${gamePatch}/${profileIcon}/${id}.png`;
     return src;
 }
+
+export const usePathPlayer = (pathname, riotIdGameName, riotIdTagline) => {
+    // Split the pathname into segments based on '/'
+    const segments = pathname.split('/');
+    // Remove the last segment
+    segments.pop();
+    const profilePath = segments.join('/') + '/';
+    const playerPath = profilePath + riotIdGameName + '-' + riotIdTagline;
+    return playerPath;
+}

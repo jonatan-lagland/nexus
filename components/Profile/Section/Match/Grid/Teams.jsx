@@ -1,17 +1,18 @@
 'use client'
 import Player from "./Player";
-import { MatchHistoryContext } from "@utils/context/matchHistoryContext";
-import { useContext } from "react";
 
-const Teams = () => {
-    const { matchData } = useContext(MatchHistoryContext);
-    const { participants, gameMode } = matchData;
+import React from 'react';
+
+function TeamsComponent({ participants, gameMode }) {
     let firstHalf = [];
     let secondHalf = [];
+
+    console.log("teams called")
 
     if (gameMode === "CLASSIC") {
         firstHalf = participants.slice(0, 5);
         secondHalf = participants.slice(5);
+
         return (
             <div className='team'>
                 <div>
@@ -31,6 +32,13 @@ const Teams = () => {
             </div>
         );
     }
-};
+    return null;
+}
 
-export default Teams
+const Teams = React.memo(TeamsComponent, (prevProps, nextProps) => {
+    // Return true if nextProps would render the same result as prevProps
+    return prevProps.participants === nextProps.participants && prevProps.gameMode === nextProps.gameMode;
+});
+
+export default Teams;
+

@@ -1,3 +1,4 @@
+'use client'
 /* Remove <> tags from item descriptions */
 export const removeHtmlTags = (str) => str.replace(/<[^>]*>/g, '');
 
@@ -29,7 +30,30 @@ export function extractPassiveValue(description) {
     return matches ? matches[1] : '';
 }
 
-export const removePassiveNames = (str) => str.replace(/\b\w+:\s*/g, ' ');
+// Description: Removes all text that end in ":", e.g. "Winter's Bite:" in an attempt to remove passive names
+// RegEx: Removes all text up to the last period before a colon (:) and including the colon itself, while keeping the period and everything after it.
+export const removePassiveNames = (str) => {
+
+    if (!str) {
+        return "";
+    }
+
+    // Split the string at each colon
+    const segments = str.split(':');
+
+    // Process each segment to keep the part after the colon and before the next period
+    const processedSegments = segments.map((segment, index) => {
+        if (index === 0) return ''; // Skip the first segment as it's before the first colon
+        return segment.split('.')[0].trim(); // Take the text before the first period
+    }).filter(Boolean); // Remove any empty strings
+
+    // Join the processed segments, adding a period and space between each
+    const newStr = processedSegments.join('. ') + '.';
+
+    console.log(`Original string: ${str}`);
+    console.log(`New string: ${newStr}`);
+    return newStr;
+};
 
 /* Format decimal representation to percentage, e.g. 0.5 > 50% */
 export function formatPercent(value) {

@@ -33,7 +33,6 @@ function ItemComponent({ item, visionScore }) {
     const AVATAR_WIDTH = 40;
     const AVATAR_HEIGHT = 40;
     const isTrinket = useIsTrinketItem(item.name)
-
     return (
         <div
             key={item}
@@ -56,6 +55,7 @@ function ItemComponent({ item, visionScore }) {
                     height={AVATAR_HEIGHT}
                 />
             )}
+
             {imgPath && (
                 <Tooltip
                     data={item}

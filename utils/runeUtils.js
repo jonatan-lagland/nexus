@@ -1,3 +1,4 @@
+'use client'
 import { error400 } from './errors/errorResponses';
 import { removeHtmlTags } from './dataParsingUtils';
 
@@ -23,6 +24,26 @@ export const useRuneData = (keystoneId, completeListOfRunes) => {
     };
     if (keystoneId && completeListOfRunes) {
         const filteredRunes = processRuneData();
+        return filteredRunes;
+    }
+};
+
+export const useRunePathData = (runePathId, completeListOfRunes) => {
+    const processRunePathData = () => {
+        try {
+            const foundRune = completeListOfRunes?.find(rune => rune.id === runePathId);
+            return {
+                id: foundRune.id,
+                key: foundRune.key,
+                icon: foundRune.icon,
+                name: foundRune.name,
+            }
+        } catch (err) {
+            return error400
+        }
+    };
+    if (runePathId && completeListOfRunes) {
+        const filteredRunes = processRunePathData();
         return filteredRunes;
     }
 };

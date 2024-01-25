@@ -4,15 +4,15 @@ import Image from 'next/image';
 import { useImagePathUser } from '@utils/pathUtils';
 import { ColorblindContext } from '@utils/context/colorBlindContext';
 
-function Header({ data, info }) {
+function Header({ user, userDetails }) {
 
     const AVATAR_WIDTH = 90;
     const AVATAR_HEIGHT = 90;
 
-    const imgPath = useImagePathUser(info);
+    const imgPath = useImagePathUser(userDetails);
     const { isColorblindMode, toggleColorblindMode } = useContext(ColorblindContext);
 
-    if (!data || !info) {
+    if (!user || !userDetails) {
         return null;
     }
 
@@ -31,15 +31,15 @@ function Header({ data, info }) {
                         priority
                     />
                     <div className="flex flex-col justify-start ml-2">
-                        <span className="title-profile-header">{data.gameName}</span>
-                        <span className="subheader-profile-header">#{data.tagLine}</span>
+                        <h1 className="title-profile-header">{user.gameName}</h1>
+                        <h2 className="subheader-profile-header">#{user.tagLine}</h2>
                     </div>
                 </div>
             </div>
             <div className="flex flex-row items-end justify-start">
                 <div className='flex flex-col space-y-2 items-start'>
-                    <span className="text-xl md:text-2xl font-oswald text-indigo-300">Accessibility Mode</span>
-                    <label label="Accessibility Mode" className="switch">
+                    <label className="text-xl md:text-2xl font-oswald text-indigo-300">Accessibility Mode</label>
+                    <label label="Accessibility Switch" className="switch">
                         <input
                             type="checkbox"
                             checked={isColorblindMode}

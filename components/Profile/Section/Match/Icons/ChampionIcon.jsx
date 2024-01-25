@@ -1,5 +1,4 @@
 'use client';
-
 import Image from 'next/image';
 import { useItemHover } from '@utils/tooltipUtils';
 import { useImagePathChampion } from '@utils/pathUtils';

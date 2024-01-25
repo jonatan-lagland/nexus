@@ -40,7 +40,7 @@ const ScoreStatistics = () => {
                         alt={`Gold Icon`}
                         width={20}
                         height={20}
-                        className="select-none"
+                        className="select-none h-auto"
                         style={{ filter: `${imageFilterCoin}` }}
                     />
                     <p className={`${scoreTheme} font-oswald font-light text-base md:text-lg`}>{goldEarned}</p>

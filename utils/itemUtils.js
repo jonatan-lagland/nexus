@@ -1,3 +1,4 @@
+'use client'
 import { error400 } from './errors/errorResponses';
 import { removeHtmlTags } from './dataParsingUtils';
 import { extractValue } from './dataParsingUtils';
@@ -5,7 +6,6 @@ import { extractStatValue } from './dataParsingUtils';
 import { extractActiveValue } from './dataParsingUtils';
 import { extractPassiveValue } from './dataParsingUtils';
 import { formatPercent } from './dataParsingUtils';
-import { removePassiveNames } from './dataParsingUtils';
 
 export const useItemData = (itemsToBeFiltered, completeListOfItems) => {
     const processItemData = () => {
@@ -22,7 +22,7 @@ export const useItemData = (itemsToBeFiltered, completeListOfItems) => {
                         rules: removeHtmlTags(extractValue(itemDetails.description, 'rules')),
                         passiveName: extractValue(itemDetails.description, 'passive'),
                         active: removeHtmlTags(extractActiveValue(itemDetails.description)),
-                        passive: removePassiveNames(removeHtmlTags(extractPassiveValue(itemDetails.description))),
+                        passive: removeHtmlTags(extractPassiveValue(itemDetails.description)),
                         gold: itemDetails.gold.total,
                         ad: itemDetails.stats.FlatPhysicalDamageMod ? `${itemDetails.stats.FlatPhysicalDamageMod}` : '',
                         ap: itemDetails.stats.FlatMagicDamageMod ? `${itemDetails.stats.FlatMagicDamageMod}` : '',

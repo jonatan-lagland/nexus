@@ -1,3 +1,4 @@
+'use client'
 import { useState, useEffect } from 'react';
 import { useImagePathChampion } from './pathUtils';
 import { error400 } from './errors/errorResponses';
