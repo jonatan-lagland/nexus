@@ -9,12 +9,11 @@ module.exports = {
     extend: {
       fontFamily: {
         satoshi: ['Satoshi', 'sans-serif'],
-        inter: ['Inter', 'sans-serif'],
-        oswald: ['Oswald', 'sans-serif'],
-        bebas: ['Bebas Neue', 'sans-serif'],
-        abel: ['Abel', 'sans-serif'],
-        figtree: ['Figtree', 'sans-serif'],
-        rubik: ['Rubik', 'sans-serif'],
+        inter: "var(--inter)",
+        oswald: "var(--oswald)",
+        bebas: "var(--bebas)",
+        abel: "var(--abel)",
+        rubik: "var(--rubik)",
       },
       colors: {
         'primary-orange': '#FF5722',

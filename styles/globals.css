@@ -1,10 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@100;200;300;400;500;600;700;800;900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Bebas%20Neue:wght@100;200;300;400;500;600;700;800;900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Abel:wght@100;200;300;400;500;600;700;800;900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Figtree:wght@100;200;300;400;500;600;700;800;900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@100;200;300;400;500;600;700;800;900&display=swap");
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -301,7 +294,6 @@
   display: grid;
   grid-template-rows: auto auto auto; /* Each row takes only the space it needs */
   grid-template-columns: repeat(1, 1fr); /* One column layout for non-large devices */
-  gap: 2px;
 }
 
 @media (min-width: 768px) {
@@ -400,11 +392,11 @@
 }
 
 .btn_default {
-  @apply border-2 font-semibold rounded-full bg-zinc-700 text-2xl font-abel py-1 px-4 text-stone-300 border-stone-500 hover:bg-zinc-600 md:py-2 md:px-5 md:text-3xl;
+  @apply border-2 rounded-full bg-zinc-700 text-2xl font-abel py-1 px-4 text-stone-300 border-stone-500 hover:bg-zinc-600 md:py-2 md:px-5 md:text-3xl;
 }
 
 .btn_default_sm_rectangle {
-  @apply border-2 font-semibold rounded-md bg-zinc-700 text-2xl font-abel py-1 px-4 text-neutral-100 border-stone-500 hover:bg-zinc-600;
+  @apply border-2 rounded-md bg-zinc-700 text-2xl font-abel py-1 px-4 text-neutral-100 border-stone-500 hover:bg-zinc-600;
 }
 
 .info_title-profile-header {
