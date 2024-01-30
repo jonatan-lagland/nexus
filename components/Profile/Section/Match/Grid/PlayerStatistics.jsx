@@ -6,7 +6,6 @@ import SummonerSpell from "../Icons/SummonerSpell";
 import Rune from "../Icons/Rune";
 import Stats from "../Icons/Stats";
 import Items from "../../Items";
-import ScoreStatistics from "./ScoreStatistics";
 import { ItemDataContext } from "@utils/context/itemDataContext";
 import { RuneDataContext } from "@utils/context/runeDataContext";
 import { useRuneData, useRunePathData } from "@utils/runeUtils";
@@ -37,7 +36,7 @@ const PlayerStatisticsComponent = ({
     const runePath = useRunePathData(runePathId, completeListOfRunes) // Convert Rune Path ID into a Rune Path description
 
     return (
-        <div className='flex flex-col space-y-3 p-2 items-stretch'>
+        <div className='flex flex-col space-y-3 px-2'>
             <div className='flex flex-row items-center justify-center space-x-2'>
                 <div className="relative">
                     <ChampionIcon championName={championName}></ChampionIcon>
@@ -63,9 +62,6 @@ const PlayerStatisticsComponent = ({
             </div>
             <div className="space-x-2">
                 <Items items={items} visionScore={visionScore}></Items>
-            </div>
-            <div>
-                <ScoreStatistics />
             </div>
         </div>
     );

@@ -8,9 +8,10 @@ export async function getChampionListProps() {
     const gameVersion = await getLatestVersion()
     const url = `${baseURL}${gameVersion}/data/en_US/champion.json`;
     const tag = "championList";
+    const revalidateDuration = 60 * 60 * 24; // 24 hours
 
     try {
-        const response = await fetchDataHandler(url, { next: { tags: [tag] } })
+        const response = await fetchDataHandler(url, { next: { tags: [tag], revalidate: revalidateDuration } })
         return response;
     } catch (error) {
         // Clear cache if an error occurs

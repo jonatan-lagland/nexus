@@ -26,8 +26,6 @@ function Header({ user, userDetails }) {
                         width={AVATAR_WIDTH}
                         height={AVATAR_HEIGHT}
                         className='object-contain'
-                        placeholder="blur"
-                        blurDataURL="/assets/images/0.png"
                         priority
                     />
                     <div className="flex flex-col justify-start ml-2">

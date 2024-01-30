@@ -13,6 +13,10 @@
   --deep-purple: theme('colors.deep-purple');
   --charcoal: theme('colors.charcoal');
   --dark-grey: theme('colors.dark-grey');
+  --dark-wine: theme('colors.dark-wine');
+  --wine: theme('colors.wine');
+  --forest: theme('colors.forest');
+  --coffee: theme('colors.coffee');
 }
 
 @media screen and (max-width: 640px) {
@@ -253,7 +257,7 @@
 }
 
 .title-profile-header {
-  @apply text-5xl font-bold font-oswald ps-6 inline-block text-white;
+  @apply text-6xl font-bold font-oswald ps-6 inline-block text-white;
 }
 
 .subheader-profile-header {
@@ -292,7 +296,7 @@
 .profile .grid {
   @apply w-full min-h-screen;
   display: grid;
-  grid-template-rows: auto auto auto; /* Each row takes only the space it needs */
+  grid-template-rows: auto; /* Each row takes only the space it needs */
   grid-template-columns: repeat(1, 1fr); /* One column layout for non-large devices */
 }
 
@@ -346,18 +350,16 @@
 }
 
 .match {
-  @apply w-full pt-6;
   display: grid;
-  grid-template-rows: auto; /* Each row takes only the space it needs */
+  grid-template-rows: 1fr 2fr auto auto ; /* Each row takes only the space it needs */
   grid-template-columns: repeat(1, 1fr); /* One column layout for non-large devices */
-  gap: 2px;
 }
 
 @media (min-width: 1024px) {
   .match {
       @apply w-full py-0;
       grid-template-rows: auto;
-      grid-template-columns: 1fr 4fr 2fr auto; /* 1/4, 2/4, 1/4 column layout for large devices */
+      grid-template-columns: 1fr 4fr 2fr auto;
   }
 }
 
@@ -491,12 +493,28 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
+.container-header {
+  @apply  py-1 px-3;
+  background-image: linear-gradient(to right, 
+  #120f0f 0%, 
+  #1a1a1a 20%,
+  #120f0f 100%);
+}
+
 .container-victory {
-  @apply bg-forest border-grass
+  @apply bg-forest border-forest-light;
+  background-image: linear-gradient(to right, 
+  var(--forest) 0%, 
+  #385816 30%,
+  var(--forest) 75%);
 }
 
 .container-defeat {
-  @apply bg-dark-wine border-red-800
+  @apply bg-dark-wine border-grape;
+  background-image: linear-gradient(to right, 
+  var(--dark-wine) 0%, 
+  #452219 30%,
+  var(--dark-wine) 100%);
 }
 
 .container-victory-colorblind {
@@ -504,5 +522,12 @@ input:checked + .slider:before {
 }
 
 .container-defeat-colorblind {
-  @apply bg-colorblind-loss-primary border-colorblind-loss-secondary
+  @apply bg-dark-wine border-grape
+}
+
+.neumorphism-1 {
+  border-radius: 7px;
+background: #191919;
+box-shadow:  9px 9px 18px #171717,
+             -9px -9px 18px #1b1b1b;
 }

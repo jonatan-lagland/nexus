@@ -15,7 +15,7 @@ const MatchEnd = () => {
 
     return (
         <>
-            <p className={`${timestampTheme} font-oswald font-light text-base md:text-lg`}>{timestampGameDuration}</p>
+            <p className={`${timestampTheme} text-gray-400 font-oswald font-light text-base md:text-lg`}>{timestampGameDuration}</p>
         </>
     );
 }

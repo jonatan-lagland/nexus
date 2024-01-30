@@ -101,7 +101,7 @@ export default function TooltipData({ data, dataType }) {
         return (
             <>
                 <div className="flex tooltip-data-title mb-5 justify-between">
-                    <p className='font-bold text-base text-vibrant-orange'>{data.name}</p>
+                    <p className='font-bold text-base text-orange-400'>{data.name}</p>
                     <div className='flex flex-row'>
                         <Image
                             src={`/assets/icons/stats/Gold.png`}

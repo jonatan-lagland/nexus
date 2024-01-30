@@ -11,12 +11,12 @@ const SidebarDropdown = () => {
     const { win } = matchData;
 
     const imageFilterRole = win
-        ? (isColorblindMode ? 'bg-green-900' : ' bg-blue-900')
+        ? (isColorblindMode ? 'bg-blue-900' : ' bg-green-900')
         : (isColorblindMode ? 'bg-wine' : 'bg-wine');
 
     return (
         <div
-            className={`${imageFilterRole} w-7 lg:min-h-full h-8 min-w-full flex items-center justify-center cursor-pointer`}>
+            className={`${imageFilterRole} min-w-full lg:min-h-full rounded-b-lg md:rounded-br-lg md:rounded-b-none flex items-center justify-center cursor-pointer`}>
             <Image
                 src={'/assets/icons/dropdown.svg'}
                 alt={'Dropdown Icon'}

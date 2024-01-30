@@ -4,26 +4,24 @@ import Player from "./Player";
 import React from 'react';
 
 function TeamsComponent({ participants, gameMode }) {
-    let firstHalf = [];
-    let secondHalf = [];
+    let blueTeam = [];
+    let redTeam = [];
 
-    console.log("teams called")
-
-    if (gameMode === "CLASSIC") {
-        firstHalf = participants.slice(0, 5);
-        secondHalf = participants.slice(5);
+    if (gameMode === "CLASSIC" || gameMode === "ARAM") {
+        blueTeam = participants.slice(0, 5);
+        redTeam = participants.slice(5);
 
         return (
             <div className='team'>
                 <div>
-                    {firstHalf.map((player) => (
+                    {blueTeam.map((player) => (
                         <div key={player.puuid} className=''>
                             <Player player={player}></Player>
                         </div>
                     ))}
                 </div>
                 <div>
-                    {secondHalf.map((player) => (
+                    {redTeam.map((player) => (
                         <div key={player.puuid} className=''>
                             <Player player={player}></Player>
                         </div>
