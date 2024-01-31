@@ -5,8 +5,14 @@ import { useItemHover } from "@utils/tooltipUtils"
 import Tooltip from "../../Tooltip"
 
 const Rune = ({ styles, rune }) => {
-    const path = useImagePathRune(rune.icon)
+    const path = useImagePathRune(rune)
     const { handleMouseHover, tooltipItemId, event } = useItemHover();
+
+    // Note: In some cases runes aren't used, e.g. QuickPlay or Arena.
+    // In such scenarios, skip rendering altogether
+    if (!rune) {
+        return null;
+    }
 
     return (
         <div

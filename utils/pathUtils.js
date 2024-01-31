@@ -1,7 +1,9 @@
 'use client'
 import path from '@data/imgPath.json';
+import { useMemo } from 'react';
 import { useContext } from 'react';
 import { GameVersionContext } from './context/gameVersionContext';
+import { ChampionListContext } from './context/championListContext';
 
 const baseUrl = "https://ddragon.leagueoflegends.com/cdn";
 const profileIcon = "img/profileicon";
@@ -11,20 +13,28 @@ const placeholderIconSrc = "/assets/images/placeholder.webp"
 
 export const useImagePathChampion = (championName) => {
     const gamePatch = useContext(GameVersionContext);
-    if (!championName || !gamePatch) {
-        return placeholderIconSrc
-    }
-    const src = `${baseUrl}/${gamePatch}/${championIcon}/${championName}.png`;
-    return src;
-}
+    const championList = useContext(ChampionListContext);
+
+    return useMemo(() => {
+        if (!championName || !gamePatch || !championList.data) {
+            return placeholderIconSrc;
+        }
+
+        const championData = championList.data[championName];
+        if (!championData) {
+            return placeholderIconSrc;
+        }
+        return `${baseUrl}/${gamePatch}/${championIcon}/${championData.image.full}`;
+    }, [championName, gamePatch, championList.data]);
+};
 
 export const useImagePathRune = (runePath) => {
     const gamePatch = useContext(GameVersionContext);
     if (!runePath || !gamePatch) {
         return placeholderIconSrc
     }
-    const lowerCaseRunePath = runePath.toLowerCase();
-    const src = `https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/${lowerCaseRunePath}`;
+    const path = runePath.icon ? runePath.icon.toLowerCase() : runePath.toLowerCase();
+    const src = `https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/${path}`;
     return src;
 }
 
@@ -34,22 +44,23 @@ export const useImgPathItem = () => {
 
 export const useImagePathItem = (item) => {
     const gamePatch = useContext(GameVersionContext);
-    if (!item || !gamePatch) {
-        return placeholderIconSrc
-    }
+    return useMemo(() => {
+        if (!item || !gamePatch) {
+            return placeholderIconSrc;
+        }
 
-    if (item.id === 0) {
-        return null;
-    }
+        if (item.id === 0) {
+            return null;
+        }
 
-    if (item.id === 1) {
-        return placeholderIconSrc;
-    }
+        if (item.id === 1) {
+            return placeholderIconSrc;
+        }
 
-    const img = item.image;
-    const src = `${baseUrl}/${gamePatch}/${itemIcon}/${img}`;
-    return src;
-}
+        const img = item.image;
+        return `${baseUrl}/${gamePatch}/${itemIcon}/${img}`;
+    }, [item, gamePatch]);
+};
 
 export const useImagePathUser = (info) => {
     const gamePatch = useContext(GameVersionContext);
@@ -62,11 +73,15 @@ export const useImagePathUser = (info) => {
 }
 
 export const usePathPlayer = (pathname, riotIdGameName, riotIdTagline) => {
-    // Split the pathname into segments based on '/'
-    const segments = pathname.split('/');
-    // Remove the last segment
-    segments.pop();
-    const profilePath = segments.join('/') + '/';
-    const playerPath = profilePath + riotIdGameName + '-' + riotIdTagline;
+    const playerPath = useMemo(() => {
+        // Split the pathname into segments based on '/'
+        const segments = pathname.split('/');
+        // Remove the last segment
+        segments.pop();
+        const profilePath = segments.join('/') + '/';
+        return profilePath + riotIdGameName + '-' + riotIdTagline;
+    }, [pathname, riotIdGameName, riotIdTagline]);
+
     return playerPath;
-}
+};
+
