@@ -1,4 +1,5 @@
 'use server'
+import { notFound } from 'next/navigation';
 import revalidateCache from './cache';
 import fetchDataHandler from './fetchDataHandler';
 
@@ -15,13 +16,7 @@ export async function getUserPUUID(params, region) {
         const response = await fetchDataHandler(url, INCLUDE_API_KEY, { next: { tags: [paramsId] } })
         return response;
     } catch (error) {
-        // Clear cache if an error occurs
-        revalidateCache(paramsId)
-        return {
-            status: error.status,
-            reason: error.reason,
-            error: error.message
-        }
+        notFound()
     }
 }
 
@@ -59,11 +54,7 @@ export async function getMatchHistory(puuid, region) {
     } catch (error) {
         // Clear cache if an error occurs
         revalidateCache(tag)
-        return {
-            status: error.status,
-            reason: error.reason,
-            error: error.message
-        }
+        throw error;
     }
 }
 
@@ -80,10 +71,6 @@ export async function getMatchHistoryDetails(matchId, region) {
     } catch (error) {
         // Clear cache if an error occurs
         revalidateCache(tag)
-        return {
-            status: error.status,
-            reason: error.reason,
-            error: error.message
-        }
+        throw error;
     }
 }

@@ -6,7 +6,7 @@ export const error400 = {
 
 export const error404 = {
     status: 404,
-    reason: "Page Not Found",
+    reason: "Not Found",
     error: "We could not find what you were looking for.",
 };
 

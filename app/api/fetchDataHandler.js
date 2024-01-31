@@ -5,6 +5,7 @@ export default async function fetchDataHandler(url, includeApiKey = false, timeo
     // By default, data fetching has no set timeout. TimeoutDuration above 0 indicates a time limit should be set.
     // By default, no API key is included in header. API key isn't needed when fetching data from DDragon API.
     // A timeout can be manually set in each API route, often when fetching crucial data like match history data.
+
     if (timeoutDuration > 0) {
         const response = await fetchWithTimeout();
         return response;
@@ -19,9 +20,10 @@ export default async function fetchDataHandler(url, includeApiKey = false, timeo
             headers[process.env.API_KEY] = process.env.API_KEY_VALUE;
         }
         const response = await fetch(url, { headers });
+        console.log(response.status)
 
         if (!response.ok) {
-            serverErrorHandler(response);
+            await serverErrorHandler(response);
         }
         return response.json();
     }
@@ -46,7 +48,7 @@ export default async function fetchDataHandler(url, includeApiKey = false, timeo
         ]);
 
         if (!response.ok) {
-            serverErrorHandler(response);
+            await serverErrorHandler(response);
         }
         return response.json();
     }

@@ -6,12 +6,17 @@ import { getMatchHistoryDetails } from '@app/api/userProps';
 export function useFetchMatchHistoryData(user, region) {
     const [matchHistory, setMatchHistoryData] = useState(null);
     const [matchHistoryDetails, setMatchHistoryDetailsData] = useState(null);
+    const [error, setError] = useState(null);
 
     // Fetch match history
     useEffect(() => {
         async function fetchMatchHistory() {
-            const matchHistoryData = await getMatchHistory(user.puuid, region);
-            setMatchHistoryData(matchHistoryData);
+            try {
+                const matchHistoryData = await getMatchHistory(user.puuid, region);
+                setMatchHistoryData(matchHistoryData);
+            } catch (error) {
+                setError(error)
+            }
         }
         fetchMatchHistory();
     }, [region, user.puuid]);
@@ -20,17 +25,19 @@ export function useFetchMatchHistoryData(user, region) {
     useEffect(() => {
         async function fetchMatchHistoryDetails() {
             if (matchHistory && matchHistory.length > 0) {
-                const promises = matchHistory.map(matchId =>
-                    getMatchHistoryDetails(matchId, region)
-                );
-                const allMatchDetails = await Promise.all(promises);
-                console.log(allMatchDetails); // This will be an array of details for each match
-                setMatchHistoryDetailsData(allMatchDetails);
+                try {
+                    const promises = matchHistory.map(matchId =>
+                        getMatchHistoryDetails(matchId, region)
+                    );
+                    const allMatchDetails = await Promise.all(promises);
+                    setMatchHistoryDetailsData(allMatchDetails);
+                } catch (error) {
+                    setError(error)
+                }
             }
         }
         fetchMatchHistoryDetails();
     }, [matchHistory, region]);
 
-
-    return { matchHistory, matchHistoryDetails };
+    return { matchHistory, matchHistoryDetails, error, setError };
 }
