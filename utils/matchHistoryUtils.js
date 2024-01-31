@@ -70,16 +70,30 @@ export function useCalculateGameEnd(gameEndTimestamp) {
         const minutes = Math.floor(seconds / 60);
         const hours = Math.floor(minutes / 60);
         const days = Math.floor(hours / 24);
+        const months = Math.floor(days / 30)
+        const years = Math.floor(months / 12)
 
-        if (days > 0) {
-            return (`${days} days ago`);
-        } else if (hours > 0) {
-            return (`${hours} hours ago`);
-        } else if (minutes > 0) {
+        if (years >= 2)
+            return (`${years} years ago`); // Equal or more than 2 years
+        if (years > 0)
+            return (`${years} year ago`); // More than 1 year less than 2 years
+        if (months >= 2)
+            return (`${months} months ago`); // More than 2 months
+        if (months > 0)
+            return (`${months} month ago`); // More than 1 month less than 2 months
+        if (days >= 2)
+            return (`${days} days ago`); // More than 2 days
+        if (days > 0)
+            return (`${days} day ago`); // More than 1 day less than 2 days
+        if (hours >= 2)
+            return (`${hours} hours ago`); // More than 2 hours
+        if (hours > 0)
+            return (`${hours} hour ago`); // More than 1 hour less than 2 hours
+        if (minutes > 0)
             return (`${minutes} minutes ago`);
-        } else {
-            return ("Just now");
-        }
+
+        return ("Just now"); // default
+
     }, [gameEndTimestamp]);
 }
 
