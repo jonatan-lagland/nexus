@@ -17,7 +17,7 @@ export const useClickOutsideDropdown = (dropdownRef, setDropdownVisible, isDropd
         return () => {
             document.removeEventListener('click', handleClickOutside);
         };
-    }, [isDropdownVisible]);
+    }, [dropdownRef, setDropdownVisible, isDropdownVisible]);
 };
 
 /* Toggles the visibility of a dropdown menu when clicked to either visible or invisible, depending on state. */

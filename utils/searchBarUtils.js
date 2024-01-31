@@ -17,7 +17,7 @@ export const useClickOutsideInputField = (dropdownRef, inputRef, setDropdownVisi
         return () => {
             document.removeEventListener('click', handleClickOutside);
         };
-    }, [isDropdownVisible]);
+    }, [dropdownRef, inputRef, setDropdownVisible, isDropdownVisible]);
 };
 
 

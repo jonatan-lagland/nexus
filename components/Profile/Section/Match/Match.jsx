@@ -18,8 +18,6 @@ function Match({ matchHistoryDetails, puuid }) {
 
     const details = useCardDetails(matchHistoryDetails, puuid)
 
-    console.log(matchHistoryDetails)
-
     useEffect(() => {
         if (matchData == null) {
             return
@@ -90,4 +88,4 @@ function Match({ matchHistoryDetails, puuid }) {
     );
 }
 
-export default React.memo(Match)
+export default Match;

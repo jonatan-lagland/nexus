@@ -1,13 +1,12 @@
 'use client'
 import { useContext, useState, useEffect } from "react";
-import RoleIcon from "../Icons/RoleIcon";
 import { MatchHistoryContext } from "@utils/context/matchHistoryContext";
 import { ColorblindContext } from "@utils/context/colorBlindContext";
 import { useCalculateGameEnd } from "@utils/matchHistoryUtils";
 
 const GameResult = () => {
     const { matchData } = useContext(MatchHistoryContext);
-    const { win, gameEndTimestamp, individualPosition } = matchData;
+    const { win, gameEndTimestamp } = matchData;
     const { isColorblindMode } = useContext(ColorblindContext);
     const [outcome, setOutcome] = useState('');
     const [outcomeTheme, setOutcomeTheme] = useState('');

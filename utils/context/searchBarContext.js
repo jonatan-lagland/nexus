@@ -14,7 +14,7 @@ export default function SearchBarContextProvider({ children }) {
             {children}
         </SearchBarContext.Provider>
     );
-};
+}
 
 export function useSearchBarContext() {
     const context = useContext(SearchBarContext);
