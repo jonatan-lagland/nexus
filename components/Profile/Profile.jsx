@@ -3,54 +3,59 @@ import React from 'react'
 import Header from '@components/Profile/Header/Header'
 import Section from '@components/Profile/Section/Section'
 import Sidebar from '@components/Profile/Sidebar/Sidebar'
-import ContainerSkeleton from './Section/Loading'
 import { StaticDataProvider } from '@app/StaticDataProvider'
-
-import { Suspense } from 'react'
-import { getUserInfo } from '@app/api/userProps'
-import { getUserPUUID } from '@app/api/userProps'
+import { getUserInfo, getUserPUUID, getRankedInfo } from '@app/api/userProps'
 import { getChampionListProps } from '@app/api/championProps'
 import { getItemProps } from '@app/api/itemProps'
 import { getRuneProps } from '@app/api/runeProps'
 import { getLatestVersion } from '@app/api/latestVersion'
+import { QueryProvider } from '@app/api/QueryClientProvider'
+import { getMatchHistory } from '@app/api/userProps'
+import { MatchHistoryProvider } from '@app/MatchHistoryProvider'
 
 async function Profile({ params, region, server }) {
-    const [championListData, itemListData, runeListData, gameVersionData] = await Promise.all([
-        getChampionListProps(),
-        getItemProps(),
-        getRuneProps(),
-        getLatestVersion(),
+
+    const gameVersion = await getLatestVersion();
+
+    const [championList, itemList, runeList] = await Promise.all([
+        getChampionListProps(gameVersion),
+        getItemProps(gameVersion),
+        getRuneProps(gameVersion)
     ])
 
     const userData = await getUserPUUID(params, region);
     const userDetailsData = await getUserInfo(userData.puuid, server);
-    const [user, userDetails] = await Promise.all([userData, userDetailsData])
+    const rankedDetailsData = await getRankedInfo(userDetailsData.id, server);
+    const matchHistoryData = await getMatchHistory(userData.puuid, region);
+    const [user, userDetails, rankedDetails, matchHistory] = await Promise.all([userData, userDetailsData, rankedDetailsData, matchHistoryData])
 
     const data = {
-        championListData,
-        itemListData,
-        runeListData,
-        gameVersionData,
+        championList,
+        itemList,
+        runeList,
+        gameVersion,
     };
 
     return (
-        <StaticDataProvider data={data}>
-            <section className='profile'>
-                <section className='grid'>
-                    <article>
-                        <Header user={user} userDetails={userDetails} />
-                    </article>
-                    <article>
-                        <Suspense fallback={<ContainerSkeleton></ContainerSkeleton>}>
-                            <Section user={user} region={region} />
-                        </Suspense>
-                    </article>
-                    <article className="bg-deep-purple">
-                        <Sidebar />
-                    </article>
-                </section>
-            </section>
-        </StaticDataProvider>
+        <QueryProvider>
+            <StaticDataProvider data={data}>
+                <MatchHistoryProvider matchHistory={matchHistory}> {/* Set initial data of Match History */}
+                    <section className='profile'>
+                        <section className='grid'>
+                            <article>
+                                <Header user={user} userDetails={userDetails} rankedDetails={rankedDetails} region={region} />
+                            </article>
+                            <article>
+                                <Section user={user} region={region} />
+                            </article>
+                            <article className="bg-deep-purple">
+                                <Sidebar rankedDetails={rankedDetails} />
+                            </article>
+                        </section>
+                    </section>
+                </MatchHistoryProvider>
+            </StaticDataProvider>
+        </QueryProvider>
     )
 }
 export default Profile
