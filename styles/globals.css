@@ -494,7 +494,7 @@
 }
 
 .game-stats-container {
-  @apply flex flex-row justify-center space-x-5
+  @apply flex flex-row space-x-5
 }
 
 .champion-level-container {
@@ -601,9 +601,51 @@ input:checked + .slider:before {
   @apply bg-dark-wine border-grape
 }
 
+.badge-iron {
+  @apply border-2 border-[#040d0c] bg-[#5f5f5d];
+}
+
+.badge-bronze {
+  @apply border-2 border-[#040d0c] bg-[#7E5134];
+}
+
+.badge-silver {
+  @apply border-2 border-[#040d0c] bg-[#797f71];
+}
+
+.badge-gold {
+  @apply border-2 border-[#040d0c] bg-[#98751e];
+}
+
+.badge-platinum {
+  @apply border-2 border-[#040d0c] bg-[#377c82];
+}
+
+.badge-emerald {
+  @apply border-2 border-[#040d0c] bg-[#326d4d];
+}
+
+.badge-diamond {
+  @apply border-2 border-[#040d0c] bg-[#486bbf];
+}
+
+.badge-master {
+  @apply border-2 border-[#040d0c] bg-[#95349d];
+}
+
+.badge-grandmaster {
+  @apply border-2 border-[#040d0c] bg-[#ab2d27];
+}
+
+.badge-challenger {
+  @apply border-2 border-[#040d0c] bg-[#48a3e2];
+}
+
 .neumorphism-1 {
-  border-radius: 7px;
-background: #191919;
-box-shadow:  9px 9px 18px #171717,
-             -9px -9px 18px #1b1b1b;
+  border-radius: 150px;
+  background-image: linear-gradient(to right, 
+  var(--forest) 0%, 
+  #385816 30%,
+  var(--forest) 75%);
+box-shadow:  6px 6px 12px #0f0e0e
 }

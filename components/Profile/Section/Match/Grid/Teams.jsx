@@ -1,6 +1,6 @@
 'use client'
-import Player from "./Player";
 
+import Player from "./Player";
 import React from 'react';
 
 function TeamsComponent({ participants, gameMode }) {
