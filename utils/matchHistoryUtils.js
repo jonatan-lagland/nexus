@@ -1,5 +1,12 @@
 'use client'
 import { useMemo } from "react";
+import { useEffect } from "react";
+import { useState } from "react";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { getMatchHistoryDetails } from "@app/api/userProps";
+import { useInView } from "react-intersection-observer";
+import { rateLimitHandler } from "@app/api/errorHandlers";
+import { useQueryClient } from "@tanstack/react-query";
 
 export function useCardDetails(matchHistoryDetails, puuid) {
     return useMemo(() => {
@@ -105,4 +112,56 @@ export function useCalculateGameDuration(gameDuration) {
         const timestamp = `${minutes}:${paddedSeconds}`;
         return timestamp;
     }, [gameDuration]);
+}
+
+export function useMatchHistoryUtils(matchHistory, region) {
+    const [alert, setAlert] = useState(false);
+    const queryClient = useQueryClient();
+
+    const { data, fetchNextPage, isFetchingNextPage } = useInfiniteQuery({
+        queryKey: ["query"],
+        queryFn: async ({ pageParam = 1 }) => {
+            try {
+                console.log("defined:", pageParam)
+                const matchId = matchHistory.slice(pageParam - 1, pageParam).join('')
+                const response = await getMatchHistoryDetails(matchId, region);
+                return response;
+            } catch (error) {
+                setAlert(true)
+                await rateLimitHandler(error.retryAfter)
+                return undefined;
+            }
+        },
+        getNextPageParam: (_, pages) => {
+            return pages.length + 1
+        }
+    });
+
+    const { ref, inView } = useInView({
+        rootMargin: '400px 0px',
+        threshold: 0,
+    });
+
+
+    // Fetch initial 4 pages
+    useEffect(() => {
+        if (!data || !data.pages || data.pages.length < 4) {
+            fetchNextPage();
+        }
+    }, [data, fetchNextPage]);
+
+    const isBelow20Pages = data && data.pages && data.pages.length < 20;
+
+    useEffect(() => {
+        if (inView && !isFetchingNextPage && isBelow20Pages) {
+            fetchNextPage();
+        }
+    }, [inView, fetchNextPage, isFetchingNextPage, isBelow20Pages]);
+
+    useEffect(() => {
+        // Invalidate and refetch when matchHistory changes
+        queryClient.invalidateQueries(["query"]);
+    }, [matchHistory, queryClient]);
+
+    return { data, ref, alert, inView }
 }
