@@ -1,7 +1,7 @@
 'use server'
 import revalidateCache from './cache';
 import fetchDataHandler from './fetchDataHandler';
-import { getLatestVersion } from './latestVersion';
+import { getLatestVersion } from './gameData';
 
 export async function getChampionListProps(gameVersion) {
     const baseURL = process.env.RIOT_DDRAGON_BASE_URL_CDN;
