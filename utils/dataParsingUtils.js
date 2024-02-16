@@ -1,6 +1,13 @@
 'use client'
 /* Remove <> tags from item descriptions */
-export const removeHtmlTags = (str) => str.replace(/<[^>]*>/g, '');
+export const removeHtmlTags = (str) => str.replace(/<[^>]*>|{[^}]*}|[{}]/g, '');
+export const removeActivePassiveTags = (str) => {
+    return str.replace(/<active>.*?<\/active>|<passive>.*?<\/passive>/gs, ' ');
+};
+
+export const removeTimers = (str) => {
+    return str.replace(/\(0s\)/g, '');
+};
 
 /* Extract a generic value, e.g. passive name */
 export function extractValue(description, tag) {
@@ -18,14 +25,14 @@ export function extractStatValue(description, statName) {
 
 /* Extract an item's keyword "Active" description */
 export function extractActiveValue(description) {
-    const regex = /<\/active>(.*?)<br>/s;
+    const regex = /<\/active>(.*?)<\/mainText>/s;
     const matches = regex.exec(description);
     return matches ? matches[1] : '';
 }
 
 /* Extract an item's keyword "Passive" description */
 export function extractPassiveValue(description) {
-    const regex = /<passive>(.*?)<br>/s;
+    const regex = /<\/passive>(.*?)(<active>|<\/mainText>)/s;
     const matches = regex.exec(description);
     return matches ? matches[1] : '';
 }

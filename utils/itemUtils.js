@@ -1,11 +1,11 @@
 'use client'
 import { error400 } from './errors/errorResponses';
-import { removeHtmlTags } from './dataParsingUtils';
-import { extractValue } from './dataParsingUtils';
+import { removeHtmlTags, removeTimers } from './dataParsingUtils';
 import { extractStatValue } from './dataParsingUtils';
 import { extractActiveValue } from './dataParsingUtils';
 import { extractPassiveValue } from './dataParsingUtils';
 import { formatPercent } from './dataParsingUtils';
+import { removeActivePassiveTags } from './dataParsingUtils';
 
 export const useItemData = (itemsToBeFiltered, completeListOfItems) => {
     const processItemData = () => {
@@ -18,11 +18,12 @@ export const useItemData = (itemsToBeFiltered, completeListOfItems) => {
                         id: itemId,
                         name: itemDetails.name,
                         image: itemDetails.image.full,
-                        description: itemDetails.description,
-                        rules: removeHtmlTags(extractValue(itemDetails.description, 'rules')),
-                        passiveName: extractValue(itemDetails.description, 'passive'),
-                        active: removeHtmlTags(extractActiveValue(itemDetails.description)),
-                        passive: removeHtmlTags(extractPassiveValue(itemDetails.description)),
+                        //description: itemDetails.description,
+                        //rules: removeHtmlTags(extractValue(itemDetails.description, 'rules')),
+                        //passiveName: extractValue(itemDetails.description, 'passive'),
+                        active: removeHtmlTags((removeTimers(removeActivePassiveTags(extractActiveValue(itemDetails.description))))),
+                        passive: removeHtmlTags((removeTimers(removeActivePassiveTags(extractPassiveValue(itemDetails.description))))),
+                        plaintext: itemDetails.plaintext,
                         gold: itemDetails.gold.total,
                         ad: itemDetails.stats.FlatPhysicalDamageMod ? `${itemDetails.stats.FlatPhysicalDamageMod}` : '',
                         ap: itemDetails.stats.FlatMagicDamageMod ? `${itemDetails.stats.FlatMagicDamageMod}` : '',
