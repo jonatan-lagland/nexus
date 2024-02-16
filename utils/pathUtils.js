@@ -6,26 +6,37 @@ import { GameVersionContext } from './context/gameVersionContext';
 import { ChampionListContext } from './context/championListContext';
 
 const baseUrl = "https://ddragon.leagueoflegends.com/cdn";
+const CDBaseUrl = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default';
 const profileIcon = "img/profileicon";
 const itemIcon = "img/item"
 const championIcon = "img/champion"
 const placeholderIconSrc = "/assets/images/placeholder.webp"
+const placeholderChampionSrc = "https://cdn.communitydragon.org/latest/champion/generic/square";
 
-export const useImagePathChampion = (championName) => {
+export const useImagePathChampion = (championKey) => {
     const gamePatch = useContext(GameVersionContext);
     const championList = useContext(ChampionListContext);
+    const stringifiedKey = String(championKey);
 
     return useMemo(() => {
-        if (!championName || !gamePatch || !championList.data) {
-            return placeholderIconSrc;
+        if (!championKey || !gamePatch || !championList.data) {
+            return placeholderChampionSrc;
         }
 
-        const championData = championList.data[championName];
-        if (!championData) {
-            return placeholderIconSrc;
+        // Loop through championList to find a champion key and subsequently return image 
+        let championSrc = null;
+        for (let champion in championList.data) {
+            if (championList.data[champion].key === stringifiedKey) {
+                championSrc = championList.data[champion].image.full;
+                break;
+            }
         }
-        return `${baseUrl}/${gamePatch}/${championIcon}/${championData.image.full}`;
-    }, [championName, gamePatch, championList.data]);
+
+        if (!championSrc) {
+            return placeholderChampionSrc;
+        }
+        return `${baseUrl}/${gamePatch}/${championIcon}/${championSrc}`;
+    }, [championKey, gamePatch, championList.data, stringifiedKey]);
 };
 
 export const useImagePathRune = (runePath) => {
@@ -37,6 +48,19 @@ export const useImagePathRune = (runePath) => {
     const src = `https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/${path}`;
     return src;
 }
+
+export const useImagePathSummonerSpell = (iconPath) => {
+    if (!iconPath) {
+        return placeholderIconSrc;
+    }
+    // Replace the base path and convert the rest to lowercase
+    const modifiedPath = iconPath
+        .replace('/lol-game-data/assets/', '')
+        .toLowerCase();
+    const src = `${CDBaseUrl}/${modifiedPath}`;
+    return src;
+}
+
 
 export const useImgPathItem = () => {
     return `${path.address}/${path.cdn}/${path.patch}/${path.folder}/${path.item}/`;
@@ -65,7 +89,7 @@ export const useImagePathItem = (item) => {
 export const useImagePathUser = (info) => {
     const gamePatch = useContext(GameVersionContext);
     if (!info || !gamePatch) {
-        return placeholderIconSrc
+        return placeholderChampionSrc
     }
     const id = info.profileIconId;
     const src = `${baseUrl}/${gamePatch}/${profileIcon}/${id}.png`;
