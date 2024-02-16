@@ -17,9 +17,10 @@ export async function getUserPUUID(params, region) {
         const response = await fetchDataHandler(url, tag, INCLUDE_API_KEY)
         return response;
     } catch (error) {
-        if (error.status === 404) {
+        if (error.status === 404 || error.status === 403) {
             notFound()
         }
+        revalidateCache(tag)
     }
 }
 
@@ -35,6 +36,9 @@ export async function getUserInfo(puuid, server) {
         return response;
     } catch (error) {
         // Clear cache if an error occurs
+        if (error.status === 404 || error.status === 403) {
+            notFound()
+        }
         revalidateCache(tag)
         return {
             status: error.status,
@@ -44,7 +48,7 @@ export async function getUserInfo(puuid, server) {
     }
 }
 
-export async function getRankedInfo(leagueId, server) {
+export async function getRankedInfo(leagueId, server, refreshCache = false) {
     const base_url = process.env.RIOT_API_BASE_URL;
     const entries_url = process.env.RIOT_API_ENTRIES_URL;
     const INCLUDE_API_KEY = true; // Include an API key
@@ -52,6 +56,9 @@ export async function getRankedInfo(leagueId, server) {
     const tag = leagueId;
 
     try {
+        if (refreshCache) {
+            await revalidateCache(tag)
+        }
         const response = await fetchDataHandler(url, tag, INCLUDE_API_KEY)
         return response;
     } catch (error) {
@@ -70,7 +77,7 @@ export async function getMatchHistory(puuid, region, refreshCache = false) {
     const matches_url = process.env.RIOT_API_MATCHES_URL;
     const INCLUDE_API_KEY = true; // Include an API key
     const url = `https://${region}.${base_url}/${matches_url}/by-puuid/${puuid}/ids?start=0&count=20`;
-    const tag = `MatchHistory ${puuid}`;
+    const tag = `Match-History ${puuid}`;
 
     try {
         if (refreshCache) {
@@ -81,7 +88,11 @@ export async function getMatchHistory(puuid, region, refreshCache = false) {
     } catch (error) {
         // Clear cache if an error occurs
         revalidateCache(tag)
-        throw error;
+        return {
+            status: error.status,
+            reason: error.reason,
+            error: error.message
+        }
     }
 }
 
@@ -98,6 +109,53 @@ export async function getMatchHistoryDetails(matchId, region) {
     } catch (error) {
         // Clear cache if an error occurs
         revalidateCache(tag)
-        throw error;
+        return {
+            status: error.status,
+            reason: error.reason,
+            error: error.message
+        }
+    }
+}
+
+export async function getLiveGameDetails(server, summonerId, refreshCache = false) {
+    const base_url = process.env.RIOT_API_BASE_URL;
+    const spectator_url = process.env.RIOT_API_SPECTATOR_URL;
+    const INCLUDE_API_KEY = true; // Include an API key
+    const url = `https://${server}.${base_url}/${spectator_url}/by-summoner/${summonerId}`;
+    const tag = `Spectator-${summonerId}`;
+    const cacheDuration = 10;
+
+    try {
+        if (refreshCache) {
+            await revalidateCache(tag)
+        }
+        const response = await fetchDataHandler(url, tag, INCLUDE_API_KEY, cacheDuration)
+        return response;
+    } catch (error) {
+        return {
+            status: error.status,
+            reason: error.reason,
+            error: error.message
+        }
+    }
+}
+
+export async function getUserNameAndTag(puuid, server) {
+    const base_url = process.env.RIOT_API_BASE_URL;
+    const account_url = process.env.RIOT_API_ACCOUNT_URL;
+    const INCLUDE_API_KEY = true; // Include an API key
+    const url = `https://${server}.${base_url}/${account_url}/by-puuid/${puuid}`;
+    const tag = `UserAndTag-${puuid}`;
+
+    try {
+        const response = await fetchDataHandler(url, tag, INCLUDE_API_KEY)
+        return response;
+    } catch (error) {
+        revalidateCache(tag)
+        return {
+            status: error.status,
+            reason: error.reason,
+            error: error.message
+        }
     }
 }
