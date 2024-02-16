@@ -5,29 +5,14 @@ import { useState } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { getMatchHistoryDetails } from "@app/api/userProps";
 import { useInView } from "react-intersection-observer";
-import { rateLimitHandler } from "@app/api/errorHandlers";
 import { useQueryClient } from "@tanstack/react-query";
 
 export function useCardDetails(matchHistoryDetails, puuid) {
     return useMemo(() => {
         const { info } = matchHistoryDetails;
-        const { gameEndTimestamp, gameDuration, gameMode, participants } = info;
+        const { gameEndTimestamp, gameDuration, gameMode, queueId, participants } = info;
         const mainPlayer = participants.find(participant => participant.puuid === puuid);
-        const {
-            individualPosition,
-            kills,
-            deaths,
-            assists,
-            totalMinionsKilled,
-            visionScore,
-            goldEarned,
-            champLevel,
-            championName,
-            summoner1Id,
-            summoner2Id,
-            perks,
-            win
-        } = mainPlayer
+        const { win } = mainPlayer;
 
         // Item id's of the main player in a match
         const {
@@ -46,24 +31,38 @@ export function useCardDetails(matchHistoryDetails, puuid) {
         return {
             gameEndTimestamp,
             gameDuration,
-            individualPosition,
-            kills,
-            deaths,
-            assists,
-            totalMinionsKilled,
-            visionScore,
-            goldEarned,
-            champLevel,
-            championName,
-            summoner1Id,
-            summoner2Id,
-            perks,
+            mainPlayer,
             itemIdList,
             participants,
             gameMode,
+            queueId,
             win
         };
     }, [matchHistoryDetails, puuid]);
+}
+
+export function useGetQueueType(matchHistoryDetails, queueTypes) {
+    return useMemo(() => {
+        const processQueueData = () => {
+            try {
+                const { info } = matchHistoryDetails;
+                const { queueId } = info;
+                const foundQueue = queueTypes[queueId];
+                return {
+                    name: foundQueue.name,
+                    shortName: foundQueue.shortName,
+                    description: foundQueue.description,
+                    detailedDescription: foundQueue.detailedDescription,
+                }
+            } catch (err) {
+                return err
+            }
+        };
+        if (matchHistoryDetails && queueTypes) {
+            const queueName = processQueueData();
+            return queueName;
+        }
+    }, [matchHistoryDetails, queueTypes]);
 }
 
 export function useCalculateGameEnd(gameEndTimestamp) {
@@ -114,29 +113,86 @@ export function useCalculateGameDuration(gameDuration) {
     }, [gameDuration]);
 }
 
+export function useCalculateCsPerMinute(minionsKilled, gameDurationInSeconds) {
+    return useMemo(() => {
+        const totalMinutes = gameDurationInSeconds / 60;
+        const csPerMinute = minionsKilled / totalMinutes;
+        return Number.isFinite(csPerMinute) ? csPerMinute.toFixed(1) : null;
+    }, [minionsKilled, gameDurationInSeconds]);
+}
+
+export function useCalculateGoldInThousands(goldEarned) {
+    return useMemo(() => {
+        return Math.abs(goldEarned) > 999 ? Math.sign(goldEarned) * ((Math.abs(goldEarned) / 1000).toFixed(1)) + 'K' : Math.sign(goldEarned) * Math.abs(goldEarned)
+    }, [goldEarned]);
+}
+
+export function useCalculateOPScore(matchHistoryDetails, puuid) {
+    return useMemo(() => {
+        if (!matchHistoryDetails) {
+            return null;
+        }
+        const teamScores = matchHistoryDetails.info.teams.map(team => ({
+            teamId: team.teamId,
+            totalKills: team.objectives.champion.kills
+        }));
+
+        const playerScores = matchHistoryDetails.info.participants.map(player => {
+            const totalKillsAndAssists = player.kills + player.assists;
+
+            // Find the team of the player and get total team kills
+            const team = teamScores.find(t => t.teamId === player.teamId);
+            const teamTotalKills = team ? team.totalKills : 0;
+            const mainPlayer = player.puuid === puuid ? true : false;
+
+            // Calculate KDA ratio
+            const deaths = player.deaths === 0 ? 1 : player.deaths; // Avoid division by zero
+            const kdaRatio = Math.abs(((player.kills + player.assists) / deaths).toFixed(2))
+
+            // Calculate kill participation
+            const killParticipation = teamTotalKills > 0 ? Math.round((totalKillsAndAssists / teamTotalKills) * 100) : 0;
+
+            return {
+                puuid: player.puuid,
+                killParticipation: killParticipation,
+                kdaRatio: kdaRatio,
+                mainPlayer: mainPlayer
+            };
+        });
+
+        const mainPlayerScore = playerScores.find(player => player.mainPlayer === true);
+        return { playerScores, mainPlayerScore };
+
+    }, [matchHistoryDetails, puuid]);
+}
+
+export function useCalculateKDA(kills, deaths, assists) {
+    return useMemo(() => {
+        return Math.abs(((kills + assists) / deaths).toFixed(2))
+    }, [kills, deaths, assists]);
+}
+
 export function useMatchHistoryUtils(matchHistory, region) {
-    const [alert, setAlert] = useState(false);
+    const [hasNoMatches, setHasNoMatches] = useState(false);
     const queryClient = useQueryClient();
 
     const { data, fetchNextPage, isFetchingNextPage } = useInfiniteQuery({
         queryKey: ["query"],
         queryFn: async ({ pageParam = 1 }) => {
-            try {
-                console.log("defined:", pageParam)
-                const matchId = matchHistory.slice(pageParam - 1, pageParam).join('')
-                const response = await getMatchHistoryDetails(matchId, region);
-                return response;
-            } catch (error) {
-                setAlert(true)
-                await rateLimitHandler(error.retryAfter)
-                return undefined;
+            if (matchHistory.length === 0) {
+                setHasNoMatches(true);
+                return null;
             }
+            const matchId = matchHistory.slice(pageParam - 1, pageParam).join('')
+            const response = await getMatchHistoryDetails(matchId, region);
+            return response;
         },
         getNextPageParam: (_, pages) => {
             return pages.length + 1
         }
     });
 
+    // Reference for loading skeletons whenever they become in view
     const { ref, inView } = useInView({
         rootMargin: '400px 0px',
         threshold: 0,
@@ -152,6 +208,7 @@ export function useMatchHistoryUtils(matchHistory, region) {
 
     const isBelow20Pages = data && data.pages && data.pages.length < 20;
 
+    // Fetch a new page, for up to 20
     useEffect(() => {
         if (inView && !isFetchingNextPage && isBelow20Pages) {
             fetchNextPage();
@@ -159,9 +216,9 @@ export function useMatchHistoryUtils(matchHistory, region) {
     }, [inView, fetchNextPage, isFetchingNextPage, isBelow20Pages]);
 
     useEffect(() => {
-        // Invalidate and refetch when matchHistory changes
+        // Invalidate and refetch when matchHistory changes upon refresh
         queryClient.invalidateQueries(["query"]);
     }, [matchHistory, queryClient]);
 
-    return { data, ref, alert, inView }
+    return { data, ref, hasNoMatches, inView }
 }
