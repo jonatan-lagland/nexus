@@ -2,6 +2,8 @@
 import { useState, useEffect } from 'react';
 import { useImagePathChampion } from './pathUtils';
 import { error400 } from './errors/errorResponses';
+import { useContext, useMemo } from 'react';
+import { ChampionListContext } from './context/championListContext';
 
 // Turn fetched data into a readily readable object
 export const useChampionData = (championProps) => {
@@ -32,6 +34,20 @@ export const useChampionData = (championProps) => {
     };
     return championData;
 };
+
+/* Loop through champion list and return champion name if champion key pairing is found */
+export const useChampionTrueNames = (championKey) => {
+    const championList = useContext(ChampionListContext);
+    return useMemo(() => {
+        const stringifiedKey = String(championKey);
+        for (let champion in championList.data) {
+            if (championList.data[champion].key === stringifiedKey) {
+                return championList.data[champion].name;
+            }
+        }
+        return null;
+    }, [championKey, championList.data]);
+}
 
 
 export const useChampionList = (data) => {
