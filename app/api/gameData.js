@@ -20,3 +20,21 @@ export async function getLatestVersion() {
         }
     }
 }
+
+export async function getQueueTypes() {
+    const URL = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/queues.json';
+    const tag = "queue_types";
+
+    try {
+        const response = await fetchDataHandler(URL, tag)
+        return response;
+    } catch (error) {
+        // Clear cache if an error occurs
+        revalidateCache(tag)
+        return {
+            status: error.status,
+            reason: error.reason,
+            error: error.message
+        }
+    }
+}
