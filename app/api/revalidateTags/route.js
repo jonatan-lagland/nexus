@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { revalidateTag } from 'next/cache';
 
 export function GET() {
-    const tagsToRevalidate = ['items', 'championList', 'latest_version', 'runes'];
+    const tagsToRevalidate = ['items', 'championList', 'latest_version', 'runes', 'queue_types'];
 
     try {
         for (const tag of tagsToRevalidate) {
