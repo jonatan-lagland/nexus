@@ -106,47 +106,46 @@
 }
 
 .header {
-  @apply relative flex mx-auto py-3 px-3 md:px-12 md:py-8 min-w-full shadow-md;
-  background-image: linear-gradient(to right, 
-    var(--charcoal) 0%, 
-    var(--dark-grey) 50%,
-    var(--charcoal) 100%);
+  @apply absolute z-10 flex mx-auto py-3 px-3 md:px-12 md:py-8 min-w-full shadow-sm backdrop-brightness-[.75] ;
+}
+
+
+.footer-relative {
+  @apply absolute bottom-0 flex items-center justify-center mx-auto py-3 px-3 md:px-12 md:py-8 min-w-full;
 }
 
 .feed {
-  @apply flex flex-col flex-grow items-center w-full max-w-2xl gap-2 mt-36 mb-5 md:mt-0 p-3 md:justify-center;
+  @apply flex flex-col flex-grow max-w-6xl w-full gap-16 mb-5 md:mt-0 p-3 justify-center;
   overflow: hidden;
-  &:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: url('/assets/images/ionia-wallpaper-2.jpg');
-    background-position: center;
-    background-size: cover;
-    filter: brightness(40%) saturate(90%);
-    z-index: -1; /* Ensures the background is behind the content */
+}
+
+@keyframes zoomIn {
+  from {
+    transform: scale(1);
   }
-  &:after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(circle, transparent, rgba(5, 26, 33, 1) 50%);
-    z-index: -1; /* Ensures the gradient is also behind the content */
+  to {
+    transform: scale(1.05);
   }
+}
+
+.image-zoom-in {
+  animation: zoomIn 0.5s ease-out forwards;
+}
+
+.rotate-icon {
+  transition: transform 0.3s ease-in-out;
+}
+
+.rotate-icon:hover, .rotate-icon.rotated {
+  transform: rotate(90deg);
 }
 
 .search {
-  @apply flex flex-row w-full gap-2;
+  @apply flex flex-row w-full;
 }
 
 .profile {
-  @apply relative flex flex-grow flex-row my-5 w-full justify-center;
+  @apply relative flex flex-grow flex-row my-5 w-full justify-center mt-36;
 }
 
 .pageNotFound {
@@ -296,6 +295,14 @@
   height: 40px;
   animation: spin 2s linear infinite;
 }
+.loader-xs {
+  border: 3px solid #d3d3d3;
+  border-top: 3px solid var(--cosmic-cobalt);
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 2s linear infinite;
+}
 
 .loader-container {
   @apply flex flex-grow justify-center items-center;
@@ -381,7 +388,7 @@
       @apply w-full max-w-7xl;
       grid-template-rows: auto 2fr 2fr;
       grid-template-columns: repeat(5, 1fr);
-      gap: 4px;
+      gap: 1em;
   }
 
   .profile .grid article:nth-child(1) {
@@ -425,11 +432,26 @@
   }
 }
 
+.live-match {
+  @apply justify-between;
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  grid-template-rows: repeat(1, 1fr) ; 
+}
+
+@media (min-width: 768px) {
+  .live-match {
+    grid-template-columns: 3fr 2fr 2fr auto;
+    grid-template-rows: repeat(1, 1fr); 
+  }
+}
+
 .match {
   display: grid;
   grid-template-rows: 1fr 2fr auto auto ; /* Each row takes only the space it needs */
   grid-template-columns: repeat(1, 1fr); /* One column layout for non-large devices */
 }
+
 
 @media (min-width: 1024px) {
   .match {
@@ -570,11 +592,14 @@ input:checked + .slider:before {
 }
 
 .container-header {
-  @apply  py-1 px-3;
-  background-image: linear-gradient(to right, 
+  background-image: linear-gradient(to bottom, 
   #120f0f 0%, 
   #1a1a1a 20%,
   #120f0f 100%);
+}
+
+.rank-card {
+  background: radial-gradient(#1A2B52, #120f0f, #385816);
 }
 
 .container-victory {
@@ -593,6 +618,18 @@ input:checked + .slider:before {
   var(--dark-wine) 100%);
 }
 
+.container-remake {
+  @apply border-gray-900;
+  background-image: linear-gradient(to right, 
+  #30343F 0%, 
+  #45504c 30%,
+  #30343F 100%);
+}
+
+.container-remake-colorblind {
+  @apply border-gray-900 bg-[#30343F];
+}
+
 .container-victory-colorblind {
   @apply bg-colorblind-win-primary border-colorblind-win-secondary
 }
@@ -602,43 +639,43 @@ input:checked + .slider:before {
 }
 
 .badge-iron {
-  @apply border-2 border-[#040d0c] bg-[#5f5f5d];
+  @apply  bg-[#5f5f5d];
 }
 
 .badge-bronze {
-  @apply border-2 border-[#040d0c] bg-[#7E5134];
+  @apply  bg-[#7E5134];
 }
 
 .badge-silver {
-  @apply border-2 border-[#040d0c] bg-[#797f71];
+  @apply  bg-[#797f71];
 }
 
 .badge-gold {
-  @apply border-2 border-[#040d0c] bg-[#98751e];
+  @apply  bg-[#98751e];
 }
 
 .badge-platinum {
-  @apply border-2 border-[#040d0c] bg-[#377c82];
+  @apply  bg-[#377c82];
 }
 
 .badge-emerald {
-  @apply border-2 border-[#040d0c] bg-[#326d4d];
+  @apply  bg-[#326d4d];
 }
 
 .badge-diamond {
-  @apply border-2 border-[#040d0c] bg-[#486bbf];
+  @apply  bg-[#486bbf];
 }
 
 .badge-master {
-  @apply border-2 border-[#040d0c] bg-[#95349d];
+  @apply  bg-[#95349d];
 }
 
 .badge-grandmaster {
-  @apply border-2 border-[#040d0c] bg-[#ab2d27];
+  @apply  bg-[#ab2d27];
 }
 
 .badge-challenger {
-  @apply border-2 border-[#040d0c] bg-[#48a3e2];
+  @apply  bg-[#48a3e2];
 }
 
 .neumorphism-1 {
@@ -648,4 +685,61 @@ input:checked + .slider:before {
   #385816 30%,
   var(--forest) 75%);
 box-shadow:  6px 6px 12px #0f0e0e
+}
+
+.loading-border {
+  border-image-outset: 40px;
+}
+
+.defaultWinrateBadge {
+  @apply bg-[#445068];
+}
+
+.moderateWinrateBadge {
+  @apply bg-[#545ace];
+}
+
+.impressiveWinrateBadge {
+  @apply bg-[#864bbd];
+}
+
+.eliteWinrateBadge {
+  @apply bg-[#92631c];
+}
+
+.multikillBadge {
+  @apply bg-[#465789];
+}
+
+.pentakillBadge {
+  @apply bg-[#92631c];
+}
+
+.pentakillGlow {
+  @apply absolute -inset-0.5 bg-gradient-to-r from-amber-600 to-amber-600 rounded-full opacity-25 group-hover:blur group-hover:opacity-100 transition duration-1000 group-hover:duration-100;
+}
+
+.border-crop {
+    -webkit-border-radius: 9999px;
+    -moz-border-radius: 9999px;
+    border-radius: 9999px;
+}
+
+.button-skeuomorphic {
+  &:hover {
+		box-shadow: 
+			4px 4px 6px rgba(0,0,0,.2), 
+			5px 10px 35px rgba(0,0,0,.1),
+			8px 10px 25px rgba(0,0,0,.1),
+			inset -1px -1px 9px rgba(0,0,0,.2),
+			inset -1px -1px 3px rgba(255,255,255,.6),
+			inset 1px 1px 8px rgba(255,255,255,1),
+			inset 4px 4px 24px rgba(0,0,0,.15),
+			-5px -5px 15px rgba(255,255,255,.9);
+		transform: scale(.98);
+  }
+}
+
+.button-hover-animation {
+  @apply p-2 md:py-2 md:ps-3 md:pe-5 transition ease-in-out delay-75 hover:bg-neutral-600 rounded-full items-center text-center;
 }
