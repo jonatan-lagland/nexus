@@ -10,17 +10,18 @@ import {
     useFocusInput,
     useClickOutsideInputField,
 } from '@utils/searchBarUtils';
+import { RegionContext } from "@utils/context/regionContext";
+import { useContext } from "react";
+import { Search } from "lucide-react";
 
-const SearchBar = ({ url, placeholder, options }) => {
-
-    const ICON_WIDTH = 20;
-    const ICON_HEIGHT = 20;
+const SearchBarComponent = ({ options }) => {
     const inputRef = useRef(null);
     const router = useRouter();
     const [inputValue, setInputValue] = useState("");
     const [selectedOption, setSelectedOption] = useState("");
     const [filteredOptions, setFilteredOptions] = useState("");
     const [isDropdownVisible, setDropdownVisible] = useState(false);
+    const { region } = useContext(RegionContext)
     const dropdownRef = useRef(null);
     const DROPDOWN_MENU_ICON_WIDTH = 75;
     const DROPDOWN_MENU_ICON_HEIGHT = 75;
@@ -34,18 +35,17 @@ const SearchBar = ({ url, placeholder, options }) => {
     */
 
     const handleOptionClick = useOptionClick(setSelectedOption, setDropdownVisible);
-    const handleKeyPress = useKeyPress(filteredOptions, setSelectedOption);
+    const handleKeyPress = useKeyPress(filteredOptions, inputValue, region, setSelectedOption);
     useSearchBarChange(options, inputValue, setFilteredOptions, setDropdownVisible);
     useFocusInput(inputRef);
     useClickOutsideInputField(dropdownRef, inputRef, setDropdownVisible, isDropdownVisible);
 
-
     /* Redirected user to a page after selection */
     useEffect(() => {
         if (selectedOption.length > 0) {
-            router.push(`${url}/${selectedOption}`)
+            router.push(`/profile/${region.toLowerCase()}/${selectedOption}`)
         }
-    }, [selectedOption, router, url]);
+    }, [selectedOption, router, region]);
 
     return (
         <>
@@ -57,9 +57,9 @@ const SearchBar = ({ url, placeholder, options }) => {
                 <input
                     ref={inputRef}
                     type='text'
-                    placeholder={placeholder}
+                    placeholder={`Name #${region}`}
                     required
-                    className={"search_input w-full"}
+                    className={"flex h-10 w-full rounded-e-full border-e border-y border-zinc-700 bg-inherit backdrop-blur-md backdrop-saturate-50 backdrop-brightness-75 px-3 py-2 text-sm text-white placeholder:text-gray-300"}
                     onChange={(e) => {
                         setInputValue(e.target.value);
                     }}
@@ -67,13 +67,11 @@ const SearchBar = ({ url, placeholder, options }) => {
 
                 { /* Dropdown menu, each item containing a thumbnail and a link */}
                 {/* Visibility of the dropdown is handled in CSS by changing the classname*/}
-                <section
+                <div
                     ref={dropdownRef}
                     className={`dropdown_menu
                               ${isDropdownVisible ? '' : 'dropdown_hidden'}`}
                 >
-
-
                     {isDropdownVisible && (
                         <ul className="dropdown_items">
                             { /* Conditionally render a title based on available results */}
@@ -111,22 +109,19 @@ const SearchBar = ({ url, placeholder, options }) => {
                         </ul>
 
                     )}
-                </section>
+                </div>
 
                 { /* Search icon placed inside the input field */}
                 <div
-                    className="search-icon p-3"
+                    className="search-icon rounded-e-full p-3"
+                    aria-label="Search"
+                    tabIndex="0"
                     onClick={handleKeyPress}>
-                    <Image
-                        src='/assets/icons/magnifying_glass.svg'
-                        alt='dropdown'
-                        width={ICON_WIDTH}
-                        height={ICON_HEIGHT}
-                    />
+                    <Search color="white" />
                 </div>
             </form>
         </>
     )
 }
 
-export default SearchBar;
+export default SearchBarComponent;

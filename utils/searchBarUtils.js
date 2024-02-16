@@ -81,11 +81,45 @@ export const useOptionClick = (setSelectedOption, setDropdownVisible) => {
 
 /* Set the value of the selected option as the top item from the dropdown menu*/
 
-export const useKeyPress = (filteredOptions, setSelectedOption) => {
+export const useKeyPress = (filteredOptions, inputValue, region, setSelectedOption) => {
+    const regions = {
+        NA: "NA1",
+        EUW: "EUW",
+        EUNE: "EUNE",
+        OCE: "OCE",
+        KR: "KR1",
+        JP: "JP1",
+        BR: "BR1",
+        LAS: "LAS",
+        LAN: "LAN",
+        RU: "RU1",
+        TR: "TR1",
+        SG: "SG2",
+        PH: "PH2",
+        TW: "TW2",
+        VN: "VN2",
+        TH: "TH2"
+    };
+
     return (e) => {
         e.preventDefault();
         if (filteredOptions.length > 0) {
             setSelectedOption(filteredOptions[0].value);
+            return;
+        }
+        if (inputValue.includes("-")) {
+            setSelectedOption(inputValue);
+            return;
+        }
+        if (inputValue.includes("#")) {
+            const modifiedInput = inputValue.replace(/#/g, "-");
+            setSelectedOption(modifiedInput);
+            return;
+        }
+        if (!inputValue.includes("-") && !inputValue.includes("#")) {
+            const regionCode = regions[region]
+            setSelectedOption(inputValue + "-" + regionCode);
+            return;
         }
     }
 };
