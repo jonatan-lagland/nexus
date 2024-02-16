@@ -1,10 +1,12 @@
 import "@styles/globals.css";
 import Nav from "@components/Nav/Nav";
 import ColorBlindProvider from "./ColorBlindProvider";
-import { Inter, Oswald, Bebas_Neue, Abel, Rubik } from 'next/font/google'
+import { RegionProvider } from "@components/Landing/RegionProvider";
+import { Inter, Oswald, Bebas_Neue, Abel, Rubik, Noto_Sans } from 'next/font/google'
+import Footer from "@components/Footer/Footer";
 
 export const metadata = {
-    title: "Website",
+    title: "Nexus",
     description: "League of Legends fansite",
 };
 
@@ -32,21 +34,27 @@ const rubik = Rubik({
     subsets: ['latin'],
     variable: "--rubik",
 });
+const noto_sans = Noto_Sans({
+    subsets: ['latin'],
+    variable: "--notosans",
+});
 
 const RootLayout = ({ children }) => (
     <html lang='en'
-        className={`${inter.variable} ${oswald.variable} ${bebas_neue.variable} ${abel.variable} ${rubik.variable}`} >
+        className={`${inter.variable} ${oswald.variable} ${bebas_neue.variable} ${abel.variable} ${rubik.variable} ${noto_sans.variable}`} >
         <body className="flex flex-col min-h-screen bg-charcoal">
             <ColorBlindProvider>
-                <header className='header'>
-                    <Nav />
-                </header>
-                <main className="app">
-                    {children}
-                </main>
+                <RegionProvider>
+                    <header className='header'>
+                        <Nav />
+                    </header>
+                    <main className="app">
+                        {children}
+                    </main>
+                    <Footer></Footer>
+                </RegionProvider>
             </ColorBlindProvider>
         </body>
-
     </html>
 );
 
