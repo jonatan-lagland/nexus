@@ -1,65 +1,57 @@
-'use client'
-import React, { useContext } from 'react'
+'use server'
 import { RankEmblem } from '@components/ui/rankemblem';
-import Image from 'next/image';
-import { useImagePathUser } from '@utils/pathUtils';
-import { ColorblindContext } from '@utils/context/colorBlindContext';
-import { MatchHistoryContext } from '@utils/context/matchHistoryContext';
+import { ProfileAvatar } from '@components/ui/profileAvatar';
+import RefreshButton from './refreshButton';
+import LiveGameButton from './LiveGameButton';
+import ProfileButton from './ProfileButton';
 
-function Header({ user, userDetails, rankedDetails, region }) {
-    const imgPath = useImagePathUser(userDetails);
-    const { isColorblindMode, toggleColorblindMode } = useContext(ColorblindContext);
-    const { refreshMatchHistoryData } = useContext(MatchHistoryContext);
+async function Header({ rankedDetails, user, region, server, userDetails }) {
+    const rankedSoloDetails = rankedDetails.find(detail => detail.queueType === "RANKED_SOLO_5x5");
+    const wins = rankedSoloDetails ? rankedSoloDetails.wins : null;
+    const losses = rankedSoloDetails ? rankedSoloDetails.losses : null;
+    const winrate = (wins + losses === 0) ? null : (wins === 0 ? 0 : (losses === 0 ? 100 : Math.round(wins / (wins + losses) * 100)));
+    const totalGames = wins || losses ? wins + losses : null;
+    const leagueId = rankedSoloDetails && rankedSoloDetails.leagueId ? rankedSoloDetails.leagueId : null;
+    const summonerId = userDetails && userDetails.id ? userDetails.id : null;
 
     return (
-        <section className='px-3'>
-            <div className="flex flex-row text-center px-6 py-3">
+        <section className='flex flex-col px-9 gap-4'>
+            <div className="flex flex-row text-start py-3">
                 <div className="flex flex-row gap-3 items-center">
                     <div className='relative'>
-                        <Image
-                            src={imgPath}
-                            alt={'Summoner Icon'}
-                            width={120}
-                            height={120}
-                            className='rounded-full border-4 border-slate-800 min-h-[75px] min-w-[75px]'
-                            priority
-                        />
-                        <div className='absolute -bottom-3 left-1/2 transform -translate-x-1/2 text-white bg-slate-900 border border-neutral-400 rounded-full px-3'>
-                            {userDetails.summonerLevel}
-                        </div>
+                        <ProfileAvatar userDetails={userDetails}></ProfileAvatar>
                     </div>
                     <div className='flex flex-col gap-5'>
-                        <div className="flex flex-row flex-wrap items-end gap-3">
-                            <h1 className="text-3xl lg:text-6xl font-bold font-oswald text-white">{user.gameName}</h1>
-                            <h2 className="text-lg lg:text-3xl font-bold font-oswald text-viola">#{user.tagLine}</h2>
+                        <div className="flex flex-row flex-wrap gap-3 items-end">
+                            <h1>
+                                <span className="text-3xl lg:text-6xl font-bold font-oswald text-white">{user.gameName}</span>
+                                <span className="text-lg lg:text-3xl font-bold font-oswald text-viola"> #{user.tagLine}</span>
+                            </h1>
+                            {
+                                winrate &&
+                                <RankEmblem tier={rankedDetails[0].tier} rank={rankedDetails[0].rank} type={"playerRank"}></RankEmblem>
+
+                            }
                         </div>
                         {
-                            rankedDetails[0] && rankedDetails[0].tier && rankedDetails[0].rank &&
-                            <RankEmblem tier={rankedDetails[0].tier} rank={rankedDetails[0].rank}></RankEmblem>
+                            rankedDetails[0] &&
+                            <div className='ps-1'>
+                                <h2 className=' text-slate-300'>
+                                    <span className='text-white font-bold'>{user.gameName} #{user.tagLine} </span>
+                                    has an overall winrate of
+                                    <span className=' text-orange-500 font-semibold'> {winrate}% </span>
+                                    over {totalGames} games with the rank of
+                                    <span className=' font-semibold'> {rankedDetails[0].tier} {rankedDetails[0].rank}. </span>
+                                </h2>
+                            </div>
                         }
-
                     </div>
                 </div>
             </div>
-            <div className="flex flex-row items-end justify-start">
-                <div className='flex flex-col space-y-2 items-start'>
-                    <label className="text-xl md:text-2xl font-oswald text-indigo-300">Accessibility Mode</label>
-                    <label label="Accessibility Switch" className="switch">
-                        <input
-                            type="checkbox"
-                            checked={isColorblindMode}
-                            onChange={toggleColorblindMode}>
-                        </input>
-                        <span className="slider round"></span>
-                    </label>
-                </div>
-            </div>
-            <div>
-                <button
-                    onClick={() => refreshMatchHistoryData(user.puuid, region, true)}
-                    className='bg-black text-white'>
-                    Refresh
-                </button>
+            <div className="flex flex-row items-center gap-2 justify-start">
+                <ProfileButton></ProfileButton>
+                <RefreshButton user={user} region={region} server={server} leagueId={leagueId}></RefreshButton>
+                <LiveGameButton server={server} region={region} summonerId={summonerId}></LiveGameButton>
             </div>
         </section >
     )
