@@ -1,8 +1,16 @@
 import Image from 'next/image';
+
 import { useImagePathItem } from '@utils/pathUtils';
-import { useItemHover } from '@utils/tooltipUtils';
-import Tooltip from '@components/Profile/Section/Tooltip';
 import { useIsTrinketItem } from '@utils/itemUtils';
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+    TooltipArrow
+} from "@/components/ui/tooltip"
+
+import ItemData from './ItemData';
 
 function Items({ items, visionScore }) {
 
@@ -29,7 +37,6 @@ function Items({ items, visionScore }) {
 
 function ItemComponent({ item, visionScore }) {
     const imgPath = useImagePathItem(item);
-    const { handleMouseHover, tooltipItemId, event } = useItemHover();
     const AVATAR_WIDTH = 40;
     const AVATAR_HEIGHT = 40;
     const isTrinket = useIsTrinketItem(item.name)
@@ -45,23 +52,24 @@ function ItemComponent({ item, visionScore }) {
                 </div>
             )}
             {imgPath && (
-                <Image
-                    className='select-none'
-                    onMouseOver={handleMouseHover(item.id)}
-                    onMouseLeave={handleMouseHover(item.id)}
-                    src={imgPath}
-                    alt={`${item.name}`}
-                    width={AVATAR_WIDTH}
-                    height={AVATAR_HEIGHT}
-                />
-            )}
 
-            {imgPath && (
-                <Tooltip
-                    data={item}
-                    event={event}
-                    itemId={tooltipItemId}
-                    dataType={"item"} />
+                <TooltipProvider delayDuration={300} skipDelayDuration={300}>
+                    <Tooltip>
+                        <TooltipTrigger asChild>
+                            <Image
+                                className='select-none'
+                                src={imgPath}
+                                alt={`${item.name}`}
+                                width={AVATAR_WIDTH}
+                                height={AVATAR_HEIGHT}
+                            />
+                        </TooltipTrigger>
+                        <TooltipContent>
+                            <TooltipArrow />
+                            <ItemData data={item}></ItemData>
+                        </TooltipContent>
+                    </Tooltip>
+                </TooltipProvider>
             )}
             <div
                 className='bg-inherit backdrop-brightness-50'
