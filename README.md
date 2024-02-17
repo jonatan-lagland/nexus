@@ -22,10 +22,7 @@ The website leverages the robust server-side features of Next.js, built on Node.
 
 The website's responsive design is achieved through the integration of Tailwind CSS, CSS Grid, Flexbox, and JavaScript. Tailwind CSS and CSS Grid handle the structural aspects, while Flexbox ensures fluid content layout. JavaScript complements these technologies by dynamically adjusting elements and interactions, ensuring a seamless user experience across all devices.
 
-![Nexus Responsive Design](https://i.imgur.com/yNS1vGO.gif)
-
-_Players might want to know what specific items do. To accommodate this, a tooltip is displayed, either via tapping on a mobile device or hovering on a desktop device. The tooltip automatically adjusts its position with available screen space in mind._
-
+![Nexus Responsive Design](https://i.imgur.com/AIL0kNx.gif)
 
 ### Modularity
 
