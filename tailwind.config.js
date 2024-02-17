@@ -14,6 +14,22 @@ module.exports = {
       },
     },
     extend: {
+      animation: {
+        tilt: 'tilt 10s infinite linear',
+      },
+      keyframes: {
+        tilt: {
+          '0%, 50%, 100%': {
+            transform: 'rotate(0deg)',
+          },
+          '25%': {
+            transform: 'rotate(0.5deg)',
+          },
+          '75%': {
+            transform: 'rotate(-0.5deg)',
+          },
+        },
+      },
       fontFamily: {
         satoshi: ['Satoshi', 'sans-serif'],
         inter: "var(--inter)",
@@ -21,6 +37,8 @@ module.exports = {
         bebas: "var(--bebas)",
         abel: "var(--abel)",
         rubik: "var(--rubik)",
+        slabo: "var(--slabo)",
+        notosans: "var(--notosans)"
       },
       colors: {
         'primary-orange': '#FF5722',
@@ -97,20 +115,6 @@ module.exports = {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
-      },
-      keyframes: {
-        "accordion-down": {
-          from: { height: "0" },
-          to: { height: "var(--radix-accordion-content-height)" },
-        },
-        "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "0" },
-        },
-      },
-      animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
       },
     },
   },
