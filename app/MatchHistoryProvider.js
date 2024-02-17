@@ -3,28 +3,36 @@
 import React from 'react';
 import { useState } from 'react';
 import { MatchHistoryContext } from '@utils/context/matchHistoryContext';
-import { getMatchHistory } from './api/userProps';
-import { useEffect } from 'react';
+import { getMatchHistory, getRankedInfo } from './api/userProps';
 
-export const MatchHistoryProvider = ({ children, matchHistory }) => {
-    const [matchHistoryData, setMatchHistoryData] = useState(matchHistory || null);
+export const MatchHistoryProvider = ({ children, matchHistory, rankedDetails }) => {
+    const [matchHistoryData, setMatchHistoryData] = useState(matchHistory);
+    const [rankedDetailsData, setrankedDetailsData] = useState(rankedDetails);
+    const [error, setError] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
 
-    const refreshMatchHistoryData = (puuid, region, refreshCache) => {
+    const refreshMatchHistoryData = (puuid, region, server, leagueId) => {
         const fetchData = async () => {
-            const response = await getMatchHistory(puuid, region, refreshCache);
-            console.log(response)
-            setMatchHistoryData(response);
+            setIsLoading(true)
+            try {
+                const refreshCache = true;
+                if (leagueId) {
+                    const res_ranked = await getRankedInfo(leagueId, server, refreshCache);
+                    setrankedDetailsData(res_ranked)
+                }
+                const res_match = await getMatchHistory(puuid, region, refreshCache);
+                setMatchHistoryData(res_match);
+            } catch (error) {
+                setError(error)
+            } finally {
+                setIsLoading(false)
+            }
         };
         fetchData();
     };
 
-    useEffect(() => {
-        console.log("data updated:", matchHistoryData)
-    }, [matchHistoryData]);
-
-
     return (
-        <MatchHistoryContext.Provider value={{ refreshMatchHistoryData, matchHistoryData }}>
+        <MatchHistoryContext.Provider value={{ refreshMatchHistoryData, matchHistoryData, isLoading, error, rankedDetailsData }}>
             {children}
         </MatchHistoryContext.Provider>
     );
