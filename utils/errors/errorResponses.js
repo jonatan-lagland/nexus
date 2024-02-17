@@ -6,8 +6,8 @@ export const error400 = {
 
 export const error404 = {
     status: 404,
-    reason: "Not Found",
-    error: "We could not find what you were looking for.",
+    reason: "User was not found",
+    error: "We could not find what you were looking for. Please check if the given Riot ID is correct.",
 };
 
 export const error500 = {
