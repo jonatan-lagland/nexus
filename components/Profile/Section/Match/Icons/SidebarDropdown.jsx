@@ -4,15 +4,16 @@ import { useContext } from "react";
 import { ColorblindContext } from "@utils/context/colorBlindContext";
 import { MatchHistoryContext } from "@utils/context/matchHistoryContext";
 
-const SidebarDropdown = () => {
+const SidebarDropdown = ({ isRemake }) => {
 
     const { isColorblindMode } = useContext(ColorblindContext);
     const { matchData } = useContext(MatchHistoryContext);
     const { win } = matchData;
 
-    const imageFilterRole = win
-        ? (isColorblindMode ? 'bg-blue-900' : ' bg-green-900')
-        : (isColorblindMode ? 'bg-wine' : 'bg-wine');
+    const imageFilterRole = isRemake ? 'bg-[#424B57]'
+        : win
+            ? (isColorblindMode ? 'bg-blue-900' : 'bg-green-900')
+            : (isColorblindMode ? 'bg-wine' : 'bg-wine');
 
     return (
         <div

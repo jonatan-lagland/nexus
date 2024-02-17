@@ -1,18 +1,53 @@
 'use client'
 import Image from "next/image"
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+    TooltipArrow
+} from "@/components/ui/tooltip"
+import { useImagePathSummonerSpell } from "@utils/pathUtils"
 
-const SummonerSpell = ({ styles, spell }) => {
+const SummonerSpell = ({ spell, size }) => {
+    const path = useImagePathSummonerSpell(spell.iconPath)
+    const quality = size > 30 ? 75 : 10;
+
+    if (!spell) {
+        return null;
+    }
     return (
-        <>
-            <Image
-                src={`/assets/images/${spell}.png`}
-                alt={"Summoner Spell Icon"}
-                width={styles.width}
-                height={styles.height}
-                className='rounded-sm border border-zinc-800 select-none'
-            //style={{ minWidth: '32px', minHeight: '32px' }}
-            />
-        </>
+        <TooltipProvider disableHoverableContent={true} delayDuration={300} skipDelayDuration={300}>
+            <Tooltip>
+                <TooltipTrigger asChild>
+                    <Image
+                        src={path}
+                        alt={`Summoner Spell ${spell.name}`}
+                        width={size}
+                        height={size}
+                        quality={quality}
+                        className="border border-stone-950 rounded-sm select-none"
+                    />
+                </TooltipTrigger>
+                <TooltipContent>
+                    <div className='flex flex-row justify-between items-center text-base mb-2'>
+                        <p className="font-bold text-crimson-grey">{spell.name}</p>
+                        <div className="flex flex-row gap-2">
+                            <Image
+                                src={`/assets/icons/stats/AbilityHaste.png`}
+                                alt={'Gold'}
+                                width={14}
+                                height={14}
+                                className="object-scale-down"
+                            />
+                            <span className="text-sm">{spell.cooldown}</span>
+                        </div>
+                    </div>
+                    <p className="text-dark-dust italic text-sm max-w-[150px]">{spell.description}</p>
+                    <TooltipArrow />
+                </TooltipContent>
+            </Tooltip>
+        </TooltipProvider>
     )
 }
 export default SummonerSpell

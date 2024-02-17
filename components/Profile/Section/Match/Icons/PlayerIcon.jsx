@@ -1,24 +1,39 @@
 'use client'
 import Image from "next/image";
-import { useItemHover } from "@utils/tooltipUtils";
 import { useImagePathChampion } from "@utils/pathUtils";
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+    TooltipArrow
+} from "@/components/ui/tooltip"
+import { useChampionTrueNames } from "@utils/championUtils";
 
-const PlayerIcon = ({ puuid, championName }) => {
-    const { handleMouseHover } = useItemHover();
+const PlayerIcon = ({ championId }) => {
+
+    const championTrueName = useChampionTrueNames(championId);
+
     return (
-        <div
-            style={{ width: '32px', height: '32px' }}
-            className='border relative border-black object-none rounded-sm select-none'>
-            <Image
-                onMouseOver={handleMouseHover(puuid)}
-                onMouseLeave={handleMouseHover(puuid)}
-                src={useImagePathChampion(championName)}
-                alt={championName}
-                width={32}
-                height={32}
-                style={{ minWidth: '32px', minHeight: '32px' }}
-            />
-        </div>
+        <TooltipProvider disableHoverableContent={true} delayDuration={300} skipDelayDuration={300}>
+            <Tooltip>
+                <TooltipTrigger asChild>
+                    <Image
+                        src={useImagePathChampion(championId)}
+                        alt={championTrueName}
+                        width={24}
+                        height={24}
+                        quality={15}
+                        className="bg-inherit backdrop-brightness-50 w-[24px] h-[24px] select-none"
+                    />
+                </TooltipTrigger>
+                <TooltipContent>
+                    <TooltipArrow />
+                    <p>{championTrueName}</p>
+                </TooltipContent>
+            </Tooltip>
+        </TooltipProvider>
+
     )
 }
 export default PlayerIcon

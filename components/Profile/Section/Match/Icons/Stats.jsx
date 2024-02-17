@@ -1,40 +1,71 @@
 'use client'
 import { useContext, useState, useEffect } from "react";
 import { ColorblindContext } from "@utils/context/colorBlindContext";
-import { MatchHistoryContext } from "@utils/context/matchHistoryContext";
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+    TooltipArrow
+} from "@/components/ui/tooltip"
 
-
-const Stats = ({ kills, deaths, assists }) => {
+const Stats = ({ kills, deaths, assists, kdaRatio }) => {
     const { isColorblindMode } = useContext(ColorblindContext);
-    const { matchData } = useContext(MatchHistoryContext);
-    const { win } = matchData;
-    const [deathsTheme, setDeathsTheme] = useState('')
-    const [killAndAssistTheme, setKillAndAssistTheme] = useState('')
-    const [dividerTheme, setDividerTheme] = useState('')
+    const [deathsTheme, setDeathsTheme] = useState('text-bright-red')
+    const kdaTheme = deaths === 0 ? 'text-amber-300' : kdaRatio < 3 ? 'text-yellow-600' : kdaRatio >= 3 && kdaRatio < 6 ? 'text-yellow-600' : 'text-orange-500';
 
     useEffect(() => {
-        const deathsTheme = win
-            ? (isColorblindMode ? 'text-amber-500' : 'text-bright-red')
-            : (isColorblindMode ? 'text-amber-500' : 'text-bright-red');
-        const killAndAssistTheme = win
-            ? (isColorblindMode ? 'text-white' : 'text-white')
-            : (isColorblindMode ? 'text-white' : 'text-white');
-        const dividerTheme = win
-            ? (isColorblindMode ? 'text-slate-400' : 'text-slate-400')
-            : (isColorblindMode ? 'text-slate-400' : 'text-slate-400');
+        const deathsTheme = isColorblindMode ? 'text-amber-500' : 'text-bright-red';
         setDeathsTheme(deathsTheme)
-        setKillAndAssistTheme(killAndAssistTheme)
-        setDividerTheme(dividerTheme)
-    }, [win, isColorblindMode]);
+    }, [isColorblindMode]);
 
     return (
-        <p className='font-oswald text-2xl truncate'>
-            <span className={`${killAndAssistTheme}`}>{kills}</span>
-            <span className={`${dividerTheme}`}> / </span>
-            <span className={`${deathsTheme}`}>{deaths}</span>
-            <span className={`${dividerTheme}`}> / </span>
-            <span className={`${killAndAssistTheme}`}>{assists}</span>
-        </p>
+        <TooltipProvider disableHoverableContent={true} delayDuration={300} skipDelayDuration={0}>
+            <Tooltip>
+                <TooltipTrigger>
+                    <p className={`${kdaTheme} text-base font-oswald cursor-default`}>
+                        <span>
+                            {deaths === 0 ? 'Perfect' : `${kdaRatio} : 1`}
+                        </span>
+                    </p>
+                </TooltipTrigger>
+                <TooltipContent>
+                    <TooltipArrow />
+                    <p className='text-zinc-400'>KDA ratio</p>
+                    <p className='text-zinc-400'>
+                        <span className={`text-white`}>Kills</span>
+                        <span> + </span>
+                        <span className={`text-white`}>Assists</span>
+                        <span> : </span>
+                        <span className={`text-white`}>Deaths</span>
+                    </p>
+                </TooltipContent>
+            </Tooltip>
+            <Tooltip>
+                <TooltipTrigger>
+                    <p className='font-oswald text-xl truncate cursor-default'>
+                        <span className={`text-white`}>{kills}</span>
+                        <span className={`text-slate-400`}> / </span>
+                        <span className={`${deathsTheme}`}>{deaths}</span>
+                        <span className={`text-slate-400`}> / </span>
+                        <span className={`text-white`}>{assists}</span>
+                    </p>
+                </TooltipTrigger>
+                <TooltipContent>
+                    <TooltipArrow />
+                    <p className='text-zinc-400'>
+                        <span className={`text-white`}>Kills</span>
+                        <span> / </span>
+                        <span className={`text-white`}>Deaths</span>
+                        <span> / </span>
+                        <span className={`text-white`}>Assists</span>
+                    </p>
+                </TooltipContent>
+            </Tooltip>
+
+
+
+        </TooltipProvider>
     );
 }
 

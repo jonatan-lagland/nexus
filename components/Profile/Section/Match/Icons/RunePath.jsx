@@ -1,39 +1,41 @@
 'use client'
 import Image from "next/image"
 import { useImagePathRune } from "@utils/pathUtils"
-import { useItemHover } from "@utils/tooltipUtils"
-import Tooltip from "../../Tooltip"
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+    TooltipArrow
+} from "@/components/ui/tooltip"
 
-const RunePath = ({ styles, rune }) => {
-    const path = useImagePathRune(rune)
-    const { handleMouseHover, tooltipItemId, event } = useItemHover();
+const RunePath = ({ runePath, size, padding }) => {
+    const path = useImagePathRune(runePath)
 
     // Note: In some cases runes aren't used, e.g. QuickPlay or Arena.
     // In such scenarios, skip rendering altogether
-    if (!rune) {
+    if (!runePath) {
         return null;
     }
 
     return (
-        <div
-            className="relative"
-            key={rune}
-            style={{ width: styles.width, height: styles.height }}>
-            <Image
-                onMouseOver={handleMouseHover(rune.id)}
-                onMouseLeave={handleMouseHover(rune.id)}
-                src={path}
-                alt={rune.name || 'Keystone'}
-                width={styles.width}
-                height={styles.height}
-                className='rounded-sm'
-            />
-            <Tooltip
-                data={rune}
-                event={event}
-                itemId={tooltipItemId}
-                dataType={"runepath"} />
-        </div>
+        <TooltipProvider disableHoverableContent={true} delayDuration={300} skipDelayDuration={300}>
+            <Tooltip>
+                <TooltipTrigger asChild>
+                    <Image
+                        src={path}
+                        alt={runePath.name || 'Rune Path'}
+                        width={size}
+                        height={size}
+                        className={`bg-inherit backdrop-brightness-[0.4] border border-stone-950 p-[${padding}px] rounded-full select-none`}
+                    />
+                </TooltipTrigger>
+                <TooltipContent>
+                    <TooltipArrow />
+                    <p>{runePath.name}</p>
+                </TooltipContent>
+            </Tooltip>
+        </TooltipProvider>
     )
 }
 export default RunePath
