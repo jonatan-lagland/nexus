@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import React from 'react';
 import { useTooltipHandlers } from '@utils/tooltipUtils';
-import TooltipData from './TooltipData';
+import TooltipData from './ItemData';
 
 const Tooltip = ({ data, event, itemId, dataType }) => {
 
