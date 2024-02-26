@@ -115,7 +115,7 @@
 }
 
 .feed {
-  @apply flex flex-col flex-grow max-w-6xl w-full gap-16 mb-5 md:mt-0 p-3 justify-center;
+  @apply flex flex-col flex-grow items-end max-w-6xl w-full gap-16 mb-5 justify-center;
   overflow: hidden;
 }
 
@@ -381,6 +381,7 @@
   display: grid;
   grid-template-rows: auto; /* Each row takes only the space it needs */
   grid-template-columns: repeat(1, 1fr); /* One column layout for non-large devices */
+  gap: 1em;
 }
 
 @media (min-width: 768px) {
@@ -435,7 +436,7 @@
 .live-match {
   @apply justify-between;
   display: grid;
-  grid-template-columns: auto auto auto auto;
+  grid-template-columns: 3fr auto 2fr auto;
   grid-template-rows: repeat(1, 1fr) ; 
 }
 
@@ -448,7 +449,7 @@
 
 .match {
   display: grid;
-  grid-template-rows: 1fr 2fr auto auto ; /* Each row takes only the space it needs */
+  grid-template-rows: auto 2fr auto auto ; /* Each row takes only the space it needs */
   grid-template-columns: repeat(1, 1fr); /* One column layout for non-large devices */
 }
 
@@ -524,7 +525,7 @@
 }
 
 .vision-score-container {
-  @apply flex items-center justify-center absolute -bottom-1 -right-1 bg-slate-900 text-white rounded-full w-7 h-7 pointer-events-none
+  @apply flex items-center justify-center absolute -bottom-1 -right-1 bg-slate-900 text-white text-sm rounded-full w-6 h-6 pointer-events-none
 }
 
 .icons-match {
@@ -600,6 +601,10 @@ input:checked + .slider:before {
 
 .rank-card {
   background: radial-gradient(#1A2B52, #120f0f, #385816);
+}
+
+.container-live {
+  @apply bg-colorblind-win-primary border-colorblind-win-secondary;
 }
 
 .container-victory {
@@ -692,19 +697,19 @@ box-shadow:  6px 6px 12px #0f0e0e
 }
 
 .defaultWinrateBadge {
-  @apply bg-[#445068];
+  @apply bg-[#6a7883];
 }
 
 .moderateWinrateBadge {
-  @apply bg-[#545ace];
+  @apply bg-[#4b79ce];
 }
 
 .impressiveWinrateBadge {
-  @apply bg-[#864bbd];
+  @apply bg-[#8c6cff];
 }
 
 .eliteWinrateBadge {
-  @apply bg-[#92631c];
+  @apply bg-[#d1903b];
 }
 
 .multikillBadge {
