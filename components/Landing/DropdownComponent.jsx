@@ -40,6 +40,48 @@ const DropdownComponent = () => {
                     <DropdownMenuItem onSelect={handleSelect}>
                         <span>EUW</span>
                     </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={handleSelect}>
+                        <span>EUNE</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={handleSelect}>
+                        <span>OCE</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={handleSelect}>
+                        <span>KR</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={handleSelect}>
+                        <span>JP</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={handleSelect}>
+                        <span>BR</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={handleSelect}>
+                        <span>LAS</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={handleSelect}>
+                        <span>LAN</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={handleSelect}>
+                        <span>RU</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={handleSelect}>
+                        <span>TR</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={handleSelect}>
+                        <span>SG</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={handleSelect}>
+                        <span>PH</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={handleSelect}>
+                        <span>TW</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={handleSelect}>
+                        <span>VN</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={handleSelect}>
+                        <span>TH</span>
+                    </DropdownMenuItem>
                 </DropdownMenuGroup>
             </DropdownMenuContent>
         </DropdownMenu>

@@ -2,6 +2,6 @@ import Profile from "@components/Profile/Profile";
 
 export default function Page({ params }) {
     return (
-        <Profile params={params} region="europe" server="EUN1"></Profile>
+        <Profile params={params} region="asia" server="VN2"></Profile>
     )
 }
