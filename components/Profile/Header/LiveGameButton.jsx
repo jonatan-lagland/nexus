@@ -31,8 +31,8 @@ export default function LiveGameButton({ server, region, summonerId }) {
                 <TooltipTrigger asChild>
                     <Button
                         onClick={handleClick}
-                        variant="outline"
-                        className=" bg-cosmic-cobalt text-white rounded-md font-sans overflow-hidden text-base font-normal border-none w-[6em]"
+                        variant="ghost"
+                        className="   text-indigo-400 rounded-md font-sans overflow-hidden text-base font-normal border-2  border-indigo-700  w-[6em]"
                         style={{ textShadow: "1px 1px 1px black" }}>
                         {isLoading ? <ProgressBarExtraSmall></ProgressBarExtraSmall> : <span>Live Game</span>}
                     </Button>

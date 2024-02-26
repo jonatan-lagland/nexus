@@ -14,10 +14,10 @@ export default function ProfileButton() {
     return (
         <Button
             onClick={handleClick}
-            variant="outline"
-            className=" bg-cosmic-cobalt text-white rounded-md font-sans overflow-hidden text-base font-normal border-none w-[6em]"
+            variant="link"
+            className="  text-white rounded-md overflow-hidden text-sm p-none "
             style={{ textShadow: "1px 1px 1px black" }}>
-            <span>Profile</span>
+            <span>Close</span>
         </Button>
     )
 }

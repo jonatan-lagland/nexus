@@ -3,15 +3,13 @@ import { RankEmblem } from '@components/ui/rankemblem';
 import { ProfileAvatar } from '@components/ui/profileAvatar';
 import RefreshButton from './refreshButton';
 import LiveGameButton from './LiveGameButton';
-import ProfileButton from './ProfileButton';
 
 async function Header({ rankedDetails, user, region, server, userDetails }) {
-    const rankedSoloDetails = rankedDetails.find(detail => detail.queueType === "RANKED_SOLO_5x5");
+    const rankedSoloDetails = rankedDetails && rankedDetails.find(detail => detail.queueType === "RANKED_SOLO_5x5");
     const wins = rankedSoloDetails ? rankedSoloDetails.wins : null;
     const losses = rankedSoloDetails ? rankedSoloDetails.losses : null;
-    const winrate = (wins + losses === 0) ? null : (wins === 0 ? 0 : (losses === 0 ? 100 : Math.round(wins / (wins + losses) * 100)));
+    const winrate = (wins + losses === 0) ? null : (wins === 0 ? 0 : (losses === 0 ? 100 : Math.floor(wins / (wins + losses) * 100)));
     const totalGames = wins || losses ? wins + losses : null;
-    const leagueId = rankedSoloDetails && rankedSoloDetails.leagueId ? rankedSoloDetails.leagueId : null;
     const summonerId = userDetails && userDetails.id ? userDetails.id : null;
 
     return (
@@ -34,7 +32,7 @@ async function Header({ rankedDetails, user, region, server, userDetails }) {
                             }
                         </div>
                         {
-                            rankedDetails[0] &&
+                            rankedDetails && rankedDetails[0] &&
                             <div className='ps-1'>
                                 <h2 className=' text-slate-300'>
                                     <span className='text-white font-bold'>{user.gameName} #{user.tagLine} </span>
@@ -49,8 +47,7 @@ async function Header({ rankedDetails, user, region, server, userDetails }) {
                 </div>
             </div>
             <div className="flex flex-row items-center gap-2 justify-start">
-                <ProfileButton></ProfileButton>
-                <RefreshButton user={user} region={region} server={server} leagueId={leagueId}></RefreshButton>
+                <RefreshButton user={user} region={region} server={server} summonerId={summonerId}></RefreshButton>
                 <LiveGameButton server={server} region={region} summonerId={summonerId}></LiveGameButton>
             </div>
         </section >
