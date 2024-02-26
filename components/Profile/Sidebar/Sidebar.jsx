@@ -3,11 +3,12 @@ import React from 'react'
 import Image from 'next/image'
 
 function Sidebar({ rankedDetails }) {
-    const playerTier = rankedDetails[0] && rankedDetails[0].tier ? rankedDetails[0].tier : "Unranked";
-    const playerRank = rankedDetails[0] && rankedDetails[0].rank ? rankedDetails[0].rank : null;
-    const leaguePoints = rankedDetails[0] && rankedDetails[0].leaguePoints ? rankedDetails[0].leaguePoints + " lp" : rankedDetails[0] && rankedDetails[0].tier ? "0 lp" : null;
-    const wins = rankedDetails[0] && rankedDetails[0].wins ? rankedDetails[0].wins : 0;
-    const losses = rankedDetails[0] && rankedDetails[0].losses ? rankedDetails[0].losses : 0;
+    const rankedSoloDetails = rankedDetails && rankedDetails.find(detail => detail.queueType === "RANKED_SOLO_5x5");
+    const playerTier = rankedSoloDetails && rankedSoloDetails.tier ? rankedSoloDetails.tier : "Unranked";
+    const playerRank = rankedSoloDetails && rankedSoloDetails.rank ? rankedSoloDetails.rank : null;
+    const leaguePoints = rankedSoloDetails && rankedSoloDetails.leaguePoints ? rankedSoloDetails.leaguePoints + " lp" : rankedSoloDetails && rankedSoloDetails.tier ? "0 lp" : null;
+    const wins = rankedSoloDetails ? rankedSoloDetails.wins : null;
+    const losses = rankedSoloDetails ? rankedSoloDetails.losses : null;
 
     return (
         <section className="">
