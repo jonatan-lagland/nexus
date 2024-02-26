@@ -5,7 +5,6 @@ import { useState } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { getMatchHistoryDetails } from "@app/api/userProps";
 import { useInView } from "react-intersection-observer";
-import { useQueryClient } from "@tanstack/react-query";
 
 export function useCardDetails(matchHistoryDetails, puuid) {
     return useMemo(() => {
@@ -41,12 +40,11 @@ export function useCardDetails(matchHistoryDetails, puuid) {
     }, [matchHistoryDetails, puuid]);
 }
 
-export function useGetQueueType(matchHistoryDetails, queueTypes) {
+export function useGetQueueType(queueId, queueTypes) {
     return useMemo(() => {
         const processQueueData = () => {
             try {
-                const { info } = matchHistoryDetails;
-                const { queueId } = info;
+
                 const foundQueue = queueTypes[queueId];
                 return {
                     name: foundQueue.name,
@@ -55,14 +53,14 @@ export function useGetQueueType(matchHistoryDetails, queueTypes) {
                     detailedDescription: foundQueue.detailedDescription,
                 }
             } catch (err) {
-                return err
+                return null
             }
         };
-        if (matchHistoryDetails && queueTypes) {
+        if (queueId && queueTypes) {
             const queueName = processQueueData();
             return queueName;
         }
-    }, [matchHistoryDetails, queueTypes]);
+    }, [queueId, queueTypes]);
 }
 
 export function useCalculateGameEnd(gameEndTimestamp) {
@@ -150,7 +148,7 @@ export function useCalculateOPScore(matchHistoryDetails, puuid) {
             const kdaRatio = Math.abs(((player.kills + player.assists) / deaths).toFixed(2))
 
             // Calculate kill participation
-            const killParticipation = teamTotalKills > 0 ? Math.round((totalKillsAndAssists / teamTotalKills) * 100) : 0;
+            const killParticipation = teamTotalKills > 0 ? Math.floor((totalKillsAndAssists / teamTotalKills) * 100) : 0;
 
             return {
                 puuid: player.puuid,
@@ -174,7 +172,6 @@ export function useCalculateKDA(kills, deaths, assists) {
 
 export function useMatchHistoryUtils(matchHistory, region) {
     const [hasNoMatches, setHasNoMatches] = useState(false);
-    const queryClient = useQueryClient();
 
     const { data, fetchNextPage, isFetchingNextPage } = useInfiniteQuery({
         queryKey: ["query"],
@@ -193,32 +190,19 @@ export function useMatchHistoryUtils(matchHistory, region) {
     });
 
     // Reference for loading skeletons whenever they become in view
-    const { ref, inView } = useInView({
+    const { ref: bottomRef, inView: bottomView } = useInView({
         rootMargin: '400px 0px',
         threshold: 0,
     });
 
-
-    // Fetch initial 4 pages
-    useEffect(() => {
-        if (!data || !data.pages || data.pages.length < 4) {
-            fetchNextPage();
-        }
-    }, [data, fetchNextPage]);
-
-    const isBelow20Pages = data && data.pages && data.pages.length < 20;
+    const isBelow20Pages = data && data.pages && data.pages.length < matchHistory.length;
 
     // Fetch a new page, for up to 20
     useEffect(() => {
-        if (inView && !isFetchingNextPage && isBelow20Pages) {
+        if (bottomView && !isFetchingNextPage && isBelow20Pages) {
             fetchNextPage();
         }
-    }, [inView, fetchNextPage, isFetchingNextPage, isBelow20Pages]);
+    }, [bottomView, fetchNextPage, isFetchingNextPage, isBelow20Pages]);
 
-    useEffect(() => {
-        // Invalidate and refetch when matchHistory changes upon refresh
-        queryClient.invalidateQueries(["query"]);
-    }, [matchHistory, queryClient]);
-
-    return { data, ref, hasNoMatches, inView }
+    return { data, bottomRef, hasNoMatches, bottomView }
 }

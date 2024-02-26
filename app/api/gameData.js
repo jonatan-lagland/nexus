@@ -8,7 +8,6 @@ export async function getLatestVersion() {
 
     try {
         const response = await fetchDataHandler(URL, tag)
-        console.log(response[0])
         return response[0];
     } catch (error) {
         // Clear cache if an error occurs

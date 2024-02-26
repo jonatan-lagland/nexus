@@ -40,11 +40,9 @@ export function extractPassiveValue(description) {
 // Description: Removes all text that end in ":", e.g. "Winter's Bite:" in an attempt to remove passive names
 // RegEx: Removes all text up to the last period before a colon (:) and including the colon itself, while keeping the period and everything after it.
 export const removePassiveNames = (str) => {
-
     if (!str) {
         return "";
     }
-
     // Split the string at each colon
     const segments = str.split(':');
 
@@ -56,13 +54,10 @@ export const removePassiveNames = (str) => {
 
     // Join the processed segments, adding a period and space between each
     const newStr = processedSegments.join('. ') + '.';
-
-    console.log(`Original string: ${str}`);
-    console.log(`New string: ${newStr}`);
     return newStr;
 };
 
 /* Format decimal representation to percentage, e.g. 0.5 > 50% */
 export function formatPercent(value) {
-    return `${Math.round(value * 100)}%`;
+    return `${Math.floor(value * 100)}%`;
 }

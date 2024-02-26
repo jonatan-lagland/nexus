@@ -34,7 +34,6 @@ export const useSearchBarChange = (options, inputValue, setFilteredOptions, setD
         if (!options) {
             return;
         }
-        console.log(options)
 
         /* COMBINEDSTRING:      Combine label and ID so both can be used in search, e.g. "Reksai" and "Rek'sai" are both valid inputs. */
         /* ISMATCH:             If user types the exact name, e.g. "Vi", make it have precedence over other champs that start with "Vi" like "Viktor". */
@@ -126,10 +125,10 @@ export const useKeyPress = (filteredOptions, inputValue, region, setSelectedOpti
 
 /* Make the input field in question become focused on page load. */
 
-export const useFocusInput = (inputRef) => {
+export const useFocusInput = (inputRef, shouldFocus) => {
     useEffect(() => {
-        if (inputRef.current) {
+        if (inputRef.current && shouldFocus) {
             inputRef.current.focus();
         }
-    }, [inputRef]);
+    }, [inputRef, shouldFocus]);
 };

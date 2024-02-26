@@ -25,7 +25,7 @@ export function useLiveGameTooltip(isLoading, isGameFound, hasClicked) {
     return showTooltip;
 }
 
-export function useLiveGameTimer(gameLength, gameStartTime) {
+export function useLiveGameTimer(gameStartTime) {
     // useCallback to prevent function from being re-created every render
     const calculateTime = useCallback(() => {
         const currentTime = Date.now(); // Current time in milliseconds
@@ -56,10 +56,10 @@ export function useLiveGameTimer(gameLength, gameStartTime) {
 
 export function useLiveGameDetails(liveGameDetails) {
     return useMemo(() => {
-        const { participants, gameMode, gameLength, gameStartTime, bannedChampions } = liveGameDetails;
+        const { participants, gameMode, gameLength, gameStartTime, bannedChampions, gameQueueConfigId } = liveGameDetails;
         console.log(liveGameDetails)
         return (
-            { participants, gameMode, gameLength, gameStartTime, bannedChampions }
+            { participants, gameMode, gameLength, gameStartTime, bannedChampions, gameQueueConfigId }
         )
     }, [liveGameDetails]);
 }
