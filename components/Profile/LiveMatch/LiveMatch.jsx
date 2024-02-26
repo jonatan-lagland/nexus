@@ -1,23 +1,43 @@
 'use client'
 
-import { useLiveGameDetails, useLiveGameTimer } from "@utils/liveGameUtils";
+import React from "react";
+import { useLiveGameDetails } from "@utils/liveGameUtils";
+import { useGetQueueType } from "@utils/matchHistoryUtils";
+import { useContext } from "react";
+import { QueueContext } from "@utils/context/queueContext";
 import Bans from "./Bans";
 import LiveTeams from "./LiveTeams";
+import { Skeleton } from "@components/ui/skeleton";
+import ProfileButton from "../Header/ProfileButton";
+import Counter from "./Counter";
 
 function LiveMatch({ liveGameDetails, rankedDetailsOfEveryPlayer }) {
-
-    const { gameMode, gameLength, gameStartTime, bannedChampions } = useLiveGameDetails(liveGameDetails);
-    const { time, formatTime } = useLiveGameTimer(gameLength, gameStartTime);
+    const { gameMode, gameStartTime, bannedChampions, gameQueueConfigId } = useLiveGameDetails(liveGameDetails);
+    const queueTypes = useContext(QueueContext)
+    const queueType = useGetQueueType(gameQueueConfigId, queueTypes);
 
     return (
         <section className="profile-grid-section">
             <div>
-                <div className='flex flex-col container-remake p-5 border overflow-hidden rounded-lg'>
-                    <div className="flex flex-row justify-center">
-                        <span className="text-white">{formatTime(time.minutes)}:{formatTime(time.seconds)}</span>
+                <div className='flex flex-col container-live p-5 border overflow-hidden rounded-lg'>
+                    <div className="flex flex-col gap-4">
+                        <div className="flex flex-row items-center justify-between">
+                            <span style={{ textShadow: "1px 1px 1px black" }} className=" text-[#8998f0] font-semibold">{queueType && queueType.name && queueType.name}</span>
+                            <ProfileButton></ProfileButton>
+                        </div>
+                        <div className="flex flex-row items-center justify-start">
+                            <div className="flex flex-row items-center gap-3">
+                                <Skeleton className="rounded-lg h-max bg-red-700">
+                                    <span style={{ textShadow: "1px 1px 1px black" }} className="text-white p-3 font-bold">Live</span>
+                                </Skeleton>
+                                <Counter gameStartTime={gameStartTime}></Counter>
+                            </div>
+                        </div>
                     </div>
-                    <Bans bannedChampions={bannedChampions}></Bans>
-                    <LiveTeams rankedDetailsOfEveryPlayer={rankedDetailsOfEveryPlayer} gameMode={gameMode} />
+                    <div className="flex flex-col gap-3">
+                        <Bans bannedChampions={bannedChampions}></Bans>
+                        <LiveTeams rankedDetailsOfEveryPlayer={rankedDetailsOfEveryPlayer} gameMode={gameMode} />
+                    </div>
                 </div>
             </div>
         </section>

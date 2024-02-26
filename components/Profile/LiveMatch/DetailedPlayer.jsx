@@ -10,13 +10,14 @@ import SummonerSpell from "../Section/Match/Icons/SummonerSpell";
 import { useContext } from "react";
 import { SummonerSpellContext } from "@utils/context/summonerSpellContext";
 import { useSummonerSpellData } from "@utils/spellUtils";
-import { RankEmblem } from "@components/ui/rankemblem";
-import { WinrateEmblem } from "@components/ui/winrateEmblem";
+import Image from "next/image";
 import { RuneDataContext } from "@utils/context/runeDataContext";
 import { useRuneData } from "@utils/spellUtils";
 import { useRunePathData } from "@utils/spellUtils";
 import Rune from "../Section/Match/Icons/Rune";
 import RunePath from "../Section/Match/Icons/RunePath";
+import { Progress } from "@/components/ui/progress"
+
 const DetailedPlayer = ({ player }) => {
     const pathname = usePathname();
     const playerPath = usePathPlayer(pathname, player.userNameAndTag.gameName, player.userNameAndTag.tagLine);
@@ -30,13 +31,16 @@ const DetailedPlayer = ({ player }) => {
     const runePathId = player.perks.perkSubStyle; // Get the Id of a player's Rune Path
     const runePath = useRunePathData(runePathId, completeListOfRunes) // Convert Rune Path ID into a Rune Path description
     const rankedSoloDetails = player.rankedInfo.find(detail => detail.queueType === "RANKED_SOLO_5x5");
-    const tier = rankedSoloDetails && rankedSoloDetails.tier ? rankedSoloDetails.tier : null;
+    const tier = rankedSoloDetails && rankedSoloDetails.tier ? rankedSoloDetails.tier : 'Unranked';
+    const formattedTier = tier && tier.charAt(0).toUpperCase() + tier.slice(1).toLowerCase();
     const rank = rankedSoloDetails && rankedSoloDetails.rank ? rankedSoloDetails.rank : null;
     const leaguePoints = rankedSoloDetails && rankedSoloDetails.leaguePoints ? rankedSoloDetails.leaguePoints : 0;
     const wins = rankedSoloDetails ? rankedSoloDetails.wins : null;
     const losses = rankedSoloDetails ? rankedSoloDetails.losses : null;
-    const winrate = (wins + losses === 0) ? null : (wins === 0 ? 0 : (losses === 0 ? 100 : Math.round(wins / (wins + losses) * 100)));
-    //const totalGames = wins || losses ? wins + losses : null;
+    const winrate = (wins + losses === 0) ? 0 : (wins === 0 ? 0 : (losses === 0 ? 100 : Math.floor(wins / (wins + losses) * 100)));
+    const totalGames = wins || losses ? wins + losses : 0;
+    const winrateColor = winrate && winrate >= 70 ? 'eliteWinrateBadge' : winrate >= 60 ? 'impressiveWinrateBadge' : winrate >= 50 ? 'moderateWinrateBadge' : 'defaultWinrateBadge';
+    const winrateText = winrate && winrate >= 70 ? 'text-[#f5b75b]' : winrate >= 60 ? 'text-[#ad96ff]' : winrate >= 50 ? 'text-[#78a7ff]' : 'text-slate-400';
 
     useEffect(() => {
         if (player.userNameAndTag.gameName) {
@@ -47,8 +51,8 @@ const DetailedPlayer = ({ player }) => {
     }, [player]);
 
     return (
-        <div className='live-match items-center justify-center text-start bg-gray-600 hover:bg-gray-500 p-1 gap-1'>
-            <div className="flex flex-row items-center space-x-2">
+        <div className='live-match items-center justify-center text-start bg-inherit hover:bg-[#28336d] gap-1'>
+            <div className="flex flex-row items-center space-x-2 truncate">
                 <ChampionIcon championId={player.championId} size={32} shape={'rounded-full'}></ChampionIcon>
                 <div className="flex flex-col justify-center items-center gap-1">
                     <SummonerSpell spell={summonerSpell1} size={18}></SummonerSpell>
@@ -60,7 +64,6 @@ const DetailedPlayer = ({ player }) => {
                 </div>
                 {/* Conditionally render a link if player is a bot or hasn't played in years and thus has no Riot ID */}
                 <div className="flex flex-row items-center justify-center truncate gap-2">
-                    <WinrateEmblem winrate={winrate}></WinrateEmblem>
                     {player.userNameAndTag.gameName ?
                         <Link className={`text-zinc-300 hover:text-zinc-200 truncate text-xs font-abel lg:text-base`} scroll={true} href={`${playerPath}`}>{playerName}</Link>
                         :
@@ -69,11 +72,27 @@ const DetailedPlayer = ({ player }) => {
 
                 </div>
             </div>
-            <div className="text-xs lg:text-base">
-                <span className="text-white">{wins}</span>
+            <div className="flex flex-row items-center justify-start gap-1 text-xs truncate">
+                {tier ?
+                    <Image
+                        src={`https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-static-assets/global/default/images/ranked-mini-crests/${tier.toLowerCase()}.svg`}
+                        alt={`${tier} Emblem`}
+                        height={18}
+                        width={18}
+                        quality={50}
+                        className='select-none'
+                        style={{ width: 'auto', height: '18px' }}
+                    >
+                    </Image>
+                    : null}
+                <span className="text-slate-300 truncate hidden md:block">{formattedTier} {tier && tier !== 'MASTER' && tier !== 'GRANDMASTER' && tier !== 'CHALLENGER' ? rank : null} {leaguePoints} lp</span>
             </div>
-            <div className="flex items-center justify-center">
-                <RankEmblem tier={tier} rank={rank} type={'playerRank'} size={'small'} leaguePoints={leaguePoints}></RankEmblem>
+            <div className="flex flex-col text-center justify-center items-center gap-1 px-2 text-xs">
+                <span className="text-slate-300">
+                    <span className={`${winrateText} font-semibold`}>{winrate} % </span>
+                    ({totalGames} Total)
+                </span>
+                <Progress className={`${winrateColor}`} value={winrate} />
             </div>
         </div>
     );

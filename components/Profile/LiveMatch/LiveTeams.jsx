@@ -3,7 +3,7 @@
 import DetailedPlayer from './DetailedPlayer';
 import React from 'react';
 
-function LiveTeamsComponent({ rankedDetailsOfEveryPlayer, gameMode }) {
+function LiveTeams({ rankedDetailsOfEveryPlayer, gameMode }) {
     let blueTeam = [];
     let redTeam = [];
 
@@ -13,17 +13,17 @@ function LiveTeamsComponent({ rankedDetailsOfEveryPlayer, gameMode }) {
 
         /* Append index to puuid because bots all have the same id */
         return (
-            <div className=''>
-                <div className=''>
+            <div className='flex flex-col gap-4'>
+                <div className='divide-y divide-slate-950 border-s-4 border-s-indigo-600 border border-slate-950'>
                     {blueTeam.map((player, i) => (
-                        <div className='py-1' key={player.puuid + i}>
+                        <div className='px-1' key={player.puuid + i}>
                             <DetailedPlayer player={player}></DetailedPlayer>
                         </div>
                     ))}
                 </div>
-                <div className=''>
+                <div className='divide-y divide-slate-950 border-s-4 border-s-red-700 border border-slate-950'>
                     {redTeam.map((player, i) => (
-                        <div className='py-1' key={player.puuid + i}>
+                        <div className='px-1' key={player.puuid + i}>
                             <DetailedPlayer player={player}></DetailedPlayer>
                         </div>
                     ))}
@@ -34,10 +34,5 @@ function LiveTeamsComponent({ rankedDetailsOfEveryPlayer, gameMode }) {
     return null;
 }
 
-const LiveTeams = React.memo(LiveTeamsComponent, (prevProps, nextProps) => {
-    // Return true if nextProps would render the same result as prevProps
-    return prevProps.participants === nextProps.participants && prevProps.gameMode === nextProps.gameMode;
-});
-
-export default LiveTeams;
+export default React.memo(LiveTeams);
 
