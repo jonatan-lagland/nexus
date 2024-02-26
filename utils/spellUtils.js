@@ -10,7 +10,7 @@ export const useRuneData = (keystoneId, completeListOfRunes) => {
             try {
                 const foundRune = completeListOfRunes?.flatMap(category => category.slots)
                     .flatMap(slot => slot.runes)
-                    .find(rune => rune.id === keystoneId);
+                    .find(rune => rune.id === parseInt(keystoneId));
                 if (foundRune) {
                     return {
                         id: foundRune.id,
