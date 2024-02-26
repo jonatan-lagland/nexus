@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import revalidateCache from './cache';
 import fetchDataHandler from './fetchDataHandler';
 
-// Fetch the PUUID for username
+// Get user PUUID by Riot Tag, e.g. Account-0000. PUIID is the ID shared across servers and is immutable.
 export async function getUserPUUID(params, region) {
     const paramsId = params.Id;
     const base_url = process.env.RIOT_API_BASE_URL;
@@ -14,13 +14,14 @@ export async function getUserPUUID(params, region) {
     const url = `https://${region}.${base_url}/${account_url}/by-riot-id/${id}`;
 
     try {
+
         const response = await fetchDataHandler(url, tag, INCLUDE_API_KEY)
         return response;
     } catch (error) {
+        revalidateCache(tag)
         if (error.status === 404 || error.status === 403) {
             notFound()
         }
-        revalidateCache(tag)
     }
 }
 
@@ -36,10 +37,10 @@ export async function getUserInfo(puuid, server) {
         return response;
     } catch (error) {
         // Clear cache if an error occurs
+        revalidateCache(tag)
         if (error.status === 404 || error.status === 403) {
             notFound()
         }
-        revalidateCache(tag)
         return {
             status: error.status,
             reason: error.reason,
@@ -57,7 +58,7 @@ export async function getRankedInfo(leagueId, server, refreshCache = false) {
 
     try {
         if (refreshCache) {
-            await revalidateCache(tag)
+            revalidateCache(tag)
         }
         const response = await fetchDataHandler(url, tag, INCLUDE_API_KEY)
         return response;
@@ -81,7 +82,7 @@ export async function getMatchHistory(puuid, region, refreshCache = false) {
 
     try {
         if (refreshCache) {
-            await revalidateCache(tag)
+            revalidateCache(tag)
         }
         const response = await fetchDataHandler(url, tag, INCLUDE_API_KEY)
         return response;
@@ -117,21 +118,19 @@ export async function getMatchHistoryDetails(matchId, region) {
     }
 }
 
-export async function getLiveGameDetails(server, summonerId, refreshCache = false) {
+export async function getLiveGameDetails(server, summonerId) {
     const base_url = process.env.RIOT_API_BASE_URL;
     const spectator_url = process.env.RIOT_API_SPECTATOR_URL;
     const INCLUDE_API_KEY = true; // Include an API key
     const url = `https://${server}.${base_url}/${spectator_url}/by-summoner/${summonerId}`;
-    const tag = `Spectator-${summonerId}`;
-    const cacheDuration = 10;
+    const tag = `Live-Game-${summonerId}`;
 
     try {
-        if (refreshCache) {
-            await revalidateCache(tag)
-        }
-        const response = await fetchDataHandler(url, tag, INCLUDE_API_KEY, cacheDuration)
+        revalidateCache(tag)
+        const response = await fetchDataHandler(url, tag, INCLUDE_API_KEY)
         return response;
     } catch (error) {
+        revalidateCache(tag)
         return {
             status: error.status,
             reason: error.reason,
