@@ -1,6 +1,9 @@
 "use server";
 import Link from "next/link";
 import { Home } from "lucide-react";
+import dynamic from "next/dynamic";
+const NavSearchBar = dynamic(() => import('./NavSearchBar'))
+const SettingsDialog = dynamic(() => import('./SettingsDialog'))
 
 const Nav = () => {
     return (
@@ -15,10 +18,10 @@ const Nav = () => {
                 </Link>
             </div>
             <div className="flex flex-grow justify-center">
-
+                <NavSearchBar></NavSearchBar>
             </div>
             <div className="flex flex-grow-0">
-
+                <SettingsDialog></SettingsDialog>
             </div>
         </nav>
     );

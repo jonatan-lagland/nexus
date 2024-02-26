@@ -19,7 +19,7 @@ const SettingsDialog = () => {
     return (
         <Dialog onOpenChange={setDialogOpen}>
             <DialogTrigger asChild>
-                <Button aria-label="Settings" variant="link">
+                <Button className="px-0 py-0" aria-label="Settings" variant="link">
                     <div
                         onMouseEnter={() => setIsHovered(true)}
                         onMouseLeave={() => setIsHovered(false)}
