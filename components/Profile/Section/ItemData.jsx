@@ -16,6 +16,7 @@ export default function ItemData({ data }) {
                         width={15}
                         height={15}
                         className="object-scale-down"
+                        style={{ width: 'auto' }}
                     />
                 </div>
                 <p className="text-cream mx-1">{value}</p>
@@ -47,6 +48,7 @@ export default function ItemData({ data }) {
                         width={20}
                         height={15}
                         className="object-scale-down"
+                        style={{ width: 'auto' }}
                     />
                     <p className='text-sm ms-1'>{data.gold}</p>
                 </div>

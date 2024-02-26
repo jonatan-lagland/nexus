@@ -12,7 +12,6 @@ import {
 const Stats = ({ kills, deaths, assists, kdaRatio }) => {
     const { isColorblindMode } = useContext(ColorblindContext);
     const [deathsTheme, setDeathsTheme] = useState('text-bright-red')
-    const kdaTheme = deaths === 0 ? 'text-amber-300' : kdaRatio < 3 ? 'text-yellow-600' : kdaRatio >= 3 && kdaRatio < 6 ? 'text-yellow-600' : 'text-orange-500';
 
     useEffect(() => {
         const deathsTheme = isColorblindMode ? 'text-amber-500' : 'text-bright-red';
@@ -21,29 +20,10 @@ const Stats = ({ kills, deaths, assists, kdaRatio }) => {
 
     return (
         <TooltipProvider disableHoverableContent={true} delayDuration={300} skipDelayDuration={0}>
+
             <Tooltip>
                 <TooltipTrigger>
-                    <p className={`${kdaTheme} text-base font-oswald cursor-default`}>
-                        <span>
-                            {deaths === 0 ? 'Perfect' : `${kdaRatio} : 1`}
-                        </span>
-                    </p>
-                </TooltipTrigger>
-                <TooltipContent>
-                    <TooltipArrow />
-                    <p className='text-zinc-400'>KDA ratio</p>
-                    <p className='text-zinc-400'>
-                        <span className={`text-white`}>Kills</span>
-                        <span> + </span>
-                        <span className={`text-white`}>Assists</span>
-                        <span> : </span>
-                        <span className={`text-white`}>Deaths</span>
-                    </p>
-                </TooltipContent>
-            </Tooltip>
-            <Tooltip>
-                <TooltipTrigger>
-                    <p className='font-oswald text-xl truncate cursor-default'>
+                    <p className='font-oswald text-lg truncate cursor-default'>
                         <span className={`text-white`}>{kills}</span>
                         <span className={`text-slate-400`}> / </span>
                         <span className={`${deathsTheme}`}>{deaths}</span>
@@ -59,6 +39,26 @@ const Stats = ({ kills, deaths, assists, kdaRatio }) => {
                         <span className={`text-white`}>Deaths</span>
                         <span> / </span>
                         <span className={`text-white`}>Assists</span>
+                    </p>
+                </TooltipContent>
+            </Tooltip>
+            <Tooltip>
+                <TooltipTrigger>
+                    <p className={` text-neutral-400 text-base font-oswald cursor-default`}>
+                        <span>
+                            {deaths === 0 ? 'Perfect KDA' : `${kdaRatio}:1`}
+                        </span>
+                    </p>
+                </TooltipTrigger>
+                <TooltipContent>
+                    <TooltipArrow />
+                    <p className='text-zinc-400'>KDA ratio</p>
+                    <p className='text-zinc-400'>
+                        <span className={`text-white`}>Kills</span>
+                        <span> + </span>
+                        <span className={`text-white`}>Assists</span>
+                        <span> : </span>
+                        <span className={`text-white`}>Deaths</span>
                     </p>
                 </TooltipContent>
             </Tooltip>

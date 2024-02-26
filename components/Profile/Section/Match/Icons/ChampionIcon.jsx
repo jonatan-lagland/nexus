@@ -14,7 +14,7 @@ function ChampionIcon({ championId, size, shape }) {
     const championTrueName = useChampionTrueNames(championId);
     const src = useImagePathChampion(championId)
     const zoomedInSize = size + 10;
-    const quality = size > 70 ? 80 : 50;
+    const quality = size > 70 ? 100 : 50;
 
     return (
         <>
@@ -28,7 +28,7 @@ function ChampionIcon({ championId, size, shape }) {
                                     src={src}
                                     alt={"Champion Icon"}
                                     width={size}
-                                    height={size} // 80
+                                    height={size}
                                     quality={quality}
                                     priority
                                     className={`h-[${zoomedInSize}px] w-[${zoomedInSize}px] object-cover select-none`}

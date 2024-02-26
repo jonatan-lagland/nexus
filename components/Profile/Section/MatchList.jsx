@@ -13,7 +13,7 @@ import NoMatches from '@components/ui/no-matches';
 
 function MatchList({ user, region }) {
     const { matchHistoryData } = useContext(MatchHistoryContext)
-    const { data, ref, hasNoMatches, inView } = useMatchHistoryUtils(matchHistoryData, region)
+    const { data, bottomRef, hasNoMatches, bottomView } = useMatchHistoryUtils(matchHistoryData, region)
 
     /* Render if no matches have been played */
     if (hasNoMatches) {
@@ -40,7 +40,7 @@ function MatchList({ user, region }) {
     return (
         <section className="profile-grid-section">
             {data.pages.map((page) => {
-                if (!page) return null;
+                if (!page || !page.metadata || !page.metadata.matchId) return null;
                 return (
                     <MatchProvider key={page.metadata.matchId}>
                         <Match
@@ -52,9 +52,9 @@ function MatchList({ user, region }) {
                 );
             })}
             <div>
-                <div ref={ref} className="profile-grid-section">
+                <div ref={bottomRef} className="profile-grid-section">
                     {Array(Math.max(20 - data.pages.length, 0)).fill().map((_, i) => (
-                        inView ? <MatchSkeleton key={i} /> : <StaticSkeleton key={i} />
+                        bottomView ? <MatchSkeleton key={i} /> : <StaticSkeleton key={i} />
                     ))}
                 </div>
                 {/* Render up to 20 skeletons, depending on the amount of pages remaining*/}

@@ -29,7 +29,8 @@ const SummonerSpell = ({ spell, size }) => {
                         className="border border-stone-950 rounded-sm select-none"
                     />
                 </TooltipTrigger>
-                <TooltipContent>
+                <TooltipContent className="w-[200px] whitespace-break-spaces">
+                    <TooltipArrow />
                     <div className='flex flex-row justify-between items-center text-base mb-2'>
                         <p className="font-bold text-crimson-grey">{spell.name}</p>
                         <div className="flex flex-row gap-2">
@@ -39,12 +40,12 @@ const SummonerSpell = ({ spell, size }) => {
                                 width={14}
                                 height={14}
                                 className="object-scale-down"
+                                style={{ width: 'auto' }}
                             />
-                            <span className="text-sm">{spell.cooldown}</span>
+                            <span className="text-sm line-clamp-2">{spell.cooldown}</span>
                         </div>
                     </div>
-                    <p className="text-dark-dust italic text-sm max-w-[150px]">{spell.description}</p>
-                    <TooltipArrow />
+                    <p className="text-dark-dust italic text-sm">{spell.description}</p>
                 </TooltipContent>
             </Tooltip>
         </TooltipProvider>

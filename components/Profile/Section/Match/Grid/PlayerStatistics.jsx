@@ -43,7 +43,7 @@ const PlayerStatisticsComponent = ({
             <div className='flex flex-row items-center justify-between'>
                 <div className="flex flex-row items-center gap-2">
                     <div className="relative">
-                        <ChampionIcon championId={championId} size={80} shape={'rounded-full'}></ChampionIcon>
+                        <ChampionIcon championId={championId} size={80} shape={'rounded-none'}></ChampionIcon>
                         <div className='champion-level-container'>
                             <span className="select-none">{champLevel}</span>
                         </div>
@@ -59,7 +59,7 @@ const PlayerStatisticsComponent = ({
                         </div>
                     </div>
                 </div>
-                <div className='flex flex-col flex-grow justify-center items-center'>
+                <div className='flex flex-col flex-grow items-center'>
                     <Stats kills={kills} deaths={deaths} assists={assists} kdaRatio={kdaRatio} />
                 </div>
             </div>

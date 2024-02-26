@@ -11,7 +11,6 @@ import RoleIcon from './Icons/RoleIcon';
 import ScoreStatistics from './Grid/ScoreStatistics';
 import { KillsEmblem } from '@components/ui/killsEmblem';
 import { KillParticipationEmblem } from '@components/ui/killParticipationEmblem';
-import SidebarDropdown from './Icons/SidebarDropdown';
 import { QueueContext } from '@utils/context/queueContext';
 
 function Match({ matchHistoryDetails, puuid }) {
@@ -20,10 +19,11 @@ function Match({ matchHistoryDetails, puuid }) {
     const queueTypes = useContext(QueueContext)
     const [containerClass, setContainerClass] = useState('');
     const [isRemake, setIsRemake] = useState(false)
+    const [queueCode, setQueueCode] = useState('')
 
     const details = useCardDetails(matchHistoryDetails, puuid);
     const { mainPlayerScore } = useCalculateOPScore(matchHistoryDetails, puuid);
-    const queueType = useGetQueueType(matchHistoryDetails, queueTypes);
+    const queueType = useGetQueueType(queueCode, queueTypes);
 
     useEffect(() => {
         if (matchData == null) {
@@ -32,12 +32,14 @@ function Match({ matchHistoryDetails, puuid }) {
         const { win } = matchData;
         const { gameEndedInEarlySurrender } = matchData.mainPlayer;
         const { gameDuration } = matchData;
+        const { queueId } = matchData;
         const remake = gameEndedInEarlySurrender && gameDuration < 300;
         const containerTheme = remake ?
             (isColorblindMode ? 'container-remake-colorblind' : 'container-remake') :
             win
                 ? (isColorblindMode ? 'container-victory-colorblind' : 'container-victory')
                 : (isColorblindMode ? 'container-defeat-colorblind' : 'container-defeat');
+        setQueueCode(queueId)
         setContainerClass(containerTheme)
         setIsRemake(remake)
     }, [matchData, isColorblindMode, containerClass]);
@@ -59,11 +61,11 @@ function Match({ matchHistoryDetails, puuid }) {
     } = matchData;
 
     return (
-        <div className=''>
-            <div className={`container-header py-1 px-3 flex flex-row justify-between min-h-[42px] gap-2 rounded-t-lg border-t border-x border-x-slate-700 border-t-slate-700`}>
+        <div>
+            <div className={`container-header py-1 px-3 flex flex-row justify-between gap-2 min-h-[37px] rounded-t-lg border-t border-x border-x-slate-700 border-t-slate-700`}>
                 <div className='flex flex-grow flex-row flex-wrap justify-between gap-1'>
                     <div className='flex flex-row justify-center text-center items-center space-x-3'>
-                        <h3 className={`text-gray-300 font-abel text-lg`}>{queueType.shortName}</h3>
+                        <span className={`text-gray-300 font-abel text-lg`}>{queueType && queueType.name && queueType.name}</span>
                         {mainPlayer.teamPosition && <RoleIcon role={mainPlayer.teamPosition} />}
                         <KillParticipationEmblem killParticipation={mainPlayerScore.killParticipation}></KillParticipationEmblem>
                         <KillsEmblem kills={mainPlayer.largestMultiKill}></KillsEmblem>
@@ -76,11 +78,11 @@ function Match({ matchHistoryDetails, puuid }) {
                     ></ScoreStatistics>
                 </div>
             </div>
-            <div className={`${containerClass} border rounded-b-lg lg:min-h-[150px] min-h-[270px] match lg:ps-2`}>
+            <div className={`${containerClass} border rounded-b-lg lg:min-h-[134px] min-h-[222px] match lg:ps-2`}>
                 <div className='flex flex-col items-center justify-center'>
                     <GameResult isRemake={isRemake} />
                 </div>
-                <div className='flex justify-center items-center'>
+                <div className='flex justify-center items-center py-1'>
                     <PlayerStatistics
                         kills={mainPlayer.kills}
                         deaths={mainPlayer.deaths}
@@ -100,7 +102,7 @@ function Match({ matchHistoryDetails, puuid }) {
                     <Teams participants={participants} gameMode={gameMode} />
                 </div>
                 <div>
-                    <SidebarDropdown isRemake={isRemake}></SidebarDropdown>
+                    {/* Sidebar dropdown to be added later */}
                 </div>
             </div>
         </div>

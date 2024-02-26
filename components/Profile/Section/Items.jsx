@@ -22,7 +22,7 @@ function Items({ items, visionScore }) {
         <div>
             <div className="container-items">
                 {items.map((item, index) => (
-                    <div key={index} className='flex flex-row items-center my-1 mx-1 relative'>
+                    <div key={index} className='flex flex-row items-center gap-1 relative'>
                         <ItemComponent
                             item={item}
                             visionScore={visionScore}
@@ -37,8 +37,8 @@ function Items({ items, visionScore }) {
 
 function ItemComponent({ item, visionScore }) {
     const imgPath = useImagePathItem(item);
-    const AVATAR_WIDTH = 40;
-    const AVATAR_HEIGHT = 40;
+    const AVATAR_WIDTH = 32;
+    const AVATAR_HEIGHT = 32;
     const isTrinket = useIsTrinketItem(item.name)
     return (
         <div
