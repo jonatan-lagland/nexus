@@ -14,7 +14,7 @@ import { RegionContext } from "@utils/context/regionContext";
 import { useContext } from "react";
 import { Search } from "lucide-react";
 
-const SearchBarComponent = ({ options }) => {
+const SearchBarComponent = ({ shouldFocus = false, options }) => {
     const inputRef = useRef(null);
     const router = useRouter();
     const [inputValue, setInputValue] = useState("");
@@ -37,7 +37,7 @@ const SearchBarComponent = ({ options }) => {
     const handleOptionClick = useOptionClick(setSelectedOption, setDropdownVisible);
     const handleKeyPress = useKeyPress(filteredOptions, inputValue, region, setSelectedOption);
     useSearchBarChange(options, inputValue, setFilteredOptions, setDropdownVisible);
-    useFocusInput(inputRef);
+    useFocusInput(inputRef, shouldFocus);
     useClickOutsideInputField(dropdownRef, inputRef, setDropdownVisible, isDropdownVisible);
 
     /* Redirected user to a page after selection */
