@@ -13,20 +13,20 @@ export const LiveGameProvider = ({ children }) => {
 
     const fetchLiveGame = (server, region, summonerId) => {
         const fetchData = async () => {
-            setIsLoading(true)
-            const response = await getLiveGameDetails(server, summonerId)
-            if (response.error) {
+            setIsLoading(true) // Enable loading icon
+            const response = await getLiveGameDetails(server, summonerId) // Get live game details
+            if (response.error) { // If player isn't in-game or otherwise an error occurs
                 setIsGameFound(false);
                 setIsShowLiveGameTab(false);
             } else {
-                const rankedDetailsPromises = response.participants.map(participant =>
+                const rankedDetailsPromises = response.participants.map(participant => // Get ranked stats of each player
                     getRankedInfo(participant.summonerId, server)
                 );
                 const rankedDetails = await Promise.all(rankedDetailsPromises);
                 const userNameAndTag = response.participants.map(participant =>
                     getUserNameAndTag(participant.puuid, region)
                 );
-                const userNameDetails = await Promise.all(userNameAndTag);
+                const userNameDetails = await Promise.all(userNameAndTag); // Get Riot name and Id of each player
                 const combinedDetails = response.participants.map((participant, index) => ({
                     ...participant,
                     rankedInfo: rankedDetails[index],
@@ -37,7 +37,7 @@ export const LiveGameProvider = ({ children }) => {
                 setIsGameFound(true);
                 setIsShowLiveGameTab(true);
             }
-            setIsLoading(false)
+            setIsLoading(false) // Finally, set loading to false
         };
         fetchData();
     };
