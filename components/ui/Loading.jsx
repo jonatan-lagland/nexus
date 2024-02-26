@@ -34,8 +34,8 @@ const ContainerSkeleton = () => {
     return (
         <section className="profile-grid-section">
             <div>
-                <Skeleton className="w-full h-[65px] lg:h-[42px] rounded-t-md bg-deep-purple border-t border-x border-cosmic-cobalt"></Skeleton >
-                <Skeleton className="match w-full lg:h-[150px] h-[270px] lg:ps-2 rounded-b-md bg-deep-purple border-b border-x border-cosmic-cobalt p-2 gap-4 overflow-hidden">
+                <Skeleton className="w-full h-[65px] lg:h-[37px] rounded-t-md bg-deep-purple border-t border-x border-cosmic-cobalt"></Skeleton >
+                <Skeleton className="match w-full lg:h-[134px] h-[222px] lg:ps-2 rounded-b-md bg-deep-purple border-b border-x border-cosmic-cobalt p-2 gap-4 overflow-hidden">
                     <div className="flex flex-col justify-center items-center gap-3 px-2">
                         <Skeleton className="w-[65px] h-8 rounded-md bg-cosmic-cobalt" />
                         <Skeleton className="w-[75px] h-4 rounded-md bg-cosmic-cobalt" />
@@ -74,8 +74,8 @@ export const MatchSkeleton = () => {
     return (
         <section className="profile-grid-section">
             <div>
-                <Skeleton className="w-full h-[65px] lg:h-[42px] rounded-t-md bg-deep-purple border-t border-x border-cosmic-cobalt"></Skeleton >
-                <Skeleton className="match w-full lg:h-[150px] h-[270px] lg:ps-2 rounded-b-md bg-deep-purple border border-cosmic-cobalt p-2 gap-4 overflow-hidden">
+                <Skeleton className="w-full h-[65px] lg:h-[37px] rounded-t-md bg-deep-purple border-t border-x border-cosmic-cobalt"></Skeleton >
+                <Skeleton className="match w-full lg:h-[134px] h-[222px] lg:ps-2 rounded-b-md bg-deep-purple border border-cosmic-cobalt p-2 gap-4 overflow-hidden">
                 </Skeleton >
             </div>
         </section>
@@ -86,8 +86,8 @@ export const StaticSkeleton = () => {
     return (
         <section className="profile-grid-section">
             <div>
-                <div className="w-full h-[65px] lg:h-[42px] rounded-t-md bg-deep-purple border-t border-x border-cosmic-cobalt"></div >
-                <div className="match w-full lg:h-[150px] h-[270px] lg:ps-2 rounded-b-md bg-deep-purple border border-cosmic-cobalt p-2 gap-4 overflow-hidden">
+                <div className="w-full h-[65px] lg:h-[37px] rounded-t-md bg-deep-purple border-t border-x border-cosmic-cobalt"></div >
+                <div className="match w-full lg:h-[134px] h-[222px] lg:ps-2 rounded-b-md bg-deep-purple border border-cosmic-cobalt p-2 gap-4 overflow-hidden">
                 </div >
             </div>
         </section>
