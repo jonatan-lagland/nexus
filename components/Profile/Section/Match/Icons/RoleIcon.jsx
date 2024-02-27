@@ -15,7 +15,7 @@ const RoleIcon = ({ role }) => {
             <Tooltip>
                 <TooltipTrigger asChild>
                     <Image
-                        src={`/assets/icons/roles/icon-position-banner-primary-${role}.png`}
+                        src={`/assets/icons/roles/icon-position-banner-primary-${role.toLowerCase()}.png`}
                         alt={"Role Icon"}
                         width={24}
                         height={24}
