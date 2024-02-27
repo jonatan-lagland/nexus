@@ -14,8 +14,8 @@ export default async function Landing() {
                 className="top-0 left-0 -z-50 brightness-[0.4] object-cover saturate-[0.8] object-center image-zoom-in">
             </Image>
             <div className="flex flex-col gap-3">
-                <h1 className="text-7xl lg:text-8xl drop-shadow-lg  text-white font-oswald">Welcome to Nexus</h1>
-                <h2 className="text-3xl lg:text-4xl drop-shadow-lg ps-4 text-[#b07df0] font-oswald">League of Legends Matches, Insights, and Beyond.</h2>
+                <h1 className="text-4xl lg:text-8xl drop-shadow-lg  text-white font-oswald">Welcome to Nexus</h1>
+                <h2 className="text-xl lg:text-4xl drop-shadow-lg text-[#b07df0] font-oswald">League of Legends Matches, Insights, and Beyond.</h2>
             </div>
             <section className="search max-w-lg">
                 <DropdownComponent></DropdownComponent>

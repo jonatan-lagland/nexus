@@ -7,7 +7,6 @@ const SettingsDialog = dynamic(() => import('./SettingsDialog'))
 
 const Nav = () => {
     return (
-        /* ----Website Logo---- */
         <nav className="flex flex-row items-center justify-around w-full">
             <div className="flex flex-grow-0">
                 <Link href='/'>
