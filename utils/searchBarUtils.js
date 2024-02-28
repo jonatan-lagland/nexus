@@ -1,6 +1,7 @@
 'use client';
 import { useEffect } from 'react';
 
+
 /* Whenever user clicks anywhere on the document, hide the dropdown menu in question, UNLESS the click is on the input menu itself */
 
 export const useClickOutsideInputField = (dropdownRef, inputRef, setDropdownVisible, isDropdownVisible) => {
@@ -21,9 +22,13 @@ export const useClickOutsideInputField = (dropdownRef, inputRef, setDropdownVisi
 };
 
 
-/* Hide the dropdown menu if the input field is empty or gets erased by user. */
-/* If field is not empty, sort and filter the options based on the input of the user. */
 
+/**
+ * @deprecated Was used to sort a list of champions. Could be refractored to work with user suggestions instead.
+ */
+
+/* Hide the dropdown menu if the input field is empty or gets erased by user.  */
+/* If field is not empty, sort and filter the options based on the input of the user.  */
 export const useSearchBarChange = (options, inputValue, setFilteredOptions, setDropdownVisible) => {
     useEffect(() => {
         if (!inputValue) {
@@ -78,7 +83,7 @@ export const useOptionClick = (setSelectedOption, setDropdownVisible) => {
     };
 };
 
-/* Set the value of the selected option as the top item from the dropdown menu*/
+/* Set the value of the selected user */
 
 export const useKeyPress = (filteredOptions, inputValue, region, setSelectedOption) => {
     const regions = {
@@ -103,21 +108,21 @@ export const useKeyPress = (filteredOptions, inputValue, region, setSelectedOpti
     return (e) => {
         e.preventDefault();
         if (filteredOptions.length > 0) {
-            setSelectedOption(filteredOptions[0].value);
+            setSelectedOption(filteredOptions[0].value); // Set first option on dropdown list
             return;
         }
         if (inputValue.includes("-")) {
-            setSelectedOption(inputValue);
+            setSelectedOption(inputValue); // Default value if no previous options found
             return;
         }
         if (inputValue.includes("#")) {
             const modifiedInput = inputValue.replace(/#/g, "-");
-            setSelectedOption(modifiedInput);
+            setSelectedOption(modifiedInput); // Replace # with - for API purposes
             return;
         }
         if (!inputValue.includes("-") && !inputValue.includes("#")) {
             const regionCode = regions[region]
-            setSelectedOption(inputValue + "-" + regionCode);
+            setSelectedOption(inputValue + "-" + regionCode); // If user doesn't set a tag like #0000, use #EUW, #NA, etc. by default
             return;
         }
     }

@@ -57,7 +57,6 @@ export function useLiveGameTimer(gameStartTime) {
 export function useLiveGameDetails(liveGameDetails) {
     return useMemo(() => {
         const { participants, gameMode, gameLength, gameStartTime, bannedChampions, gameQueueConfigId } = liveGameDetails;
-        console.log(liveGameDetails)
         return (
             { participants, gameMode, gameLength, gameStartTime, bannedChampions, gameQueueConfigId }
         )
