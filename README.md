@@ -32,13 +32,13 @@ The website's responsive design is achieved through the integration of Tailwind 
 
 ### Smart pagination
 
-With the combined use of React Query's tool useInfiniteQuery and React Intersection Observer, the match history page is able to incrementally fetch matches as the user scrolls down the page. With this feature, the initial page load is faster on slower devices and unnecessary API and/or fetch calls are avoided in case the user is only interested in the most recent matches.
+With the combined use of React Query's tool [useInfiniteQuery](https://tanstack.com/query/v4/docs/framework/react/reference/useInfiniteQuery) and [React Intersection Observer](https://www.npmjs.com/package/react-intersection-observer), the match history page is able to incrementally fetch matches as the user scrolls down the page. With this feature, the initial page load is faster on slower devices and unnecessary fetch and external API calls are avoided in case the user is only interested in the most recent matches.
 
 ![Pagination](public/assets/animated/pagination.gif)
 
 ### Performance
 
-With the use of React Server Components, the initial page load and subsequently First Contentful Paint (FCP) are greatly improved. For example, the profile page's "header" that displays the user's name and short description is rendered on the server, as well as the sidebar badge displaying the user's wins and losses, while the individual matches are rendered on the client.
+With the use of React Server Components, the initial page load and subsequently [First Contentful Paint (FCP)](https://developer.chrome.com/docs/lighthouse/performance/first-contentful-paint) are greatly improved. For example, the profile page's "header" that displays the user's name and short description is rendered on the server, as well as the sidebar badge displaying the user's wins and losses, while the individual matches are rendered on the client.
 
 In addition, the website's fetch requests are performed with Server Actions in order to reduce the time taken to complete each request. Server actions allow requests to be cached and served to users across the platform. [Read more on Next.js Benefits of Server Rendering.](https://nextjs.org/docs/app/building-your-application/rendering/server-components)
 
