@@ -1,14 +1,20 @@
 ## Introduction
 
-Nexus is a League of Legends fan project intended to help players quickly and seamlessly find an optimal champion build, rune page and champion synergies in one simple layout.
-The project will be deployed as a website once all core features have been implemented.
+Nexus is a League of Legends fan project intended to help players quickly and seamlessly lookup a player's match history and live game data in one simple layout.
 
 ### Tools used
 
 - Next.js (and React.js)
 - Tailwind CSS
 - JavaScript
+- Radix
 - Jest
+
+## How to use
+
+1. Visit [nexus-two-nu.vercel.app](https://nexus-two-nu.vercel.app/)
+2. Lookup a player's profile. For example: [Thebausffs](https://nexus-two-nu.vercel.app/profile/euw/thebausffs-EUW)
+
 
 ## Core features
 
@@ -16,13 +22,16 @@ The project will be deployed as a website once all core features have been imple
 
 ### Integration with Riot Games API
 
-The website leverages the robust server-side features of Next.js, built on Node.js, to connect with the Riot Games API. This setup enables the dynamic fetching of essential data such as champion images and descriptions.
+The website leverages the robust server-side features of Next.js, built on Node.js, to connect with the Riot Games API. This setup enables the dynamic fetching of essential data such as champion images and descriptions, as well as caching of fetch requests to limit excess calls to Riot Games' API endpoint.
 
 ### Responsive design
 
 The website's responsive design is achieved through the integration of Tailwind CSS, CSS Grid, Flexbox, and JavaScript. Tailwind CSS and CSS Grid handle the structural aspects, while Flexbox ensures fluid content layout. JavaScript complements these technologies by dynamically adjusting elements and interactions, ensuring a seamless user experience across all devices.
 
-![Nexus Responsive Design](https://i.imgur.com/AIL0kNx.gif)
+
+### Smart pagination
+
+With the combined use of React Query's tool useInfiniteQuery and React Intersection Observer, the match history page is able to incrementally fetch matches as the user scrolls down the page. With this feature, the initial page load is faster on slower devices and unnecessary API and/or fetch calls are avoided in case the user is only interested in the most recent matches.
 
 ### Modularity
 
