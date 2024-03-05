@@ -38,7 +38,7 @@ export default function ItemData({ data }) {
     };
 
     return (
-        <div className='flex flex-col gap-2 max-w-[250px]'>
+        <div className='flex flex-col gap-2'>
             <div className="flex tooltip-data-title gap-2 justify-between">
                 <p className='font-bold text-sm text-orange-400'>{data.name}</p>
                 <div className='flex flex-row items-center '>
@@ -50,7 +50,7 @@ export default function ItemData({ data }) {
                         className="object-scale-down"
                         style={{ width: 'auto' }}
                     />
-                    <p className='text-sm ms-1'>{data.gold}</p>
+                    <p className='text-sm text-white ms-1'>{data.gold}</p>
                 </div>
             </div>
             <div className="flex flex-col gap-1 text-sm">

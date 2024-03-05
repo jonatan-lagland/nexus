@@ -3,12 +3,10 @@ import Image from 'next/image';
 import { useImagePathItem } from '@utils/pathUtils';
 import { useIsTrinketItem } from '@utils/itemUtils';
 import {
-    Tooltip,
-    TooltipContent,
-    TooltipProvider,
-    TooltipTrigger,
-    TooltipArrow
-} from "@/components/ui/tooltip"
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from "@/components/ui/popover"
 
 import ItemData from './ItemData';
 
@@ -52,24 +50,20 @@ function ItemComponent({ item, visionScore }) {
                 </div>
             )}
             {imgPath && (
-
-                <TooltipProvider delayDuration={300} skipDelayDuration={300}>
-                    <Tooltip>
-                        <TooltipTrigger asChild>
-                            <Image
-                                className='select-none'
-                                src={imgPath}
-                                alt={`${item.name}`}
-                                width={AVATAR_WIDTH}
-                                height={AVATAR_HEIGHT}
-                            />
-                        </TooltipTrigger>
-                        <TooltipContent>
-                            <TooltipArrow />
-                            <ItemData data={item}></ItemData>
-                        </TooltipContent>
-                    </Tooltip>
-                </TooltipProvider>
+                <Popover>
+                    <PopoverTrigger asChild>
+                        <Image
+                            className='select-none hover:cursor-pointer'
+                            src={imgPath}
+                            alt={`${item.name}`}
+                            width={AVATAR_WIDTH}
+                            height={AVATAR_HEIGHT}
+                        />
+                    </PopoverTrigger>
+                    <PopoverContent className=' bg-black'>
+                        <ItemData data={item}></ItemData>
+                    </PopoverContent>
+                </Popover>
             )}
             <div
                 className='bg-inherit backdrop-brightness-50'
