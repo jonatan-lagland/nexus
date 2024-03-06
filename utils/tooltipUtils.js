@@ -5,6 +5,9 @@ import { useState, useEffect } from "react";
 /* Tooltip is centered horizontally relative to the image by default */
 /* In order to clamp a tooltip to an item, there must be a parent element, like a div, with the className "relative" */
 
+/**
+ * @deprecated since implementation of the Radix tooltip component
+ */
 export const useTooltipHandlers = (data, event, itemId, tooltipRef) => {
 
     const bgColor = "#010205";
@@ -260,6 +263,9 @@ export const useTooltipHandlers = (data, event, itemId, tooltipRef) => {
 
 
 // Saves the value of the hovered item ID and the event type to be passed to other components
+/**
+ * @deprecated since implementation of the Radix tooltip component
+ */
 export const useItemHover = () => {
     const [tooltipItemId, setTooltipItemId] = useState(null);
     const [event, setEvent] = useState(null);
@@ -276,4 +282,15 @@ export const useItemHover = () => {
     };
 
     return { handleMouseHover, tooltipItemId, event };
+};
+
+/* Prevent tooltip from being simultaneously visible with popover */
+export const useTooltipVisiblity = () => {
+    const [showTooltip, setShowTooltip] = useState(false);
+
+    const handleImageClick = () => {
+        setShowTooltip(false);
+    };
+
+    return { handleImageClick, showTooltip, setShowTooltip }
 };

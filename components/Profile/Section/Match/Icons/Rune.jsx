@@ -13,9 +13,11 @@ import {
     TooltipTrigger,
     TooltipArrow
 } from "@/components/ui/tooltip"
+import { useTooltipVisiblity } from "@utils/tooltipUtils"
 
 const Rune = ({ rune, size, padding }) => {
     const path = useImagePathRune(rune)
+    const { handleImageClick, showTooltip, setShowTooltip } = useTooltipVisiblity();
     // Note: In some cases runes aren't used, e.g. QuickPlay or Arena.
     // In such scenarios, skip rendering altogether
 
@@ -25,7 +27,7 @@ const Rune = ({ rune, size, padding }) => {
 
     return (
         <TooltipProvider disableHoverableContent={true} delayDuration={300} skipDelayDuration={300}>
-            <Tooltip>
+            <Tooltip open={showTooltip}>
                 <TooltipTrigger asChild>
                     <span>
                         <Popover>
@@ -37,6 +39,9 @@ const Rune = ({ rune, size, padding }) => {
                                     width={size}
                                     height={size}
                                     className={`hover:cursor-pointer bg-inherit backdrop-brightness-[0.4] border border-stone-950 p-[${padding}px] rounded-full select-none`}
+                                    onClick={handleImageClick}
+                                    onMouseEnter={() => setShowTooltip(true)}
+                                    onMouseLeave={() => setShowTooltip(false)}
                                 />
                             </PopoverTrigger>
                             <PopoverContent className=" bg-black whitespace-break-spaces">

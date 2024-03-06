@@ -13,17 +13,19 @@ import {
     TooltipArrow
 } from "@/components/ui/tooltip"
 import { useImagePathSummonerSpell } from "@utils/pathUtils"
+import { useTooltipVisiblity } from "@utils/tooltipUtils"
 
 const SummonerSpell = ({ spell, size }) => {
     const path = useImagePathSummonerSpell(spell.iconPath)
     const quality = size > 30 ? 75 : 10;
+    const { handleImageClick, showTooltip, setShowTooltip } = useTooltipVisiblity();
 
     if (!spell) {
         return null;
     }
     return (
         <TooltipProvider disableHoverableContent={true} delayDuration={300} skipDelayDuration={0}>
-            <Tooltip>
+            <Tooltip open={showTooltip}>
                 <TooltipTrigger asChild>
                     <span>
                         <Popover>
@@ -34,6 +36,9 @@ const SummonerSpell = ({ spell, size }) => {
                                     width={size}
                                     height={size}
                                     quality={quality}
+                                    onClick={handleImageClick}
+                                    onMouseEnter={() => setShowTooltip(true)}
+                                    onMouseLeave={() => setShowTooltip(false)}
                                     className="border border-stone-950 rounded-sm select-none hover:cursor-pointer"
                                 />
                             </PopoverTrigger>

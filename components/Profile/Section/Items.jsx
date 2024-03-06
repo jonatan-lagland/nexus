@@ -14,6 +14,7 @@ import {
     TooltipTrigger,
     TooltipArrow
 } from "@/components/ui/tooltip"
+import { useTooltipVisiblity } from '@utils/tooltipUtils';
 
 import ItemData from './ItemData';
 
@@ -45,6 +46,7 @@ function ItemComponent({ item, visionScore }) {
     const AVATAR_WIDTH = 32;
     const AVATAR_HEIGHT = 32;
     const isTrinket = useIsTrinketItem(item.name)
+    const { handleImageClick, showTooltip, setShowTooltip } = useTooltipVisiblity();
     return (
         <div
             key={item}
@@ -58,18 +60,20 @@ function ItemComponent({ item, visionScore }) {
             )}
             {imgPath && (
                 <TooltipProvider disableHoverableContent={true} delayDuration={300} skipDelayDuration={300}>
-                    <Tooltip>
+                    <Tooltip open={showTooltip}>
                         <TooltipTrigger asChild>
                             <span>
                                 <Popover>
                                     <PopoverTrigger asChild>
-                                        {/* Your image component goes here */}
                                         <Image
                                             className='select-none hover:cursor-pointer'
                                             src={imgPath}
                                             alt={`${item.name}`}
                                             width={AVATAR_WIDTH}
                                             height={AVATAR_HEIGHT}
+                                            onClick={handleImageClick}
+                                            onMouseEnter={() => setShowTooltip(true)}
+                                            onMouseLeave={() => setShowTooltip(false)}
                                         />
                                     </PopoverTrigger>
                                     <PopoverContent className=' bg-black'>
