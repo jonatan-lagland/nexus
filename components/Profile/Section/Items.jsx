@@ -7,6 +7,13 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover"
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+    TooltipArrow
+} from "@/components/ui/tooltip"
 
 import ItemData from './ItemData';
 
@@ -50,20 +57,36 @@ function ItemComponent({ item, visionScore }) {
                 </div>
             )}
             {imgPath && (
-                <Popover>
-                    <PopoverTrigger asChild>
-                        <Image
-                            className='select-none hover:cursor-pointer'
-                            src={imgPath}
-                            alt={`${item.name}`}
-                            width={AVATAR_WIDTH}
-                            height={AVATAR_HEIGHT}
-                        />
-                    </PopoverTrigger>
-                    <PopoverContent className=' bg-black'>
-                        <ItemData data={item}></ItemData>
-                    </PopoverContent>
-                </Popover>
+                <TooltipProvider disableHoverableContent={true} delayDuration={300} skipDelayDuration={300}>
+                    <Tooltip>
+                        <TooltipTrigger asChild>
+                            <span>
+                                <Popover>
+                                    <PopoverTrigger asChild>
+                                        {/* Your image component goes here */}
+                                        <Image
+                                            className='select-none hover:cursor-pointer'
+                                            src={imgPath}
+                                            alt={`${item.name}`}
+                                            width={AVATAR_WIDTH}
+                                            height={AVATAR_HEIGHT}
+                                        />
+                                    </PopoverTrigger>
+                                    <PopoverContent className=' bg-black'>
+                                        <ItemData data={item}></ItemData>
+                                    </PopoverContent>
+                                </Popover>
+                            </span>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                            <TooltipArrow></TooltipArrow>
+                            <div className=" text-center">
+                                <p>{item.name}</p>
+                                <p className="italic text-zinc-400">Click to learn more</p>
+                            </div>
+                        </TooltipContent>
+                    </Tooltip>
+                </TooltipProvider>
             )}
             <div
                 className='bg-inherit backdrop-brightness-50'

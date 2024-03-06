@@ -23,20 +23,22 @@ function ChampionIcon({ championId, size, shape }) {
                 <TooltipProvider disableHoverableContent={true} delayDuration={300} skipDelayDuration={300}>
                     <Tooltip>
                         <TooltipTrigger asChild>
-                            <div className={`flex h-[${size}px] w-[${size}px] overflow-hidden ${shape} items-center border-2 border-neutral-900`}>
-                                <Image
-                                    src={src}
-                                    alt={"Champion Icon"}
-                                    width={size}
-                                    height={size}
-                                    quality={quality}
-                                    priority
-                                    className={`h-[${zoomedInSize}px] w-[${zoomedInSize}px] object-cover select-none`}
-                                    style={{ objectPosition: 'center center' }}
-                                />
-                            </div>
+                            <span>
+                                <div className={`flex h-[${size}px] w-[${size}px] overflow-hidden ${shape} items-center border-2 border-neutral-900`}>
+                                    <Image
+                                        src={src}
+                                        alt={"Champion Icon"}
+                                        width={size}
+                                        height={size}
+                                        quality={quality}
+                                        priority
+                                        className={`h-[${zoomedInSize}px] w-[${zoomedInSize}px] object-cover select-none`}
+                                        style={{ objectPosition: 'center center' }}
+                                    />
+                                </div>
+                            </span>
                         </TooltipTrigger>
-                        <TooltipContent>
+                        <TooltipContent side='left'>
                             <TooltipArrow />
                             <p>{championTrueName}</p>
                         </TooltipContent>

@@ -27,7 +27,7 @@ const PlayerIcon = ({ championId }) => {
                         className="bg-inherit backdrop-brightness-50 w-[24px] h-[24px] select-none"
                     />
                 </TooltipTrigger>
-                <TooltipContent>
+                <TooltipContent side='left'>
                     <TooltipArrow />
                     <p>{championTrueName}</p>
                 </TooltipContent>
