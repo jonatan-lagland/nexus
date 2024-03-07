@@ -14,7 +14,6 @@ function KillsEmblemComponent({ kills }) {
     }
     let killText = null;
     let badgeTheme = 'bg-[#465789]';
-    const glowTheme = kills === 5 ? "pentakillGlow" : "";
 
     switch (kills) {
         case 2:
@@ -22,7 +21,7 @@ function KillsEmblemComponent({ kills }) {
             killText = "Double Kill";
             break;
         case 3:
-            badgeTheme = 'bg-[#772189]'; //772189
+            badgeTheme = 'bg-[#772189]';
             killText = "Triple Kill";
             break;
         case 4:
@@ -33,28 +32,26 @@ function KillsEmblemComponent({ kills }) {
             badgeTheme = 'bg-[#92631c]';
             killText = "Penta Kill";
             break;
+        case 6:
+            badgeTheme = 'bg-[#92631c]';
+            killText = "Hexa Kill";
+            break;
         default:
             killText = null;
             break;
     }
 
-
-
-
     return (
         <TooltipProvider delayDuration={0} skipDelayDuration={300}>
             <Tooltip>
                 <TooltipTrigger asChild>
-                    <div className="relative group">
-                        <div className={`${glowTheme}`}></div>
-                        <div style={{ textShadow: "1px 1px 1px black" }} className={`text-white ${badgeTheme}  relative border border-[#040d0c] hover:brightness-110 cursor-default w-max text-sm px-2 rounded-full lg:text-base lg:px-3`}>
-                            {killText}
-                        </div>
+                    <div style={{ textShadow: "1px 1px 1px black" }} className={`text-white ${badgeTheme} border border-[#040d0c] hover:brightness-110 cursor-default w-max text-sm px-2 rounded-full lg:text-base lg:px-3`}>
+                        {killText}
                     </div>
                 </TooltipTrigger>
                 <TooltipContent>
-                    <p>Largest Multikill</p>
                     <TooltipArrow />
+                    <span>Largest Multikill</span>
                 </TooltipContent>
             </Tooltip>
         </TooltipProvider>

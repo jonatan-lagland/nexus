@@ -65,10 +65,18 @@ function Match({ matchHistoryDetails, puuid }) {
             <div className={`container-header py-1 px-3 flex flex-row justify-between gap-2 min-h-[37px] rounded-t-lg border-t border-x border-x-slate-700 border-t-slate-700`}>
                 <div className='flex flex-grow flex-row flex-wrap justify-between gap-1'>
                     <div className='flex flex-row justify-center text-center items-center space-x-3'>
-                        <span className={`text-gray-300 font-abel text-lg`}>{queueType && queueType.name && queueType.name}</span>
-                        {mainPlayer.teamPosition && <RoleIcon role={mainPlayer.teamPosition} />}
-                        <KillParticipationEmblem killParticipation={mainPlayerScore.killParticipation}></KillParticipationEmblem>
-                        <KillsEmblem kills={mainPlayer.largestMultiKill}></KillsEmblem>
+                        <div>
+                            <span className={`text-gray-300 font-abel text-lg`}>{queueType && queueType.name && queueType.name}</span>
+                        </div>
+                        <div>
+                            {mainPlayer.teamPosition && <RoleIcon role={mainPlayer.teamPosition} />}
+                        </div>
+                        <div>
+                            <KillParticipationEmblem killParticipation={mainPlayerScore.killParticipation}></KillParticipationEmblem>
+                        </div>
+                        <div>
+                            <KillsEmblem kills={mainPlayer.largestMultiKill}></KillsEmblem>
+                        </div>
                     </div>
                     <ScoreStatistics
                         totalMinionsKilled={mainPlayer.totalMinionsKilled}
