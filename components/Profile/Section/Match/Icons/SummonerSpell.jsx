@@ -18,7 +18,7 @@ import { useTooltipVisiblity } from "@utils/tooltipUtils"
 const SummonerSpell = ({ spell, size }) => {
     const path = useImagePathSummonerSpell(spell.iconPath)
     const quality = size > 30 ? 75 : 10;
-    const { handleImageClick, showTooltip, setShowTooltip } = useTooltipVisiblity();
+    const { showTooltip, setShowTooltip } = useTooltipVisiblity();
 
     if (!spell) {
         return null;
@@ -36,7 +36,7 @@ const SummonerSpell = ({ spell, size }) => {
                                     width={size}
                                     height={size}
                                     quality={quality}
-                                    onClick={handleImageClick}
+                                    onClick={() => setShowTooltip(false)}
                                     onMouseEnter={() => setShowTooltip(true)}
                                     onMouseLeave={() => setShowTooltip(false)}
                                     className="border border-stone-950 rounded-sm select-none hover:cursor-pointer"

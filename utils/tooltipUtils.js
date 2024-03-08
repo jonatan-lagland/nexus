@@ -287,10 +287,5 @@ export const useItemHover = () => {
 /* Prevent tooltip from being simultaneously visible with popover */
 export const useTooltipVisiblity = () => {
     const [showTooltip, setShowTooltip] = useState(false);
-
-    const handleImageClick = () => {
-        setShowTooltip(false);
-    };
-
-    return { handleImageClick, showTooltip, setShowTooltip }
+    return { showTooltip, setShowTooltip }
 };

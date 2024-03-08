@@ -46,7 +46,7 @@ function ItemComponent({ item, visionScore }) {
     const AVATAR_WIDTH = 32;
     const AVATAR_HEIGHT = 32;
     const isTrinket = useIsTrinketItem(item.name)
-    const { handleImageClick, showTooltip, setShowTooltip } = useTooltipVisiblity();
+    const { showTooltip, setShowTooltip } = useTooltipVisiblity();
     return (
         <div
             key={item}
@@ -71,7 +71,7 @@ function ItemComponent({ item, visionScore }) {
                                             alt={`${item.name}`}
                                             width={AVATAR_WIDTH}
                                             height={AVATAR_HEIGHT}
-                                            onClick={handleImageClick}
+                                            onClick={() => setShowTooltip(false)}
                                             onMouseEnter={() => setShowTooltip(true)}
                                             onMouseLeave={() => setShowTooltip(false)}
                                         />
