@@ -6,8 +6,8 @@ import { Inter, Oswald, Bebas_Neue, Abel, Rubik, Noto_Sans } from 'next/font/goo
 import Footer from "@components/Footer/Footer";
 
 export const metadata = {
-    title: "Nexus",
-    description: "League of Legends fansite",
+    title: "Nexus: Explore League of Legends Summoners by Riot Name and Id",
+    description: "Nexus is a League of Legends fansite for discovering up-to-date win rates, rank divisions, comprehensive match history details, and real-time game insights. Excellent for players seeking to analyze performance and track progress.",
 };
 
 const inter = Inter({

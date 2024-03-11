@@ -391,17 +391,17 @@
       gap: 1em;
   }
 
-  .profile .grid article:nth-child(1) {
+  .profile .grid section:nth-child(1) {
       grid-row: 1;
       grid-column: 1 / 6; /* Header spans all columns */
   }
 
-  .profile .grid article:nth-child(2) {
+  .profile .grid section:nth-child(2) {
       grid-row: 2 / 4;
       grid-column: 1 / 4; /* Section takes up first three columns */
   }
 
-  .profile .grid article:nth-child(3) {
+  .profile .grid section:nth-child(3) {
       grid-row: 2 / 4;
       grid-column: 4 / 6; /* Sidebar takes up last two columns */
   }
