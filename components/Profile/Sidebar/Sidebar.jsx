@@ -11,7 +11,7 @@ function Sidebar({ rankedDetails }) {
     const losses = rankedSoloDetails ? rankedSoloDetails.losses : null;
 
     return (
-        <section className="">
+        <article>
             <div className='flex flex-col bg-deep-purple border border-gray-600 rounded-lg py-8 px-16'>
                 <div className='flex flex-row justify-between items-center'>
                     <div style={{ textShadow: "1px 1px 1px black" }} className='flex flex-col drop-shadow-md '>
@@ -36,7 +36,7 @@ function Sidebar({ rankedDetails }) {
                     </div>
                 </div>
             </div>
-        </section>
+        </article>
     )
 }
 

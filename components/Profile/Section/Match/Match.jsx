@@ -61,7 +61,7 @@ function Match({ matchHistoryDetails, puuid }) {
     } = matchData;
 
     return (
-        <div>
+        <article>
             <div className={`container-header py-1 px-3 flex flex-row justify-between gap-2 min-h-[37px] rounded-t-lg border-t border-x border-x-slate-700 border-t-slate-700`}>
                 <div className='flex flex-grow flex-row flex-wrap justify-between gap-1'>
                     <div className='flex flex-row justify-center text-center items-center space-x-3'>
@@ -113,7 +113,7 @@ function Match({ matchHistoryDetails, puuid }) {
                     {/* Sidebar dropdown to be added later */}
                 </div>
             </div>
-        </div>
+        </article>
     );
 }
 

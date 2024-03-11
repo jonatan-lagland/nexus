@@ -1,6 +1,6 @@
 'use server'
 import Header from '@components/Profile/Header/Header'
-import Section from './Section/Section'
+import Content from './Section/Content'
 import Sidebar from '@components/Profile/Sidebar/Sidebar'
 import { StaticDataProvider } from '@app/StaticDataProvider'
 import { getUserInfo, getUserPUUID, getRankedInfo } from '@app/api/userProps'
@@ -42,19 +42,19 @@ async function Profile({ params, region, server }) {
             <StaticDataProvider data={data}>
                 <MatchHistoryProvider matchHistory={matchHistory} rankedDetails={rankedDetails}> {/* Set initial data of Match History */}
                     <LiveGameProvider>
-                        <section className='profile'>
-                            <section className='grid'>
-                                <article>
+                        <div className='profile'>
+                            <div className='grid'>
+                                <section>
                                     <Header rankedDetails={rankedDetails} user={user} region={region} server={server} userDetails={userDetails} />
-                                </article>
-                                <article>
-                                    <Section user={user} region={region} />
-                                </article>
-                                <article>
+                                </section>
+                                <section>
+                                    <Content user={user} region={region} />
+                                </section>
+                                <section>
                                     <Sidebar rankedDetails={rankedDetails} />
-                                </article>
-                            </section>
-                        </section>
+                                </section>
+                            </div>
+                        </div>
                     </LiveGameProvider>
                 </MatchHistoryProvider>
             </StaticDataProvider>

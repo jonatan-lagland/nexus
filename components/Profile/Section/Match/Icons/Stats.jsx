@@ -23,7 +23,7 @@ const Stats = ({ kills, deaths, assists, kdaRatio }) => {
 
             <Tooltip>
                 <TooltipTrigger>
-                    <p className='font-oswald text-lg truncate cursor-default'>
+                    <p className='font-oswald truncate cursor-default'>
                         <span className={`text-white`}>{kills}</span>
                         <span className={`text-slate-400`}> / </span>
                         <span className={`${deathsTheme}`}>{deaths}</span>
@@ -44,7 +44,7 @@ const Stats = ({ kills, deaths, assists, kdaRatio }) => {
             </Tooltip>
             <Tooltip>
                 <TooltipTrigger>
-                    <p className={` text-neutral-400 text-base font-oswald cursor-default`}>
+                    <p className={` text-neutral-400 text-sm font-oswald cursor-default`}>
                         <span>
                             {deaths === 0 ? 'Perfect KDA' : `${kdaRatio}:1`}
                         </span>
