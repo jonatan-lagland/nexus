@@ -2,7 +2,7 @@ import Profile from "@components/Profile/Profile";
 
 export async function generateMetadata({ params }) {
     // read route params
-    const id = params.Id
+    const id = decodeURIComponent(params.Id)
 
     return {
         title: {
