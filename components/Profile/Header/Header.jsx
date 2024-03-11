@@ -27,8 +27,7 @@ async function Header({ rankedDetails, user, region, server, userDetails }) {
                             </h1>
                             {
                                 winrate &&
-                                <RankEmblem tier={rankedDetails[0].tier} rank={rankedDetails[0].rank} type={"playerRank"}></RankEmblem>
-
+                                <RankEmblem tier={rankedSoloDetails.tier} rank={rankedSoloDetails.rank} type={"playerRank"}></RankEmblem>
                             }
                         </div>
                         {
