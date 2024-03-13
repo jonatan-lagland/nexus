@@ -29,16 +29,16 @@ const SettingsDialog = () => {
                     </div>
                 </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]">
+            <DialogContent className="sm:max-w-[425px] border-slate-500 bg-[#30343F]">
                 <DialogHeader>
-                    <DialogTitle>Settings</DialogTitle>
-                    <DialogDescription>
+                    <DialogTitle className="text-white">Settings</DialogTitle>
+                    <DialogDescription className=" text-neutral-400">
                         Customize your settings.
                     </DialogDescription>
                 </DialogHeader>
                 <div className="grid gap-4 py-4">
                     <div className="grid grid-cols-2 items-center">
-                        <span>Colorblind Mode</span>
+                        <label className="text-white">Colorblind Mode</label>
                         <AccessibilitySwitch></AccessibilitySwitch>
                     </div>
                 </div>
