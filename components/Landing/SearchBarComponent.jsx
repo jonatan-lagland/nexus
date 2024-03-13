@@ -2,10 +2,9 @@
 
 import Image from "next/image";
 import { useRouter } from 'next/navigation'
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import {
     useKeyPress,
-    useOptionClick,
     useSearchBarChange,
     useFocusInput,
     useClickOutsideInputField,
@@ -18,7 +17,6 @@ const SearchBarComponent = ({ shouldFocus = false, options }) => {
     const inputRef = useRef(null);
     const router = useRouter();
     const [inputValue, setInputValue] = useState("");
-    const [selectedOption, setSelectedOption] = useState("");
     const [filteredOptions, setFilteredOptions] = useState("");
     const [isDropdownVisible, setDropdownVisible] = useState(false);
     const { region } = useContext(RegionContext)
@@ -34,18 +32,10 @@ const SearchBarComponent = ({ shouldFocus = false, options }) => {
         * USECLICKOUTSIDEINPUTFIELD     = Hide dropdown when user clicks outside the input field
     */
 
-    const handleOptionClick = useOptionClick(setSelectedOption, setDropdownVisible);
-    const handleKeyPress = useKeyPress(filteredOptions, inputValue, region, setSelectedOption);
+    const handleKeyPress = useKeyPress(filteredOptions, inputValue, region, router);
     useSearchBarChange(options, inputValue, setFilteredOptions, setDropdownVisible);
     useFocusInput(inputRef, shouldFocus);
     useClickOutsideInputField(dropdownRef, inputRef, setDropdownVisible, isDropdownVisible);
-
-    /* Redirected user to a page after selection */
-    useEffect(() => {
-        if (selectedOption.length > 0) {
-            router.push(`/profile/${region.toLowerCase()}/${selectedOption}`)
-        }
-    }, [selectedOption, router, region]);
 
     return (
         <>
@@ -86,7 +76,7 @@ const SearchBarComponent = ({ shouldFocus = false, options }) => {
                                     {filteredOptions.map((option, index) => (
                                         <li key={option.name}>
                                             <div
-                                                onClick={() => handleOptionClick(option.id)}
+                                                //onClick={() => handleOptionClick(option.id)}
                                                 className="dropdown_link hover:bg-gray-200 flex items-center"
                                                 tabIndex="0"
                                             >

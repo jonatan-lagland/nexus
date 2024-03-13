@@ -85,7 +85,7 @@ export const useOptionClick = (setSelectedOption, setDropdownVisible) => {
 
 /* Set the value of the selected user */
 
-export const useKeyPress = (filteredOptions, inputValue, region, setSelectedOption) => {
+export const useKeyPress = (filteredOptions, inputValue, region, router) => {
     const regions = {
         NA: "NA1",
         EUW: "EUW",
@@ -106,24 +106,23 @@ export const useKeyPress = (filteredOptions, inputValue, region, setSelectedOpti
     };
 
     return (e) => {
+        const navigateToPage = (user) => {
+            router.push(`/profile/${region.toLowerCase()}/${user}`)
+        }
         e.preventDefault();
         if (filteredOptions.length > 0) {
-            setSelectedOption(filteredOptions[0].value); // Set first option on dropdown list
-            return;
+            navigateToPage(filteredOptions[0].value); // Set first option on dropdown list
         }
         if (inputValue.includes("-")) {
-            setSelectedOption(inputValue); // Default value if no previous options found
-            return;
+            navigateToPage(inputValue); // Default value if no previous options found
         }
         if (inputValue.includes("#")) {
             const modifiedInput = inputValue.replace(/#/g, "-");
-            setSelectedOption(modifiedInput); // Replace # with - for API purposes
-            return;
+            navigateToPage(modifiedInput); // Replace # with - for API purposes
         }
         if (!inputValue.includes("-") && !inputValue.includes("#")) {
             const regionCode = regions[region]
-            setSelectedOption(inputValue + "-" + regionCode); // If user doesn't set a tag like #0000, use #EUW, #NA, etc. by default
-            return;
+            navigateToPage(inputValue + "-" + regionCode); // If user doesn't set a tag like #0000, use #EUW, #NA, etc. by default
         }
     }
 };
