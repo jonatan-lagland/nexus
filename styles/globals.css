@@ -2,6 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+::-webkit-scrollbar{
+  width: 10px;
+}
+
+::-webkit-scrollbar-track{
+  background: #30343F;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb{
+  background: #4b5aa3;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #7785c9;
+}
+
 :root {
   --cosmic-cobalt: theme('colors.cosmic-cobalt');
   --cream: theme('colors.cream');
