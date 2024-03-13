@@ -17,7 +17,7 @@ export default async function Landing() {
                 <h1 className="text-4xl lg:text-8xl drop-shadow-lg  text-white font-oswald">Welcome to Nexus</h1>
                 <h2 className="text-xl lg:text-4xl drop-shadow-lg text-[#b07df0] font-oswald">League of Legends Matches, Insights, and Beyond.</h2>
             </div>
-            <section className="search max-w-lg">
+            <section className="search max-w-lg flex flex-row items-center justify-center">
                 <DropdownComponent></DropdownComponent>
                 <SearchBarComponent shouldFocus={true}></SearchBarComponent>
             </section>

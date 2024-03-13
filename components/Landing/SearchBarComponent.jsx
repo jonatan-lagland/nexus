@@ -42,14 +42,14 @@ const SearchBarComponent = ({ shouldFocus = false, options }) => {
 
             { /* Input field */}
             <form
-                className="relative w-full"
+                className="relative w-full flex flex-row items-center justify-center"
                 onSubmit={handleKeyPress}>
                 <input
                     ref={inputRef}
-                    type='text'
+                    type='search'
                     placeholder={`Name #${region}`}
                     required
-                    className={"flex h-10 w-full rounded-e-full border-e border-y border-zinc-700 bg-inherit backdrop-blur-md backdrop-saturate-50 backdrop-brightness-75 px-3 py-2 text-sm text-white placeholder:text-gray-300"}
+                    className={"flex h-10 w-full border-e-none border-y border-zinc-700 bg-inherit backdrop-blur-md backdrop-saturate-50 backdrop-brightness-75 px-3 py-2 text-sm text-white placeholder:text-gray-300"}
                     onChange={(e) => {
                         setInputValue(e.target.value);
                     }}
@@ -102,13 +102,12 @@ const SearchBarComponent = ({ shouldFocus = false, options }) => {
                 </div>
 
                 { /* Search icon placed inside the input field */}
-                <div
-                    className="search-icon rounded-e-full p-3"
-                    aria-label="Search"
-                    tabIndex="0"
-                    onClick={handleKeyPress}>
-                    <Search color="white" />
-                </div>
+                <button
+                    type="submit"
+                    className="flex flex-row items-center justify-center hover:cursor-pointer border-e border-y px-3 border-zinc-700 bg-inherit backdrop-blur-md backdrop-saturate-50 backdrop-brightness-75 h-10 rounded-e-full rounded-y-full"
+                    onSubmit={handleKeyPress}>
+                    <Search type="submit" size={20} color="white" />
+                </button>
             </form>
         </>
     )
