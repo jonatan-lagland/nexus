@@ -43,19 +43,19 @@ const PlayerStatisticsComponent = ({
             <div className='flex flex-row items-center justify-between'>
                 <div className="flex flex-row items-center gap-2">
                     <div className="relative">
-                        <ChampionIcon championId={championId} size={80} shape={'rounded-none'}></ChampionIcon>
+                        <ChampionIcon championId={championId} size={80}></ChampionIcon>
                         <div className='champion-level-container'>
-                            <span className="select-none">{champLevel}</span>
+                            <span aria-label="champion-level" className="select-none">{champLevel}</span>
                         </div>
                     </div>
-                    <div className='flex flex-row space-x-2'>
-                        <div className='space-y-1'>
+                    <div className='flex flex-row space-x-1'>
+                        <div className='flex flex-col'>
                             <SummonerSpell spell={summonerSpell1} size={32}></SummonerSpell>
                             <SummonerSpell spell={summonerSpell2} size={32}></SummonerSpell>
                         </div>
-                        <div className='flex flex-col justify-center items-center space-y-1'>
+                        <div className='flex flex-col'>
                             <Rune rune={keystone} size={32} padding={1}></Rune>
-                            <RunePath runePath={runePath} size={32} padding={4}></RunePath>
+                            <RunePath runePath={runePath} size={32} padding={2}></RunePath>
                         </div>
                     </div>
                 </div>

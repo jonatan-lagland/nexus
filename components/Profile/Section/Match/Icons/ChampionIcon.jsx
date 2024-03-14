@@ -10,33 +10,29 @@ import {
     TooltipArrow
 } from "@/components/ui/tooltip"
 
-function ChampionIcon({ championId, size, shape }) {
+function ChampionIcon({ championId, size }) {
     const championTrueName = useChampionTrueNames(championId);
     const src = useImagePathChampion(championId)
-    const zoomedInSize = size + 10;
     const quality = size > 70 ? 100 : 50;
 
     return (
-        <>
+        <div className="flex items-center">
             {championTrueName ? (
                 // Conditionally render a tooltip if champion exists
-                <TooltipProvider disableHoverableContent={true} delayDuration={300} skipDelayDuration={300}>
+                <TooltipProvider delayDuration={300} skipDelayDuration={300}>
                     <Tooltip>
-                        <TooltipTrigger asChild>
-                            <span>
-                                <div className={`flex h-[${size}px] w-[${size}px] overflow-hidden ${shape} items-center border-2 border-neutral-900`}>
-                                    <Image
-                                        src={src}
-                                        alt={"Champion Icon"}
-                                        width={size}
-                                        height={size}
-                                        quality={quality}
-                                        priority
-                                        className={`h-[${zoomedInSize}px] w-[${zoomedInSize}px] object-cover select-none`}
-                                        style={{ objectPosition: 'center center' }}
-                                    />
-                                </div>
-                            </span>
+                        <TooltipTrigger>
+                            <div className='rounded-full border border-black bg-slate-900'>
+                                <Image
+                                    src={src}
+                                    alt={championTrueName}
+                                    width={size}
+                                    height={size}
+                                    quality={quality}
+                                    priority
+                                    style={{ clipPath: "inset(5% 5% 5% 5% round 999px)" }}
+                                />
+                            </div>
                         </TooltipTrigger>
                         <TooltipContent side='left'>
                             <TooltipArrow />
@@ -45,20 +41,20 @@ function ChampionIcon({ championId, size, shape }) {
                     </Tooltip>
                 </TooltipProvider>
             ) : (
-                <div className={`flex h-[${size}px] w-[${size}px] overflow-hidden ${shape} items-center border-2 border-neutral-900`}>
+                /* Used in case there is no champion, e.g. when no champion is banned to avoid creating an unnecessary tooltip */
+                <div className='rounded-full border border-black bg-slate-900'>
                     <Image
                         src={src}
-                        alt={"Champion Icon"}
+                        alt={championTrueName}
                         width={size}
-                        height={size} // 80
+                        height={size}
                         quality={quality}
                         priority
-                        className={`h-[${zoomedInSize}px] w-[${zoomedInSize}px] object-cover select-none`}
-                        style={{ objectPosition: 'center center' }}
+                        style={{ clipPath: "inset(5% 5% 5% 5% round 999px)" }}
                     />
                 </div>
             )}
-        </>
+        </div>
     )
 }
 
