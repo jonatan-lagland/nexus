@@ -1,6 +1,7 @@
 "use client";
-import SearchBarComponent from '@components/Landing/SearchBarComponent';
 import DropdownComponent from '@components/Landing/DropdownComponent';
+import SearchBarComponent from '@components/Landing/SearchBarComponent';
+
 import { usePathname } from 'next/navigation'
 
 const NavSearchBar = () => {

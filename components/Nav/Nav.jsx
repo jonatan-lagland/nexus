@@ -1,9 +1,8 @@
 "use server";
 import Link from "next/link";
 import { Home } from "lucide-react";
-import dynamic from "next/dynamic";
-const NavSearchBar = dynamic(() => import('./NavSearchBar'))
-const SettingsDialog = dynamic(() => import('./SettingsDialog'))
+import NavSearchBar from "./NavSearchBar";
+import SettingsDialog from "./SettingsDialog";
 
 const Nav = () => {
     return (
@@ -12,7 +11,7 @@ const Nav = () => {
                 <Link href='/'>
                     <div className="button-hover-animation flex flex-row gap-3">
                         <Home color="white" />
-                        <span className="text-white font-bold hidden md:block">Home</span>
+                        <label className="text-white hover:cursor-pointer font-normal text-sm hidden md:block">Home</label>
                     </div>
                 </Link>
             </div>

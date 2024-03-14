@@ -47,9 +47,10 @@ const SearchBarComponent = ({ shouldFocus = false, options }) => {
                 <input
                     ref={inputRef}
                     type='search'
+                    spellCheck="false"
                     placeholder={`Name #${region}`}
                     required
-                    className={"flex h-10 w-full border-e-none border-y border-zinc-700 bg-inherit backdrop-blur-md backdrop-saturate-50 backdrop-brightness-75 px-3 py-2 text-sm text-white placeholder:text-gray-300"}
+                    className={"flex h-10 w-full rounded-none border-e-none border-y border-zinc-700 bg-inherit backdrop-blur-md backdrop-saturate-50 backdrop-brightness-75 px-3 py-2 text-sm text-white placeholder:text-gray-300"}
                     onChange={(e) => {
                         setInputValue(e.target.value);
                     }}

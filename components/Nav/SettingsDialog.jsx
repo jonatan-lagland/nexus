@@ -19,13 +19,13 @@ const SettingsDialog = () => {
     return (
         <Dialog onOpenChange={setDialogOpen}>
             <DialogTrigger asChild>
-                <Button className="px-0 py-0" aria-label="Settings" variant="link">
+                <Button className="px-0 py-0 bg-transparent" aria-label="Settings">
                     <div
                         onMouseEnter={() => setIsHovered(true)}
                         onMouseLeave={() => setIsHovered(false)}
                         className="button-hover-animation flex flex-row cursor-pointer gap-3">
                         <Settings className={`rotate-icon ${isHovered ? 'rotated' : ''} rounded-full px-0 ${isDialogOpen ? 'rotated' : ''}`} color="white" size={24} />
-                        <span className="text-white font-bold hidden md:block">Settings</span>
+                        <label className="text-white hover:cursor-pointer font-normal text-sm hidden md:block">Settings</label>
                     </div>
                 </Button>
             </DialogTrigger>
@@ -37,10 +37,7 @@ const SettingsDialog = () => {
                     </DialogDescription>
                 </DialogHeader>
                 <div className="grid gap-4 py-4">
-                    <div className="grid grid-cols-2 items-center">
-                        <label className="text-white">Colorblind Mode</label>
-                        <AccessibilitySwitch></AccessibilitySwitch>
-                    </div>
+                    <AccessibilitySwitch></AccessibilitySwitch>
                 </div>
             </DialogContent>
         </Dialog>
