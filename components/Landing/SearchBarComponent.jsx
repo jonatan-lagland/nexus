@@ -105,9 +105,10 @@ const SearchBarComponent = ({ shouldFocus = false, options }) => {
                 { /* Search icon placed inside the input field */}
                 <button
                     type="submit"
+                    aria-label="search"
                     className="flex flex-row items-center justify-center hover:cursor-pointer border-e border-y px-3 border-zinc-700 bg-inherit backdrop-blur-md backdrop-saturate-50 backdrop-brightness-75 h-10 rounded-e-full rounded-y-full"
                     onSubmit={handleKeyPress}>
-                    <Search type="submit" size={20} color="white" />
+                    <Search size={20} color="white" />
                 </button>
             </form>
         </>

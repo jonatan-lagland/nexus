@@ -20,51 +20,50 @@ const Stats = ({ kills, deaths, assists, kdaRatio }) => {
 
     return (
         <TooltipProvider disableHoverableContent={true} delayDuration={300} skipDelayDuration={0}>
-
             <Tooltip>
-                <TooltipTrigger>
-                    <p className='font-oswald truncate cursor-default'>
+                <TooltipTrigger asChild>
+                    <span className='font-oswald truncate cursor-default'>
                         <span className={`text-white`}>{kills}</span>
                         <span className={`text-slate-400`}> / </span>
                         <span className={`${deathsTheme}`}>{deaths}</span>
                         <span className={`text-slate-400`}> / </span>
                         <span className={`text-white`}>{assists}</span>
-                    </p>
+                    </span>
                 </TooltipTrigger>
                 <TooltipContent>
-                    <TooltipArrow />
-                    <p className='text-zinc-400'>
+
+                    <span className='text-zinc-400'>
                         <span className={`text-white`}>Kills</span>
                         <span> / </span>
                         <span className={`text-white`}>Deaths</span>
                         <span> / </span>
                         <span className={`text-white`}>Assists</span>
-                    </p>
+                    </span>
+                    <TooltipArrow />
                 </TooltipContent>
             </Tooltip>
             <Tooltip>
-                <TooltipTrigger>
-                    <p className={` text-neutral-400 text-sm font-oswald cursor-default`}>
+                <TooltipTrigger asChild>
+                    <span className={` text-neutral-400 text-sm font-oswald cursor-default`}>
                         <span>
                             {deaths === 0 ? 'Perfect KDA' : `${kdaRatio}:1`}
                         </span>
-                    </p>
+                    </span>
                 </TooltipTrigger>
                 <TooltipContent>
+                    <div className="flex flex-col">
+                        <span className='text-zinc-400'>KDA ratio</span>
+                        <span className='text-zinc-400'>
+                            <span className={`text-white`}>Kills</span>
+                            <span> + </span>
+                            <span className={`text-white`}>Assists</span>
+                            <span> : </span>
+                            <span className={`text-white`}>Deaths</span>
+                        </span>
+                    </div>
                     <TooltipArrow />
-                    <p className='text-zinc-400'>KDA ratio</p>
-                    <p className='text-zinc-400'>
-                        <span className={`text-white`}>Kills</span>
-                        <span> + </span>
-                        <span className={`text-white`}>Assists</span>
-                        <span> : </span>
-                        <span className={`text-white`}>Deaths</span>
-                    </p>
                 </TooltipContent>
             </Tooltip>
-
-
-
         </TooltipProvider>
     );
 }
