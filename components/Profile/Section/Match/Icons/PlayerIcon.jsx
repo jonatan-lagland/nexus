@@ -15,25 +15,26 @@ const PlayerIcon = ({ championId }) => {
     const championTrueName = useChampionTrueNames(championId);
 
     return (
-        <TooltipProvider disableHoverableContent={true} delayDuration={300} skipDelayDuration={300}>
-            <Tooltip>
-                <TooltipTrigger asChild>
-                    <Image
-                        src={useImagePathChampion(championId)}
-                        alt={championTrueName}
-                        width={24}
-                        height={24}
-                        quality={15}
-                        className="bg-inherit backdrop-brightness-50 w-[24px] h-[24px] select-none"
-                    />
-                </TooltipTrigger>
-                <TooltipContent side='left'>
-                    <TooltipArrow />
-                    <p>{championTrueName}</p>
-                </TooltipContent>
-            </Tooltip>
-        </TooltipProvider>
-
+        <div className="flex items-center">
+            <TooltipProvider delayDuration={300} skipDelayDuration={300}>
+                <Tooltip>
+                    <TooltipTrigger>
+                        <Image
+                            src={useImagePathChampion(championId)}
+                            alt={championTrueName}
+                            width={24}
+                            height={24}
+                            quality={15}
+                            className="bg-inherit backdrop-brightness-50 select-none"
+                        />
+                    </TooltipTrigger>
+                    <TooltipContent side='left'>
+                        <TooltipArrow />
+                        <p>{championTrueName}</p>
+                    </TooltipContent>
+                </Tooltip>
+            </TooltipProvider>
+        </div>
     )
 }
 export default PlayerIcon

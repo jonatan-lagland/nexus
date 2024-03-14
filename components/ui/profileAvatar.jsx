@@ -24,8 +24,8 @@ export function ProfileAvatar({ userDetails }) {
             />
             <Tooltip>
                 <TooltipTrigger asChild>
-                    <div className='absolute -bottom-1 left-1/2 transform -translate-x-1/2 cursor-default text-sm lg:text-base text-white bg-slate-900 border border-neutral-400 rounded-full px-3'>
-                        {userDetails.summonerLevel}
+                    <div className='absolute -bottom-1 left-1/2 transform -translate-x-1/2 text-sm lg:text-base text-white bg-slate-900 border border-neutral-400 rounded-full px-3'>
+                        <span aria-label="summoner-level">{userDetails.summonerLevel}</span>
                     </div>
                 </TooltipTrigger>
                 <TooltipContent>

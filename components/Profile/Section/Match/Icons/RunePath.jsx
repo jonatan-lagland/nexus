@@ -21,7 +21,7 @@ const RunePath = ({ runePath, size, padding }) => {
     return (
         <TooltipProvider disableHoverableContent={true} delayDuration={300} skipDelayDuration={300}>
             <Tooltip>
-                <TooltipTrigger asChild>
+                <TooltipTrigger>
                     <Image
                         src={path}
                         alt={runePath.name || 'Rune Path'}
@@ -30,7 +30,7 @@ const RunePath = ({ runePath, size, padding }) => {
                         className={`bg-inherit backdrop-brightness-[0.4] border border-stone-950 p-[${padding}px] rounded-full select-none`}
                     />
                 </TooltipTrigger>
-                <TooltipContent>
+                <TooltipContent side="right">
                     <TooltipArrow />
                     <p>{runePath.name}</p>
                 </TooltipContent>

@@ -44,7 +44,7 @@ function KillsEmblemComponent({ kills }) {
     return (
         <TooltipProvider delayDuration={0} skipDelayDuration={300}>
             <Tooltip>
-                <TooltipTrigger asChild>
+                <TooltipTrigger>
                     <div style={{ textShadow: "1px 1px 1px black" }} className={`text-white ${badgeTheme} border border-[#040d0c] hover:brightness-110 cursor-default w-max text-sm px-2 rounded-full lg:text-base lg:px-3`}>
                         {killText}
                     </div>
@@ -55,7 +55,6 @@ function KillsEmblemComponent({ kills }) {
                 </TooltipContent>
             </Tooltip>
         </TooltipProvider>
-
     )
 }
 

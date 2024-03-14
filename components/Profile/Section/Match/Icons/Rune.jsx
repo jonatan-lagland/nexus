@@ -13,11 +13,9 @@ import {
     TooltipTrigger,
     TooltipArrow
 } from "@/components/ui/tooltip"
-import { useTooltipVisiblity } from "@utils/tooltipUtils"
 
 const Rune = ({ rune, size, padding }) => {
     const path = useImagePathRune(rune)
-    const { showTooltip, setShowTooltip } = useTooltipVisiblity();
     // Note: In some cases runes aren't used, e.g. QuickPlay or Arena.
     // In such scenarios, skip rendering altogether
 
@@ -26,12 +24,12 @@ const Rune = ({ rune, size, padding }) => {
     }
 
     return (
-        <TooltipProvider disableHoverableContent={true} delayDuration={300} skipDelayDuration={300}>
-            <Tooltip open={showTooltip}>
+        <TooltipProvider delayDuration={300} skipDelayDuration={300}>
+            <Tooltip>
                 <TooltipTrigger asChild>
-                    <span>
+                    <div className="flex flex-col items-center justify-center" aria-label={`${rune.name}`}>
                         <Popover>
-                            <PopoverTrigger asChild>
+                            <PopoverTrigger>
                                 {/* Your image component goes here */}
                                 <Image
                                     src={path}
@@ -39,25 +37,22 @@ const Rune = ({ rune, size, padding }) => {
                                     width={size}
                                     height={size}
                                     className={`hover:cursor-pointer bg-inherit backdrop-brightness-[0.4] border border-stone-950 p-[${padding}px] rounded-full select-none`}
-                                    onClick={() => setShowTooltip(false)}
-                                    onMouseEnter={() => setShowTooltip(true)}
-                                    onMouseLeave={() => setShowTooltip(false)}
                                 />
                             </PopoverTrigger>
                             <PopoverContent className=" bg-black whitespace-break-spaces">
                                 <div>
-                                    <p className='font-bold text-base text-crimson-grey mb-2'>{rune.name}</p>
+                                    <span className='font-bold text-base text-crimson-grey'>{rune.name}</span>
                                     <p className="text-dark-dust italic text-sm">{rune.shortDesc}</p>
                                 </div>
                             </PopoverContent>
                         </Popover>
-                    </span>
+                    </div>
                 </TooltipTrigger>
-                <TooltipContent>
+                <TooltipContent side="right">
                     <TooltipArrow></TooltipArrow>
-                    <div className=" text-center">
-                        <p>{rune.name}</p>
-                        <p className="italic text-zinc-400">Click to learn more</p>
+                    <div className="flex flex-col">
+                        <span>{rune.name}</span>
+                        <span className="italic text-zinc-400">Click to learn more</span>
                     </div>
                 </TooltipContent>
             </Tooltip>

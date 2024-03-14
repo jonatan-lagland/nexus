@@ -18,10 +18,10 @@ const ScoreStatistics = ({ totalMinionsKilled, neutralMinionsKilled, goldEarned,
 
     return (
         <div className='game-stats-container'>
-            <TooltipProvider disableHoverableContent={true} delayDuration={0} skipDelayDuration={300}>
-                <div className="flex flex-row space-x-2 items-center cursor-default">
+            <TooltipProvider delayDuration={0} skipDelayDuration={300}>
+                <div className="flex flex-row space-x-2 items-center">
                     <Tooltip>
-                        <TooltipTrigger asChild>
+                        <TooltipTrigger>
                             <div className="flex flex-row space-x-1">
                                 <Image
                                     src={`/assets/images/clock-icon-grey.png`}
@@ -40,10 +40,10 @@ const ScoreStatistics = ({ totalMinionsKilled, neutralMinionsKilled, goldEarned,
                         </TooltipContent>
                     </Tooltip>
                 </div>
-                <div className='flex flex-row space-x-2 items-center cursor-default'>
+                <div className='flex flex-row space-x-2 items-center'>
 
                     <Tooltip>
-                        <TooltipTrigger asChild>
+                        <TooltipTrigger>
                             <div className="flex flex-row space-x-1">
                                 <Image
                                     src={`/assets/icons/stats/icon_minions.png`}
@@ -66,9 +66,9 @@ const ScoreStatistics = ({ totalMinionsKilled, neutralMinionsKilled, goldEarned,
                         </TooltipContent>
                     </Tooltip>
                 </div>
-                <div className='flex flex-row space-x-2 items-center cursor-default'>
+                <div className='flex flex-row space-x-2 items-center'>
                     <Tooltip>
-                        <TooltipTrigger asChild>
+                        <TooltipTrigger>
                             <div className="flex flex-row space-x-1">
                                 <Image
                                     src={`/assets/icons/stats/icon_gold.png`}

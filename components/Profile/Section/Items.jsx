@@ -14,7 +14,6 @@ import {
     TooltipTrigger,
     TooltipArrow
 } from "@/components/ui/tooltip"
-import { useTooltipVisiblity } from '@utils/tooltipUtils';
 
 import ItemData from './ItemData';
 
@@ -46,7 +45,7 @@ function ItemComponent({ item, visionScore }) {
     const AVATAR_WIDTH = 32;
     const AVATAR_HEIGHT = 32;
     const isTrinket = useIsTrinketItem(item.name)
-    const { showTooltip, setShowTooltip } = useTooltipVisiblity();
+
     return (
         <div
             key={item}
@@ -59,21 +58,18 @@ function ItemComponent({ item, visionScore }) {
                 </div>
             )}
             {imgPath && (
-                <TooltipProvider disableHoverableContent={true} delayDuration={300} skipDelayDuration={300}>
-                    <Tooltip open={showTooltip}>
+                <TooltipProvider delayDuration={300} skipDelayDuration={300}>
+                    <Tooltip>
                         <TooltipTrigger asChild>
-                            <span>
+                            <span aria-label={`${item.name}`}>
                                 <Popover>
-                                    <PopoverTrigger asChild>
+                                    <PopoverTrigger>
                                         <Image
-                                            className='select-none hover:cursor-pointer'
+                                            className='select-none hover:cursor-pointer focus:border-white'
                                             src={imgPath}
                                             alt={`${item.name}`}
                                             width={AVATAR_WIDTH}
                                             height={AVATAR_HEIGHT}
-                                            onClick={() => setShowTooltip(false)}
-                                            onMouseEnter={() => setShowTooltip(true)}
-                                            onMouseLeave={() => setShowTooltip(false)}
                                         />
                                     </PopoverTrigger>
                                     <PopoverContent className=' bg-black'>
