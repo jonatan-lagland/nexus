@@ -15,12 +15,12 @@ export default function ItemData({ data }) {
                         alt={label}
                         width={15}
                         height={15}
-                        className="object-scale-down"
+                        quality={50}
+                        className="object-scale-down select-none"
                         style={{ width: 'auto' }}
                     />
                 </div>
-                <p className="text-cream mx-1">{value}</p>
-                <p className="text-dust"> {label}</p>
+                <span className="text-cream mx-1">{value} <span className="text-dust"> {label}</span></span>
             </div>
         ) : null;
     };
@@ -29,8 +29,8 @@ export default function ItemData({ data }) {
         if (detail) {
             return (
                 <div>
-                    <p className="text-rose text-sm font-semibold">{detail === dataType.active ? 'Active' : 'Passive'}</p>
-                    <p className="text-dark-dust italic ">{detail}</p>
+                    <span className="text-rose text-sm font-semibold">{detail === dataType.active ? 'Active:' : 'Passive: '}</span>
+                    <span className="text-dark-dust italic ">{detail}</span>
                 </div>
             );
         }
@@ -40,7 +40,7 @@ export default function ItemData({ data }) {
     return (
         <div className='flex flex-col gap-2'>
             <div className="flex tooltip-data-title gap-2 justify-between">
-                <p className='font-bold text-sm text-orange-400'>{data.name}</p>
+                <span className='font-bold text-sm text-orange-400'>{data.name}</span>
                 <div className='flex flex-row items-center '>
                     <Image
                         src={`/assets/icons/stats/Gold.png`}
@@ -50,7 +50,7 @@ export default function ItemData({ data }) {
                         className="object-scale-down"
                         style={{ width: 'auto' }}
                     />
-                    <p className='text-sm text-white ms-1'>{data.gold}</p>
+                    <span className='text-sm text-white ms-1'>{data.gold}</span>
                 </div>
             </div>
             <div className="flex flex-col gap-1 text-sm">
@@ -78,7 +78,7 @@ export default function ItemData({ data }) {
             <div className='flex flex-col text-sm gap-2'>
                 {renderdataDetails(data.passive, data)}
                 {renderdataDetails(data.active, data)}
-                <p className='text-crimson-grey text-sm italic'>{data.notFound}</p>
+                <span className='text-crimson-grey text-sm italic'>{data.notFound}</span>
             </div>
         </div>
     )
