@@ -6,13 +6,15 @@ import {
     Popover,
     PopoverContent,
     PopoverTrigger,
+    PopoverPortal
 } from "@/components/ui/popover"
 import {
     Tooltip,
     TooltipContent,
     TooltipProvider,
     TooltipTrigger,
-    TooltipArrow
+    TooltipArrow,
+    TooltipPortal
 } from "@/components/ui/tooltip"
 
 import ItemData from './ItemData';
@@ -60,31 +62,33 @@ function ItemComponent({ item, visionScore }) {
             {imgPath && (
                 <TooltipProvider delayDuration={300} skipDelayDuration={300}>
                     <Tooltip>
-                        <TooltipTrigger asChild>
-                            <span aria-label={`${item.name}`}>
-                                <Popover>
-                                    <PopoverTrigger>
-                                        <Image
-                                            className='select-none hover:cursor-pointer focus:border-white'
-                                            src={imgPath}
-                                            alt={`${item.name}`}
-                                            width={AVATAR_WIDTH}
-                                            height={AVATAR_HEIGHT}
-                                        />
-                                    </PopoverTrigger>
-                                    <PopoverContent className=' bg-black'>
-                                        <ItemData data={item}></ItemData>
-                                    </PopoverContent>
-                                </Popover>
-                            </span>
-                        </TooltipTrigger>
-                        <TooltipContent>
-                            <TooltipArrow></TooltipArrow>
-                            <div className=" text-center">
-                                <p>{item.name}</p>
-                                <p className="italic text-zinc-400">Click to learn more</p>
-                            </div>
-                        </TooltipContent>
+                        <Popover>
+                            <TooltipTrigger asChild>
+                                <PopoverTrigger asChild>
+                                    <Image
+                                        className='select-none hover:cursor-pointer'
+                                        src={imgPath}
+                                        alt={`${item.name}`}
+                                        width={AVATAR_WIDTH}
+                                        height={AVATAR_HEIGHT}
+                                    />
+                                </PopoverTrigger>
+                            </TooltipTrigger>
+                            <PopoverPortal>
+                                <PopoverContent className='bg-black'>
+                                    <ItemData data={item}></ItemData>
+                                </PopoverContent>
+                            </PopoverPortal>
+                            <TooltipPortal>
+                                <TooltipContent>
+                                    <TooltipArrow></TooltipArrow>
+                                    <div className=" text-center">
+                                        <p>{item.name}</p>
+                                        <p className="italic text-zinc-400">Click to learn more</p>
+                                    </div>
+                                </TooltipContent>
+                            </TooltipPortal>
+                        </Popover>
                     </Tooltip>
                 </TooltipProvider>
             )}

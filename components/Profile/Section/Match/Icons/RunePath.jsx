@@ -19,7 +19,7 @@ const RunePath = ({ runePath, size, padding }) => {
     }
 
     return (
-        <TooltipProvider disableHoverableContent={true} delayDuration={300} skipDelayDuration={300}>
+        <TooltipProvider delayDuration={300} skipDelayDuration={300}>
             <Tooltip>
                 <TooltipTrigger>
                     <Image

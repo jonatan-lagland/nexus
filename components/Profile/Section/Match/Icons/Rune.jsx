@@ -5,13 +5,15 @@ import {
     Popover,
     PopoverContent,
     PopoverTrigger,
+    PopoverPortal
 } from "@/components/ui/popover"
 import {
     Tooltip,
     TooltipContent,
     TooltipProvider,
     TooltipTrigger,
-    TooltipArrow
+    TooltipArrow,
+    TooltipPortal
 } from "@/components/ui/tooltip"
 
 const Rune = ({ rune, size, padding }) => {
@@ -26,35 +28,36 @@ const Rune = ({ rune, size, padding }) => {
     return (
         <TooltipProvider delayDuration={300} skipDelayDuration={300}>
             <Tooltip>
-                <TooltipTrigger asChild>
-                    <div className="flex flex-col items-center justify-center" aria-label={`${rune.name}`}>
-                        <Popover>
-                            <PopoverTrigger>
-                                {/* Your image component goes here */}
-                                <Image
-                                    src={path}
-                                    alt={rune.name || 'Rune Path'}
-                                    width={size}
-                                    height={size}
-                                    className={`hover:cursor-pointer bg-inherit backdrop-brightness-[0.4] border border-stone-950 p-[${padding}px] rounded-full select-none`}
-                                />
-                            </PopoverTrigger>
-                            <PopoverContent className=" bg-black whitespace-break-spaces">
-                                <div>
-                                    <span className='font-bold text-base text-crimson-grey'>{rune.name}</span>
-                                    <p className="text-dark-dust italic text-sm">{rune.shortDesc}</p>
-                                </div>
-                            </PopoverContent>
-                        </Popover>
-                    </div>
-                </TooltipTrigger>
-                <TooltipContent side="right">
-                    <TooltipArrow></TooltipArrow>
-                    <div className="flex flex-col">
-                        <span>{rune.name}</span>
-                        <span className="italic text-zinc-400">Click to learn more</span>
-                    </div>
-                </TooltipContent>
+                <Popover>
+                    <TooltipTrigger asChild>
+                        <PopoverTrigger asChild>
+                            <Image
+                                src={path}
+                                alt={rune.name || 'Rune Path'}
+                                width={size}
+                                height={size}
+                                className={`hover:cursor-pointer bg-inherit backdrop-brightness-[0.4] border border-stone-950 p-[${padding}px] rounded-full select-none`}
+                            />
+                        </PopoverTrigger>
+                    </TooltipTrigger>
+                    <PopoverPortal>
+                        <PopoverContent className=" bg-black whitespace-break-spaces">
+                            <div>
+                                <span className='font-bold text-base text-crimson-grey'>{rune.name}</span>
+                                <p className="text-dark-dust italic text-sm">{rune.shortDesc}</p>
+                            </div>
+                        </PopoverContent>
+                    </PopoverPortal>
+                    <TooltipPortal>
+                        <TooltipContent>
+                            <TooltipArrow></TooltipArrow>
+                            <div className="flex flex-col">
+                                <span>{rune.name}</span>
+                                <span className="italic text-zinc-400">Click to learn more</span>
+                            </div>
+                        </TooltipContent>
+                    </TooltipPortal>
+                </Popover>
             </Tooltip>
         </TooltipProvider>
     );
