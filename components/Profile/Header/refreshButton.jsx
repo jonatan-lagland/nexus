@@ -18,7 +18,7 @@ export default function RefreshButton({ user, region, server, summonerId }) {
             onClick={handleRefresh}
             variant="outline"
             className=" bg-cosmic-cobalt text-white rounded-md font-sans overflow-hidden text-base font-normal border-none w-[5em]"
-            style={{ textShadow: "1px 1px 1px black" }}>
+        >
             {isLoading ? <ProgressBarExtraSmall></ProgressBarExtraSmall> : <span>Refresh</span>}
         </Button>
     )

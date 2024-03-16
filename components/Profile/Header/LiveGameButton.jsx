@@ -4,44 +4,23 @@ import { useContext } from "react";
 import { Button } from "@components/ui/button";
 import { ProgressBarExtraSmall } from "@components/ui/Loading";
 import { LiveGameContext } from "@utils/context/liveGameContext";
-import { useLiveGameTooltip } from "@utils/liveGameUtils";
-import { useState } from "react";
-import {
-    Tooltip,
-    TooltipContent,
-    TooltipProvider,
-    TooltipTrigger,
-    TooltipArrow
-} from "@/components/ui/tooltip"
 
-export default function LiveGameButton({ server, region, summonerId }) {
-    const { isLoading, isGameFound, fetchLiveGame } = useContext(LiveGameContext);
-    const [hasClicked, setHasClicked] = useState(false);
-    const showTooltip = useLiveGameTooltip(isLoading, isGameFound, hasClicked)
+export default function LiveGameButton({ server, region, summonerId, gameName, tagLine }) {
+    const { isLoading, fetchLiveGame } = useContext(LiveGameContext);
 
     const handleClick = () => {
-        setHasClicked(true);
-        fetchLiveGame(server, region, summonerId);
+        fetchLiveGame(server, region, summonerId, gameName, tagLine)
     };
 
     return (
-
-        <TooltipProvider delayDuration={0} skipDelayDuration={300}>
-            <Tooltip open={showTooltip}>
-                <TooltipTrigger asChild>
-                    <Button
-                        onClick={handleClick}
-                        variant="ghost"
-                        className="   text-indigo-400 rounded-md font-sans overflow-hidden text-base font-normal border-2  border-indigo-700  w-[6em]"
-                        style={{ textShadow: "1px 1px 1px black" }}>
-                        {isLoading ? <ProgressBarExtraSmall></ProgressBarExtraSmall> : <span>Live Game</span>}
-                    </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                    <p>No active game was found.</p>
-                    <TooltipArrow />
-                </TooltipContent>
-            </Tooltip>
-        </TooltipProvider>
-    )
+        <Button
+            variant="outline"
+            className="rounded-md text-base font-normal text-white w-[6em]"
+            onClick={() => {
+                handleClick();
+            }}
+        >
+            {isLoading ? <ProgressBarExtraSmall /> : <span>Live Game</span>}
+        </Button>
+    );
 }

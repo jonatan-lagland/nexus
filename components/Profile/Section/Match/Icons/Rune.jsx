@@ -49,7 +49,7 @@ const Rune = ({ rune, size, padding }) => {
                         </PopoverContent>
                     </PopoverPortal>
                     <TooltipPortal>
-                        <TooltipContent>
+                        <TooltipContent side="right">
                             <TooltipArrow></TooltipArrow>
                             <div className="flex flex-col">
                                 <span>{rune.name}</span>

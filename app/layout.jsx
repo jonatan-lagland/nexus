@@ -4,6 +4,7 @@ import ColorBlindProvider from "./ColorBlindProvider";
 import { RegionProvider } from "@components/Landing/RegionProvider";
 import { Inter, Oswald, Bebas_Neue, Abel, Rubik, Noto_Sans } from 'next/font/google'
 import Footer from "@components/Footer/Footer";
+import { Toaster } from "@components/ui/sonner";
 
 export const metadata = {
     title: "Nexus: Explore League of Legends Summoners by Riot Name and Id",
@@ -51,6 +52,7 @@ const RootLayout = ({ children }) => (
                     <main className="app">
                         {children}
                     </main>
+                    <Toaster />
                     <Footer></Footer>
                 </RegionProvider>
             </ColorBlindProvider>

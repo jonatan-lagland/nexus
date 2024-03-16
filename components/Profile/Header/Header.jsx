@@ -4,6 +4,7 @@ import { ProfileAvatar } from '@components/ui/profileAvatar';
 import RefreshButton from './refreshButton';
 import LiveGameButton from './LiveGameButton';
 
+
 async function Header({ rankedDetails, user, region, server, userDetails }) {
     const rankedSoloDetails = rankedDetails && rankedDetails.find(detail => detail.queueType === "RANKED_SOLO_5x5");
     const wins = rankedSoloDetails ? rankedSoloDetails.wins : null;
@@ -47,7 +48,7 @@ async function Header({ rankedDetails, user, region, server, userDetails }) {
             </div>
             <div className="flex flex-row items-center gap-2 justify-start">
                 <RefreshButton user={user} region={region} server={server} summonerId={summonerId}></RefreshButton>
-                <LiveGameButton server={server} region={region} summonerId={summonerId}></LiveGameButton>
+                <LiveGameButton server={server} region={region} summonerId={summonerId} gameName={user.gameName} tagLine={user.tagLine}></LiveGameButton>
             </div>
         </section >
     )

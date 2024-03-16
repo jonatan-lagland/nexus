@@ -38,7 +38,7 @@ export default function ErrorPage({ error, reset }) {
             </div>
             <div>
                 <button
-                    className="border-2 rounded-full bg-zinc-700 text-2xl font-abel py-1 px-4 text-stone-300 border-stone-500 hover:bg-zinc-600 md:px-4 md:text-xl"
+                    className="border-2 rounded-full bg-zinc-700 text-base font-abel py-1 px-3 text-stone-300 border-stone-500 hover:bg-zinc-600 md:px-4 md:text-xl"
                     onClick={handleButtonClick}
                 >
                     {reset ? 'Refresh' : 'Return'}
