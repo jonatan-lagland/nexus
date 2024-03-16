@@ -15,6 +15,7 @@ export default function RefreshButton({ user, region, server, summonerId }) {
 
     return (
         <Button
+            disabled={isLoading}
             onClick={handleRefresh}
             variant="outline"
             className=" bg-cosmic-cobalt text-white rounded-md font-sans overflow-hidden text-base font-normal border-none w-[5em]"

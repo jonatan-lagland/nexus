@@ -14,6 +14,7 @@ export default function LiveGameButton({ server, region, summonerId, gameName, t
 
     return (
         <Button
+            disabled={isLoading}
             variant="outline"
             className="rounded-md text-base font-normal text-white w-[6em]"
             onClick={() => {

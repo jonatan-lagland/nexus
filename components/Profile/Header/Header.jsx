@@ -4,7 +4,6 @@ import { ProfileAvatar } from '@components/ui/profileAvatar';
 import RefreshButton from './refreshButton';
 import LiveGameButton from './LiveGameButton';
 
-
 async function Header({ rankedDetails, user, region, server, userDetails }) {
     const rankedSoloDetails = rankedDetails && rankedDetails.find(detail => detail.queueType === "RANKED_SOLO_5x5");
     const wins = rankedSoloDetails ? rankedSoloDetails.wins : null;
