@@ -45,7 +45,7 @@ function ChampionIcon({ championId, size }) {
                 <div className='rounded-full border border-black bg-slate-900'>
                     <Image
                         src={src}
-                        alt={championTrueName}
+                        alt={'No Champion'}
                         width={size}
                         height={size}
                         quality={quality}

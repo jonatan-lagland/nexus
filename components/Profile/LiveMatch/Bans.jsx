@@ -21,7 +21,6 @@ function Bans({ bannedChampions }) {
                             championId={ban.championId}
                             size={24}
                             quality={10}
-                            shape={'rounded-none'}
                         />
                     ))}
                 </div>
@@ -35,7 +34,6 @@ function Bans({ bannedChampions }) {
                             championId={ban.championId}
                             size={24}
                             quality={10}
-                            shape={'rounded-none'}
                         />
                     ))}
                 </div>

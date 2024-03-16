@@ -12,6 +12,7 @@ import { QueryProvider } from '@app/QueryClientProvider'
 import { getMatchHistory } from '@app/api/userProps'
 import { MatchHistoryProvider } from '@app/MatchHistoryProvider'
 import { LiveGameProvider } from '@app/LiveGameProvider'
+import LiveGameLoading from './Header/LiveGameLoading'
 
 async function Profile({ params, region, server }) {
     const gameVersion = await getLatestVersion();
@@ -42,6 +43,9 @@ async function Profile({ params, region, server }) {
             <StaticDataProvider data={data}>
                 <MatchHistoryProvider matchHistory={matchHistory} rankedDetails={rankedDetails}> {/* Set initial data of Match History */}
                     <LiveGameProvider>
+                        <div className='w-full h-2'>
+                            <LiveGameLoading></LiveGameLoading>
+                        </div>
                         <div className='profile'>
                             <div className='grid'>
                                 <section>
