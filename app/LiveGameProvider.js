@@ -11,13 +11,13 @@ export const LiveGameProvider = ({ children }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [isGameFound, setIsGameFound] = useState(false);
     const [isShowLiveGameTab, setIsShowLiveGameTab] = useState(false);
-    const [loadingProgress, setLoadingProgress] = useState(0)
+    const [loadingProgress, setLoadingProgress] = useState(0);
+    const [minimizeWindow, setMinimizeWindow] = useState(false);
 
     const fetchLiveGame = async (server, region, summonerId, gameName, tagLine) => {
         setIsLoading(true); // Enable loading icon
         try {
             const response = await getLiveGameDetails(server, summonerId); // Get live game details
-
             if (response.error) { // If player isn't in-game or otherwise an error occurs
                 toast.info(`${gameName} #${tagLine} is not in-game.`, {
 
@@ -70,7 +70,18 @@ export const LiveGameProvider = ({ children }) => {
     };
 
     return (
-        <LiveGameContext.Provider value={{ liveGameDetails, rankedDetailsOfEveryPlayer, fetchLiveGame, isLoading, isGameFound, isShowLiveGameTab, setIsShowLiveGameTab, loadingProgress }}>
+        <LiveGameContext.Provider value={{
+            liveGameDetails,
+            rankedDetailsOfEveryPlayer,
+            fetchLiveGame,
+            isLoading,
+            isGameFound,
+            isShowLiveGameTab,
+            setIsShowLiveGameTab,
+            loadingProgress,
+            minimizeWindow,
+            setMinimizeWindow
+        }}>
             {children}
         </LiveGameContext.Provider>
     );
