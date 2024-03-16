@@ -10,15 +10,16 @@ export default function ItemData({ data }) {
         return value ? (
             <div className='flex flex-row items-center'>
                 <div className='me-3'>
-                    <Image
-                        src={`/assets/icons/stats/${formatLabelForFilename(label)}.png`}
-                        alt={label}
-                        width={15}
-                        height={15}
-                        quality={50}
-                        className="select-none"
-                        style={{ width: 'auto', height: '15px' }}
-                    />
+                    <div className='relative h-[15px] w-[15px]'>
+                        <Image
+                            src={`/assets/icons/stats/${formatLabelForFilename(label)}.png`}
+                            alt={label}
+                            fill={true}
+                            quality={50}
+                            sizes="(max-width: 768px) 15px"
+                            className="object-contain select-none"
+                        />
+                    </div>
                 </div>
                 <span className="text-cream mx-1">{value} <span className="text-dust"> {label}</span></span>
             </div>
