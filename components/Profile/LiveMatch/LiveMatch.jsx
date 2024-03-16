@@ -4,7 +4,6 @@ import { useLiveGameDetails } from "@utils/liveGameUtils";
 import { useGetQueueType } from "@utils/matchHistoryUtils";
 import { useContext } from "react";
 import { QueueContext } from "@utils/context/queueContext";
-import Bans from "./Bans";
 import LiveTeams from "./LiveTeams";
 import { Skeleton } from "@components/ui/skeleton";
 import ProfileButton from "../Header/ProfileButton";
@@ -20,7 +19,7 @@ function LiveMatch({ liveGameDetails, rankedDetailsOfEveryPlayer }) {
     return (
         <section className="profile-grid-section">
             <div>
-                <div className='flex flex-col container-live p-5 border overflow-hidden rounded-lg'>
+                <div className='flex flex-col container-live gap-2 px-3 py-5 md:px-5 border overflow-hidden rounded-lg'>
                     <div className="flex flex-col gap-4">
                         <div className="flex flex-row items-center justify-between">
                             <div className="flex flex-col gap-2">
@@ -39,8 +38,7 @@ function LiveMatch({ liveGameDetails, rankedDetailsOfEveryPlayer }) {
                     </div>
                     {minimizeWindow ? null :
                         <div className="flex flex-col gap-3">
-                            <Bans bannedChampions={bannedChampions}></Bans>
-                            <LiveTeams rankedDetailsOfEveryPlayer={rankedDetailsOfEveryPlayer} gameMode={gameMode} />
+                            <LiveTeams rankedDetailsOfEveryPlayer={rankedDetailsOfEveryPlayer} gameMode={gameMode} bannedChampions={bannedChampions} />
                         </div>
                     }
                 </div>

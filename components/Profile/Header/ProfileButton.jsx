@@ -9,7 +9,6 @@ export default function ProfileButton() {
 
     const handleClick = () => {
         setMinimizeWindow(!minimizeWindow);
-        console.log(minimizeWindow)
     };
 
     return (

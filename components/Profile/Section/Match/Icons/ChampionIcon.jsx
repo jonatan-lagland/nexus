@@ -10,7 +10,7 @@ import {
     TooltipArrow
 } from "@/components/ui/tooltip"
 
-function ChampionIcon({ championId, size }) {
+function ChampionIcon({ championId, size, tooltipSide }) {
     const championTrueName = useChampionTrueNames(championId);
     const src = useImagePathChampion(championId)
     const quality = size > 70 ? 100 : 50;
@@ -34,7 +34,7 @@ function ChampionIcon({ championId, size }) {
                                 />
                             </div>
                         </TooltipTrigger>
-                        <TooltipContent side='left'>
+                        <TooltipContent side={tooltipSide}>
                             <TooltipArrow />
                             <p>{championTrueName}</p>
                         </TooltipContent>

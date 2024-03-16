@@ -43,7 +43,7 @@ const PlayerStatisticsComponent = ({
             <div className='flex flex-row items-center justify-between'>
                 <div className="flex flex-row items-center gap-2">
                     <div className="relative">
-                        <ChampionIcon championId={championId} size={80}></ChampionIcon>
+                        <ChampionIcon championId={championId} size={80} tooltipSide={'left'}></ChampionIcon>
                         <div className='champion-level-container'>
                             <span aria-label="champion-level" className="select-none">{champLevel}</span>
                         </div>
