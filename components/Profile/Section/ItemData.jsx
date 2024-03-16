@@ -16,8 +16,8 @@ export default function ItemData({ data }) {
                         width={15}
                         height={15}
                         quality={50}
-                        className="object-scale-down select-none"
-                        style={{ width: 'auto' }}
+                        className="select-none"
+                        style={{ width: 'auto', height: '15px' }}
                     />
                 </div>
                 <span className="text-cream mx-1">{value} <span className="text-dust"> {label}</span></span>

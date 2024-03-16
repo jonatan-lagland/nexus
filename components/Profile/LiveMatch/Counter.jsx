@@ -9,7 +9,7 @@ function Counter({ gameStartTime }) {
     }
 
     return (
-        <span className="text-slate-200">{formatTime(time.minutes)}:{formatTime(time.seconds)}</span>
+        <span className="text-white">{formatTime(time.minutes)}:{formatTime(time.seconds)}</span>
     )
 }
 

@@ -17,6 +17,11 @@ import { useRunePathData } from "@utils/spellUtils";
 import Rune from "../Section/Match/Icons/Rune";
 import RunePath from "../Section/Match/Icons/RunePath";
 import { Progress } from "@/components/ui/progress"
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from "@/components/ui/popover"
 
 const DetailedPlayer = ({ player }) => {
     const pathname = usePathname();
@@ -51,7 +56,7 @@ const DetailedPlayer = ({ player }) => {
     }, [player]);
 
     return (
-        <div className='live-match items-center justify-center text-start bg-inherit hover:bg-[#28336d] gap-1'>
+        <div className='live-match items-center justify-center text-start bg-inherit gap-1'>
             <div className="flex flex-row items-center space-x-2 truncate">
                 <ChampionIcon championId={player.championId} size={32} shape={'rounded-full'}></ChampionIcon>
                 <div className="flex flex-col justify-center items-center gap-1">
@@ -63,7 +68,7 @@ const DetailedPlayer = ({ player }) => {
                     <RunePath runePath={runePath} size={18}></RunePath>
                 </div>
                 {/* Conditionally render a link if player is a bot or hasn't played in years and thus has no Riot ID */}
-                <div className="flex flex-row items-center justify-center truncate gap-2">
+                <div className="flex flex-row items-center justify-start truncate gap-2">
                     {player.userNameAndTag.gameName ?
                         <Link className={`text-zinc-300 hover:text-zinc-200 truncate text-xs font-abel lg:text-base`} scroll={true} href={`${playerPath}`}>{playerName}</Link>
                         :
@@ -74,16 +79,25 @@ const DetailedPlayer = ({ player }) => {
             </div>
             <div className="flex flex-row items-center justify-start gap-1 text-xs truncate">
                 {tier ?
-                    <Image
-                        src={`https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-static-assets/global/default/images/ranked-mini-crests/${tier.toLowerCase()}.svg`}
-                        alt={`${tier} Emblem`}
-                        height={18}
-                        width={18}
-                        quality={50}
-                        className='select-none'
-                        style={{ width: 'auto', height: '18px' }}
-                    >
-                    </Image>
+                    <Popover>
+                        <PopoverTrigger>
+                            <Image
+                                src={`https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-static-assets/global/default/images/ranked-mini-crests/${tier.toLowerCase()}.svg`}
+                                alt={`${tier} Emblem`}
+                                height={18}
+                                width={18}
+                                quality={15}
+                                className='select-none'
+                                style={{ width: 'auto', height: '18px' }}
+                            >
+                            </Image>
+                        </PopoverTrigger>
+                        <PopoverContent className=" w-min bg-black p-2 text-white text-sm">
+                            <span className=" font-bold text-white">{formattedTier}</span><span className="text-slate-400">{tier && tier !== 'MASTER' && tier !== 'GRANDMASTER' && tier !== 'CHALLENGER' ? rank : null} {leaguePoints} lp </span>
+                        </PopoverContent>
+                    </Popover>
+
+
                     : null}
                 <span className="text-slate-300 truncate hidden md:block">{formattedTier} {tier && tier !== 'MASTER' && tier !== 'GRANDMASTER' && tier !== 'CHALLENGER' ? rank : null} {leaguePoints} lp</span>
             </div>
