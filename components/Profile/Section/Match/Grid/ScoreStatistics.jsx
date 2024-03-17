@@ -41,7 +41,6 @@ const ScoreStatistics = ({ totalMinionsKilled, neutralMinionsKilled, goldEarned,
                     </Tooltip>
                 </div>
                 <div className='flex flex-row space-x-2 items-center'>
-
                     <Tooltip>
                         <TooltipTrigger>
                             <div className="flex flex-row space-x-1">

@@ -627,23 +627,15 @@ input:checked + .slider:before {
 }
 
 .container-live {
-  @apply bg-colorblind-win-primary border-colorblind-win-secondary;
+  @apply bg-[#22222c] border-[#393d53];
 }
 
 .container-victory {
   @apply bg-forest border-forest-light;
-  background-image: linear-gradient(to right, 
-  var(--forest) 0%, 
-  #385816 30%,
-  var(--forest) 75%);
 }
 
 .container-defeat {
   @apply bg-dark-wine border-grape;
-  background-image: linear-gradient(to right, 
-  var(--dark-wine) 0%, 
-  #452219 30%,
-  var(--dark-wine) 100%);
 }
 
 .container-remake {

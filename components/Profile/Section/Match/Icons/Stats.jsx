@@ -11,10 +11,10 @@ import {
 
 const Stats = ({ kills, deaths, assists, kdaRatio }) => {
     const { isColorblindMode } = useContext(ColorblindContext);
-    const [deathsTheme, setDeathsTheme] = useState('text-bright-red')
+    const [deathsTheme, setDeathsTheme] = useState('text-amber-500')
 
     useEffect(() => {
-        const deathsTheme = isColorblindMode ? 'text-amber-500' : 'text-bright-red';
+        const deathsTheme = isColorblindMode ? 'text-amber-500' : 'text-amber-500';
         setDeathsTheme(deathsTheme)
     }, [isColorblindMode]);
 
@@ -22,7 +22,7 @@ const Stats = ({ kills, deaths, assists, kdaRatio }) => {
         <TooltipProvider delayDuration={300} skipDelayDuration={0}>
             <Tooltip>
                 <TooltipTrigger>
-                    <span className='font-oswald truncate cursor-default'>
+                    <span className='text-base font-semibold truncate'>
                         <span className={`text-white`}>{kills}</span>
                         <span className={`text-slate-400`}> / </span>
                         <span className={`${deathsTheme}`}>{deaths}</span>
@@ -43,7 +43,7 @@ const Stats = ({ kills, deaths, assists, kdaRatio }) => {
             </Tooltip>
             <Tooltip>
                 <TooltipTrigger>
-                    <span className={` text-neutral-400 text-sm font-oswald cursor-default`}>
+                    <span className={` text-neutral-400 text-sm`}>
                         <span>
                             {deaths === 0 ? 'Perfect KDA' : `${kdaRatio}:1`}
                         </span>

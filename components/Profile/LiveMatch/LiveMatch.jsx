@@ -23,7 +23,7 @@ function LiveMatch({ liveGameDetails, rankedDetailsOfEveryPlayer }) {
                     <div className="flex flex-col gap-4">
                         <div className="flex flex-row items-center justify-between">
                             <div className="flex flex-col gap-2">
-                                <span className=" text-slate-300">{queueType && queueType.name && queueType.name}</span>
+                                <span className="font-semibold text-sm text-slate-300">{queueType && queueType.name && queueType.name}</span>
                                 <div className="flex flex-row items-center justify-start">
                                     <div className="flex flex-row items-center gap-3">
                                         <Skeleton className="rounded-lg h-max bg-red-700">
