@@ -77,36 +77,37 @@ const DetailedPlayer = ({ player }) => {
 
                 </div>
             </div>
-            <div className="flex flex-row items-center justify-start gap-1 text-xs truncate">
+            <div className="flex flex-row items-center justify-start gap-3 text-xs truncate">
                 {tier ?
                     <Popover>
                         <PopoverTrigger>
                             <Image
                                 src={`https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-static-assets/global/default/images/ranked-mini-crests/${tier.toLowerCase()}.svg`}
                                 alt={`${tier} Emblem`}
-                                height={18}
-                                width={18}
+                                height={20}
+                                width={20}
                                 quality={15}
                                 className='select-none'
-                                style={{ width: 'auto', height: '18px' }}
                             >
                             </Image>
                         </PopoverTrigger>
-                        <PopoverContent className=" w-min bg-black p-2 text-white text-sm">
-                            <span className=" font-bold text-white">{formattedTier}</span><span className="text-slate-400">{tier && tier !== 'MASTER' && tier !== 'GRANDMASTER' && tier !== 'CHALLENGER' ? rank : null} {leaguePoints} lp </span>
+                        <PopoverContent className="w-[100px] text-center bg-black p-2 text-white text-sm">
+                            <span className=" font-bold text-white">{formattedTier} {tier && tier !== 'MASTER' && tier !== 'GRANDMASTER' && tier !== 'CHALLENGER' ? rank : null} </span> {tier && tier == 'Unranked' ? null : <span className="text-slate-400"> {leaguePoints} lp </span>}
                         </PopoverContent>
                     </Popover>
-
-
                     : null}
-                <span className="text-slate-300 truncate hidden md:block">{formattedTier} {tier && tier !== 'MASTER' && tier !== 'GRANDMASTER' && tier !== 'CHALLENGER' ? rank : null} {leaguePoints} lp</span>
+                <span className="text-slate-300 truncate hidden md:block">{formattedTier} {tier && tier !== 'MASTER' && tier !== 'GRANDMASTER' && tier !== 'CHALLENGER' ? rank : null} {tier && tier == 'Unranked' ? null : <span> {leaguePoints} lp </span>}</span>
             </div>
             <div className="flex flex-col text-center justify-center items-center gap-1 px-2 text-xs">
-                <span className="text-slate-300">
-                    <span className={`${winrateText} font-semibold`}>{winrate} % </span>
-                    ({totalGames} Total)
-                </span>
-                <Progress className={`${winrateColor}`} value={winrate} />
+                {totalGames ?
+                    <>
+                        <span className="text-slate-300">
+                            <span className={`${winrateText} font-semibold`}>{winrate} % </span>
+                            ({totalGames} Total)
+                        </span>
+                        <Progress className={`${winrateColor}`} value={winrate} />
+                    </>
+                    : <span className="text-white">-</span>}
             </div>
         </div>
     );
