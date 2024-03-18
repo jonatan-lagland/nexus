@@ -172,8 +172,9 @@ export function useCalculateKDA(kills, deaths, assists) {
 
 export function useMatchHistoryUtils(matchHistory, region) {
     const [hasNoMatches, setHasNoMatches] = useState(false);
+    const maxPages = 20;
 
-    const { data, fetchNextPage, isFetchingNextPage } = useInfiniteQuery({
+    const { data, fetchNextPage, hasNextPage, isFetching, refetch } = useInfiniteQuery({
         queryKey: ["query"],
         queryFn: async ({ pageParam = 1 }) => {
             if (matchHistory.length === 0) {
@@ -185,24 +186,27 @@ export function useMatchHistoryUtils(matchHistory, region) {
             return response;
         },
         getNextPageParam: (_, pages) => {
-            return pages.length + 1
-        }
+            return pages.length < maxPages ? pages.length + 1 : undefined;
+        },
     });
 
     // Reference for loading skeletons whenever they become in view
     const { ref: bottomRef, inView: bottomView } = useInView({
-        rootMargin: '400px 0px',
+        rootMargin: '400px 0px 0px 0px',
         threshold: 0,
     });
 
-    const isBelow20Pages = data && data.pages && data.pages.length < matchHistory.length;
-
-    // Fetch a new page, for up to 20
+    // Fetch a new page, for up to x amount whenever in view
     useEffect(() => {
-        if (bottomView && !isFetchingNextPage && isBelow20Pages) {
+        if (bottomView && hasNextPage && !isFetching) {
             fetchNextPage();
         }
-    }, [bottomView, fetchNextPage, isFetchingNextPage, isBelow20Pages]);
+    }, [bottomView, fetchNextPage, hasNextPage, isFetching]);
+
+    useEffect(() => {
+        // Refetch the data when matchHistory changes. This will reset the pages and start from the first page again.
+        refetch();
+    }, [matchHistory, refetch]);
 
     return { data, bottomRef, hasNoMatches, bottomView }
 }
