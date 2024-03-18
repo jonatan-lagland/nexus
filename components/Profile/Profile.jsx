@@ -41,7 +41,7 @@ async function Profile({ params, region, server }) {
     return (
         <QueryProvider>
             <StaticDataProvider data={data}>
-                <MatchHistoryProvider matchHistory={matchHistory} rankedDetails={rankedDetails}> {/* Set initial data of Match History */}
+                <MatchHistoryProvider matchHistory={matchHistory} rankedDetails={rankedDetails} user={user}> {/* Set initial data of Match History */}
                     <LiveGameProvider>
                         <div className='w-full h-2'>
                             <LiveGameLoading></LiveGameLoading>

@@ -7,7 +7,7 @@ import { getMatchHistory, getRankedInfo } from './api/userProps';
 import { useQueryClient } from '@tanstack/react-query';
 import { toast } from "sonner";
 
-export const MatchHistoryProvider = ({ children, matchHistory }) => {
+export const MatchHistoryProvider = ({ children, matchHistory, user }) => {
     const [matchHistoryData, setMatchHistoryData] = useState(matchHistory);
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -25,7 +25,7 @@ export const MatchHistoryProvider = ({ children, matchHistory }) => {
 
                 /* Display a toast if there are no new matches */
                 if (JSON.stringify(res_match) === JSON.stringify(matchHistory)) {
-                    toast.info(`You are already up-to-date.`, {
+                    toast.info(`${user.gameName} #${user.tagLine} is already up-to-date.`, {
                         action: {
                             label: "Dismiss",
                             onClick: () => toast.dismiss(),
