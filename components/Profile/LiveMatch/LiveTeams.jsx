@@ -24,7 +24,8 @@ function LiveTeams({ rankedDetailsOfEveryPlayer, gameMode, bannedChampions }) {
                             <th>
                                 <span className='text-[#6a85ff]'>Blue team</span>
                             </th>
-                            <th>
+                            <th className='lg:block hidden'></th>
+                            <th className=''>
                                 <span className='text-slate-400'>Rank</span>
                             </th>
                             <th>
@@ -45,10 +46,11 @@ function LiveTeams({ rankedDetailsOfEveryPlayer, gameMode, bannedChampions }) {
                             <th>
                                 <span className='text-[#ff5c5c]'>Red team</span>
                             </th>
-                            <th>
+                            <th className='lg:block hidden'></th>
+                            <th className=''>
                                 <span className='text-slate-400'>Rank</span>
                             </th>
-                            <th className='text-center'>
+                            <th>
                                 <span className='text-slate-400'>Ranked Winrate</span>
                             </th>
                         </thead>
