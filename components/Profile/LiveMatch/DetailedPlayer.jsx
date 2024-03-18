@@ -68,7 +68,7 @@ const DetailedPlayer = ({ player }) => {
                     <RunePath runePath={runePath} size={18}></RunePath>
                 </div>
                 {/* Conditionally render a link if player is a bot or hasn't played in years and thus has no Riot ID */}
-                <div className="flex flex-row items-center justify-start truncate gap-2">
+                <div className="flex flex-row items-center justify-start truncate gap-2 max-w-[50px] md:max-w-[70px] lg:max-w-[120px]">
                     {player.userNameAndTag.gameName ?
                         <Link className={`text-zinc-300 hover:text-zinc-200 truncate text-xs font-abel lg:text-base`} href={`${playerPath}`}>{playerName}</Link>
                         :

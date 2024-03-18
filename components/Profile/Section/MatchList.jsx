@@ -52,13 +52,14 @@ function MatchList({ user, region }) {
                 );
             })}
             <div>
+                {/* bottomRef used as a reference to load more pages when it comes to view */}
                 <div ref={bottomRef} className="profile-grid-section">
                     {Array(Math.max(20 - data.pages.length, 0)).fill().map((_, i) => (
                         bottomView ? <MatchSkeleton key={i} /> : <StaticSkeleton key={i} />
                     ))}
                 </div>
-                {/* Render up to 20 skeletons, depending on the amount of pages remaining*/}
-                {/* If not in view, render a static skeleton instead of an animated one */}
+                {/* Render up to 20 skeletons, depending on the amount of pages remaining */}
+                {/* If not in view, render a static skeleton instead of an animated one for improved performance */}
             </div>
         </section>
     );

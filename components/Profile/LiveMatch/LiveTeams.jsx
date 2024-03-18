@@ -20,7 +20,7 @@ function LiveTeams({ rankedDetailsOfEveryPlayer, gameMode, bannedChampions }) {
                         <Bans bannedChampions={bannedChampions} side={'blue'}></Bans>
                     </div>
                     <table>
-                        <thead className='live-match items-center justify-center bg-inherit gap-1 py-1 px-3 text-sm'>
+                        <thead className='live-match items-center justify-center py-1 bg-inherit text-sm'>
                             <th>
                                 <span className='text-[#6a85ff]'>Blue team</span>
                             </th>
@@ -41,7 +41,7 @@ function LiveTeams({ rankedDetailsOfEveryPlayer, gameMode, bannedChampions }) {
                 <div className='flex flex-col gap-2'>
                     <Bans bannedChampions={bannedChampions} side={'red'}></Bans>
                     <table>
-                        <thead className='live-match items-center justify-center bg-inherit gap-1 py-1 px-3 text-sm'>
+                        <thead className='live-match items-center justify-center py-1 bg-inherit text-sm'>
                             <th>
                                 <span className='text-[#ff5c5c]'>Red team</span>
                             </th>
