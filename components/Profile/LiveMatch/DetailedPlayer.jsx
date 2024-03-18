@@ -57,7 +57,7 @@ const DetailedPlayer = ({ player }) => {
 
     return (
         <tr className='live-match items-center justify-center text-start bg-inherit gap-1'>
-            <td className="flex flex-row items-center space-x-2 truncate">
+            <td className="flex flex-row items-center space-x-2 truncate ps-1">
                 <ChampionIcon championId={player.championId} size={32} shape={'rounded-full'}></ChampionIcon>
                 <div className="flex flex-col justify-center items-center gap-1">
                     <SummonerSpell spell={summonerSpell1} size={18}></SummonerSpell>

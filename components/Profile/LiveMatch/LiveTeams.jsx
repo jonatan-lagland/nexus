@@ -31,11 +31,11 @@ function LiveTeams({ rankedDetailsOfEveryPlayer, gameMode, bannedChampions }) {
                                 <span className='text-slate-400'>Ranked Winrate</span>
                             </th>
                         </thead>
-                        {blueTeam.map((player, i) => (
-                            <tbody className='border-s-4 border-s-indigo-600' key={player.puuid + i} >
-                                <DetailedPlayer player={player}></DetailedPlayer>
-                            </tbody>
-                        ))}
+                        <tbody className='border-s-4 border-s-indigo-600' >
+                            {blueTeam.map((player, i) => (
+                                <DetailedPlayer key={player.puuid + i} player={player}></DetailedPlayer>
+                            ))}
+                        </tbody>
                     </table>
                 </div>
                 <div className='flex flex-col gap-2'>
@@ -52,11 +52,11 @@ function LiveTeams({ rankedDetailsOfEveryPlayer, gameMode, bannedChampions }) {
                                 <span className='text-slate-400'>Ranked Winrate</span>
                             </th>
                         </thead>
-                        {redTeam.map((player, i) => (
-                            <tbody className='border-s-4 border-s-red-700' key={player.puuid + i} >
-                                <DetailedPlayer player={player}></DetailedPlayer>
-                            </tbody>
-                        ))}
+                        <tbody className='border-s-4 border-s-red-700'>
+                            {redTeam.map((player, i) => (
+                                <DetailedPlayer key={player.puuid + i} player={player}></DetailedPlayer>
+                            ))}
+                        </tbody>
                     </table>
                 </div>
             </div>
