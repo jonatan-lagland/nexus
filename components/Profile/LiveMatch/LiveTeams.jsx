@@ -19,45 +19,45 @@ function LiveTeams({ rankedDetailsOfEveryPlayer, gameMode, bannedChampions }) {
                     <div>
                         <Bans bannedChampions={bannedChampions} side={'blue'}></Bans>
                     </div>
-                    <div className='divide-y divide-slate-950 border-s-4 border-s-indigo-600 border border-slate-950'>
-                        <div className='live-match items-center justify-center bg-inherit gap-1 py-1 px-3 text-sm'>
-                            <div>
-                                <span className='text-[#6a85ff] font-semibold'>Blue team</span>
-                            </div>
-                            <div>
+                    <table>
+                        <thead className='live-match items-center justify-center bg-inherit gap-1 py-1 px-3 text-sm'>
+                            <th>
+                                <span className='text-[#6a85ff]'>Blue team</span>
+                            </th>
+                            <th>
                                 <span className='text-slate-400'>Rank</span>
-                            </div>
-                            <div className='text-center'>
+                            </th>
+                            <th>
                                 <span className='text-slate-400'>Ranked Winrate</span>
-                            </div>
-                        </div>
+                            </th>
+                        </thead>
                         {blueTeam.map((player, i) => (
-                            <div className='px-1' key={player.puuid + i}>
+                            <tbody className='border-s-4 border-s-indigo-600' key={player.puuid + i} >
                                 <DetailedPlayer player={player}></DetailedPlayer>
-                            </div>
+                            </tbody>
                         ))}
-                    </div>
+                    </table>
                 </div>
                 <div className='flex flex-col gap-2'>
                     <Bans bannedChampions={bannedChampions} side={'red'}></Bans>
-                    <div className='divide-y divide-slate-950 border-s-4 border-s-red-700 border border-slate-950'>
-                        <div className='live-match items-center justify-center bg-inherit gap-1 py-1 px-3 text-sm'>
-                            <div>
-                                <span className='text-[#ff5c5c] font-semibold'>Red team</span>
-                            </div>
-                            <div>
+                    <table>
+                        <thead className='live-match items-center justify-center bg-inherit gap-1 py-1 px-3 text-sm'>
+                            <th>
+                                <span className='text-[#ff5c5c]'>Red team</span>
+                            </th>
+                            <th>
                                 <span className='text-slate-400'>Rank</span>
-                            </div>
-                            <div className='text-center'>
+                            </th>
+                            <th className='text-center'>
                                 <span className='text-slate-400'>Ranked Winrate</span>
-                            </div>
-                        </div>
+                            </th>
+                        </thead>
                         {redTeam.map((player, i) => (
-                            <div className='px-1' key={player.puuid + i}>
+                            <tbody className='border-s-4 border-s-red-700' key={player.puuid + i} >
                                 <DetailedPlayer player={player}></DetailedPlayer>
-                            </div>
+                            </tbody>
                         ))}
-                    </div>
+                    </table>
                 </div>
             </div>
         );

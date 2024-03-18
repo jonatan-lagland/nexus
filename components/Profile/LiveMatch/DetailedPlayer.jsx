@@ -56,8 +56,8 @@ const DetailedPlayer = ({ player }) => {
     }, [player]);
 
     return (
-        <div className='live-match items-center justify-center text-start bg-inherit gap-1'>
-            <div className="flex flex-row items-center space-x-2 truncate">
+        <tr className='live-match items-center justify-center text-start bg-inherit gap-1'>
+            <td className="flex flex-row items-center space-x-2 truncate">
                 <ChampionIcon championId={player.championId} size={32} shape={'rounded-full'}></ChampionIcon>
                 <div className="flex flex-col justify-center items-center gap-1">
                     <SummonerSpell spell={summonerSpell1} size={18}></SummonerSpell>
@@ -68,7 +68,7 @@ const DetailedPlayer = ({ player }) => {
                     <RunePath runePath={runePath} size={18}></RunePath>
                 </div>
                 {/* Conditionally render a link if player is a bot or hasn't played in years and thus has no Riot ID */}
-                <div className="flex flex-row items-center justify-start truncate gap-2 max-w-[50px] md:max-w-[70px] lg:max-w-[120px]">
+                <div className="flex flex-row items-center justify-start truncate gap-2">
                     {player.userNameAndTag.gameName ?
                         <Link className={`text-zinc-300 hover:text-zinc-200 truncate text-xs font-abel lg:text-base`} href={`${playerPath}`}>{playerName}</Link>
                         :
@@ -76,8 +76,8 @@ const DetailedPlayer = ({ player }) => {
                     }
 
                 </div>
-            </div>
-            <div className="flex flex-row items-center justify-start gap-3 text-xs truncate">
+            </td>
+            <td className="flex flex-row items-center justify-start gap-3 text-xs truncate">
                 {tier ?
                     <Popover>
                         <PopoverTrigger>
@@ -91,14 +91,14 @@ const DetailedPlayer = ({ player }) => {
                             >
                             </Image>
                         </PopoverTrigger>
-                        <PopoverContent className="w-[100px] text-center bg-black p-2 text-white text-sm">
+                        <PopoverContent className="w-min text-center bg-black p-2 text-white text-sm">
                             <span className=" font-bold text-white">{formattedTier} {tier && tier !== 'MASTER' && tier !== 'GRANDMASTER' && tier !== 'CHALLENGER' ? rank : null} </span> {tier && tier == 'Unranked' ? null : <span className="text-slate-400"> {leaguePoints} lp </span>}
                         </PopoverContent>
                     </Popover>
                     : null}
                 <span className="text-slate-300 truncate hidden md:block">{formattedTier} {tier && tier !== 'MASTER' && tier !== 'GRANDMASTER' && tier !== 'CHALLENGER' ? rank : null} {tier && tier == 'Unranked' ? null : <span> {leaguePoints} lp </span>}</span>
-            </div>
-            <div className="flex flex-col text-center justify-center items-center gap-1 px-2 text-xs">
+            </td>
+            <td className="flex flex-col text-center justify-center items-center gap-1 px-2 text-xs">
                 {totalGames ?
                     <>
                         <span className="text-slate-300">
@@ -108,8 +108,8 @@ const DetailedPlayer = ({ player }) => {
                         <Progress className={`${winrateColor}`} value={winrate} />
                     </>
                     : <span className="text-white">-</span>}
-            </div>
-        </div>
+            </td>
+        </tr>
     );
 };
 export default React.memo(DetailedPlayer);
