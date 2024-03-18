@@ -77,26 +77,30 @@ const DetailedPlayer = ({ player }) => {
 
                 </div>
             </td>
-            <td className="flex flex-row items-center justify-start gap-3 text-xs truncate">
-                {tier ?
-                    <Popover>
-                        <PopoverTrigger>
-                            <Image
-                                src={`https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-static-assets/global/default/images/ranked-mini-crests/${tier.toLowerCase()}.svg`}
-                                alt={`${tier} Emblem`}
-                                height={20}
-                                width={20}
-                                quality={15}
-                                className='select-none'
-                            >
-                            </Image>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-min text-center bg-black p-2 text-white text-sm">
-                            <span className=" font-bold text-white">{formattedTier} {tier && tier !== 'MASTER' && tier !== 'GRANDMASTER' && tier !== 'CHALLENGER' ? rank : null} </span> {tier && tier == 'Unranked' ? null : <span className="text-slate-400"> {leaguePoints} lp </span>}
-                        </PopoverContent>
-                    </Popover>
-                    : null}
-                <span className="text-slate-300 truncate hidden md:block">{formattedTier} {tier && tier !== 'MASTER' && tier !== 'GRANDMASTER' && tier !== 'CHALLENGER' ? rank : null} {tier && tier == 'Unranked' ? null : <span> {leaguePoints} lp </span>}</span>
+            <td className="flex flex-row items-center justify-center lg:justify-between gap-3 text-xs truncate">
+                <div className="flex items-center justify-center">
+                    {tier ?
+                        <Popover>
+                            <PopoverTrigger>
+                                <Image
+                                    src={`https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-static-assets/global/default/images/ranked-mini-crests/${tier.toLowerCase()}.svg`}
+                                    alt={`${tier} Emblem`}
+                                    height={20}
+                                    width={20}
+                                    quality={15}
+                                    className='select-none'
+                                >
+                                </Image>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-min text-center bg-black p-2 text-white text-sm">
+                                <span className="font-bold text-white">{formattedTier} {tier && tier !== 'MASTER' && tier !== 'GRANDMASTER' && tier !== 'CHALLENGER' ? rank : null} </span> {tier && tier == 'Unranked' ? null : <span className="text-slate-400"> {leaguePoints} lp </span>}
+                            </PopoverContent>
+                        </Popover>
+                        : null}
+                </div>
+                <div className="flex-grow text-center hidden lg:block">
+                    <span className="text-slate-300 truncate">{formattedTier} {tier && tier !== 'MASTER' && tier !== 'GRANDMASTER' && tier !== 'CHALLENGER' ? rank : null} {tier && tier == 'Unranked' ? null : <span> {leaguePoints} lp </span>}</span>
+                </div>
             </td>
             <td className="flex flex-col text-center justify-center items-center gap-1 px-2 text-xs">
                 {totalGames ?
