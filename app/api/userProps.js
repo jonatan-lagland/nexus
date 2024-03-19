@@ -25,7 +25,7 @@ export async function getUserPUUID(params, region) {
     }
 }
 
-export async function getUserInfo(puuid, server) {
+export async function getUserInfo(puuid, server, refreshCache = false) {
     const base_url = process.env.RIOT_API_BASE_URL;
     const summoner_url = process.env.RIOT_API_SUMMONER_URL;
     const INCLUDE_API_KEY = true; // Include an API key
@@ -33,6 +33,9 @@ export async function getUserInfo(puuid, server) {
     const tag = puuid;
 
     try {
+        if (refreshCache) {
+            revalidateCache(tag)
+        }
         const response = await fetchDataHandler(url, tag, INCLUDE_API_KEY)
         return response;
     } catch (error) {

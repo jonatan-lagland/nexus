@@ -3,11 +3,11 @@
 import React from 'react';
 import { useState } from 'react';
 import { MatchHistoryContext } from '@utils/context/matchHistoryContext';
-import { getMatchHistory, getRankedInfo } from './api/userProps';
+import { getMatchHistory, getRankedInfo, getUserInfo } from './api/userProps';
 import { useQueryClient } from '@tanstack/react-query';
 import { toast } from "sonner";
 
-export const MatchHistoryProvider = ({ children, matchHistory, user }) => {
+export const MatchHistoryProvider = ({ children, matchHistory, user, userDetails }) => {
     const [matchHistoryData, setMatchHistoryData] = useState(matchHistory);
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -20,6 +20,7 @@ export const MatchHistoryProvider = ({ children, matchHistory, user }) => {
                 const refreshCache = true;
                 if (summonerId) {
                     await getRankedInfo(summonerId, server, refreshCache);
+                    await getUserInfo(user.puuid, server, refreshCache);
                 }
                 const res_match = await getMatchHistory(puuid, region, refreshCache);
 
@@ -51,7 +52,7 @@ export const MatchHistoryProvider = ({ children, matchHistory, user }) => {
     }
 
     return (
-        <MatchHistoryContext.Provider value={{ refreshMatchHistoryData, matchHistoryData, isLoading, error, invalidateQuery }}>
+        <MatchHistoryContext.Provider value={{ refreshMatchHistoryData, matchHistoryData, isLoading, error, invalidateQuery, userDetails, user }}>
             {children}
         </MatchHistoryContext.Provider>
     );
