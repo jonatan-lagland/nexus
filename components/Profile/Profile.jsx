@@ -13,6 +13,7 @@ import { getMatchHistory } from '@app/api/userProps'
 import { MatchHistoryProvider } from '@app/MatchHistoryProvider'
 import { LiveGameProvider } from '@app/LiveGameProvider'
 import LiveGameLoading from './Header/LiveGameLoading'
+import HistoryCarouselProvider from '@app/HistoryCarouselProvider'
 
 async function Profile({ params, region, server }) {
     const gameVersion = await getLatestVersion();
@@ -41,24 +42,26 @@ async function Profile({ params, region, server }) {
     return (
         <QueryProvider>
             <StaticDataProvider data={data}>
-                <MatchHistoryProvider matchHistory={matchHistory} rankedDetails={rankedDetails} user={user}> {/* Set initial data of Match History */}
+                <MatchHistoryProvider matchHistory={matchHistory} rankedDetails={rankedDetails} user={user} userDetails={userDetails}> {/* Set initial data of Match History */}
                     <LiveGameProvider>
-                        <div className='w-full h-2'>
-                            <LiveGameLoading></LiveGameLoading>
-                        </div>
-                        <div className='profile'>
-                            <div className='grid'>
-                                <section>
-                                    <Header rankedDetails={rankedDetails} user={user} region={region} server={server} userDetails={userDetails} />
-                                </section>
-                                <section>
-                                    <Content user={user} region={region} />
-                                </section>
-                                <section>
-                                    <Sidebar rankedDetails={rankedDetails} />
-                                </section>
+                        <HistoryCarouselProvider user={user} userDetails={userDetails} server={server}>
+                            <div className='w-full h-2'>
+                                <LiveGameLoading></LiveGameLoading>
                             </div>
-                        </div>
+                            <div className='profile'>
+                                <div className='grid'>
+                                    <section>
+                                        <Header rankedDetails={rankedDetails} user={user} region={region} server={server} userDetails={userDetails} />
+                                    </section>
+                                    <section>
+                                        <Content user={user} region={region} />
+                                    </section>
+                                    <section>
+                                        <Sidebar rankedDetails={rankedDetails} />
+                                    </section>
+                                </div>
+                            </div>
+                        </HistoryCarouselProvider>
                     </LiveGameProvider>
                 </MatchHistoryProvider>
             </StaticDataProvider>
