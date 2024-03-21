@@ -44,24 +44,22 @@ function HistoryCarousel() {
     }
 
     return (
-        <div className='flex flex-col items-center justify-between gap-2 rounded-lg py-4 border border-neutral-800 bg-dark-grey min-h-[310px]'>
-            <div className='flex flex-col items-center'>
-                <div className='flex flex-row gap-4 justify-center items-center'>
-                    <Info aria-label='info-recently-viewed' color="#6e7178" size={24} strokeWidth={1.5} />
-                    <div className='flex flex-col'>
-                        <span className='text-neutral-200 font-semibold'>Recently viewed</span>
-                        <span className='text-neutral-400 text-sm'>Continue where you left off</span>
-                    </div>
+        <div className='flex flex-col items-center justify-between p-2 pb-4 gap-2 rounded-lg border border-neutral-800 bg-dark-grey'>
+            <div className='flex flex-row gap-4 justify-center items-center'>
+                <Info aria-label='info-recently-viewed' color="#6e7178" size={24} strokeWidth={1.5} />
+                <div className='flex flex-col'>
+                    <span className='text-neutral-200 font-semibold'>Recently viewed</span>
+                    <span className='text-neutral-400 text-sm'>Continue where you left off</span>
                 </div>
             </div>
-            <div className='flex flex-col flex-grow items-center gap-3 justify-center rounded-lg  border-slate-600'>
+            <div className='flex flex-col items-center gap-3 justify-center rounded-lg  border-slate-600'>
                 <Carousel
                     opts={{
                         align: "center",
                         loop: false,
                         dragFree: true
                     }}
-                    className="w-full max-w-sm p-6"
+                    className="w-full max-w-sm"
                 >
                     <CarouselContent>
                         {/* Reverse array to correctly order the matches on carousel */}
