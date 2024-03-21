@@ -1,6 +1,6 @@
 'use client'
 import { useContext, useState, useEffect } from "react";
-import { ColorblindContext } from "@utils/context/colorBlindContext";
+import { SettingsContext } from "@utils/context/SettingsContext";
 import {
     Tooltip,
     TooltipContent,
@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/tooltip"
 
 const Stats = ({ kills, deaths, assists, kdaRatio }) => {
-    const { isColorblindMode } = useContext(ColorblindContext);
+    const { isColorblindMode } = useContext(SettingsContext);
     const [deathsTheme, setDeathsTheme] = useState('text-amber-500')
 
     useEffect(() => {

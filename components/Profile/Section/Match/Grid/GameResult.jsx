@@ -1,13 +1,13 @@
 'use client'
 import { useContext, useState, useEffect } from "react";
 import { MatchHistoryContext } from "@utils/context/matchHistoryContext";
-import { ColorblindContext } from "@utils/context/colorBlindContext";
+import { SettingsContext } from "@utils/context/SettingsContext";
 import { useCalculateGameEnd } from "@utils/matchHistoryUtils";
 
 const GameResult = ({ isRemake }) => {
     const { matchData } = useContext(MatchHistoryContext);
     const { win, gameEndTimestamp } = matchData;
-    const { isColorblindMode } = useContext(ColorblindContext);
+    const { isColorblindMode } = useContext(SettingsContext);
     const [outcome, setOutcome] = useState('');
     const [outcomeTheme, setOutcomeTheme] = useState('');
 

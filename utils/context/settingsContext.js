@@ -1,4 +1,4 @@
 'use client'
 import { createContext } from "react";
 
-export const ColorblindContext = createContext(null);
+export const SettingsContext = createContext(null);

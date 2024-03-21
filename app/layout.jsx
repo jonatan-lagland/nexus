@@ -1,7 +1,7 @@
 import "@styles/globals.css";
 import Nav from "@components/Nav/Nav";
-import ColorBlindProvider from "./ColorBlindProvider";
-import { RegionProvider } from "@components/Landing/RegionProvider";
+import SettingsProvider from "./SettingsProvider";
+import { RegionProvider } from "@app/RegionProvider";
 import { Inter, Oswald, Bebas_Neue, Abel, Rubik, Noto_Sans } from 'next/font/google'
 import Footer from "@components/Footer/Footer";
 import { Toaster } from "@components/ui/sonner";
@@ -44,7 +44,7 @@ const RootLayout = ({ children }) => (
     <html lang='en'
         className={`${inter.variable} ${oswald.variable} ${bebas_neue.variable} ${abel.variable} ${rubik.variable} ${noto_sans.variable}`} >
         <body className="flex flex-col min-h-screen bg-charcoal">
-            <ColorBlindProvider>
+            <SettingsProvider>
                 <RegionProvider>
                     <header className='header'>
                         <Nav />
@@ -55,7 +55,7 @@ const RootLayout = ({ children }) => (
                     <Toaster />
                     <Footer></Footer>
                 </RegionProvider>
-            </ColorBlindProvider>
+            </SettingsProvider>
         </body>
     </html>
 );

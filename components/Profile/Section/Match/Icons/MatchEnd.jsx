@@ -1,12 +1,12 @@
 'use client'
 import { useContext } from "react";
 import { MatchHistoryContext } from "@utils/context/matchHistoryContext";
-import { ColorblindContext } from "@utils/context/colorBlindContext";
+import { SettingsContext } from "@utils/context/SettingsContext";
 import { useCalculateGameDuration } from "@utils/matchHistoryUtils";
 
 const MatchEnd = () => {
     const { matchData } = useContext(MatchHistoryContext);
-    const { isColorblindMode } = useContext(ColorblindContext);
+    const { isColorblindMode } = useContext(SettingsContext);
     const { gameDuration, win } = matchData;
     const timestampGameDuration = useCalculateGameDuration(gameDuration)
     const timestampTheme = win

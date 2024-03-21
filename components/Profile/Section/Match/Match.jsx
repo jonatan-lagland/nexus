@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import { useContext, useEffect, useState } from 'react';
-import { ColorblindContext } from '@utils/context/colorBlindContext';
+import { SettingsContext } from '@utils/context/SettingsContext';
 import { MatchHistoryContext } from '@utils/context/matchHistoryContext';
 import { useCalculateOPScore, useCardDetails, useGetQueueType } from '@utils/matchHistoryUtils';
 import GameResult from './Grid/GameResult';
@@ -14,7 +14,7 @@ import { KillParticipationEmblem } from '@components/ui/killParticipationEmblem'
 import { QueueContext } from '@utils/context/queueContext';
 
 function Match({ matchHistoryDetails, puuid }) {
-    const { isColorblindMode } = useContext(ColorblindContext);
+    const { isColorblindMode } = useContext(SettingsContext);
     const { matchData, setMatchData } = useContext(MatchHistoryContext);
     const queueTypes = useContext(QueueContext)
     const [containerClass, setContainerClass] = useState('');

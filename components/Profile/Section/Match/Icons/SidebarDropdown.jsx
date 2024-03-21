@@ -1,12 +1,12 @@
 'use client'
 import Image from "next/image"
 import { useContext } from "react";
-import { ColorblindContext } from "@utils/context/colorBlindContext";
+import { SettingsContext } from "@utils/context/SettingsContext";
 import { MatchHistoryContext } from "@utils/context/matchHistoryContext";
 
 const SidebarDropdown = ({ isRemake }) => {
 
-    const { isColorblindMode } = useContext(ColorblindContext);
+    const { isColorblindMode } = useContext(SettingsContext);
     const { matchData } = useContext(MatchHistoryContext);
     const { win } = matchData;
 
