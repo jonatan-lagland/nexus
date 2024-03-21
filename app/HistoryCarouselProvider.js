@@ -2,19 +2,25 @@
 import { useState, useEffect } from "react";
 import { HistoryCarouselContext } from "@utils/context/historyCarouselContext";
 import { usePathname } from "next/navigation";
+import { SettingsContext } from "@utils/context/SettingsContext";
+import { useContext } from "react";
 
 function HistoryCarouselProvider({ children, userDetails, user }) {
     // Initialize state with value from local storage
 
     const path = usePathname()
+    const { isAllowHistory } = useContext(SettingsContext);
 
     const [historyCarousel, setHistoryCarousel] = useState(() => {
         // Check for window and localStorage availability
-        if (typeof window !== 'undefined') {
-            const localData = localStorage.getItem('historyCarousel');
-            return localData ? JSON.parse(localData) : [];
+        if (typeof window === 'undefined') {
+            return [];
         }
-        return false;
+        if (!isAllowHistory) {
+            return [];
+        }
+        const localData = localStorage.getItem('historyCarousel');
+        return localData ? JSON.parse(localData) : [];
     });
 
     // Update local storage when state changes
@@ -24,9 +30,15 @@ function HistoryCarouselProvider({ children, userDetails, user }) {
         }
     }, [historyCarousel]);
 
-
     /* Whenever user navigates to a new page, add a new entry to history state */
     useEffect(() => {
+
+        /* Wipe history if user opts out */
+        if (!isAllowHistory) {
+            setHistoryCarousel([])
+            return;
+        }
+
         const lastIndex = path.lastIndexOf("/");
         // Find the index of the "/" before the last one
         const secondLastIndex = path.lastIndexOf("/", lastIndex - 1);
@@ -44,14 +56,16 @@ function HistoryCarouselProvider({ children, userDetails, user }) {
 
             updatedHistory = [...updatedHistory, { userDetails, user, server }];
 
-            // Ensure the history does not exceed 5 entries
-            while (updatedHistory.length > 5) {
+            // Ensure the history does not exceed 6 entries
+            while (updatedHistory.length > 6) {
                 updatedHistory.shift(); // Remove the oldest entry
             }
 
             return updatedHistory;
         });
-    }, [userDetails, user, path]);
+    }, [userDetails, user, path, isAllowHistory]);
+
+
 
     return (
         <HistoryCarouselContext.Provider value={{ historyCarousel }}>

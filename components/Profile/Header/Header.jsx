@@ -17,7 +17,7 @@ async function Header({ rankedDetails, user, region, server, userDetails }) {
             <div className="flex flex-row text-start py-3">
                 <div className="flex flex-row gap-3 items-center">
                     <div className='relative'>
-                        <ProfileAvatar userDetails={userDetails}></ProfileAvatar>
+                        <ProfileAvatar userDetails={userDetails} size={120}></ProfileAvatar>
                     </div>
                     <div className='flex flex-col gap-5'>
                         <div className="flex flex-row flex-wrap gap-3 items-end">
@@ -31,14 +31,14 @@ async function Header({ rankedDetails, user, region, server, userDetails }) {
                             }
                         </div>
                         {
-                            rankedDetails && rankedDetails[0] &&
+                            rankedSoloDetails && totalGames &&
                             <div className='ps-1'>
                                 <h2 className=' text-slate-300'>
                                     <span className='text-white font-bold'>{user.gameName} #{user.tagLine} </span>
                                     has an overall winrate of
                                     <span className=' text-orange-500 font-semibold'> {winrate}% </span>
                                     over {totalGames} games with the rank of
-                                    <span className=' font-semibold'> {rankedDetails[0].tier} {rankedDetails[0].rank}. </span>
+                                    <span className=' font-semibold'> {rankedSoloDetails.tier} {rankedSoloDetails.rank}. </span>
                                 </h2>
                             </div>
                         }

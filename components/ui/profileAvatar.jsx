@@ -9,15 +9,15 @@ import {
 import Image from "next/image";
 import { useImagePathUser } from "@utils/pathUtils";
 
-export function ProfileAvatar({ userDetails, renderSummonerLevel = true }) {
+export function ProfileAvatar({ userDetails, size, renderSummonerLevel = true }) {
     const imgPath = useImagePathUser(userDetails);
     return (
         <TooltipProvider delayDuration={0} skipDelayDuration={300}>
             <Image
                 src={imgPath}
                 alt={'Summoner Icon'}
-                width={120}
-                height={120}
+                width={size}
+                height={size}
                 className='rounded-full select-none border-4 border-slate-800 min-h-[75px] min-w-[75px]'
                 quality={100}
                 priority

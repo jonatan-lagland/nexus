@@ -14,43 +14,77 @@ import {
 import { useContext } from 'react'
 import { ProfileAvatar } from '@components/ui/profileAvatar'
 import { HistoryCarouselContext } from '@utils/context/historyCarouselContext'
+import { SettingsContext } from '@utils/context/SettingsContext'
+import { MatchHistoryContext } from '@utils/context/matchHistoryContext'
 import Link from 'next/link'
+import { Info } from 'lucide-react';
 
 function HistoryCarousel() {
 
     const { historyCarousel } = useContext(HistoryCarouselContext)
+    const { isAllowHistory } = useContext(SettingsContext)
+    const { user } = useContext(MatchHistoryContext)
+
+    if (!isAllowHistory || historyCarousel.length <= 1) { // Length 1 because the current page is counted even though it wont be rendered
+        return (
+            <div className='flex flex-col items-center justify-between gap-2 rounded-lg py-4 border border-neutral-800 bg-dark-grey'>
+                <div className='flex flex-col items-center'>
+                    <div className='flex flex-row gap-4 justify-center items-center'>
+                        <Info aria-label='info-recently-viewed' color="#6e7178" size={24} strokeWidth={1.5} />
+                        <div className='flex flex-col'>
+                            <span className='text-neutral-200 font-semibold'>Recently viewed</span>
+                            <span className='text-neutral-400 text-sm'>
+                                {isAllowHistory ? 'The profiles you see show up here' : 'Go to settings to enable this feature'}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    }
 
     return (
-        <Carousel
-            opts={{
-                align: "center",
-                loop: false,
-                dragFree: true
-            }}
-            className="w-full max-w-sm p-6"
-        >
-            <CarouselContent>
-                {/* Reverse array to correctly order the matches */}
-                {historyCarousel && historyCarousel.slice().reverse().map((entry, index) => (
-                    <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3 ">
-                        {/* Assuming `playerPath` can be derived from `entry.user` or `entry.userDetails` */}
-                        <Link href={`/profile/${entry.server}/${entry.user.gameName}-${entry.user.tagLine}`}>
-                            <Card className='bg-deep-purple border flex flex-col items-center justify-center border-gray-600 break-all text-vw min-h-[170px]'>
-                                <CardContent className="flex flex-col aspect-square items-center justify-center p-1 select-none">
-                                    {/* Make sure ProfileAvatar can accept userDetails and renderSummonerLevel as props */}
-                                    <ProfileAvatar userDetails={entry.userDetails} renderSummonerLevel={false}></ProfileAvatar>
-                                    <span className="text-base font-semibold text-white">{entry.user.gameName}</span>
-                                    <span className="text-sm font-semibold text-gray-400">#{entry.user.tagLine}</span>
-                                </CardContent>
-                            </Card>
-                        </Link>
-                    </CarouselItem>
-                ))}
-                {/* Optionally handle empty states or less than 5 entries with placeholders or a message */}
-            </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
-        </Carousel>
+        <div className='flex flex-col items-center justify-between gap-2 rounded-lg py-4 border border-neutral-800 bg-dark-grey min-h-[310px]'>
+            <div className='flex flex-col items-center'>
+                <div className='flex flex-row gap-4 justify-center items-center'>
+                    <Info aria-label='info-recently-viewed' color="#6e7178" size={24} strokeWidth={1.5} />
+                    <div className='flex flex-col'>
+                        <span className='text-neutral-200 font-semibold'>Recently viewed</span>
+                        <span className='text-neutral-400 text-sm'>Continue where you left off</span>
+                    </div>
+                </div>
+            </div>
+            <div className='flex flex-col flex-grow items-center gap-3 justify-center rounded-lg  border-slate-600'>
+                <Carousel
+                    opts={{
+                        align: "center",
+                        loop: false,
+                        dragFree: true
+                    }}
+                    className="w-full max-w-sm p-6"
+                >
+                    <CarouselContent>
+                        {/* Reverse array to correctly order the matches on carousel */}
+                        {historyCarousel && historyCarousel.slice().reverse().map((entry, index) => (
+                            user.puuid !== entry.user.puuid && ( // Do not render the currently viewed page as a card
+                                <CarouselItem key={index} className="basis-auto">
+                                    <Link href={`/profile/${entry.server}/${entry.user.gameName}-${entry.user.tagLine}`}>
+                                        <Card className='bg-deep-purple border flex flex-col border-gray-600 w-[120px] h-[155px] break-all  text-vw' >
+                                            <CardContent className="flex flex-col aspect-square p-1 select-none items-center">
+                                                <ProfileAvatar userDetails={entry.userDetails} size={64} renderSummonerLevel={false}></ProfileAvatar>
+                                                <span className="text-base font-semibold text-white">{entry.user.gameName}</span>
+                                                <span className="text-sm font-semibold text-gray-400">#{entry.user.tagLine}</span>
+                                            </CardContent>
+                                        </Card>
+                                    </Link>
+                                </CarouselItem>
+                            )))}
+                    </CarouselContent>
+                    <CarouselPrevious />
+                    <CarouselNext />
+                </Carousel>
+            </div>
+        </div>
     )
 }
 
