@@ -1,6 +1,6 @@
 'use client'
 import { useContext, useState, useEffect } from "react";
-import { SettingsContext } from "@utils/context/SettingsContext";
+import { SettingsContext } from "@utils/context/settingsContext";
 import {
     Tooltip,
     TooltipContent,

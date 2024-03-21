@@ -1,7 +1,7 @@
 'use client'
 import Image from "next/image"
 import { useContext } from "react";
-import { SettingsContext } from "@utils/context/SettingsContext";
+import { SettingsContext } from "@utils/context/settingsContext";
 import { MatchHistoryContext } from "@utils/context/matchHistoryContext";
 
 const SidebarDropdown = ({ isRemake }) => {

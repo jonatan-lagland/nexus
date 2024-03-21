@@ -14,7 +14,7 @@ import {
 import { useContext } from 'react'
 import { ProfileAvatar } from '@components/ui/profileAvatar'
 import { HistoryCarouselContext } from '@utils/context/historyCarouselContext'
-import { SettingsContext } from '@utils/context/SettingsContext'
+import { SettingsContext } from '@utils/context/settingsContext'
 import { MatchHistoryContext } from '@utils/context/matchHistoryContext'
 import Link from 'next/link'
 import { Info } from 'lucide-react';
