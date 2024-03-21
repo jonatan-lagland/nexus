@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button"
 import { Settings } from "lucide-react";
 import AccessibilitySwitch from "@components/Profile/Header/AccessibilitySwitch";
 import { useState } from "react";
+import HistorySwitch from "@components/Profile/Header/HistorySwitch";
 
 const SettingsDialog = () => {
     const [isDialogOpen, setDialogOpen] = useState(false);
@@ -29,7 +30,7 @@ const SettingsDialog = () => {
                     </div>
                 </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px] border-slate-500 bg-[#30343F]">
+            <DialogContent className="border-slate-600 bg-[#30313d]">
                 <DialogHeader>
                     <DialogTitle className="text-white">Settings</DialogTitle>
                     <DialogDescription className=" text-neutral-400">
@@ -38,6 +39,7 @@ const SettingsDialog = () => {
                 </DialogHeader>
                 <div className="grid gap-4 py-4">
                     <AccessibilitySwitch></AccessibilitySwitch>
+                    <HistorySwitch></HistorySwitch>
                 </div>
             </DialogContent>
         </Dialog>

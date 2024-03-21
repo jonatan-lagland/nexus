@@ -22,10 +22,10 @@ const Player = ({ player }) => {
         <div className='flex flex-row items-center text-start space-x-2'>
             <PlayerIcon puuid={player.puuid} championId={player.championId} championName={player.championName}></PlayerIcon>
             {/* Conditionally render a link if player is a bot or hasn't played in years and thus has no Riot ID */}
-            {player.riotIdGameName ?
+            {player.riotIdGameName && player.puuid !== 'BOT' ?
                 <Link className={`text-zinc-300 hover:text-zinc-200 w-[80px] truncate font-abel text-base`} scroll={true} href={`${playerPath}`}>{playerName}</Link>
                 :
-                <span className={`cursor-default text-zinc-300 hover:text-zinc-200 w-[80px] truncate font-abel text-base`}>{playerName}{player.puuid === 'BOT' ? ' Bot' : null}</span>
+                <span className={`cursor-default text-zinc-300 hover:text-zinc-200 w-[80px] truncate font-abel text-base`}>{playerName}</span>
             }
         </div>
     );
