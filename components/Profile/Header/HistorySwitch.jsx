@@ -1,7 +1,7 @@
 'use client'
 import React from "react";
 import { useContext } from "react";
-import { SettingsContext } from "@utils/context/SettingsContext";
+import { SettingsContext } from "@utils/context/settingsContext";
 import { Switch } from "@components/ui/switch";
 import { Label } from "@radix-ui/react-dropdown-menu";
 

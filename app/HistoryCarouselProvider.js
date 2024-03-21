@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { HistoryCarouselContext } from "@utils/context/historyCarouselContext";
 import { usePathname } from "next/navigation";
-import { SettingsContext } from "@utils/context/SettingsContext";
+import { SettingsContext } from "@utils/context/settingsContext";
 import { useContext } from "react";
 
 function HistoryCarouselProvider({ children, userDetails, user }) {

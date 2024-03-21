@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import { useContext, useEffect, useState } from 'react';
-import { SettingsContext } from '@utils/context/SettingsContext';
+import { SettingsContext } from "@utils/context/settingsContext";
 import { MatchHistoryContext } from '@utils/context/matchHistoryContext';
 import { useCalculateOPScore, useCardDetails, useGetQueueType } from '@utils/matchHistoryUtils';
 import GameResult from './Grid/GameResult';

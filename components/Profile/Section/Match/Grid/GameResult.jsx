@@ -1,7 +1,7 @@
 'use client'
 import { useContext, useState, useEffect } from "react";
 import { MatchHistoryContext } from "@utils/context/matchHistoryContext";
-import { SettingsContext } from "@utils/context/SettingsContext";
+import { SettingsContext } from "@utils/context/settingsContext";
 import { useCalculateGameEnd } from "@utils/matchHistoryUtils";
 
 const GameResult = ({ isRemake }) => {

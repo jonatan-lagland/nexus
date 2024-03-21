@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { SettingsContext } from "@utils/context/SettingsContext";
+import { SettingsContext } from "@utils/context/settingsContext";
 
 function SettingsProvider({ children }) {
     // Initialize state with value from local storage
