@@ -27,7 +27,7 @@ export const useImagePathChampion = (championKey) => {
         let championSrc = null;
         for (let champion in championList.data) {
             if (championList.data[champion].key === stringifiedKey) {
-                championSrc = championList.data[champion].image.full;
+                championSrc = stringifiedKey;
                 break;
             }
         }
@@ -35,7 +35,7 @@ export const useImagePathChampion = (championKey) => {
         if (!championSrc) {
             return placeholderChampionSrc;
         }
-        return `${baseUrl}/${gamePatch}/${championIcon}/${championSrc}`;
+        return `https://cdn.communitydragon.org/latest/champion/${stringifiedKey}/square`;
     }, [championKey, gamePatch, championList.data, stringifiedKey]);
 };
 
@@ -87,12 +87,12 @@ export const useImagePathItem = (item) => {
 };
 
 export const useImagePathUser = (info) => {
-    const gamePatch = useContext(GameVersionContext);
-    if (!info || !gamePatch) {
+
+    if (!info) {
         return placeholderChampionSrc
     }
     const id = info.profileIconId;
-    const src = `${baseUrl}/${gamePatch}/${profileIcon}/${id}.png`;
+    const src = `https://cdn.communitydragon.org/latest/profile-icon/${id}`;
     return src;
 }
 
