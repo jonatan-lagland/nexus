@@ -17,7 +17,7 @@ function Sidebar({ rankedDetails }) {
 
     return (
         <article className='flex flex-col gap-5'>
-            <div className='flex flex-col bg-deep-purple border border-gray-600 rounded-lg py-8 px-16'>
+            <div className='flex flex-col bg-deep-purple border border-gray-600 rounded-lg py-8 px-8 lg:px-16'>
                 <div className='flex flex-row justify-between items-center'>
                     <div style={{ textShadow: "1px 1px 1px black" }} className='flex flex-col drop-shadow-md '>
                         <span className='text-2xl lg:text-3xl font-bold text-white'>{playerTier} {playerRank}</span>
