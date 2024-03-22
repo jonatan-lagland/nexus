@@ -22,13 +22,13 @@ const ScoreStatistics = ({ totalMinionsKilled, neutralMinionsKilled, goldEarned,
                 <div className="flex flex-row space-x-2 items-center">
                     <Tooltip>
                         <TooltipTrigger>
-                            <div className="flex flex-row space-x-1">
+                            <div className="flex flex-row items-center space-x-2">
                                 <Image
                                     src={`/assets/images/clock-icon-grey.png`}
                                     alt={`Minion Icon`}
                                     width={15}
                                     height={15}
-                                    className="select-none object-scale-down"
+                                    className="select-none h-[15px]"
                                     style={{ filter: `brightness(2)`, width: 'auto' }}
                                 />
                                 <p className={`text-zinc-400 hover:text-zinc-300 text-sm`}>{timestampGameDuration}</p>
@@ -43,13 +43,13 @@ const ScoreStatistics = ({ totalMinionsKilled, neutralMinionsKilled, goldEarned,
                 <div className='flex flex-row space-x-2 items-center'>
                     <Tooltip>
                         <TooltipTrigger>
-                            <div className="flex flex-row space-x-1">
+                            <div className="flex flex-row items-center space-x-1">
                                 <Image
                                     src={`/assets/icons/stats/icon_minions.png`}
                                     alt={`Minion Icon`}
                                     width={15}
                                     height={15}
-                                    className="select-none object-scale-down"
+                                    className="select-none h-[15px]"
                                     style={{ filter: `brightness(1.1)`, width: 'auto' }}
                                 />
                                 <div className="flex flex-row gap-1 text-sm text-zinc-400 hover:text-zinc-300">
@@ -68,13 +68,13 @@ const ScoreStatistics = ({ totalMinionsKilled, neutralMinionsKilled, goldEarned,
                 <div className='flex flex-row space-x-2 items-center'>
                     <Tooltip>
                         <TooltipTrigger>
-                            <div className="flex flex-row space-x-1">
+                            <div className="flex flex-row items-center space-x-1">
                                 <Image
                                     src={`/assets/icons/stats/icon_gold.png`}
                                     alt={`Gold Icon`}
                                     width={15}
                                     height={15}
-                                    className="select-none object-scale-down"
+                                    className="select-none h-[15px]"
                                     style={{ filter: `brightness(1.1)`, width: 'auto' }}
                                 />
                                 <p className={` text-zinc-400 hover:text-zinc-300 text-sm`}>{goldEarnedInThousands}</p>
