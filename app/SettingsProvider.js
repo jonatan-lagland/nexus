@@ -22,6 +22,9 @@ function SettingsProvider({ children }) {
         return false;
     });
 
+    const [collapseMenu, setCollapseMenu] = useState(false);
+
+
     const toggleHistory = () => {
         setIsAllowHistory(!isAllowHistory);
     };
@@ -29,6 +32,10 @@ function SettingsProvider({ children }) {
     const toggleColorblindMode = () => {
         setIsColorblindMode(!isColorblindMode);
     };
+
+    const toggleCollapseMenu = () => {
+        setCollapseMenu(!collapseMenu);
+    }
 
     // Update local storage when state changes
     useEffect(() => {
@@ -40,7 +47,7 @@ function SettingsProvider({ children }) {
 
 
     return (
-        <SettingsContext.Provider value={{ isColorblindMode, toggleColorblindMode, isAllowHistory, toggleHistory, }}>
+        <SettingsContext.Provider value={{ isColorblindMode, toggleColorblindMode, isAllowHistory, toggleHistory, collapseMenu, toggleCollapseMenu }}>
             {children}
         </SettingsContext.Provider>
     )

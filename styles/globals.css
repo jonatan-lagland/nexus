@@ -394,12 +394,26 @@
 
 
 .profile .grid {
-  @apply w-full min-h-screen;
+  @apply min-h-screen;
   display: grid;
-  grid-template-rows: auto; /* Each row takes only the space it needs */
-  grid-template-columns: repeat(1, 1fr); /* One column layout for non-large devices */
+  grid-template-rows: auto;
+  grid-template-columns: repeat(1, 1fr);
   gap: 1em;
+  order: 0;
 }
+
+.profile .grid section:nth-child(1) {
+  order: 1;
+}
+
+.profile .grid section:nth-child(2) {
+  order: 3;
+}
+
+.profile .grid section:nth-child(3) {
+  order: 2;
+}
+
 
 @media (min-width: 768px) {
   .profile .grid {

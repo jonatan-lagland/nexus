@@ -52,7 +52,7 @@ function HistoryCarousel() {
                     <span className='text-neutral-400 text-sm'>Continue where you left off</span>
                 </div>
             </div>
-            <div className='flex flex-col items-center gap-3 justify-center rounded-lg  border-slate-600'>
+            <div className='flex flex-col items-center gap-3 justify-center rounded-lg border-slate-600'>
                 <Carousel
                     opts={{
                         align: "center",
@@ -67,7 +67,7 @@ function HistoryCarousel() {
                             user.puuid !== entry.user.puuid && ( // Do not render the currently viewed page as a card
                                 <CarouselItem key={index} className="basis-auto">
                                     <Link href={`/profile/${entry.server}/${entry.user.gameName}-${entry.user.tagLine}`}>
-                                        <Card className='bg-deep-purple border flex flex-col border-gray-600 w-[120px] h-[155px] break-all  text-vw' >
+                                        <Card className='bg-deep-purple border flex flex-col border-gray-600 h-[155px] break-all' >
                                             <CardContent className="flex flex-col aspect-square p-1 select-none items-center">
                                                 <ProfileAvatar userDetails={entry.userDetails} size={64} renderSummonerLevel={false}></ProfileAvatar>
                                                 <span className="text-base font-semibold text-white">{entry.user.gameName}</span>

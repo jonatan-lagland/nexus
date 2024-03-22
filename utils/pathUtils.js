@@ -7,9 +7,7 @@ import { ChampionListContext } from './context/championListContext';
 
 const baseUrl = "https://ddragon.leagueoflegends.com/cdn";
 const CDBaseUrl = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default';
-const profileIcon = "img/profileicon";
 const itemIcon = "img/item"
-const championIcon = "img/champion"
 const placeholderIconSrc = "/assets/images/placeholder.webp"
 const placeholderChampionSrc = "https://cdn.communitydragon.org/latest/champion/generic/square";
 
