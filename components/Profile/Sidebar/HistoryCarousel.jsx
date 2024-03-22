@@ -44,7 +44,7 @@ function HistoryCarousel() {
     }
 
     return (
-        <div className='flex flex-col items-center justify-between p-2 pb-4 gap-2 rounded-lg border border-neutral-800 bg-dark-grey'>
+        <div className='flex flex-col items-center justify-between p-2 pb-4 gap-2 rounded-lg border border-neutral-800 bg-dark-grey overflow-hidden'>
             <div className='flex flex-row gap-4 justify-center items-center'>
                 <Info aria-label='info-recently-viewed' color="#6e7178" size={24} strokeWidth={1.5} />
                 <div className='flex flex-col'>
