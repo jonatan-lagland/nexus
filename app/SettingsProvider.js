@@ -22,7 +22,7 @@ function SettingsProvider({ children }) {
         return false;
     });
 
-    const [collapseMenu, setCollapseMenu] = useState(false);
+    const [collapseMenu, setCollapseMenu] = useState(true);
 
 
     const toggleHistory = () => {

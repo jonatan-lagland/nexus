@@ -163,7 +163,7 @@ const CarouselContent = React.forwardRef<
         ref={ref}
         className={cn(
           "flex",
-          orientation === "horizontal" ? "-ml-4" : "-mt-4 flex-col",
+          orientation === "horizontal" ? "ml-0" : "-mt-4 flex-col",
           className
         )}
         {...props}
@@ -185,8 +185,8 @@ const CarouselItem = React.forwardRef<
       role="group"
       aria-roledescription="slide"
       className={cn(
-        "min-w-0 shrink-0 grow-0 basis-full",
-        orientation === "horizontal" ? "pl-4" : "pt-4",
+        "min-w-0 shrink-0 grow-0 basis-auto",
+        orientation === "horizontal" ? "pl-2" : "pt-4",
         className
       )}
       {...props}
@@ -207,10 +207,8 @@ const CarouselPrevious = React.forwardRef<
       variant={variant}
       size={size}
       className={cn(
-        "absolute  h-8 w-8 rounded-full border-none backdrop-saturate-100 backdrop-brightness-100",
-        orientation === "horizontal"
-          ? "-left-12 top-1/2 -translate-y-1/2"
-          : "-top-12 left-1/2 -translate-x-1/2 rotate-90",
+        "relative h-8 w-8 rounded-full border-none backdrop-saturate-100 backdrop-brightness-100",
+        orientation === "horizontal",
         className
       )}
       disabled={!canScrollPrev}
@@ -236,10 +234,8 @@ const CarouselNext = React.forwardRef<
       variant={variant}
       size={size}
       className={cn(
-        "absolute h-8 w-8 rounded-full border-none backdrop-saturate-100 backdrop-brightness-100",
-        orientation === "horizontal"
-          ? "-right-12 top-1/2 -translate-y-1/2"
-          : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90",
+        "relative h-8 w-8 rounded-full border-none backdrop-saturate-100 backdrop-brightness-100",
+        orientation === "horizontal",
         className
       )}
       disabled={!canScrollNext}

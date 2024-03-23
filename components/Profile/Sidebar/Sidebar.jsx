@@ -52,7 +52,9 @@ function Sidebar({ rankedDetails }) {
                             </div>
                         </div>
                     </div>
-                    <HistoryCarousel></HistoryCarousel>
+                    <div className=''>
+                        <HistoryCarousel></HistoryCarousel>
+                    </div>
                 </>
             }
         </article>

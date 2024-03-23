@@ -44,10 +44,10 @@ function HistoryCarousel() {
     }
 
     return (
-        <div className='flex flex-col items-center justify-between p-2 pb-4 gap-2 rounded-lg border border-neutral-800 bg-dark-grey overflow-hidden'>
+        <div className='flex flex-col items-center justify-between gap-2 rounded-lg border border-neutral-800 bg-dark-grey overflow-hidden'>
             <div className='flex flex-row gap-4 justify-center items-center'>
                 <Info aria-label='info-recently-viewed' color="#6e7178" size={24} strokeWidth={1.5} />
-                <div className='flex flex-col'>
+                <div className='flex flex-col p-1'>
                     <span className='text-neutral-200 font-semibold'>Recently viewed</span>
                     <span className='text-neutral-400 text-sm'>Continue where you left off</span>
                 </div>
@@ -67,8 +67,8 @@ function HistoryCarousel() {
                             user.puuid !== entry.user.puuid && ( // Do not render the currently viewed page as a card
                                 <CarouselItem key={index} className="basis-auto">
                                     <Link href={`/profile/${entry.server}/${entry.user.gameName}-${entry.user.tagLine}`}>
-                                        <Card className='bg-deep-purple border flex flex-col border-gray-600 h-[155px] break-all' >
-                                            <CardContent className="flex flex-col aspect-square p-1 select-none items-center">
+                                        <Card className='bg-deep-purple border border-gray-600' >
+                                            <CardContent className="select-none flex flex-col items-center justify-evenly">
                                                 <ProfileAvatar userDetails={entry.userDetails} size={64} renderSummonerLevel={false}></ProfileAvatar>
                                                 <span className="text-base font-semibold text-white">{entry.user.gameName}</span>
                                                 <span className="text-sm font-semibold text-gray-400">#{entry.user.tagLine}</span>
@@ -78,8 +78,10 @@ function HistoryCarousel() {
                                 </CarouselItem>
                             )))}
                     </CarouselContent>
-                    <CarouselPrevious />
-                    <CarouselNext />
+                    <div className='flex flex-row justify-around'>
+                        <CarouselPrevious />
+                        <CarouselNext />
+                    </div>
                 </Carousel>
             </div>
         </div>
