@@ -7,7 +7,9 @@ import { ChampionListContext } from './context/championListContext';
 
 const baseUrl = "https://ddragon.leagueoflegends.com/cdn";
 const CDBaseUrl = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default';
+const profileIcon = "img/profileicon";
 const itemIcon = "img/item"
+const championIcon = "img/champion"
 const placeholderIconSrc = "/assets/images/placeholder.webp"
 const placeholderChampionSrc = "https://cdn.communitydragon.org/latest/champion/generic/square";
 
@@ -25,7 +27,7 @@ export const useImagePathChampion = (championKey) => {
         let championSrc = null;
         for (let champion in championList.data) {
             if (championList.data[champion].key === stringifiedKey) {
-                championSrc = stringifiedKey;
+                championSrc = championList.data[champion].image.full;
                 break;
             }
         }
@@ -33,7 +35,7 @@ export const useImagePathChampion = (championKey) => {
         if (!championSrc) {
             return placeholderChampionSrc;
         }
-        return `https://cdn.communitydragon.org/latest/champion/${stringifiedKey}/square`;
+        return `${baseUrl}/${gamePatch}/${championIcon}/${championSrc}`;
     }, [championKey, gamePatch, championList.data, stringifiedKey]);
 };
 
@@ -85,12 +87,12 @@ export const useImagePathItem = (item) => {
 };
 
 export const useImagePathUser = (info) => {
-
-    if (!info) {
+    const gamePatch = useContext(GameVersionContext);
+    if (!info || !gamePatch) {
         return placeholderChampionSrc
     }
     const id = info.profileIconId;
-    const src = `https://cdn.communitydragon.org/latest/profile-icon/${id}`;
+    const src = `${baseUrl}/${gamePatch}/${profileIcon}/${id}.png`;
     return src;
 }
 
