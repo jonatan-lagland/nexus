@@ -7,8 +7,20 @@ import {
     TooltipTrigger,
     TooltipArrow
 } from "@/components/ui/tooltip"
+import { PlayerTier, PlayerRank } from "@utils/types";
 
-function RankEmblemComponent({ tier, rank, type, size, leaguePoints }) {
+type EmblemSize = "small" | "base"
+type RankType = "playerRank" | "gameAverageRank";
+
+type RankEmblemProps = {
+    tier: PlayerTier;
+    rank?: PlayerRank;
+    type?: RankType;
+    size?: EmblemSize;
+    leaguePoints?: number;
+}
+
+function RankEmblemComponent({ tier, rank, type, size, leaguePoints }: RankEmblemProps) {
     if (!tier) {
         return null;
     }
