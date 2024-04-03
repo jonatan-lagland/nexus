@@ -8,8 +8,15 @@ import {
 } from "@/components/ui/tooltip"
 import Image from "next/image";
 import { useImagePathUser } from "@utils/pathUtils";
+import { UserDetail } from "@utils/types";
 
-export function ProfileAvatar({ userDetails, size, renderSummonerLevel = true }) {
+type ProfileAvatarProps = {
+    userDetails: UserDetail;
+    size: number;
+    renderSummonerLevel?: Boolean;
+}
+
+export function ProfileAvatar({ userDetails, size, renderSummonerLevel = true }: ProfileAvatarProps) {
     const imgPath = useImagePathUser(userDetails);
     return (
         <TooltipProvider delayDuration={0} skipDelayDuration={300}>
@@ -22,6 +29,7 @@ export function ProfileAvatar({ userDetails, size, renderSummonerLevel = true })
                 quality={100}
                 priority
             />
+            {/* In some cases Summoner Level is not rendered, e.g. In profile history cards. However, does render by default. */}
             {renderSummonerLevel ?
                 <Tooltip>
                     <TooltipTrigger asChild>

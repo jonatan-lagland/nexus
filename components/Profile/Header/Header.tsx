@@ -4,15 +4,24 @@ import { ProfileAvatar } from '@components/ui/profileAvatar';
 import RefreshButton from './refreshButton';
 import LiveGameButton from './LiveGameButton';
 import MenuButton from './MenuButton';
-import { PlayerTier, PlayerRank, QueueDetail, UserInfo, UserDetail } from '@utils/types';
+import { PlayerTier, PlayerRank, QueueDetail, User, UserDetail, Region, Server } from '@utils/types';
 
 type HeaderProps = {
     rankedDetails?: QueueDetail[];
-    user: UserInfo;
-    server: string;
-    region: string;
+    user: User;
+    server: Server;
+    region: Region;
     userDetails?: UserDetail;
 }
+
+/* 
+    * rankedSoloDetails:    Find details related to a player's Ranked Solo stats
+    * wins:                 Player's total wins in the Ranked Solo queue
+    * losses:               Player's total losses in the Ranked Solo queue
+    * winrate:              Player's overall winrate (wins divided by losses) in the Ranked Solo queue
+    * totalgames:           The total amount of games played in the Ranked Solo queue
+    * summonerId:           The player's ID in the particular server the games have been played in
+*/
 
 async function Header({ rankedDetails, user, region, server, userDetails }: HeaderProps) {
     const rankedSoloDetails: QueueDetail = rankedDetails && rankedDetails.find(detail => detail.queueType === "RANKED_SOLO_5x5");
@@ -27,7 +36,7 @@ async function Header({ rankedDetails, user, region, server, userDetails }: Head
             <div className="flex flex-row text-start py-3">
                 <div className="flex flex-row gap-3 items-center">
                     <div className='relative'>
-                        <ProfileAvatar userDetails={userDetails} size={120}></ProfileAvatar>
+                        <ProfileAvatar userDetails={userDetails as UserDetail} size={120}></ProfileAvatar>
                     </div>
                     <div className='flex flex-col gap-5'>
                         <div className="flex flex-row flex-wrap gap-3 items-end">

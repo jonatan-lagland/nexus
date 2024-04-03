@@ -4,9 +4,23 @@ import { useContext } from "react";
 import { MatchHistoryContext } from "@utils/context/matchHistoryContext";
 import { Button } from "@components/ui/button";
 import { ProgressBarExtraSmall } from "@components/ui/Loading";
+import { User, Region, Server } from "@utils/types";
 
-export default function RefreshButton({ user, region, server, summonerId }) {
-    const { refreshMatchHistoryData, invalidateQuery, isLoading } = useContext(MatchHistoryContext);
+type RefreshButtonProps = {
+    user: User;
+    region: Region;
+    server: Server;
+    summonerId: string;
+}
+
+type MatchHistoryContextProps = {
+    refreshMatchHistoryData: (puuid: string, region: Region, server: Server, summonerId: string) => void; // eslint-disable-line no-unused-vars
+    invalidateQuery: () => void;
+    isLoading: boolean;
+}
+
+export default function RefreshButton({ user, region, server, summonerId }: RefreshButtonProps) {
+    const { refreshMatchHistoryData, invalidateQuery, isLoading }: MatchHistoryContextProps = useContext(MatchHistoryContext);
 
     function handleRefresh() {
         invalidateQuery();
