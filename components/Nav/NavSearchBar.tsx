@@ -5,7 +5,7 @@ import SearchBarComponent from '@components/Landing/SearchBarComponent';
 import { usePathname } from 'next/navigation'
 
 const NavSearchBar = () => {
-    const pathname = usePathname()
+    const pathname: string = usePathname()
 
     /* Conditionally render only on /profile page */
     return (
