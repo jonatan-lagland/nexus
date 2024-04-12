@@ -6,17 +6,18 @@ import { ProgressBarExtraSmall } from '@components/ui/Loading'
 import { useContext } from 'react'
 import { SettingsContext } from '@utils/context/settingsContext'
 import { useCalculateGridBreakpoints } from '@utils/gridUtils'
+import { QueueDetail, PlayerTier, PlayerRank } from '@utils/types'
 const HistoryCarousel = dynamic(() => import('./HistoryCarousel'), { ssr: false, loading: () => <ProgressBarExtraSmall></ProgressBarExtraSmall> })
 
 
 
 function Sidebar({ rankedDetails }) {
-    const rankedSoloDetails = rankedDetails && rankedDetails.find(detail => detail.queueType === "RANKED_SOLO_5x5");
-    const playerTier = rankedSoloDetails && rankedSoloDetails.tier ? rankedSoloDetails.tier : "Unranked";
-    const playerRank = rankedSoloDetails && rankedSoloDetails.rank ? rankedSoloDetails.rank : null;
-    const leaguePoints = rankedSoloDetails && rankedSoloDetails.leaguePoints ? rankedSoloDetails.leaguePoints + " lp" : rankedSoloDetails && rankedSoloDetails.tier ? "0 lp" : null;
-    const wins = rankedSoloDetails ? rankedSoloDetails.wins : null;
-    const losses = rankedSoloDetails ? rankedSoloDetails.losses : null;
+    const rankedSoloDetails: QueueDetail = rankedDetails && rankedDetails.find(detail => detail.queueType === "RANKED_SOLO_5x5");
+    const playerTier: PlayerTier = (rankedSoloDetails && rankedSoloDetails.tier ? rankedSoloDetails.tier : "UNRANKED") as PlayerTier;
+    const playerRank: PlayerRank = (rankedSoloDetails && rankedSoloDetails.rank ? rankedSoloDetails.rank : "") as PlayerRank;
+    const leaguePoints: string = rankedSoloDetails && rankedSoloDetails.leaguePoints ? rankedSoloDetails.leaguePoints + " lp" : rankedSoloDetails && rankedSoloDetails.tier ? "0 lp" : null;
+    const wins: number = rankedSoloDetails ? rankedSoloDetails.wins : null;
+    const losses: number = rankedSoloDetails ? rankedSoloDetails.losses : null;
 
     const { collapseMenu } = useContext(SettingsContext);
     const { isSmallerThanBreakPoint } = useCalculateGridBreakpoints();
@@ -40,7 +41,7 @@ function Sidebar({ rankedDetails }) {
                                     alt={`${playerTier} Emblem`}
                                     height={128}
                                     width={128}
-                                    quality={100}
+                                    quality={80}
                                     priority
                                     className='select-none'
                                 >
