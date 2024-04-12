@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useRouter } from 'next/navigation'
-import { useRef, useState } from "react";
+import { MutableRefObject, useRef, useState } from "react";
 import {
     useKeyPress,
     useSearchBarChange,
@@ -12,17 +12,24 @@ import {
 import { RegionContext } from "@utils/context/regionContext";
 import { useContext } from "react";
 import { Search } from "lucide-react";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
-const SearchBarComponent = ({ shouldFocus = false, options }) => {
-    const inputRef = useRef(null);
-    const router = useRouter();
+type SearchBarComponentProps = {
+    shouldFocus?: boolean;
+    options?: [];
+}
+
+
+const SearchBarComponent = ({ shouldFocus = false, options }: SearchBarComponentProps) => {
+    const inputRef: MutableRefObject<HTMLInputElement> = useRef(null);
+    const router: AppRouterInstance = useRouter();
     const [inputValue, setInputValue] = useState("");
-    const [filteredOptions, setFilteredOptions] = useState("");
+    const [filteredOptions, setFilteredOptions] = useState([]);
     const [isDropdownVisible, setDropdownVisible] = useState(false);
     const { region } = useContext(RegionContext)
-    const dropdownRef = useRef(null);
-    const DROPDOWN_MENU_ICON_WIDTH = 75;
-    const DROPDOWN_MENU_ICON_HEIGHT = 75;
+    const dropdownRef: MutableRefObject<HTMLDivElement> = useRef(null);
+    const DROPDOWN_MENU_ICON_WIDTH: number = 75;
+    const DROPDOWN_MENU_ICON_HEIGHT: number = 75;
 
     /* 
         * HANDLESEARCHBARCHANGE         = When user types in the input field
@@ -79,7 +86,6 @@ const SearchBarComponent = ({ shouldFocus = false, options }) => {
                                             <div
                                                 //onClick={() => handleOptionClick(option.id)}
                                                 className="dropdown_link hover:bg-gray-200 flex items-center"
-                                                tabIndex="0"
                                             >
                                                 <Image
                                                     className="border-2 border-dark-grey w-12 h-12 md:w-16 md:h-16"
