@@ -4,7 +4,7 @@ module.exports = {
     es2021: true,
   },
 
-  extends: ['eslint:recommended', 'next/core-web-vitals'],
+  extends: ['eslint:recommended', 'next/core-web-vitals', "plugin:@typescript-eslint/eslint-recommended", "plugin:@typescript-eslint/recommended"],
   overrides: [
     {
       env: {
