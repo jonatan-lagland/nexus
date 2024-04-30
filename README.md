@@ -40,7 +40,7 @@ With the combined use of React Query's tool [useInfiniteQuery](https://tanstack.
 
 With the use of React Server Components, the initial page load and subsequently [First Contentful Paint (FCP)](https://developer.chrome.com/docs/lighthouse/performance/first-contentful-paint) are greatly improved. For example, the profile page's "header" that displays the user's name and short description is rendered on the server, as well as the sidebar badge displaying the user's wins and losses, while the individual matches are rendered on the client.
 
-In addition, the website's fetch requests are performed with Server Actions in order to reduce the time taken to complete each request. Server actions allow requests to be cached and served to users across the platform. [Read more on Next.js Benefits of Server Rendering.](https://nextjs.org/docs/app/building-your-application/rendering/server-components)
+In addition, the website's fetch requests are performed with server components in order to reduce the time taken to complete each request. Server components allow requests to be cached and served to users across the platform. [Read more on Next.js Benefits of Server Rendering.](https://nextjs.org/docs/app/building-your-application/rendering/server-components)
 
 By implementing the aforementioned optimizations, alongside features such as [dynamic imports](https://nextjs.org/docs/pages/building-your-application/optimizing/lazy-loading#nextdynamic) and [lazy loading of images](https://nextjs.org/docs/pages/building-your-application/optimizing/images), the website performs relatively well even on slower devices. Below is a Lighthouse performance report done on the deployed website:
 
