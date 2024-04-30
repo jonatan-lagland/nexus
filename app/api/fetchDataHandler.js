@@ -2,7 +2,7 @@
 import { serverErrorHandler } from "./errorHandlers";
 import { rateLimitHandler } from "./errorHandlers";
 
-export default async function fetchDataHandler(url, tag, includeApiKey = false, cacheDuration = 1209600) {
+export default async function fetchDataHandler(url, tag, includeApiKey = false, cacheDuration = 1209600) { // eslint-disable-line no-unused-vars
     // By default, no API key is included in header. API key isn't needed when fetching data from DDragon API.
     // 2 week cache duration by default
     const headers = {};
@@ -17,7 +17,7 @@ export default async function fetchDataHandler(url, tag, includeApiKey = false, 
     for (let attempt = 0; attempt < maxRetries; attempt++) {
         const response = await fetch(url, {
             headers,
-            next: { tags: [tag], revalidate: cacheDuration }
+            next: { tags: [tag] }
         });
 
         if (response.status === 429 && attempt < maxRetries - 1) {
