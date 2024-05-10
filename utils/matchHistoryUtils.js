@@ -11,8 +11,11 @@ export function useCardDetails(matchHistoryDetails, puuid) {
         const { info } = matchHistoryDetails;
         const { gameEndTimestamp, gameDuration, gameMode, queueId, participants } = info;
         const mainPlayer = participants.find(participant => participant.puuid === puuid);
-        const { win } = mainPlayer;
 
+        if (!mainPlayer)
+            return null
+
+        const { win } = mainPlayer;
         // Item id's of the main player in a match
         const {
             item0,
