@@ -20,7 +20,6 @@ import Link from 'next/link'
 import { Info } from 'lucide-react';
 
 function HistoryCarousel() {
-
     const { historyCarousel } = useContext(HistoryCarouselContext)
     const { isAllowHistory } = useContext(SettingsContext)
     const { user } = useContext(MatchHistoryContext)
@@ -32,7 +31,7 @@ function HistoryCarousel() {
                     <div className='flex flex-row gap-4 justify-center items-center'>
                         <Info aria-label='info-recently-viewed' color="#6e7178" size={24} strokeWidth={1.5} />
                         <div className='flex flex-col'>
-                            <span className='text-neutral-200 font-semibold'>Recently viewed</span>
+                            <span className='text-neutral-200 text-sm'>Recently viewed</span>
                             <span className='text-neutral-400 text-sm'>
                                 {isAllowHistory ? 'The profiles you see show up here' : 'Go to settings to enable this feature'}
                             </span>
@@ -44,14 +43,9 @@ function HistoryCarousel() {
     }
 
     return (
-        <div className='flex flex-col items-center justify-between gap-2 rounded-lg border border-neutral-800 bg-dark-grey overflow-hidden'>
-            <div className='flex flex-row gap-4 justify-center items-center'>
-                <Info aria-label='info-recently-viewed' color="#6e7178" size={24} strokeWidth={1.5} />
-                <div className='flex flex-col p-1'>
-                    <span className='text-neutral-200 font-semibold'>Recently viewed</span>
-                    <span className='text-neutral-400 text-sm'>Continue where you left off</span>
-                </div>
-            </div>
+        <div className='flex flex-col items-center justify-between gap-4 py-4 rounded-lg border border-neutral-700 bg-dark-grey overflow-hidden'>
+            <span className='text-gray-200 text-sm px-6 w-full'>Recently viewed</span>
+            <hr className="h-px border-none w-full bg-neutral-700"></hr>
             <div className='flex flex-col items-center gap-3 justify-center rounded-lg border-slate-600'>
                 <Carousel
                     opts={{
@@ -67,7 +61,7 @@ function HistoryCarousel() {
                             user.puuid !== entry.user.puuid && ( // Do not render the currently viewed page as a card
                                 <CarouselItem key={index} className="basis-auto">
                                     <Link href={`/profile/${entry.server}/${entry.user.gameName}-${entry.user.tagLine}`}>
-                                        <Card className='bg-deep-purple border border-gray-600' >
+                                        <Card className='bg-inherit backdrop-brightness-110 py-1 border-zinc-800' >
                                             <CardContent className="select-none flex flex-col items-center justify-evenly">
                                                 <ProfileAvatar userDetails={entry.userDetails} size={64} renderSummonerLevel={false}></ProfileAvatar>
                                                 <span className="text-base font-semibold text-white">{entry.user.gameName}</span>
@@ -78,10 +72,6 @@ function HistoryCarousel() {
                                 </CarouselItem>
                             )))}
                     </CarouselContent>
-                    <div className='flex flex-row justify-around'>
-                        <CarouselPrevious />
-                        <CarouselNext />
-                    </div>
                 </Carousel>
             </div>
         </div>
