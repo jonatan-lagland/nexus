@@ -52,10 +52,7 @@ export const MatchHistoryProvider = ({ children, matchHistory, user, userDetails
     };
 
     const invalidateQuery = () => {
-        queryClient.invalidateQueries('query', {
-            refetchActive: true,
-            refetchInactive: false,
-        });
+        queryClient.invalidateQueries({ queryKey: ['query'] })
     }
 
     return (
