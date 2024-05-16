@@ -6,6 +6,7 @@ import { MatchHistoryContext } from '@utils/context/matchHistoryContext';
 import { getMatchHistory, getRankedInfo, getUserInfo } from './api/userProps';
 import { useQueryClient } from '@tanstack/react-query';
 import { toast } from "sonner";
+import { Region, Server } from '@utils/types';
 
 export const MatchHistoryProvider = ({ children, matchHistory, user, userDetails }) => {
     const [matchHistoryData, setMatchHistoryData] = useState(matchHistory);
@@ -13,27 +14,33 @@ export const MatchHistoryProvider = ({ children, matchHistory, user, userDetails
     const [isLoading, setIsLoading] = useState(false);
     const queryClient = useQueryClient();
 
-    const refreshMatchHistoryData = (puuid, region, server, summonerId) => {
-        const fetchData = async () => {
-            setIsLoading(true)
-            try {
-                const refreshCache = true;
-                if (summonerId) {
-                    await getRankedInfo(summonerId, server, refreshCache);
-                    await getUserInfo(user.puuid, server, refreshCache);
-                }
-                const res_match = await getMatchHistory(puuid, region, refreshCache);
+    const toastUpToDate = () => {
+        toast.info(`${user.gameName} #${user.tagLine} is already up-to-date.`, {
+            action: {
+                label: "Dismiss",
+                onClick: () => toast.dismiss(),
+            },
+        });
+    }
 
-                /* Display a toast if there are no new matches */
-                if (JSON.stringify(res_match) === JSON.stringify(matchHistory)) {
-                    toast.info(`${user.gameName} #${user.tagLine} is already up-to-date.`, {
-                        action: {
-                            label: "Dismiss",
-                            onClick: () => toast.dismiss(),
-                        },
-                    });
-                } else {
+    const refreshMatchHistoryData = (puuid: string, region: Region, server: Server, summonerId: string) => {
+        const fetchData = async () => {
+            try {
+                setIsLoading(true)
+                /* SummonerId is depracated on some accounts created after the introduction of Riot ID's */
+                if (!summonerId) {
+                    throw new Error('Summoner ID is required')
+                }
+                /* Refresh user and ranked details, the response is not required to be set */
+                await getRankedInfo(summonerId, server, true);
+                await getUserInfo(user.puuid, server, true);
+                const res_match = await getMatchHistory(puuid, region, true);
+
+                if (JSON.stringify(res_match) !== JSON.stringify(matchHistory)) {
                     setMatchHistoryData(res_match);
+                } else {
+                    /* Display a toast if there are no new matches */
+                    toastUpToDate();
                 }
             } catch (error) {
                 setError(error)
