@@ -29,7 +29,7 @@ function Sidebar({ rankedDetails }) {
                 null
                 :
                 <>
-                    <div className='flex flex-col bg-deep-purple border border-gray-600 rounded-lg py-8 px-8 lg:px-16'>
+                    <div className='flex flex-col bg-dark-grey-secondary border border-[#2C2F42] rounded-lg py-8 px-8 lg:px-16'>
                         <div className='flex flex-row justify-between items-center'>
                             <div style={{ textShadow: "1px 1px 1px black" }} className='flex flex-col drop-shadow-md '>
                                 <span className='text-2xl lg:text-3xl font-bold text-white'>{playerTier} {playerRank}</span>
@@ -42,7 +42,7 @@ function Sidebar({ rankedDetails }) {
                                     height={128}
                                     width={128}
                                     quality={80}
-                                    priority
+                                    priority={true}
                                     className='select-none'
                                 >
                                 </Image>
@@ -53,9 +53,7 @@ function Sidebar({ rankedDetails }) {
                             </div>
                         </div>
                     </div>
-                    <div className=''>
-                        <HistoryCarousel></HistoryCarousel>
-                    </div>
+                    <HistoryCarousel></HistoryCarousel>
                 </>
             }
         </article>

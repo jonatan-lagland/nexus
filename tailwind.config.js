@@ -45,6 +45,7 @@ module.exports = {
         'vibrant-orange': '#ff7420',
         'charcoal': '#191919',
         'dark-grey': '#16171a',
+        'dark-grey-secondary': '#1D1D2B',
         'navy-blue': '#281F74',
         'deep-purple': '#303554',
         'cosmic-cobalt': '#4B63A3',

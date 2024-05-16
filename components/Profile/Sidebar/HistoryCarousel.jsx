@@ -4,8 +4,6 @@ import {
     Carousel,
     CarouselContent,
     CarouselItem,
-    CarouselNext,
-    CarouselPrevious,
 } from "@/components/ui/carousel"
 import {
     Card,
@@ -64,8 +62,8 @@ function HistoryCarousel() {
                                         <Card className='bg-inherit backdrop-brightness-110 py-1 border-zinc-800' >
                                             <CardContent className="select-none flex flex-col items-center justify-evenly">
                                                 <ProfileAvatar userDetails={entry.userDetails} size={64} renderSummonerLevel={false}></ProfileAvatar>
-                                                <span className="text-base font-semibold text-white">{entry.user.gameName}</span>
-                                                <span className="text-sm font-semibold text-gray-400">#{entry.user.tagLine}</span>
+                                                <span className="text-sm text-white">{entry.user.gameName}</span>
+                                                <span className="text-xs text-gray-400">#{entry.user.tagLine}</span>
                                             </CardContent>
                                         </Card>
                                     </Link>
