@@ -24,8 +24,9 @@ function LiveTeams({ rankedDetailsOfEveryPlayer, gameMode, bannedChampions }) {
                             <th>
                                 <span className='text-[#6a85ff]'>Blue team</span>
                             </th>
-                            <th className='lg:block hidden'></th>
-                            <th className=''>
+                            <th></th>
+                            <th className='hidden lg:block'></th>
+                            <th>
                                 <span className='text-slate-400'>Rank</span>
                             </th>
                             <th>
@@ -42,16 +43,17 @@ function LiveTeams({ rankedDetailsOfEveryPlayer, gameMode, bannedChampions }) {
                 <div className='flex flex-col gap-2'>
                     <Bans bannedChampions={bannedChampions} side={'red'}></Bans>
                     <table>
-                        <thead className='live-match items-center justify-center py-1 bg-inherit text-sm'>
+                        <thead className='live-match justify-center py-1 text-xs'>
                             <th>
-                                <span className='text-[#ff5c5c]'>Red team</span>
+                                <span className='text-gray-200'>Red team</span>
                             </th>
-                            <th className='lg:block hidden'></th>
-                            <th className=''>
-                                <span className='text-slate-400'>Rank</span>
+                            <th></th>
+                            <th className='hidden lg:block'></th>
+                            <th>
+                                <span className='text-gray-200'>Rank</span>
                             </th>
                             <th>
-                                <span className='text-slate-400'>Ranked Winrate</span>
+                                <span className='text-slate-300'>Ranked Winrate</span>
                             </th>
                         </thead>
                         <tbody className='border-s-4 border-s-red-700'>

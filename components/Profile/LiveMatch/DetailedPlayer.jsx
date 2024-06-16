@@ -67,6 +67,9 @@ const DetailedPlayer = ({ player }) => {
                     <Rune rune={keystone} size={18}></Rune>
                     <RunePath runePath={runePath} size={18}></RunePath>
                 </div>
+
+            </td>
+            <td>
                 {/* Conditionally render a link if player is a bot or hasn't played in years and thus has no Riot ID */}
                 <div className="flex flex-row items-center justify-start text-xs truncate gap-2 ">
                     {player.userNameAndTag.gameName ?

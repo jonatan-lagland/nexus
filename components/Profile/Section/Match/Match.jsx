@@ -66,7 +66,7 @@ function Match({ matchHistoryDetails, puuid }) {
                 <div className='flex flex-grow flex-row flex-wrap justify-between gap-1'>
                     <div className='flex flex-row justify-center text-center items-center space-x-3'>
                         <div>
-                            <span className={`text-white text-base`}>{queueType && queueType.name && queueType.name}</span>
+                            <span className={`text-gray-200 text-sm`}>{queueType && queueType.name && queueType.name}</span>
                         </div>
                         <div>
                             {mainPlayer.teamPosition && <RoleIcon role={mainPlayer.teamPosition} />}
