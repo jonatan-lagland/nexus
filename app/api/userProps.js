@@ -121,12 +121,12 @@ export async function getMatchHistoryDetails(matchId, region) {
     }
 }
 
-export async function getLiveGameDetails(server, summonerId) {
+export async function getLiveGameDetails(server, puuid) {
     const base_url = process.env.RIOT_API_BASE_URL;
     const spectator_url = process.env.RIOT_API_SPECTATOR_URL;
     const INCLUDE_API_KEY = true; // Include an API key
-    const url = `https://${server}.${base_url}/${spectator_url}/by-summoner/${summonerId}`;
-    const tag = `Live-Game-${summonerId}`;
+    const url = `https://${server}.${base_url}/${spectator_url}/by-summoner/${puuid}`;
+    const tag = `Live-Game-${puuid}`;
 
     try {
         revalidateCache(tag)

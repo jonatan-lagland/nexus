@@ -25,12 +25,29 @@ export const LiveGameProvider = ({ children }) => {
         });
     }
 
-    const fetchLiveGame = async (server: Server, region: Region, summonerId: string, gameName: string, tagLine: string) => {
+    const toastError = () => {
+        toast.info(`An error has occurred. Please try again later.`, {
+
+            action: {
+                label: "Dismiss",
+                onClick: () => toast.dismiss(),
+            },
+        });
+    }
+
+    const fetchLiveGame = async (server: Server, region: Region, summonerId: string, gameName: string, tagLine: string, puuid: string) => {
         try {
             setIsLoading(true);
-            const response = await getLiveGameDetails(server, summonerId);
-            if (response.error) { // If player isn't in-game or otherwise an error occurs
+            const response = await getLiveGameDetails(server, puuid);
+            if (response.error && response.status === 404) { // If player isn't in-game
                 toastUpToDate(gameName, tagLine)
+                setIsShowLiveGameTab(false)
+                setIsLoading(false)
+                setLoadingProgress(0)
+                return;
+            }
+            if (response.error) { // If a generic error occurs
+                toastError()
                 setIsShowLiveGameTab(false)
                 setIsLoading(false)
                 setLoadingProgress(0)

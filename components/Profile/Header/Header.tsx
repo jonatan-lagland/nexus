@@ -67,7 +67,7 @@ async function Header({ rankedDetails, user, region, server, userDetails }: Head
             <div className='flex flex-row justify-between items-center'>
                 <div className="flex flex-row gap-2 justify-start">
                     <RefreshButton user={user} region={region} server={server} summonerId={summonerId}></RefreshButton>
-                    <LiveGameButton server={server} region={region} summonerId={summonerId} gameName={user.gameName} tagLine={user.tagLine}></LiveGameButton>
+                    <LiveGameButton server={server} region={region} summonerId={summonerId} gameName={user.gameName} tagLine={user.tagLine} puuid={user.puuid}></LiveGameButton>
                 </div>
                 <div className='block md:hidden'>
                     <MenuButton></MenuButton>

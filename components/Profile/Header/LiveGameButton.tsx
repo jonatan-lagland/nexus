@@ -7,23 +7,24 @@ import { LiveGameContext } from "@utils/context/liveGameContext";
 import { Server, Region } from "@utils/types";
 
 type LiveGameButtonProps = {
-    server: Server;
-    region: Region;
-    summonerId: string;
-    gameName: string;
-    tagLine: string;
+    server: Server
+    region: Region
+    summonerId: string
+    gameName: string
+    tagLine: string
+    puuid: string
 }
 
 type LiveGameContextProps = {
-    fetchLiveGame: (server: Server, region: Region, summonerId: string, gameName: string, tagLine: string) => void; // eslint-disable-line no-unused-vars
+    fetchLiveGame: (server: Server, region: Region, summonerId: string, gameName: string, tagLine: string, puuid: string) => void; // eslint-disable-line no-unused-vars
     isLoading: boolean;
 }
 
-export default function LiveGameButton({ server, region, summonerId, gameName, tagLine }: LiveGameButtonProps) {
+export default function LiveGameButton({ server, region, summonerId, gameName, tagLine, puuid }: LiveGameButtonProps) {
     const { isLoading, fetchLiveGame }: LiveGameContextProps = useContext(LiveGameContext);
 
     const handleClick = () => {
-        fetchLiveGame(server, region, summonerId, gameName, tagLine)
+        fetchLiveGame(server, region, summonerId, gameName, tagLine, puuid)
     };
 
     return (
