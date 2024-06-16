@@ -19,7 +19,7 @@ function LiveMatch({ liveGameDetails, rankedDetailsOfEveryPlayer }) {
     return (
         <section className="profile-grid-section">
             <div>
-                <div className='flex flex-col container-live gap-2 px-3 py-5 md:px-5 border overflow-hidden rounded-lg'>
+                <div className='flex flex-col bg-dark-grey-secondary border-[#2C2F42] gap-2 px-3 py-5 md:px-5 border overflow-hidden rounded-lg'>
                     <div className="flex flex-col gap-4">
                         <div className="flex flex-row items-center justify-between">
                             <div className="flex flex-col gap-2">

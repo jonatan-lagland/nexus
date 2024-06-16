@@ -58,7 +58,7 @@ const DetailedPlayer = ({ player }) => {
     return (
         <tr className='live-match items-center justify-center text-start bg-inherit gap-1'>
             <td className="flex flex-row items-center space-x-2 truncate ps-1">
-                <ChampionIcon championId={player.championId} size={32} shape={'rounded-full'}></ChampionIcon>
+                <ChampionIcon championId={player.championId} size={24} shape={'rounded-full'}></ChampionIcon>
                 <div className="flex flex-col justify-center items-center gap-1">
                     <SummonerSpell spell={summonerSpell1} size={18}></SummonerSpell>
                     <SummonerSpell spell={summonerSpell2} size={18}></SummonerSpell>
@@ -68,11 +68,11 @@ const DetailedPlayer = ({ player }) => {
                     <RunePath runePath={runePath} size={18}></RunePath>
                 </div>
                 {/* Conditionally render a link if player is a bot or hasn't played in years and thus has no Riot ID */}
-                <div className="flex flex-row items-center justify-start truncate gap-2 max-w-[50px] md:max-w-[70px] lg:max-w-[120px]">
+                <div className="flex flex-row items-center justify-start text-xs truncate gap-2 ">
                     {player.userNameAndTag.gameName ?
-                        <Link className={`text-zinc-300 hover:text-zinc-200 truncate text-xs font-abel lg:text-base`} href={`${playerPath}`}>{playerName}</Link>
+                        <Link className={`text-zinc-300 hover:text-zinc-200 truncate`} href={`${playerPath}`}>{playerName}</Link>
                         :
-                        <span className={`cursor-default text-zinc-300 hover:text-zinc-200 truncate font-abel text-base`}>{playerName}{player.userNameAndTag === 'BOT' ? ' Bot' : null}</span>
+                        <span className={`cursor-default text-zinc-300 hover:text-zinc-200 truncate`}>{playerName}{player.userNameAndTag === 'BOT' ? ' Bot' : null}</span>
                     }
 
                 </div>
