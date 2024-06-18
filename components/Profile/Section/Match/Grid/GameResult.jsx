@@ -3,6 +3,7 @@ import { useContext, useState, useEffect } from "react";
 import { MatchHistoryContext } from "@utils/context/matchHistoryContext";
 import { SettingsContext } from "@utils/context/settingsContext";
 import { useCalculateGameEnd } from "@utils/matchHistoryUtils";
+import ordinal from "ordinal";
 
 const GameResult = ({ isRemake }) => {
     const { matchData } = useContext(MatchHistoryContext);
@@ -10,10 +11,12 @@ const GameResult = ({ isRemake }) => {
     const { isColorblindMode } = useContext(SettingsContext);
     const [outcome, setOutcome] = useState('');
     const [outcomeTheme, setOutcomeTheme] = useState('');
+    const arenaPlacement = matchData.mainPlayer?.subteamPlacement;
 
     useEffect(() => {
         const outcome = isRemake ? 'Remake'
-            : win ? "Victory" : "Defeat";
+            : arenaPlacement > 0 ? `${ordinal(arenaPlacement)} place`
+                : win ? "Victory" : "Defeat";
         const outcomeTheme = isRemake ? 'text-white'
             : win
                 ? (isColorblindMode ? 'text-amber-400' : 'text-bright-green')
