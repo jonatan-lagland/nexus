@@ -58,7 +58,7 @@ function TeamsComponent({ participants, gameMode }) {
                 case 3:
                     return 'badge-bronze';
                 default:
-                    return 'bg-slate-900 text-zinc-600 ';
+                    return 'bg-slate-900 text-zinc-400 ';
             }
         };
 
@@ -69,7 +69,7 @@ function TeamsComponent({ participants, gameMode }) {
                 {topTeams.map((team, index) => (
                     <div key={index} className={`flex flex-row items-center `}>
                         <div className="pe-4">
-                            <div className={`font-abel ${getBgClass(team[0].subteamPlacement)} border border-black rounded-sm   font-semibold px-2 text-xs flex items-center justify-center`}>
+                            <div className={`font-abel ${getBgClass(team[0].subteamPlacement)} shadow rounded-sm text-white  font-medium px-2 text-xs flex items-center justify-center`}>
                                 {team[0].subteamPlacement}
                             </div>
                         </div>
