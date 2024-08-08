@@ -11,8 +11,8 @@ import {
 import { useChampionTrueNames } from "@utils/championUtils";
 
 const PlayerIcon = ({ championId }) => {
-
-    const championTrueName = useChampionTrueNames(championId);
+    const champion = useChampionTrueNames(championId);
+    const championTrueName = champion?.name;
 
     return (
         <div className="flex items-center">

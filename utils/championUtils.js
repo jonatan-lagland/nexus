@@ -42,7 +42,7 @@ export const useChampionTrueNames = (championKey) => {
         const stringifiedKey = String(championKey);
         for (let champion in championList.data) {
             if (championList.data[champion].key === stringifiedKey) {
-                return championList.data[champion].name;
+                return championList.data[champion];
             }
         }
         return null;
