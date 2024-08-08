@@ -3,7 +3,7 @@
 import React from 'react';
 import Playerfull from "./Playerfull";
 
-function FullTeams({ participants, gameMode, matchData, containerClass, playerScores }) {
+function FullTeams({ participants, gameMode, playerScores, isRemake }) {
     let blueTeam = [];
     let redTeam = [];
 
@@ -11,42 +11,31 @@ function FullTeams({ participants, gameMode, matchData, containerClass, playerSc
         blueTeam = participants.slice(0, 5);
         redTeam = participants.slice(5);
 
-        const blueTeamResult = blueTeam[0].win ? 'Victory' : 'Defeat'
-        const blueTeamResultBg = blueTeam[0].win ? 'container-victory-colorblind' : 'container-defeat-colorblind'
-        const blueTeamResultTitleColor = blueTeam[0].win ? 'text-blue-300/80' : 'text-red-500'
+        const blueTeamResult = isRemake ? '' : blueTeam[0].win ? 'Victory' : 'Defeat'
+        const blueTeamResultBg = isRemake ? 'container-remake-colorblind' : blueTeam[0].win ? 'container-victory-colorblind' : 'container-defeat-colorblind'
+        const blueTeamResultTitleColor = isRemake ? 'text-white' : blueTeam[0].win ? 'text-blue-300/80' : 'text-red-500'
 
-        const redTeamResult = redTeam[0].win ? 'Victory' : 'Defeat'
-        const redTeamResultBg = redTeam[0].win ? 'container-victory-colorblind' : 'container-defeat-colorblind'
-        const redTeamResultTitleColor = redTeam[0].win ? 'text-blue-300/80' : 'text-red-300/80'
-
+        const redTeamResult = isRemake ? '' : redTeam[0].win ? 'Victory' : 'Defeat'
+        const redTeamResultBg = isRemake ? 'container-remake-colorblind' : redTeam[0].win ? 'container-victory-colorblind' : 'container-defeat-colorblind'
+        const redTeamResultTitleColor = isRemake ? 'text-white' : redTeam[0].win ? 'text-blue-300/80' : 'text-red-300/80'
 
         /* Append index to puuid because bots all have the same id */
         return (
             <table className={`flex flex-col bg-dark-grey-secondary border-[#2C2F42] border rounded-md`}>
                 <div className={`${blueTeamResultBg} ${blueTeamResultTitleColor} py-3 px-1 rounded-t-md`} >
-                    <tr className='detailed-match items-center justify-center text-start'>
-                        <th></th>
+                    <thead className='flex items-center justify-center text-start pb-2'>
                         <th>{blueTeamResult}</th>
-                        <th>Kill Participation</th>
-                        <th className='text-start'>K/D/A</th>
-                        <th></th>
-                    </tr>
+                    </thead>
                     {blueTeam.map((player, i) => (
                         <Playerfull key={player.puuid + i} player={player} playerScores={playerScores}></Playerfull>
                     ))}
                 </div>
                 <div className={`${redTeamResultBg} ${redTeamResultTitleColor} py-3 px-1 rounded-b-md`} >
-                    <tr className='detailed-match items-center justify-center text-start'>
-                        <th></th>
+                    <thead className='flex items-center justify-center text-start pb-2'>
                         <th>{redTeamResult}</th>
-                        <th>Kill Participation</th>
-                        <th className='text-start'>K/D/A</th>
-                        <th></th>
-                    </tr>
+                    </thead>
                     {redTeam.map((player, i) => (
-                        <div className=' ' key={player.puuid + i}>
-                            <Playerfull player={player} playerScores={playerScores}></Playerfull>
-                        </div>
+                        <Playerfull key={player.puuid + i} player={player} playerScores={playerScores}></Playerfull>
                     ))}
                 </div>
             </table>

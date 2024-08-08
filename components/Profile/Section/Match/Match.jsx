@@ -3,7 +3,7 @@ import React from 'react'
 import { useContext, useEffect, useState } from 'react';
 import { SettingsContext } from "@utils/context/settingsContext";
 import { MatchHistoryContext } from '@utils/context/matchHistoryContext';
-import { useCalculateOPScore, useCardDetails, useGetQueueType } from '@utils/matchHistoryUtils';
+import { useCalculateOPScore, useCardDetails, getQueueTypes } from '@utils/matchHistoryUtils';
 import GameResult from './Grid/GameResult';
 import PlayerStatistics from './Grid/PlayerStatistics';
 import Teams from './Grid/Teams';
@@ -21,10 +21,9 @@ function Match({ matchHistoryDetails, puuid }) {
     const queueTypes = useContext(QueueContext)
     const [containerClass, setContainerClass] = useState('');
     const [isRemake, setIsRemake] = useState(false)
-    const [queueCode, setQueueCode] = useState('')
+    const [queueType, setQueueType] = useState('')
     const details = useCardDetails(matchHistoryDetails, puuid);
     const { mainPlayerScore, playerScores } = useCalculateOPScore(matchHistoryDetails, puuid);
-    const queueType = useGetQueueType(queueCode, queueTypes);
 
     useEffect(() => {
         if (matchData == null) {
@@ -36,11 +35,12 @@ function Match({ matchHistoryDetails, puuid }) {
         const { queueId } = matchData;
         const remake = gameEndedInEarlySurrender && gameDuration < 300;
         const containerTheme = remake ?
-            (isColorblindMode ? 'container-remake-colorblind' : 'container-remake') :
+            'container-remake-colorblind' :
             win
                 ? (isColorblindMode ? 'container-victory-colorblind' : 'container-victory')
                 : (isColorblindMode ? 'container-defeat-colorblind' : 'container-defeat');
-        setQueueCode(queueId)
+        const queueType = getQueueTypes(queueId, queueTypes);
+        setQueueType(queueType)
         setContainerClass(containerTheme)
         setIsRemake(remake)
     }, [matchData, isColorblindMode, containerClass]);
@@ -116,7 +116,12 @@ function Match({ matchHistoryDetails, puuid }) {
                 </div>
                 <div>
                     <AccordionContent className='pt-4'>
-                        <TeamsFull playerScores={playerScores} containerClass={containerClass} participants={participants} gameMode={gameMode} matchData={matchData}></TeamsFull>
+                        <TeamsFull
+                            isRemake={isRemake}
+                            playerScores={playerScores}
+                            participants={participants}
+                            gameMode={gameMode}
+                        ></TeamsFull>
                     </AccordionContent>
                 </div>
             </AccordionItem>

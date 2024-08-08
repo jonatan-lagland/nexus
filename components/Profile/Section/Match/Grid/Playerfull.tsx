@@ -42,8 +42,8 @@ const Playerfull = ({ player, playerScores }) => {
     const mainPlayerStyles = mainPlayer.puuid === player.puuid ? 'backdrop-brightness-150' : '';
 
     return (
-        <tr className={`detailed-match items-center justify-center text-start ${mainPlayerStyles}`}>
-            <td className="flex flex-row items-center space-x-2 truncate ps-1">
+        <tr className={`detailed-match items-center justify-center text-start ${mainPlayerStyles} px-1 lg:py-0`}>
+            <td className="flex flex-row items-center justify-end lg:justify-start space-x-2 truncate ps-1">
                 <ChampionIcon championId={player.championId} size={24} tooltipSide={'left'} ></ChampionIcon>
                 <div className="flex flex-col justify-center items-center gap-1">
                     <SummonerSpell spell={summonerSpell1} size={18}></SummonerSpell>
@@ -56,7 +56,7 @@ const Playerfull = ({ player, playerScores }) => {
             </td>
             <td>
                 {/* Conditionally render a link if player is a bot or hasn't played in years and thus has no Riot ID */}
-                <div className="flex flex-row items-center justify-start text-xs truncate gap-2 ">
+                <div className="flex flex-row items-center justify-center lg:justify-start lg:max-w-[140px] text-xs truncate gap-2">
                     {player.riotIdGameName ?
                         <Link className={`text-zinc-300 hover:text-zinc-200 truncate`} href={`${playerPath}`}>{playerName}</Link>
                         :
@@ -67,7 +67,7 @@ const Playerfull = ({ player, playerScores }) => {
             <td className="flex justify-center">
                 <KillParticipationEmblem killParticipation={currentPlayerScore.killParticipation}></KillParticipationEmblem>
             </td>
-            <td className="flex flex-row items-center justify-start">
+            <td className="flex flex-row items-center justify-center">
                 <Stats
                     fontSize="text-xs"
                     renderKda={false}

@@ -43,7 +43,7 @@ export function useCardDetails(matchHistoryDetails, puuid) {
     }, [matchHistoryDetails, puuid]);
 }
 
-export function useGetQueueType(queueId, queueTypes) {
+export function getQueueTypes(queueId, queueTypes) {
     const processQueueData = () => {
         try {
 
