@@ -43,18 +43,20 @@ function LiveTeams({ rankedDetailsOfEveryPlayer, gameMode, bannedChampions }) {
                 <div className='flex flex-col gap-2'>
                     <Bans bannedChampions={bannedChampions} side={'red'}></Bans>
                     <table>
-                        <thead className='live-match justify-center py-1 text-xs'>
-                            <th>
-                                <span className='text-gray-200'>Red team</span>
-                            </th>
-                            <th></th>
-                            <th className='hidden lg:block'></th>
-                            <th>
-                                <span className='text-gray-200'>Rank</span>
-                            </th>
-                            <th>
-                                <span className='text-slate-300'>Ranked Winrate</span>
-                            </th>
+                        <thead>
+                            <tr className='live-match justify-center py-1 text-xs'>
+                                <th>
+                                    <span className='text-gray-200'>Red team</span>
+                                </th>
+                                <th></th>
+                                <th className='hidden lg:block'></th>
+                                <th>
+                                    <span className='text-gray-200'>Rank</span>
+                                </th>
+                                <th>
+                                    <span className='text-slate-300'>Ranked Winrate</span>
+                                </th>
+                            </tr>
                         </thead>
                         <tbody className='border-s-4 border-s-red-700'>
                             {redTeam.map((player, i) => (

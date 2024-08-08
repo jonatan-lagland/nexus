@@ -13,7 +13,8 @@ import {
 function ChampionIcon({ championId, size, tooltipSide }) {
     const championTrueName = useChampionTrueNames(championId);
     const src = useImagePathChampion(championId)
-    const quality = size > 70 ? 100 : 50;
+    const quality = size > 70 ? 100 : 10;
+    const isOptimized = size > 70 ? false : true;
 
     return (
         <div className="flex items-center">
@@ -24,6 +25,7 @@ function ChampionIcon({ championId, size, tooltipSide }) {
                         <TooltipTrigger>
                             <div className='rounded-full border border-black bg-slate-900'>
                                 <Image
+                                    unoptimized={isOptimized}
                                     src={src}
                                     alt={championTrueName}
                                     width={size}

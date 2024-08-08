@@ -44,26 +44,24 @@ export function useCardDetails(matchHistoryDetails, puuid) {
 }
 
 export function useGetQueueType(queueId, queueTypes) {
-    return useMemo(() => {
-        const processQueueData = () => {
-            try {
+    const processQueueData = () => {
+        try {
 
-                const foundQueue = queueTypes[queueId];
-                return {
-                    name: foundQueue.name,
-                    shortName: foundQueue.shortName,
-                    description: foundQueue.description,
-                    detailedDescription: foundQueue.detailedDescription,
-                }
-            } catch (err) {
-                return null
+            const foundQueue = queueTypes[queueId];
+            return {
+                name: foundQueue.name,
+                shortName: foundQueue.shortName,
+                description: foundQueue.description,
+                detailedDescription: foundQueue.detailedDescription,
             }
-        };
-        if (queueId && queueTypes) {
-            const queueName = processQueueData();
-            return queueName;
+        } catch (err) {
+            return 'Unknown'
         }
-    }, [queueId, queueTypes]);
+    };
+    if (queueId && queueTypes) {
+        const queueName = processQueueData();
+        return queueName;
+    }
 }
 
 export function useCalculateGameEnd(gameEndTimestamp) {

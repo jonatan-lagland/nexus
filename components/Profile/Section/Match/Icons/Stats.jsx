@@ -9,7 +9,7 @@ import {
     TooltipArrow
 } from "@/components/ui/tooltip"
 
-const Stats = ({ kills, deaths, assists, kdaRatio }) => {
+const Stats = ({ kills, deaths, assists, kdaRatio, renderKda = true, fontSize = 'text-base' }) => {
     const { isColorblindMode } = useContext(SettingsContext);
     const [deathsTheme, setDeathsTheme] = useState('text-amber-500')
 
@@ -22,7 +22,7 @@ const Stats = ({ kills, deaths, assists, kdaRatio }) => {
         <TooltipProvider delayDuration={300} skipDelayDuration={0}>
             <Tooltip>
                 <TooltipTrigger>
-                    <span className='text-base font-semibold truncate'>
+                    <span className={`${fontSize} truncate`}>
                         <span className={`text-white`}>{kills}</span>
                         <span className={`text-slate-400`}> / </span>
                         <span className={`${deathsTheme}`}>{deaths}</span>
@@ -41,28 +41,30 @@ const Stats = ({ kills, deaths, assists, kdaRatio }) => {
                     <TooltipArrow />
                 </TooltipContent>
             </Tooltip>
-            <Tooltip>
-                <TooltipTrigger>
-                    <span className={` text-neutral-400 text-sm`}>
-                        <span>
-                            {deaths === 0 ? 'Perfect KDA' : `${kdaRatio}:1`}
+            {renderKda ?
+                <Tooltip>
+                    <TooltipTrigger>
+                        <span className={` text-neutral-400 text-sm`}>
+                            <span>
+                                {deaths === 0 ? 'Perfect KDA' : `${kdaRatio}:1`}
+                            </span>
                         </span>
-                    </span>
-                </TooltipTrigger>
-                <TooltipContent side="bottom">
-                    <div className="flex flex-col">
-                        <span className='text-zinc-400'>KDA ratio</span>
-                        <span className='text-zinc-400'>
-                            <span className={`text-white`}>Kills</span>
-                            <span> + </span>
-                            <span className={`text-white`}>Assists</span>
-                            <span> : </span>
-                            <span className={`text-white`}>Deaths</span>
-                        </span>
-                    </div>
-                    <TooltipArrow />
-                </TooltipContent>
-            </Tooltip>
+                    </TooltipTrigger>
+                    <TooltipContent side="bottom">
+                        <div className="flex flex-col">
+                            <span className='text-zinc-400'>KDA ratio</span>
+                            <span className='text-zinc-400'>
+                                <span className={`text-white`}>Kills</span>
+                                <span> + </span>
+                                <span className={`text-white`}>Assists</span>
+                                <span> : </span>
+                                <span className={`text-white`}>Deaths</span>
+                            </span>
+                        </div>
+                        <TooltipArrow />
+                    </TooltipContent>
+                </Tooltip>
+                : null}
         </TooltipProvider>
     );
 }

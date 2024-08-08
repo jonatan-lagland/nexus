@@ -38,7 +38,7 @@ function MatchList({ user, region }) {
     /* Render all "pages". One page is equal to one match in a player's match history. */
     /* The term "page" is used in context of useInfiniteQuery hook that enables infinite scroll of matches */
     return (
-        <section className="profile-grid-section">
+        <div className="profile-grid-section">
             {data.pages.map((page) => {
                 if (!page || !page.metadata || !page.metadata.matchId) return null;
                 return (
@@ -61,7 +61,7 @@ function MatchList({ user, region }) {
                 {/* Render up to 20 skeletons, depending on the amount of pages remaining */}
                 {/* If not in view, render a static skeleton instead of an animated one for improved performance */}
             </div>
-        </section>
+        </div>
     );
 }
 export default MatchList;

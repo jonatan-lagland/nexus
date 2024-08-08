@@ -16,6 +16,8 @@ module.exports = {
     extend: {
       animation: {
         tilt: 'tilt 10s infinite linear',
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
       },
       keyframes: {
         tilt: {
@@ -28,6 +30,14 @@ module.exports = {
           '75%': {
             transform: 'rotate(-0.5deg)',
           },
+        },
+        "accordion-down": {
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
         },
       },
       fontFamily: {

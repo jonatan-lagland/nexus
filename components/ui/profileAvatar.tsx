@@ -25,8 +25,8 @@ export function ProfileAvatar({ userDetails, size, renderSummonerLevel = true }:
                 alt={'Summoner Icon'}
                 width={size}
                 height={size}
+                unoptimized={true}
                 className='rounded-full select-none border-4 border-slate-800 min-h-[75px] min-w-[75px]'
-                quality={100}
                 priority
             />
             {/* In some cases Summoner Level is not rendered, e.g. In profile history cards. However, does render by default. */}

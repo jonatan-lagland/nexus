@@ -19,7 +19,7 @@ import {
 
 import ItemData from './ItemData';
 
-function Items({ items, visionScore }) {
+function Items({ items, visionScore, size = 32 }) {
 
     if (!items) {
         return null;
@@ -31,6 +31,7 @@ function Items({ items, visionScore }) {
                 {items.map((item, index) => (
                     <div key={index} className='flex flex-row items-center gap-1 relative'>
                         <ItemComponent
+                            size={size}
                             item={item}
                             visionScore={visionScore}
                         />
@@ -42,10 +43,11 @@ function Items({ items, visionScore }) {
     );
 }
 
-function ItemComponent({ item, visionScore }) {
+function ItemComponent({ item, visionScore, size }) {
     const imgPath = useImagePathItem(item);
-    const AVATAR_WIDTH = 32;
-    const AVATAR_HEIGHT = 32;
+    const AVATAR_WIDTH = size;
+    const AVATAR_HEIGHT = size;
+    const TRINKET_SIZE = size * 0.75;
     const isTrinket = useIsTrinketItem(item.name)
 
     return (
@@ -55,7 +57,7 @@ function ItemComponent({ item, visionScore }) {
             style={{ width: AVATAR_WIDTH, height: AVATAR_HEIGHT }}
         >
             {isTrinket && (
-                <div className='vision-score-container'>
+                <div style={{ width: TRINKET_SIZE, height: TRINKET_SIZE }} className='vision-score-container'>
                     <span className='select-none'>{visionScore}</span>
                 </div>
             )}
@@ -66,6 +68,7 @@ function ItemComponent({ item, visionScore }) {
                             <TooltipTrigger asChild>
                                 <PopoverTrigger asChild>
                                     <Image
+                                        quality={10}
                                         className='select-none hover:cursor-pointer'
                                         src={imgPath}
                                         alt={`${item.name}`}

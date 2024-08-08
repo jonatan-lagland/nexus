@@ -9,8 +9,24 @@ import {
 } from "@/components/ui/tooltip"
 
 function KillParticipationEmblemComponent({ killParticipation }) {
-    const badgeTheme = killParticipation < 40 ? "bg-[#445068]" : killParticipation >= 40 && killParticipation <= 70 ? "bg-[#4A4EA4]" : 'bg-[#92631c]'
-
+    let badgeTheme;
+    switch (true) {
+        case (killParticipation < 30):
+            badgeTheme = "badge-bronze";
+            break;
+        case (killParticipation >= 30 && killParticipation < 60):
+            badgeTheme = "badge-silver";
+            break;
+        case (killParticipation >= 60 && killParticipation < 70):
+            badgeTheme = "badge-gold";
+            break;
+        case (killParticipation >= 70 && killParticipation < 90):
+            badgeTheme = "badge-diamond";
+            break;
+        default:
+            badgeTheme = "badge-challenger";
+            break;
+    }
     return (
         <TooltipProvider disableHoverableContent={true} delayDuration={0} skipDelayDuration={300}>
             <Tooltip>
