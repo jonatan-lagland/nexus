@@ -5,6 +5,7 @@ import { RegionProvider } from "@app/RegionProvider";
 import { Inter, Oswald, Bebas_Neue, Abel, Rubik, Noto_Sans } from 'next/font/google'
 import Footer from "@components/Footer/Footer";
 import { Toaster } from "@components/ui/sonner";
+import { Analytics } from "@vercel/analytics/react"
 
 export const metadata = {
     title: "Nexus: Explore League of Legends Summoners by Riot Name and Id",
@@ -51,6 +52,7 @@ const RootLayout = ({ children }) => (
                     </header>
                     <main className="app">
                         {children}
+                        <Analytics></Analytics>
                     </main>
                     <Toaster />
                     <Footer></Footer>
