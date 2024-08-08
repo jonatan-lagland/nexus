@@ -11,11 +11,11 @@ function FullTeams({ participants, gameMode, playerScores, isRemake }) {
         blueTeam = participants.slice(0, 5);
         redTeam = participants.slice(5);
 
-        const blueTeamResult = isRemake ? '' : blueTeam[0].win ? 'Victory' : 'Defeat'
+        const blueTeamResult = isRemake ? '' : blueTeam[0].win ? 'Blue Team Victory' : 'Blue Team Defeat'
         const blueTeamResultBg = isRemake ? 'container-remake-colorblind' : blueTeam[0].win ? 'container-victory-colorblind' : 'container-defeat-colorblind'
         const blueTeamResultTitleColor = isRemake ? 'text-white' : blueTeam[0].win ? 'text-blue-300/80' : 'text-red-500'
 
-        const redTeamResult = isRemake ? '' : redTeam[0].win ? 'Victory' : 'Defeat'
+        const redTeamResult = isRemake ? '' : redTeam[0].win ? 'Red Team Victory' : 'Red Team Defeat'
         const redTeamResultBg = isRemake ? 'container-remake-colorblind' : redTeam[0].win ? 'container-victory-colorblind' : 'container-defeat-colorblind'
         const redTeamResultTitleColor = isRemake ? 'text-white' : redTeam[0].win ? 'text-blue-300/80' : 'text-red-300/80'
 

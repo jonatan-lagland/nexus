@@ -1,7 +1,7 @@
 'use client'
 
 import { useLiveGameDetails } from "@utils/liveGameUtils";
-import { useGetQueueType } from "@utils/matchHistoryUtils";
+import { getQueueTypes } from "@utils/matchHistoryUtils";
 import { useContext } from "react";
 import { QueueContext } from "@utils/context/queueContext";
 import LiveTeams from "./LiveTeams";
@@ -14,7 +14,7 @@ function LiveMatch({ liveGameDetails, rankedDetailsOfEveryPlayer }) {
     const { gameMode, gameStartTime, bannedChampions, gameQueueConfigId } = useLiveGameDetails(liveGameDetails);
     const { minimizeWindow } = useContext(LiveGameContext);
     const queueTypes = useContext(QueueContext)
-    const queueType = useGetQueueType(gameQueueConfigId, queueTypes);
+    const queueType = getQueueTypes(gameQueueConfigId, queueTypes);
 
     return (
         <section className="profile-grid-section">
