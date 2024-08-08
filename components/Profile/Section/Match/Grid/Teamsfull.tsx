@@ -22,7 +22,7 @@ function FullTeams({ participants, gameMode, playerScores, isRemake }) {
         /* Append index to puuid because bots all have the same id */
         return (
             <table className={`flex flex-col bg-dark-grey-secondary border-[#2C2F42] border rounded-md`}>
-                <div className={`${blueTeamResultBg} ${blueTeamResultTitleColor} py-3 px-1 rounded-t-md`} >
+                <div className={`${blueTeamResultBg} ${blueTeamResultTitleColor} py-3 rounded-t-md`} >
                     <thead className='flex items-center justify-center text-start pb-2'>
                         <th>{blueTeamResult}</th>
                     </thead>
@@ -30,7 +30,7 @@ function FullTeams({ participants, gameMode, playerScores, isRemake }) {
                         <Playerfull key={player.puuid + i} player={player} playerScores={playerScores}></Playerfull>
                     ))}
                 </div>
-                <div className={`${redTeamResultBg} ${redTeamResultTitleColor} py-3 px-1 rounded-b-md`} >
+                <div className={`${redTeamResultBg} ${redTeamResultTitleColor} py-3 rounded-b-md`} >
                     <thead className='flex items-center justify-center text-start pb-2'>
                         <th>{redTeamResult}</th>
                     </thead>

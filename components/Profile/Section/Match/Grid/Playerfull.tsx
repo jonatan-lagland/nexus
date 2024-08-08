@@ -42,7 +42,7 @@ const Playerfull = ({ player, playerScores }) => {
     const mainPlayerStyles = mainPlayer.puuid === player.puuid ? 'backdrop-brightness-150' : '';
 
     return (
-        <tr className={`detailed-match items-center justify-center text-start ${mainPlayerStyles} px-1 lg:py-0`}>
+        <tr className={`detailed-match items-center justify-center text-start ${mainPlayerStyles} px-2 lg:py-0`}>
             <td className="flex flex-row items-center justify-end lg:justify-start space-x-2 truncate ps-1">
                 <ChampionIcon championId={player.championId} size={24} tooltipSide={'right'} ></ChampionIcon>
                 <div className="flex flex-col justify-center items-center gap-1">
