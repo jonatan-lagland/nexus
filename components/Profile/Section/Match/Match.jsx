@@ -73,9 +73,11 @@ function Match({ matchHistoryDetails, puuid }) {
                             <div>
                                 {mainPlayer.teamPosition && <RoleIcon role={mainPlayer.teamPosition} />}
                             </div>
-                            <div>
-                                <KillParticipationEmblem killParticipation={mainPlayerScore.killParticipation}></KillParticipationEmblem>
-                            </div>
+                            {gameMode === "CLASSIC" || gameMode === "ARAM" || gameMode === "URF" ?
+                                <div>
+                                    <KillParticipationEmblem killParticipation={mainPlayerScore.killParticipation}></KillParticipationEmblem>
+                                </div>
+                                : null}
                             <div>
                                 <KillsEmblem kills={mainPlayer.largestMultiKill}></KillsEmblem>
                             </div>
