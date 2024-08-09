@@ -20,7 +20,7 @@ import Items from "../../Items";
 import Stats from "../Icons/Stats";
 import { KillParticipationEmblem } from "@components/ui/killParticipationEmblem";
 
-const Playerfull = ({ player, playerScores }) => {
+const Playerfull = ({ player, playerScores, containerStyle = 'detailed-match' }) => {
     const pathname = usePathname();
     const playerPath = usePathPlayer(pathname, player.riotIdGameName, player.riotIdTagline);
     const playerName = player.riotIdGameName ? player.riotIdGameName : player.summonerName
@@ -40,9 +40,10 @@ const Playerfull = ({ player, playerScores }) => {
     const currentPlayerScore = playerScores.find(playerScore => playerScore.puuid === player.puuid);
     const mainPlayer = playerScores.find(playerScore => playerScore.mainPlayer === true);
     const mainPlayerStyles = mainPlayer.puuid === player.puuid ? 'backdrop-brightness-150' : '';
+    const textJustification = containerStyle === 'detailed-match' ? 'justify-center lg:justify-start lg:max-w-[140px]' : 'justify-center';
 
     return (
-        <tr className={`detailed-match items-center justify-center text-start ${mainPlayerStyles} px-2 lg:py-0`}>
+        <tr className={`${containerStyle} items-center justify-center text-start ${mainPlayerStyles} px-2 lg:py-0`}>
             <td className="flex flex-row items-center justify-end lg:justify-start space-x-2 truncate ps-1">
                 <ChampionIcon championId={player.championId} size={24} tooltipSide={'right'} ></ChampionIcon>
                 <div className="flex flex-col justify-center items-center gap-1">
@@ -56,7 +57,7 @@ const Playerfull = ({ player, playerScores }) => {
             </td>
             <td>
                 {/* Conditionally render a link if player is a bot or hasn't played in years and thus has no Riot ID */}
-                <div className="flex flex-row items-center justify-center lg:justify-start lg:max-w-[140px] text-xs truncate gap-2">
+                <div className={`flex flex-row items-center ${textJustification} text-xs truncate gap-2`}>
                     {player.riotIdGameName ?
                         <Link className={`text-zinc-300 hover:text-zinc-200 truncate`} href={`${playerPath}`}>{playerName}</Link>
                         :

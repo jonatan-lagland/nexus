@@ -73,24 +73,29 @@ function FullTeams({ participants, gameMode, playerScores, isRemake }) {
             }
         };
 
-        const topTeams = sortedTeams.slice(0, 5);
-
+        const mainPlayer = playerScores.find(playerScore => playerScore.mainPlayer === true);
         return (
-            <div className="px-1">
-                {topTeams.map((team: any, index) => (
-                    <div key={index} className={`flex flex-row items-center `}>
-                        <div className="pe-4">
-                            <div className={`font-abel ${getBgClass(team[0].subteamPlacement)} shadow rounded-sm text-white  font-medium px-2 text-xs flex items-center justify-center`}>
+            <div className="container-victory-colorblind p-1 rounded-lg border border-[#2C2F42]">
+                {sortedTeams.map((team: any, index) => {
+                    // Check if any player's puuid in the team matches the mainPlayer's puuid
+                    const isMainPlayerInTeam = team.some(player => player.puuid === mainPlayer.puuid);
+                    return (
+                        <div
+                            key={index}
+                            className={`flex items-center justify-between border border-[#494d6b] p-1 ${isMainPlayerInTeam ? 'backdrop-brightness-150' : ''}`}
+                        >
+                            <div className={`font-abel ${getBgClass(team[0].subteamPlacement)} shadow rounded-sm text-white font-medium px-2 text-xs flex items-center justify-center`}>
                                 {team[0].subteamPlacement}
                             </div>
+                            {team.map((player) => (
+                                <Playerfull key={player.puuid} containerStyle='arena-match' player={player} playerScores={playerScores} />
+                            ))}
                         </div>
-                        {team.map((player) => (
-                            <Playerfull player={player} playerScores={playerScores}></Playerfull>
-                        ))}
-                    </div>
-                ))}
+                    );
+                })}
             </div>
         );
+
     }
     return null;
 }

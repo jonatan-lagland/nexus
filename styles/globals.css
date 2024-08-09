@@ -519,6 +519,38 @@
   }
 }
 
+.arena-match {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+}
+
+.arena-match > *:nth-child(1) {
+  justify-content: center;
+
+  grid-column: 1 / -1;
+  grid-row: 2; /* Move the 1st child to the first row */
+}
+
+.arena-match > *:nth-child(2) {
+  grid-column: 1 / -1;
+  grid-row: 1; /* Move the 2nd child to the second row */
+}
+
+.arena-match > *:nth-child(5) {
+  align-items: center;
+  justify-content: center;
+  grid-column: 1 / -1;
+  grid-row: 4; /* Move the 5th child to the fourth row */
+}
+
+/* Move all other children (except the 2nd and 5th) to the second row */
+.arena-match > *:not(:nth-child(2)):not(:nth-child(5)):not(:nth-child(1)) {
+  align-items: center;
+  justify-content: center;
+  grid-column: span 1;
+  grid-row: 3;
+}
 
 .match {
   display: grid;

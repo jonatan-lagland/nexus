@@ -40,7 +40,7 @@ function Match({ matchHistoryDetails, puuid }) {
                 ? (isColorblindMode ? 'container-victory-colorblind' : 'container-victory')
                 : (isColorblindMode ? 'container-defeat-colorblind' : 'container-defeat');
         const queueType = getQueueTypes(queueId, queueTypes);
-        setQueueType(queueType)
+        setQueueType(queueType.name)
         setContainerClass(containerTheme)
         setIsRemake(remake)
     }, [matchData, isColorblindMode, containerClass]);
@@ -68,7 +68,7 @@ function Match({ matchHistoryDetails, puuid }) {
                     <div className='flex flex-grow flex-row flex-wrap justify-between gap-1'>
                         <div className='flex flex-row justify-center text-center items-center space-x-3'>
                             <div>
-                                <span className={`text-white`}>{queueType && queueType.name}</span>
+                                <span className={`text-white`}>{queueType}</span>
                             </div>
                             <div>
                                 {mainPlayer.teamPosition && <RoleIcon role={mainPlayer.teamPosition} />}
