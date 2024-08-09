@@ -43,7 +43,7 @@ function Match({ matchHistoryDetails, puuid }) {
         setQueueType(queueType.name)
         setContainerClass(containerTheme)
         setIsRemake(remake)
-    }, [matchData, isColorblindMode, containerClass]);
+    }, [matchData, isColorblindMode, containerClass, queueTypes]);
 
     useEffect(() => {
         setMatchData(details);
