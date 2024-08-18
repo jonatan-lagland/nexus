@@ -488,13 +488,13 @@
   grid-row: 1; /* Move the 2nd child to the first row */
 }
 
-.detailed-match > *:nth-child(5) {
+.detailed-match > *:nth-child(6) {
   grid-column: 1 / -1;
   grid-row: 3; /* Move the 5th child to the third row */
 }
 
 /* Move all other children (except the 2nd and 5th) to the second row */
-.detailed-match > *:not(:nth-child(2)):not(:nth-child(5)) {
+.detailed-match > *:not(:nth-child(2)):not(:nth-child(6)) {
   grid-column: span 1;
   grid-row: 2;
 }
@@ -502,20 +502,26 @@
 /* Media query for devices above 1024px */
 @media (min-width: 1024px) {
   .detailed-match {
-    grid-template-columns: 1fr 2fr auto 1fr 3fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 3fr;
     grid-template-rows: 1fr;
   }
   .detailed-match > *:nth-child(2) {
     grid-column: auto;
     grid-row: auto;
   }
-  .detailed-match > *:nth-child(5) {
+  .detailed-match > *:nth-child(6) {
     grid-column: auto;
     grid-row: auto;
   }
-  .detailed-match > *:not(:nth-child(2)):not(:nth-child(5)) {
+  .detailed-match > *:not(:nth-child(2)):not(:nth-child(6)) {
     grid-column: auto;
     grid-row: auto;
+  }
+  .detailed-match th {
+    white-space: normal;
+    word-wrap: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 
@@ -804,7 +810,7 @@ box-shadow:  6px 6px 12px #0f0e0e
 }
 
 .moderateWinrateBadge {
-  @apply bg-[#4b79ce];
+  @apply bg-[#5381d6];
 }
 
 .impressiveWinrateBadge {

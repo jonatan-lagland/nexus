@@ -19,8 +19,16 @@ import { useItemData } from "@utils/itemUtils";
 import Items from "../../Items";
 import Stats from "../Icons/Stats";
 import { KillParticipationEmblem } from "@components/ui/killParticipationEmblem";
+import DamageDealt from "./DamageDealt";
 
-const Playerfull = ({ player, playerScores, containerStyle = 'detailed-match' }) => {
+type PlayerfullProps = {
+    player: any
+    playerScores: any
+    containerStyle?: string
+    highestDamageDealtTeam?: number
+}
+
+const Playerfull = ({ player, playerScores, containerStyle = 'detailed-match', highestDamageDealtTeam }: PlayerfullProps) => {
     const pathname = usePathname();
     const playerPath = usePathPlayer(pathname, player.riotIdGameName, player.riotIdTagline);
     const playerName = player.riotIdGameName ? player.riotIdGameName : player.summonerName
@@ -41,9 +49,11 @@ const Playerfull = ({ player, playerScores, containerStyle = 'detailed-match' })
     const mainPlayer = playerScores.find(playerScore => playerScore.mainPlayer === true);
     const mainPlayerStyles = mainPlayer.puuid === player.puuid ? 'backdrop-brightness-150' : '';
     const textJustification = containerStyle === 'detailed-match' ? 'justify-center lg:justify-start lg:max-w-[140px]' : 'justify-center';
+    const creepScore = player.totalMinionsKilled + player.neutralMinionsKilled;
+    console.log(playerScores)
 
     return (
-        <tr className={`${containerStyle} items-center justify-center text-start ${mainPlayerStyles} px-2 lg:py-0`}>
+        <tr className={`${containerStyle} items-center justify-center text-start ${mainPlayerStyles} px-2 lg:py-1`}>
             <td className="flex flex-row items-center justify-end lg:justify-start space-x-2 truncate ps-1">
                 <ChampionIcon championId={player.championId} size={24} tooltipSide={'right'} ></ChampionIcon>
                 <div className="flex flex-col justify-center items-center gap-1">
@@ -77,11 +87,15 @@ const Playerfull = ({ player, playerScores, containerStyle = 'detailed-match' })
                     assists={player.assists}
                     kdaRatio={player.kdaRatio} />
             </td>
-
+            <td className="flex items-center justify-center">
+                <DamageDealt
+                    totalDamageDealtToChampions={player.totalDamageDealtToChampions}
+                    highestDamageDealtTeam={highestDamageDealtTeam}>
+                </DamageDealt>
+            </td>
             <td className="flex flex-row justify-center lg:justify-end">
                 <Items size={24} items={items} visionScore={player.visionScore}></Items>
             </td>
-
         </tr>
     );
 };

@@ -9,6 +9,7 @@ import {
     TooltipArrow
 } from "@/components/ui/tooltip"
 
+
 const Stats = ({ kills, deaths, assists, kdaRatio, renderKda = true, fontSize = 'text-base' }) => {
     const { isColorblindMode } = useContext(SettingsContext);
     const [deathsTheme, setDeathsTheme] = useState('text-amber-500')
@@ -20,27 +21,29 @@ const Stats = ({ kills, deaths, assists, kdaRatio, renderKda = true, fontSize = 
 
     return (
         <TooltipProvider delayDuration={300} skipDelayDuration={0}>
-            <Tooltip>
-                <TooltipTrigger>
-                    <span className={`${fontSize} truncate`}>
-                        <span className={`text-white`}>{kills}</span>
-                        <span className={`text-slate-400`}> / </span>
-                        <span className={`${deathsTheme}`}>{deaths}</span>
-                        <span className={`text-slate-400`}> / </span>
-                        <span className={`text-white`}>{assists}</span>
-                    </span>
-                </TooltipTrigger>
-                <TooltipContent side="top">
-                    <span className='text-zinc-400'>
-                        <span className={`text-white`}>Kills</span>
-                        <span> / </span>
-                        <span className={`text-white`}>Deaths</span>
-                        <span> / </span>
-                        <span className={`text-white`}>Assists</span>
-                    </span>
-                    <TooltipArrow />
-                </TooltipContent>
-            </Tooltip>
+            <div className="flex flex-col">
+                <Tooltip>
+                    <TooltipTrigger>
+                        <span className={`${fontSize} truncate`}>
+                            <span className={`text-white`}>{kills}</span>
+                            <span className={`text-slate-400`}>{renderKda ? ' / ' : '/'}</span>
+                            <span className={`${deathsTheme}`}>{deaths}</span>
+                            <span className={`text-slate-400`}>{renderKda ? ' / ' : '/'}</span>
+                            <span className={`text-white`}>{assists}</span>
+                        </span>
+                    </TooltipTrigger>
+                    <TooltipContent side="top">
+                        <span className='text-zinc-400'>
+                            <span className={`text-white`}>Kills</span>
+                            <span> / </span>
+                            <span className={`text-white`}>Deaths</span>
+                            <span> / </span>
+                            <span className={`text-white`}>Assists</span>
+                        </span>
+                        <TooltipArrow />
+                    </TooltipContent>
+                </Tooltip>
+            </div>
             {renderKda ?
                 <Tooltip>
                     <TooltipTrigger>
