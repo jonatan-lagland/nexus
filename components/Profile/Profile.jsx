@@ -17,18 +17,20 @@ import HistoryCarouselProvider from '@app/HistoryCarouselProvider'
 
 async function Profile({ params, region, server }) {
     const gameVersion = await getLatestVersion();
-    const queueTypes = await getQueueTypes();
-    const [championList, itemList, runeList, summonerSpellList] = await Promise.all([
+    const [championList, itemList, runeList, summonerSpellList, queueTypes] = await Promise.all([
         getChampionListProps(gameVersion),
         getItemProps(gameVersion),
         getRuneProps(gameVersion),
-        getSummonerSpellProps()
+        getSummonerSpellProps(),
+        getQueueTypes()
     ])
 
     const user = await getUserPUUID(params, region);
     const userDetails = await getUserInfo(user.puuid, server);
-    const rankedDetails = await getRankedInfo(userDetails.id, server);
-    const matchHistory = await getMatchHistory(user.puuid, region);
+    const [rankedDetails, matchHistory] = await Promise.all([
+        getRankedInfo(userDetails.id, server),
+        getMatchHistory(user.puuid, region)
+    ])
 
     const data = {
         championList,

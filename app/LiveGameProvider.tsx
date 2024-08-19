@@ -54,23 +54,22 @@ export const LiveGameProvider = ({ children }) => {
                 return;
             }
             setLoadingProgress(30)
-            const rankedDetailsPromises = response.participants.map(participant => // Get ranked stats of each player
-                getRankedInfo(participant.summonerId, server)
-            );
-            const rankedDetails = await Promise.all(rankedDetailsPromises);
+
+            const combinedDetailsPromises = response.participants.map(async (participant) => {
+                const [rankedInfo, userNameAndTag] = await Promise.all([
+                    getRankedInfo(participant.summonerId, server),
+                    getUserNameAndTag(participant.puuid, region)
+                ]);
+
+                return {
+                    ...participant,
+                    rankedInfo,
+                    userNameAndTag
+                };
+            });
+
+            const combinedDetails = await Promise.all(combinedDetailsPromises);
             setLoadingProgress(100)
-
-            const userNameAndTag = response.participants.map(participant =>
-                getUserNameAndTag(participant.puuid, region)
-            );
-            const userNameDetails = await Promise.all(userNameAndTag); // Get Riot name and Id of each player
-
-
-            const combinedDetails = response.participants.map((participant, index) => ({
-                ...participant,
-                rankedInfo: rankedDetails[index],
-                userNameAndTag: userNameDetails[index]
-            }));
 
             setLiveGameDetails(response);
             setRankedDetailsOfEveryPlayer(combinedDetails);
