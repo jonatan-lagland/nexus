@@ -65,9 +65,9 @@ const Playerfull = ({ player, playerScores, containerStyle = 'detailed-match', h
                     <RunePath padding={0} runePath={runePath} size={18}></RunePath>
                 </div>
             </td>
-            <td>
+            <td className="text-xs break-words whitespace-normal truncate overflow-hidden">
                 {/* Conditionally render a link if player is a bot or hasn't played in years and thus has no Riot ID */}
-                <div className={`flex flex-row items-center ${textJustification} text-xs truncate gap-2`}>
+                <div className={`flex flex-row items-center ${textJustification} gap-2`}>
                     {player.riotIdGameName ?
                         <Link className={`text-zinc-300 hover:text-zinc-200 truncate`} href={`${playerPath}`}>{playerName}</Link>
                         :
