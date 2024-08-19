@@ -44,23 +44,22 @@ export function useCardDetails(matchHistoryDetails, puuid) {
 }
 
 export function getQueueTypes(queueId, queueTypes) {
-    const processQueueData = () => {
-        try {
-
-            const foundQueue = queueTypes[queueId];
-            return {
-                name: foundQueue.name,
-                shortName: foundQueue.shortName,
-                description: foundQueue.description,
-                detailedDescription: foundQueue.detailedDescription,
-            }
-        } catch (err) {
-            return 'Unknown'
-        }
-    };
     if (queueId && queueTypes) {
-        const queueName = processQueueData();
-        return queueName;
+        let foundQueue;
+        if (Array.isArray(queueTypes)) {
+            foundQueue = queueTypes.find(queue => queue.id === queueId || queue[queueId]);
+            if (foundQueue && queueId in foundQueue) {
+                foundQueue = foundQueue[queueId];
+            }
+        } else if (typeof queueTypes === 'object') {
+            foundQueue = queueTypes[queueId];
+        }
+        return {
+            name: foundQueue?.name || 'Unknown',
+            shortName: foundQueue?.shortName || 'Unknown',
+            description: foundQueue?.description || 'Unknown',
+            detailedDescription: foundQueue?.detailedDescription || 'Unknown',
+        };
     }
 }
 
@@ -193,7 +192,7 @@ export function useMatchHistoryUtils(matchHistory, region) {
 
     // Reference for loading skeletons whenever they become in view
     const { ref: bottomRef, inView: bottomView } = useInView({
-        rootMargin: '400px 0px 0px 0px',
+        rootMargin: '700px 0px 0px 0px',
         threshold: 0,
     });
 

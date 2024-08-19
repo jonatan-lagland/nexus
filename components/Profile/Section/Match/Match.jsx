@@ -18,7 +18,7 @@ import TeamsFull from './Grid/Teamsfull';
 function Match({ matchHistoryDetails, puuid }) {
     const { isColorblindMode } = useContext(SettingsContext);
     const { matchData, setMatchData } = useContext(MatchHistoryContext);
-    const queueTypes = useContext(QueueContext)
+    const queueTypes = useContext(QueueContext);
     const [containerClass, setContainerClass] = useState('');
     const [isRemake, setIsRemake] = useState(false)
     const [queueType, setQueueType] = useState('')
@@ -40,7 +40,7 @@ function Match({ matchHistoryDetails, puuid }) {
                 ? (isColorblindMode ? 'container-victory-colorblind' : 'container-victory')
                 : (isColorblindMode ? 'container-defeat-colorblind' : 'container-defeat');
         const queueType = getQueueTypes(queueId, queueTypes);
-        setQueueType(queueType.name)
+        setQueueType(queueType?.name)
         setContainerClass(containerTheme)
         setIsRemake(remake)
     }, [matchData, isColorblindMode, containerClass, queueTypes]);
