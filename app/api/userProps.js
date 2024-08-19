@@ -10,12 +10,12 @@ export async function getUserPUUID(params, region) {
     const account_url = process.env.RIOT_API_ACCOUNT_URL;
     const id = paramsId.replace('-', '/');
     const tag = id;
-    const INCLUDE_API_KEY = true; // Include an API key
+    const isIncludeApiKey = true; // Include an API key
     const url = `https://${region}.${base_url}/${account_url}/by-riot-id/${id}`;
 
     try {
 
-        const response = await fetchDataHandler(url, tag, INCLUDE_API_KEY)
+        const response = await fetchDataHandler(url, tag, isIncludeApiKey)
         return response;
     } catch (error) {
         revalidateCache(tag)
@@ -28,7 +28,7 @@ export async function getUserPUUID(params, region) {
 export async function getUserInfo(puuid, server, refreshCache = false) {
     const base_url = process.env.RIOT_API_BASE_URL;
     const summoner_url = process.env.RIOT_API_SUMMONER_URL;
-    const INCLUDE_API_KEY = true; // Include an API key
+    const isIncludeApiKey = true; // Include an API key
     const url = `https://${server}.${base_url}/${summoner_url}/by-puuid/${puuid}`;
     const tag = puuid;
 
@@ -36,7 +36,7 @@ export async function getUserInfo(puuid, server, refreshCache = false) {
         if (refreshCache) {
             revalidateCache(tag)
         }
-        const response = await fetchDataHandler(url, tag, INCLUDE_API_KEY)
+        const response = await fetchDataHandler(url, tag, isIncludeApiKey)
         return response;
     } catch (error) {
         // Clear cache if an error occurs
@@ -55,7 +55,7 @@ export async function getUserInfo(puuid, server, refreshCache = false) {
 export async function getRankedInfo(leagueId, server, refreshCache = false) {
     const base_url = process.env.RIOT_API_BASE_URL;
     const entries_url = process.env.RIOT_API_ENTRIES_URL;
-    const INCLUDE_API_KEY = true; // Include an API key
+    const isIncludeApiKey = true; // Include an API key
     const url = `https://${server}.${base_url}/${entries_url}/by-summoner/${leagueId}`;
     const tag = leagueId;
 
@@ -63,7 +63,7 @@ export async function getRankedInfo(leagueId, server, refreshCache = false) {
         if (refreshCache) {
             revalidateCache(tag)
         }
-        const response = await fetchDataHandler(url, tag, INCLUDE_API_KEY)
+        const response = await fetchDataHandler(url, tag, isIncludeApiKey)
         return response;
     } catch (error) {
         // Clear cache if an error occurs
@@ -79,7 +79,7 @@ export async function getRankedInfo(leagueId, server, refreshCache = false) {
 export async function getMatchHistory(puuid, region, refreshCache = false) {
     const base_url = process.env.RIOT_API_BASE_URL;
     const matches_url = process.env.RIOT_API_MATCHES_URL;
-    const INCLUDE_API_KEY = true; // Include an API key
+    const isIncludeApiKey = true; // Include an API key
     const url = `https://${region}.${base_url}/${matches_url}/by-puuid/${puuid}/ids?start=0&count=20`;
     const tag = `Match-History ${puuid}`;
 
@@ -87,7 +87,7 @@ export async function getMatchHistory(puuid, region, refreshCache = false) {
         if (refreshCache) {
             revalidateCache(tag)
         }
-        const response = await fetchDataHandler(url, tag, INCLUDE_API_KEY)
+        const response = await fetchDataHandler(url, tag, isIncludeApiKey)
         return response;
     } catch (error) {
         // Clear cache if an error occurs
@@ -103,12 +103,12 @@ export async function getMatchHistory(puuid, region, refreshCache = false) {
 export async function getMatchHistoryDetails(matchId, region) {
     const base_url = process.env.RIOT_API_BASE_URL;
     const matches_url = process.env.RIOT_API_MATCHES_URL;
-    const INCLUDE_API_KEY = true; // Include an API key
+    const isIncludeApiKey = true; // Include an API key
     const url = `https://${region}.${base_url}/${matches_url}/${matchId}`;
     const tag = `${matchId}`;
 
     try {
-        const response = await fetchDataHandler(url, tag, INCLUDE_API_KEY)
+        const response = await fetchDataHandler(url, tag, isIncludeApiKey)
         return response;
     } catch (error) {
         // Clear cache if an error occurs
@@ -124,13 +124,13 @@ export async function getMatchHistoryDetails(matchId, region) {
 export async function getLiveGameDetails(server, puuid) {
     const base_url = process.env.RIOT_API_BASE_URL;
     const spectator_url = process.env.RIOT_API_SPECTATOR_URL;
-    const INCLUDE_API_KEY = true; // Include an API key
+    const isIncludeApiKey = true; // Include an API key
     const url = `https://${server}.${base_url}/${spectator_url}/by-summoner/${puuid}`;
     const tag = `Live-Game-${puuid}`;
 
     try {
         revalidateCache(tag)
-        const response = await fetchDataHandler(url, tag, INCLUDE_API_KEY)
+        const response = await fetchDataHandler(url, tag, isIncludeApiKey)
         return response;
     } catch (error) {
         revalidateCache(tag)
@@ -145,12 +145,12 @@ export async function getLiveGameDetails(server, puuid) {
 export async function getUserNameAndTag(puuid, server) {
     const base_url = process.env.RIOT_API_BASE_URL;
     const account_url = process.env.RIOT_API_ACCOUNT_URL;
-    const INCLUDE_API_KEY = true; // Include an API key
+    const isIncludeApiKey = true; // Include an API key
     const url = `https://${server}.${base_url}/${account_url}/by-puuid/${puuid}`;
     const tag = `UserAndTag-${puuid}`;
 
     try {
-        const response = await fetchDataHandler(url, tag, INCLUDE_API_KEY)
+        const response = await fetchDataHandler(url, tag, isIncludeApiKey)
         return response;
     } catch (error) {
         revalidateCache(tag)

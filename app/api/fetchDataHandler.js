@@ -2,11 +2,11 @@
 import { serverErrorHandler } from "./errorHandlers";
 import { rateLimitHandler } from "./errorHandlers";
 
-export default async function fetchDataHandler(url, tag, includeApiKey = false, cacheDuration = 1209600) { // eslint-disable-line no-unused-vars
+export default async function fetchDataHandler(url, tag, isIncludeApiKey = false, cacheDuration = 1209600) { // eslint-disable-line no-unused-vars
     // By default, no API key is included in header. API key isn't needed when fetching data from DDragon API.
     // 2 week cache duration by default
     const headers = {};
-    if (includeApiKey) {
+    if (isIncludeApiKey) {
         headers[process.env.API_KEY] = process.env.API_KEY_VALUE;
     }
 
