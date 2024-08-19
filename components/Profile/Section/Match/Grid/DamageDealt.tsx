@@ -30,13 +30,13 @@ export default function DamageDealt({ totalDamageDealtToChampions, highestDamage
                             {totalDamageDealtToChampions}
                         </span>
                         <Progress
-                            className={
-                                playerDamagePercentage === 100
-                                    ? "eliteWinrateBadge"
-                                    : "moderateWinrateBadge"
-                            }
+                            className={`w-10 ${playerDamagePercentage === 100
+                                ? "eliteWinrateBadge"
+                                : "moderateWinrateBadge"
+                                }`}
                             value={playerDamagePercentage}
                         ></Progress>
+
                     </div>
                 </TooltipTrigger>
                 <TooltipContent side="top">
