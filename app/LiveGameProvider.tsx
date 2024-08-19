@@ -35,25 +35,43 @@ export const LiveGameProvider = ({ children }) => {
         });
     }
 
-    const fetchLiveGame = async (server: Server, region: Region, summonerId: string, gameName: string, tagLine: string, puuid: string) => {
+    function endLoadingInteraction() {
+        setIsShowLiveGameTab(false)
+        setIsLoading(false)
+        setLoadingProgress(0)
+    }
+
+    function endLoadingInteractionIsGame(response) {
+        setLiveGameDetails(response);
+        setIsGameFound(true);
+        setIsShowLiveGameTab(true);
+        setIsLoading(false);
+        setLoadingProgress(0)
+    }
+
+    const fetchLiveGame = async (server: Server, region: Region, gameName: string, tagLine: string, puuid: string) => {
         try {
             setIsLoading(true);
+            setLoadingProgress(30)
             const response = await getLiveGameDetails(server, puuid);
+
+            // Exit early if identical game in question
+            if (response?.gameId === liveGameDetails?.gameId) {
+                endLoadingInteractionIsGame(response)
+                return;
+            }
+
             if (response.error && response.status === 404) { // If player isn't in-game
                 toastUpToDate(gameName, tagLine)
-                setIsShowLiveGameTab(false)
-                setIsLoading(false)
-                setLoadingProgress(0)
+                endLoadingInteraction()
                 return;
             }
             if (response.error) { // If a generic error occurs
                 toastError()
-                setIsShowLiveGameTab(false)
-                setIsLoading(false)
-                setLoadingProgress(0)
+                endLoadingInteraction()
                 return;
             }
-            setLoadingProgress(30)
+            setLoadingProgress(100)
 
             const combinedDetailsPromises = response.participants.map(async (participant) => {
                 const [rankedInfo, userNameAndTag] = await Promise.all([
@@ -69,26 +87,12 @@ export const LiveGameProvider = ({ children }) => {
             });
 
             const combinedDetails = await Promise.all(combinedDetailsPromises);
-            setLoadingProgress(100)
-
-            setLiveGameDetails(response);
             setRankedDetailsOfEveryPlayer(combinedDetails);
-            setIsGameFound(true);
-            setIsShowLiveGameTab(true);
-            setIsLoading(false);
-            setLoadingProgress(0)
+            endLoadingInteractionIsGame(response)
+
         } catch (error) {
-            toast.error(`An error has occured.`, {
-                description: "Please try again later.",
-                action: {
-                    label: "Dismiss",
-                    onClick: () => toast.dismiss(),
-                },
-            });
-            setIsGameFound(false);
-            setIsShowLiveGameTab(false);
-            setIsLoading(false);
-            setLoadingProgress(0)
+            toastError()
+            endLoadingInteraction()
         }
     };
 
