@@ -4,19 +4,11 @@ import Link from "next/link";
 import React from "react";
 import { usePathname } from "next/navigation";
 import { usePathPlayer } from "@utils/pathUtils";
-import { useEffect, useState } from "react";
+
 const Player = ({ player }) => {
     const pathname = usePathname();
     const playerPath = usePathPlayer(pathname, player.riotIdGameName, player.riotIdTagline);
-    const [playerName, setPlayerName] = useState(null);
-
-    useEffect(() => {
-        if (player.riotIdGameName) {
-            setPlayerName(player.riotIdGameName)
-        } else {
-            setPlayerName(player.summonerName)
-        }
-    }, [player]);
+    const playerName = player.riotIdGameName ? player.riotIdGameName : player.summonerName;
 
     return (
         <div className='flex flex-row items-center text-start space-x-2'>
