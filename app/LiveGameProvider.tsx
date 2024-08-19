@@ -55,12 +55,6 @@ export const LiveGameProvider = ({ children }) => {
             setLoadingProgress(30)
             const response = await getLiveGameDetails(server, puuid);
 
-            // Exit early if identical game in question
-            if (response?.gameId === liveGameDetails?.gameId) {
-                endLoadingInteractionIsGame(response)
-                return;
-            }
-
             if (response.error && response.status === 404) { // If player isn't in-game
                 toastUpToDate(gameName, tagLine)
                 endLoadingInteraction()
@@ -71,6 +65,13 @@ export const LiveGameProvider = ({ children }) => {
                 endLoadingInteraction()
                 return;
             }
+
+            // Exit early if identical game in question
+            if (response?.gameId === liveGameDetails?.gameId) {
+                endLoadingInteractionIsGame(response)
+                return;
+            }
+
             setLoadingProgress(100)
 
             const combinedDetailsPromises = response.participants.map(async (participant) => {
