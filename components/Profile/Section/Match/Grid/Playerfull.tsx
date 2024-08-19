@@ -50,7 +50,6 @@ const Playerfull = ({ player, playerScores, containerStyle = 'detailed-match', h
     const mainPlayerStyles = mainPlayer.puuid === player.puuid ? 'backdrop-brightness-150' : '';
     const textJustification = containerStyle === 'detailed-match' ? 'justify-center lg:justify-start lg:max-w-[140px]' : 'justify-center';
     const creepScore = player.totalMinionsKilled + player.neutralMinionsKilled;
-    console.log(playerScores)
 
     return (
         <tr className={`${containerStyle} items-center justify-center text-start ${mainPlayerStyles} px-2 lg:py-1`}>

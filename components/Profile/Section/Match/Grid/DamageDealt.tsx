@@ -9,7 +9,7 @@ type DamageDealtProps = {
     highestDamageDealtTeam: number
 }
 
-const damagePercentage = (totalDamageDealtToChampions, highestDamageDealtTeam) => {
+const damagePercentage = (totalDamageDealtToChampions: number, highestDamageDealtTeam: number) => {
     if (highestDamageDealtTeam === 0) return 0;  // Avoid division by zero
     return (totalDamageDealtToChampions / highestDamageDealtTeam) * 100;
 };
