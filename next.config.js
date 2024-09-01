@@ -9,7 +9,7 @@ const nextConfig = {
         forceSwcTransforms: true,
     },
     images: {
-        unoptimized: false,
+        unoptimized: true,
         remotePatterns: [
             {
                 protocol: 'https',
